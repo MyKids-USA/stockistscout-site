@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StockistScout — Coming soon</title>
+<meta name="description" content="StockistScout: AI agents that find the right stores to carry your products. Coming soon.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="./favicon.ico" sizes="any">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f6f9fb;--card:#fff;--ink:#0f2a4a;--muted:#4b6075;--green:#1fa57e;--blue:#1e6fb0;--line:#dfe8ee}
+  @media (prefers-color-scheme: dark){:root{--bg:#0b172a;--card:#10223b;--ink:#eaf2f8;--muted:#a9bccd;--line:#1d3557}}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:24px 16px}
+  main{max-width:720px;width:100%;text-align:center}
+  .logo{width:min(420px,88%);height:auto}
+  .logo.dark{display:none}
+  @media (prefers-color-scheme: dark){.logo.light{display:none}.logo.dark{display:inline}}
+  .badge{display:inline-block;margin:28px 0 10px;padding:6px 14px;border-radius:999px;background:rgba(31,165,126,.12);color:var(--green);font-weight:600;font-size:14px;letter-spacing:.02em}
+  h1{font-size:clamp(28px,5vw,44px);line-height:1.12;margin:6px 0 14px;font-weight:800}
+  h1 span{color:var(--green)}
+  p.lead{font-size:clamp(16px,2.4vw,19px);color:var(--muted);line-height:1.55;margin:0 auto 28px;max-width:600px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 28px;text-align:left}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .card b{display:block;margin-bottom:4px}
+  .card span{color:var(--muted);font-size:14px;line-height:1.45}
+  @media (max-width:640px){.grid{grid-template-columns:1fr}}
+  .lang{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit;font-size:14px}
+  footer{margin-top:28px;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<main>
+  <div><img class="logo light" src="./logo.png" alt="StockistScout" width="1298" height="345">
+  <img class="logo dark" src="./logo-dark.png" alt="StockistScout" width="1298" height="345"></div>
+  <div class="badge" data-es="Muy pronto">Coming soon</div>
+  <h1 data-es="Agentes de IA que encuentran las <span>tiendas</span> que venderán tus productos">AI agents that find the <span>stores</span> to carry your products</h1>
+  <p class="lead" data-es="Cuéntanos qué vendes y a qué tipo de tienda quieres llegar. Cada mañana tu agente busca tiendas que encajan, les escribe en nombre de tu negocio y te muestra quién abrió, hizo clic y respondió.">Tell us what you sell and the kind of store you want to reach. Every morning your agent finds stores that fit, writes to them on behalf of your business, and shows you who opened, clicked and replied.</p>
+  <div class="grid">
+    <div class="card"><b data-es="Busca">Finds</b><span data-es="Tiendas de tu nicho, en las zonas que eliges.">Stores in your niche, in the areas you choose.</span></div>
+    <div class="card"><b data-es="Escribe">Writes</b><span data-es="Correos personalizados, revisados antes de enviarse.">Personal emails, reviewed before they go out.</span></div>
+    <div class="card"><b data-es="Reporta">Reports</b><span data-es="Aperturas, clics y respuestas en tu panel.">Opens, clicks and replies on your dashboard.</span></div>
+  </div>
+  <button class="lang" id="lang" type="button">Español</button>
+  <footer>© 2026 StockistScout · Aharon &amp; Ita Corp</footer>
+</main>
+<script>
+(function(){
+  var es=false, btn=document.getElementById('lang');
+  var nodes=[].slice.call(document.querySelectorAll('[data-es]'));
+  nodes.forEach(function(n){n.dataset.en=n.innerHTML;});
+  function set(v){es=v;document.documentElement.lang=v?'es':'en';nodes.forEach(function(n){n.innerHTML=v?n.dataset.es:n.dataset.en;});btn.textContent=v?'English':'Español';try{localStorage.setItem('ss_lang',v?'es':'en')}catch(e){}}
+  btn.addEventListener('click',function(){set(!es);});
+  var saved=null;try{saved=localStorage.getItem('ss_lang')}catch(e){}
+  set(saved?saved==='es':(navigator.language||'').toLowerCase().indexOf('es')===0);
+})();
+</script>
+</body>
+</html>

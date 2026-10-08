@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="StockistScout">
+  <defs>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2DBE8C"/>
+      <stop offset="0.55" stop-color="#1E8FC0"/>
+      <stop offset="1" stop-color="#155FA0"/>
+    </linearGradient>
+    <linearGradient id="awning" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2FC293"/>
+      <stop offset="1" stop-color="#1FA57E"/>
+    </linearGradient>
+    <linearGradient id="store" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E5A8E"/>
+      <stop offset="1" stop-color="#173E6E"/>
+    </linearGradient>
+  </defs>
+  <!-- handle -->
+  <line x1="205" y1="205" x2="268" y2="268" stroke="#155FA0" stroke-width="26" stroke-linecap="round"/>
+  <!-- ring -->
+  <circle cx="125" cy="125" r="104" fill="#fff" stroke="url(#ring)" stroke-width="24"/>
+  <!-- store: two pillars -->
+  <path d="M68 128 h34 v70 a8 8 0 0 1 -8 8 h-18 a8 8 0 0 1 -8 -8 z" fill="url(#store)"/>
+  <path d="M148 128 h34 v70 a8 8 0 0 1 -8 8 h-18 a8 8 0 0 1 -8 -8 z" fill="url(#store)"/>
+  <!-- awning: 4 stripes, wider at the bottom, rounded scallops -->
+  <g fill="url(#awning)">
+    <path d="M82 68 h22 l-4 48 a16 16 0 0 1 -32 0 l4 -38 a12 12 0 0 1 10 -10 z"/>
+    <path d="M108 68 h17 v48 a16 16 0 0 1 -21 0 z"/>
+    <path d="M125 68 h17 l4 48 a16 16 0 0 1 -21 0 z"/>
+    <path d="M146 68 h22 a12 12 0 0 1 10 10 l4 38 a16 16 0 0 1 -32 0 z"/>
+  </g>
+  <!-- location pin -->
+  <path d="M125 116 c-22 0 -36 16 -36 35 c0 24 36 62 36 62 s36 -38 36 -62 c0 -19 -14 -35 -36 -35 z" fill="#fff"/>
+  <path d="M125 124 c-17 0 -28 12 -28 27 c0 19 28 51 28 51 s28 -32 28 -51 c0 -15 -11 -27 -28 -27 z" fill="url(#awning)"/>
+  <circle cx="125" cy="150" r="10.5" fill="#fff"/>
+</svg>
