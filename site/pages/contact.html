@@ -1,0 +1,56 @@
+<!--{"path":"/contact","title":"Contact and waitlist","titleEs":"Contacto y lista de espera","description":"StockistScout is opening soon. The waitlist and contact form open shortly before launch."}-->
+<section class="page-head">
+  <div class="wrap">
+    <p class="eyebrow" data-es="Contacto">Contact</p>
+    <h1 data-es="Abrimos pronto.">We are opening soon.</h1>
+    <p class="lead" data-es="StockistScout todavía no acepta clientes. La lista de espera y el formulario de contacto se abren poco antes del lanzamiento, aquí mismo.">StockistScout is not taking customers yet. The waitlist and the contact form open shortly before launch, right here.</p>
+  </div>
+</section>
+
+<section class="wrap" id="waitlist" style="padding-bottom:80px">
+  <div class="contact-form-grid">
+    <div class="contact-form-intro">
+      <h2 data-es="Lista de espera">Waitlist</h2>
+      <p data-es="Cuando se abra, te pediremos lo justo para saber si podemos ayudarte: tu negocio, qué vendes y a qué tipo de tienda quieres llegar. Te responderá una persona, en inglés o en español.">When it opens, we will ask just enough to know whether we can help: your business, what you sell and the kind of store you want to reach. A person will answer, in English or Spanish.</p>
+      <p class="muted small" data-es="Mientras tanto, puedes leer <a href=&quot;/how-it-works&quot;>cómo funciona</a>, conocer a <a href=&quot;/agents&quot;>nuestros agentes</a> o ver los <a href=&quot;/pricing&quot;>precios</a>.">Meanwhile, you can read <a href="/how-it-works">how it works</a>, meet <a href="/agents">our agents</a> or see <a href="/pricing">pricing</a>.</p>
+    </div>
+    <div>
+      <div class="note warn" role="status" style="margin-bottom:18px">
+        <p data-es="<strong>El formulario todavía no está activo.</strong> Lo verás aquí en cuanto abramos; por ahora no se envía nada de lo que escribas."><strong>This form is not active yet.</strong> It will work here as soon as we open; for now nothing you type is sent.</p>
+      </div>
+      <form class="card contact-form" action="#" onsubmit="return false" aria-describedby="form-off">
+        <fieldset disabled>
+          <legend class="sr" data-es="Únete a la lista de espera (próximamente)">Join the waitlist (coming soon)</legend>
+          <div class="field-row">
+            <div class="field">
+              <label for="cf-name" data-es="Nombre">Name</label>
+              <input type="text" id="cf-name" name="name" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="cf-email" data-es="Correo electrónico">Email</label>
+              <input type="email" id="cf-email" name="email" autocomplete="email">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="cf-biz" data-es="Negocio">Business</label>
+              <input type="text" id="cf-biz" name="business" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="cf-site"><span data-es="Sitio web">Website</span> <span class="opt" data-es="(opcional)">(optional)</span></label>
+              <input type="url" id="cf-site" name="website" inputmode="url" autocomplete="url" placeholder="https://" >
+            </div>
+          </div>
+          <div class="field">
+            <label for="cf-stores" data-es="¿Qué vendes y a qué tiendas quieres llegar?">What do you sell, and to which stores?</label>
+            <textarea id="cf-stores" name="message" placeholder="Organic baby clothing, to independent kids’ boutiques in the Southeast" data-es-placeholder="Ropa de bebé orgánica, para boutiques infantiles independientes del sureste"></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit" disabled data-es="Próximamente">Coming soon</button>
+            <p class="form-fine" id="form-off" data-es="Inactivo hasta el lanzamiento.">Inactive until launch.</p>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>

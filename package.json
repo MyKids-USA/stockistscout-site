@@ -1,0 +1,10 @@
+{
+  "name": "stockistscout-site",
+  "private": true,
+  "type": "module",
+  "description": "stockistscout.com: static site. Sources in site/, built HTML committed at the root (Render serves the root).",
+  "scripts": {
+    "build": "node site/build.mjs",
+    "avatars": "node site/avatars.mjs"
+  }
+}
