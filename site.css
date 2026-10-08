@@ -354,6 +354,8 @@ details .ans p:last-child { margin-bottom: 0; }
 @media (min-width: 720px) { .family { grid-template-columns: 1fr 1fr; } }
 .family a.card { display: block; text-decoration: none; color: inherit; transition: border-color .15s, transform .15s; }
 .family a.card:hover { border-color: var(--green); transform: translateY(-2px); }
+.family .logo-plate { display: flex; align-items: center; justify-content: center; height: 96px; margin-bottom: 18px; padding: 12px; background: #fff; border: 1px solid var(--line); border-radius: calc(var(--radius) - 4px); }
+.family .logo-plate img { max-height: 72px; max-width: 100%; width: auto; height: auto; object-fit: contain; }
 .family .host { font: 500 13px var(--mono); color: var(--green-text); }
 
 /* ---------- Legal ---------- */
