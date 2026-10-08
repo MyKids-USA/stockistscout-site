@@ -80,7 +80,10 @@ export const AGENTS = [
 /** One agent's picture: a fixed square slot, the same file name for the placeholder and the final portrait. */
 export function agentImg(name, size, lazy = true) {
   const file = `/img/agents/agent-${name.toLowerCase()}.png`;
-  return `<img class="avatar" src="${file}" alt="" width="${size}" height="${size}"${lazy ? ' loading="lazy"' : ''} decoding="async">`;
+  // The file name never changes when a portrait is replaced, so the URL carries a hash of
+  // its bytes: a new portrait is a new URL, and no cache keeps showing the old one.
+  const v = createHash('sha1').update(readFileSync(new URL(`..${file}`, import.meta.url))).digest('hex').slice(0, 8);
+  return `<img class="avatar" src="${file}?v=${v}" alt="" width="${size}" height="${size}"${lazy ? ' loading="lazy"' : ''} decoding="async">`;
 }
 
 export const esc = (t) => String(t)
