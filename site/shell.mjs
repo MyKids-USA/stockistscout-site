@@ -13,14 +13,18 @@ import { readFileSync } from 'node:fs';
 export const ORIGIN = 'https://stockistscout.com';
 export const COMPANY = 'Aharon &amp; Ita Corp';
 
-/* Launch switches. Both stay false until the owner decides.
+/* Launch switches.
    INDEXABLE: false puts <meta name="robots" content="noindex"> on every page and a
    robots.txt that disallows everything. Flip to true at launch, build, push.
-   WAITLIST_OPEN: false means there is no form backend and no mailbox yet, so every call
-   to action reads "Coming soon" and the contact form is shown disabled. When a backend
-   exists: wire the form in pages/contact.html, set true, build, push. */
+   WAITLIST_OPEN: true since 8 Oct 2026. The form posts to WAITLIST_API (the WMS Cloud
+   API, POST /api/stockistscout/waitlist, table wms.stockistscout_waitlist) until
+   StockistScout has a backend of its own; each sign-up is emailed to Aharon there. */
 export const INDEXABLE = false;
-export const WAITLIST_OPEN = false;
+export const WAITLIST_OPEN = true;
+export const WAITLIST_API = 'https://api.binsusa.com/api/stockistscout/waitlist';
+/* The public address (Aharon, 8 Oct 2026). Mail to it is forwarded by Cloudflare Email
+   Routing once that is set up; the waitlist never depends on it. */
+export const CONTACT_EMAIL = 'sales@stockistscout.com';
 
 export const CTA_URL = '/contact#waitlist';
 export const CTA_LABEL = WAITLIST_OPEN ? 'Join the waitlist' : 'Coming soon';
@@ -170,7 +174,7 @@ function footer() {
     <div class="foot-brand">
       <a class="foot-logo" href="/" aria-label="StockistScout, home" data-es-label="StockistScout, inicio"><img src="/img/logo-dark-520.png" alt="StockistScout" width="196" height="52" loading="lazy"></a>
       <p data-es="Agentes de IA que encuentran tiendas que encajan con tus productos y les escriben en nombre de tu negocio. Solo B2B: tiendas, nunca consumidores.">AI agents that find stores that fit your products and write to them on behalf of your business. B2B only: stores, never consumers.</p>
-      <p class="disclaimer" data-es="Todavía no está abierto. Ningún resultado de ventas está garantizado.">Not open yet. No sales results are guaranteed.</p>
+      <p class="disclaimer" data-es="Abre pronto: únete a la lista de espera. Ningún resultado de ventas está garantizado.">Opening soon: join the waitlist. No sales results are guaranteed.</p>
     </div>
     <nav aria-label="Product" data-es-label="Producto">
       <h2 data-es="Producto">Product</h2>
@@ -183,6 +187,7 @@ function footer() {
       <h2 data-es="Empresa">Company</h2>
       <a href="/about" data-es="Quiénes somos">About</a>
       <a href="/contact" data-es="Contacto">Contact</a>
+      <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
       <a href="/privacy" data-es="Privacidad">Privacy</a>
       <a href="/terms" data-es="Términos">Terms</a>
     </nav>
@@ -228,6 +233,86 @@ const SCRIPT = `<script>
     });
     try { localStorage.setItem(KEY, lang); } catch (e) {}
   }
+  /* Waitlist form: posts JSON to the address in data-waitlist and confirms on screen. */
+  var LOADED = Date.now();
+  var MSG = {
+    ok: { en: '<strong>You are on the list. Thank you.</strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.',
+          es: '<strong>Ya estás en la lista. Gracias.</strong> Te escribiremos cuando StockistScout abra. Todavía no enviamos un correo de confirmación, así que este mensaje es tu confirmación.' },
+    sending: { en: 'Sending…', es: 'Enviando…' },
+    fix: { en: 'Please check the highlighted fields.', es: 'Revisa los campos marcados.' },
+    many: { en: 'Too many tries from this connection. Please wait an hour, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            es: 'Demasiados intentos desde esta conexión. Espera una hora o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.' },
+    fail: { en: 'We could not send it. Check your connection and try again, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            es: 'No pudimos enviarlo. Revisa tu conexión y vuelve a intentarlo, o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.' }
+  };
+  function curLang() { return document.documentElement.lang === 'es' ? 'es' : 'en'; }
+  function say(el, m) {
+    el.dataset.en = m.en; el.dataset.es = m.es;
+    el.innerHTML = m[curLang()];
+    el.hidden = false;
+  }
+  function looksLikeEmail(v) {
+    var at = v.indexOf('@');
+    return at > 0 && v.indexOf('.', at) > at + 1 && v.indexOf(' ') < 0 && v.length <= 254;
+  }
+  function wireWaitlist(form) {
+    var url = form.getAttribute('data-waitlist');
+    var status = form.querySelector('.form-status');
+    var btn = form.querySelector('button[type=submit]');
+    var lang = form.querySelector('select[name=language]');
+    if (lang) {
+      lang.value = curLang();
+      lang.addEventListener('change', function () { lang.dataset.touched = '1'; });
+      document.querySelectorAll('#langToggle button').forEach(function (b) {
+        b.addEventListener('click', function () { if (!lang.dataset.touched) lang.value = b.dataset.lang; });
+      });
+    }
+    function mark(name, bad) {
+      var input = form.elements[name];
+      var err = document.getElementById(input.id + '-err');
+      if (bad) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
+      if (err) err.hidden = !bad;
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = form.elements;
+      var data = {
+        email: f.email.value.trim(), company: f.company.value.trim(), website: f.website.value.trim(),
+        sells: f.sells.value.trim(), language: lang ? lang.value : curLang(), nickname: f.nickname.value,
+        elapsed_ms: Date.now() - LOADED, page: location.pathname
+      };
+      var bad = { email: !looksLikeEmail(data.email), company: data.company.length < 2, sells: data.sells.length < 3, website: false };
+      ['email', 'company', 'sells', 'website'].forEach(function (k) { mark(k, bad[k]); });
+      if (bad.email || bad.company || bad.sells) {
+        say(status, MSG.fix);
+        var first = form.querySelector('[aria-invalid=true]'); if (first) first.focus();
+        return;
+      }
+      var label = { en: btn.dataset.en || btn.innerHTML, es: btn.dataset.es };
+      btn.disabled = true; say(btn, MSG.sending); status.hidden = true;
+      fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), credentials: 'omit' })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { code: r.status, body: j }; }); })
+        .then(function (res) {
+          if (res.code === 200 && res.body.ok) {
+            var done = document.createElement('div');
+            done.className = 'note'; done.setAttribute('role', 'status'); done.setAttribute('tabindex', '-1');
+            done.innerHTML = '<p></p>';
+            say(done.firstChild, MSG.ok);
+            done.firstChild.setAttribute('data-es', MSG.ok.es);
+            form.replaceChildren(done);
+            done.focus();
+            return;
+          }
+          btn.disabled = false; say(btn, label);
+          if (res.code === 400 && res.body.fields) {
+            Object.keys(res.body.fields).forEach(function (k) { if (form.elements[k]) mark(k, true); });
+            say(status, MSG.fix);
+          } else if (res.code === 429) say(status, MSG.many);
+          else say(status, MSG.fail);
+        })
+        .catch(function () { btn.disabled = false; say(btn, label); say(status, MSG.fail); });
+    });
+  }
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
   var start = saved || ((navigator.language || 'en').toLowerCase().indexOf('es') === 0 ? 'es' : 'en');
@@ -247,6 +332,8 @@ const SCRIPT = `<script>
       });
     }
     if (start === 'es') apply('es');
+    // After apply: the language select starts on the language the page is shown in.
+    document.querySelectorAll('form[data-waitlist]').forEach(wireWaitlist);
   });
 })();
 </script>`;
@@ -272,7 +359,7 @@ export function ctaBand() {
   <div class="wrap cta-inner">
     <div>
       <h2 data-es="Deja que un agente encuentre tus próximas tiendas.">Let an agent find your next stockists.</h2>
-      <p data-es="StockistScout abre pronto. La prueba incluye 50 correos, una vez, sin costo. Planes mensuales desde $99; cancela cuando quieras.">StockistScout opens soon. The trial includes 50 emails, once, at no cost. Monthly plans from $99, cancel anytime.</p>
+      <p data-es="StockistScout abre pronto. Únete a la lista de espera y te escribiremos cuando haya lugar. La prueba incluye 50 correos, una vez, sin costo. Planes mensuales desde $99; cancela cuando quieras.">StockistScout opens soon. Join the waitlist and we will write when there is room. The trial includes 50 emails, once, at no cost. Monthly plans from $99, cancel anytime.</p>
     </div>
     <div class="cta-actions">
       ${ctaButton('btn-light')}
@@ -296,4 +383,56 @@ export function avatar(name, i, size = 64) {
 <text x="29" y="41" text-anchor="middle" font-family="Plus Jakarta Sans, Arial, sans-serif" font-weight="800" font-size="27" fill="#fff">${name[0]}</text>
 <g transform="translate(46 46)"><circle r="9" fill="#fff"/><circle cx="-1.3" cy="-1.3" r="3.8" fill="none" stroke="#0F2A4A" stroke-width="1.9"/><path d="M1.4 1.4l3 3" stroke="#0F2A4A" stroke-width="2" stroke-linecap="round"/></g>
 </svg>`;
+}
+
+/* The waitlist form ({{WAITLIST_FORM}} in a page). One per page: the ids are fixed.
+   The honeypot (nickname) is off-screen and out of the tab order; people never see it,
+   form-filling bots do. The script in SCRIPT posts it to WAITLIST_API and shows the
+   confirmation on screen: StockistScout sends no email to the subscriber yet. */
+export function waitlistForm() {
+  return `<form class="card contact-form" data-waitlist="${WAITLIST_API}" novalidate>
+  <fieldset>
+    <legend class="sr" data-es="Únete a la lista de espera">Join the waitlist</legend>
+    <div class="field-row">
+      <div class="field">
+        <label for="wl-email" data-es="Correo electrónico">Email</label>
+        <input type="email" id="wl-email" name="email" autocomplete="email" required maxlength="254" aria-describedby="wl-email-err">
+        <p class="field-err" id="wl-email-err" hidden data-es="Escribe un correo válido.">Enter a valid email.</p>
+      </div>
+      <div class="field">
+        <label for="wl-company" data-es="Empresa">Company</label>
+        <input type="text" id="wl-company" name="company" autocomplete="organization" required maxlength="200" aria-describedby="wl-company-err">
+        <p class="field-err" id="wl-company-err" hidden data-es="Escribe el nombre de tu empresa.">Enter your company name.</p>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="wl-site"><span data-es="Sitio web">Website</span> <span class="opt" data-es="(opcional)">(optional)</span></label>
+        <input type="text" id="wl-site" name="website" inputmode="url" autocomplete="url" maxlength="300" placeholder="yourbrand.com" data-es-placeholder="tumarca.com" aria-describedby="wl-site-err">
+        <p class="field-err" id="wl-site-err" hidden data-es="Ese sitio web no parece válido.">That website does not look right.</p>
+      </div>
+      <div class="field">
+        <label for="wl-lang" data-es="Idioma para escribirte">Language we write to you in</label>
+        <select id="wl-lang" name="language">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label for="wl-sells" data-es="¿Qué vendes y a qué tipo de tiendas?">What do you sell, and to which kinds of stores?</label>
+      <textarea id="wl-sells" name="sells" required maxlength="1000" placeholder="Organic baby clothing, to independent kids’ boutiques" data-es-placeholder="Ropa de bebé orgánica, para boutiques infantiles independientes" aria-describedby="wl-sells-err"></textarea>
+      <p class="field-err" id="wl-sells-err" hidden data-es="Cuéntanos en pocas palabras qué vendes.">Tell us in a few words what you sell.</p>
+    </div>
+    <div class="hp" aria-hidden="true">
+      <label for="wl-nickname">Leave this empty</label>
+      <input type="text" id="wl-nickname" name="nickname" tabindex="-1" autocomplete="off">
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit" data-es="Únete a la lista de espera">Join the waitlist</button>
+      <p class="form-fine" data-es="Solo lo usamos para avisarte cuando abramos y saber si podemos ayudarte. Ve la <a href=&quot;/privacy&quot;>privacidad</a>.">We use it only to tell you when we open and to see whether we can help. See <a href="/privacy">privacy</a>.</p>
+    </div>
+    <p class="form-status" role="status" aria-live="polite" hidden></p>
+  </fieldset>
+</form>`;
 }

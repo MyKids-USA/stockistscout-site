@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="/site.css?v=e0060bc671">
+<link rel="stylesheet" href="/site.css?v=7ad8aab7d9">
 </head>
 <body>
 <a class="skip" href="#main" data-es="Ir al contenido">Skip to content</a>
@@ -72,7 +72,7 @@
     <div class="foot-brand">
       <a class="foot-logo" href="/" aria-label="StockistScout, home" data-es-label="StockistScout, inicio"><img src="/img/logo-dark-520.png" alt="StockistScout" width="196" height="52" loading="lazy"></a>
       <p data-es="Agentes de IA que encuentran tiendas que encajan con tus productos y les escriben en nombre de tu negocio. Solo B2B: tiendas, nunca consumidores.">AI agents that find stores that fit your products and write to them on behalf of your business. B2B only: stores, never consumers.</p>
-      <p class="disclaimer" data-es="Todavía no está abierto. Ningún resultado de ventas está garantizado.">Not open yet. No sales results are guaranteed.</p>
+      <p class="disclaimer" data-es="Abre pronto: únete a la lista de espera. Ningún resultado de ventas está garantizado.">Opening soon: join the waitlist. No sales results are guaranteed.</p>
     </div>
     <nav aria-label="Product" data-es-label="Producto">
       <h2 data-es="Producto">Product</h2>
@@ -85,6 +85,7 @@
       <h2 data-es="Empresa">Company</h2>
       <a href="/about" data-es="Quiénes somos">About</a>
       <a href="/contact" data-es="Contacto">Contact</a>
+      <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>
       <a href="/privacy" data-es="Privacidad">Privacy</a>
       <a href="/terms" data-es="Términos">Terms</a>
     </nav>
@@ -125,6 +126,86 @@
     });
     try { localStorage.setItem(KEY, lang); } catch (e) {}
   }
+  /* Waitlist form: posts JSON to the address in data-waitlist and confirms on screen. */
+  var LOADED = Date.now();
+  var MSG = {
+    ok: { en: '<strong>You are on the list. Thank you.</strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.',
+          es: '<strong>Ya estás en la lista. Gracias.</strong> Te escribiremos cuando StockistScout abra. Todavía no enviamos un correo de confirmación, así que este mensaje es tu confirmación.' },
+    sending: { en: 'Sending…', es: 'Enviando…' },
+    fix: { en: 'Please check the highlighted fields.', es: 'Revisa los campos marcados.' },
+    many: { en: 'Too many tries from this connection. Please wait an hour, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            es: 'Demasiados intentos desde esta conexión. Espera una hora o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.' },
+    fail: { en: 'We could not send it. Check your connection and try again, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            es: 'No pudimos enviarlo. Revisa tu conexión y vuelve a intentarlo, o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.' }
+  };
+  function curLang() { return document.documentElement.lang === 'es' ? 'es' : 'en'; }
+  function say(el, m) {
+    el.dataset.en = m.en; el.dataset.es = m.es;
+    el.innerHTML = m[curLang()];
+    el.hidden = false;
+  }
+  function looksLikeEmail(v) {
+    var at = v.indexOf('@');
+    return at > 0 && v.indexOf('.', at) > at + 1 && v.indexOf(' ') < 0 && v.length <= 254;
+  }
+  function wireWaitlist(form) {
+    var url = form.getAttribute('data-waitlist');
+    var status = form.querySelector('.form-status');
+    var btn = form.querySelector('button[type=submit]');
+    var lang = form.querySelector('select[name=language]');
+    if (lang) {
+      lang.value = curLang();
+      lang.addEventListener('change', function () { lang.dataset.touched = '1'; });
+      document.querySelectorAll('#langToggle button').forEach(function (b) {
+        b.addEventListener('click', function () { if (!lang.dataset.touched) lang.value = b.dataset.lang; });
+      });
+    }
+    function mark(name, bad) {
+      var input = form.elements[name];
+      var err = document.getElementById(input.id + '-err');
+      if (bad) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
+      if (err) err.hidden = !bad;
+    }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = form.elements;
+      var data = {
+        email: f.email.value.trim(), company: f.company.value.trim(), website: f.website.value.trim(),
+        sells: f.sells.value.trim(), language: lang ? lang.value : curLang(), nickname: f.nickname.value,
+        elapsed_ms: Date.now() - LOADED, page: location.pathname
+      };
+      var bad = { email: !looksLikeEmail(data.email), company: data.company.length < 2, sells: data.sells.length < 3, website: false };
+      ['email', 'company', 'sells', 'website'].forEach(function (k) { mark(k, bad[k]); });
+      if (bad.email || bad.company || bad.sells) {
+        say(status, MSG.fix);
+        var first = form.querySelector('[aria-invalid=true]'); if (first) first.focus();
+        return;
+      }
+      var label = { en: btn.dataset.en || btn.innerHTML, es: btn.dataset.es };
+      btn.disabled = true; say(btn, MSG.sending); status.hidden = true;
+      fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), credentials: 'omit' })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { code: r.status, body: j }; }); })
+        .then(function (res) {
+          if (res.code === 200 && res.body.ok) {
+            var done = document.createElement('div');
+            done.className = 'note'; done.setAttribute('role', 'status'); done.setAttribute('tabindex', '-1');
+            done.innerHTML = '<p></p>';
+            say(done.firstChild, MSG.ok);
+            done.firstChild.setAttribute('data-es', MSG.ok.es);
+            form.replaceChildren(done);
+            done.focus();
+            return;
+          }
+          btn.disabled = false; say(btn, label);
+          if (res.code === 400 && res.body.fields) {
+            Object.keys(res.body.fields).forEach(function (k) { if (form.elements[k]) mark(k, true); });
+            say(status, MSG.fix);
+          } else if (res.code === 429) say(status, MSG.many);
+          else say(status, MSG.fail);
+        })
+        .catch(function () { btn.disabled = false; say(btn, label); say(status, MSG.fail); });
+    });
+  }
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
   var start = saved || ((navigator.language || 'en').toLowerCase().indexOf('es') === 0 ? 'es' : 'en');
@@ -144,6 +225,8 @@
       });
     }
     if (start === 'es') apply('es');
+    // After apply: the language select starts on the language the page is shown in.
+    document.querySelectorAll('form[data-waitlist]').forEach(wireWaitlist);
   });
 })();
 </script>

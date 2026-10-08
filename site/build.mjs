@@ -9,13 +9,14 @@
  * Pages are HTML fragments that start with a JSON comment holding their metadata:
  *   <!--{"path":"/pricing","title":"Pricing","titleEs":"Precios","description":"..."}-->
  * Placeholders inside a fragment: {{CTA_BUTTON}} {{CTA_BUTTON_LIGHT}} {{CTA}}
+ * {{WAITLIST_FORM}} (the waitlist form, one per page), {{CONTACT_EMAIL}},
  * {{AGENTS}} / {{AGENTS_FULL}} (the eight agent cards, short and long) and
  * {{AVATAR:Name}} (one agent's picture).
  */
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { page, ctaBand, ctaButton, ORIGIN, INDEXABLE, AGENTS, agentImg, attr } from './shell.mjs';
+import { page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr } from './shell.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
@@ -36,6 +37,8 @@ function fill(html) {
     .replaceAll('{{CTA_BUTTON}}', ctaButton('btn-primary'))
     .replaceAll('{{CTA_BUTTON_LIGHT}}', ctaButton('btn-light'))
     .replaceAll('{{CTA}}', ctaBand())
+    .replaceAll('{{WAITLIST_FORM}}', waitlistForm())
+    .replaceAll('{{CONTACT_EMAIL}}', CONTACT_EMAIL)
     .replaceAll('{{AGENTS}}', agentCards(false))
     .replaceAll('{{AGENTS_FULL}}', agentCards(true))
     .replace(/\{\{AVATAR:(\w+)\}\}/g, (_, name) => {
