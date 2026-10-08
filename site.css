@@ -434,3 +434,4 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 }
 .section-head h2, .problem h2 { letter-spacing: -0.015em; }
 .section-head .eyebrow { color: var(--green-text); margin: 0 0 14px; font-size: 13px; }
+.plan .skip { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 14px; color: var(--muted); }
