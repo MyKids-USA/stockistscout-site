@@ -436,3 +436,8 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 .section-head .eyebrow { color: var(--green-text); margin: 0 0 14px; font-size: 13px; }
 .plan .trial-skip { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 14px; color: var(--muted); }
 @media (min-width: 1040px) { .plan .amount { font-size: clamp(30px, 2.7vw, 40px); white-space: nowrap; } }
+.plan .starts { font-size: 13px; color: var(--green-text); margin: -8px 0 14px; }
+.plan .starts a { color: inherit; }
+.grow { margin-top: 28px; }
+.grow h3 { font-size: 21px; }
+.grow .table-wrap { margin-top: 16px; }
