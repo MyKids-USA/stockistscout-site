@@ -37,6 +37,11 @@ export function ctaButton(cls) {
 
 /** Changes whenever site.css changes, so a browser never pairs new HTML with an old cached stylesheet. */
 const CSS_VERSION = createHash('sha256').update(readFileSync(new URL('../site.css', import.meta.url))).digest('hex').slice(0, 10);
+/* Katya, the chat (katya.js at the root; its backend is the WMS Cloud API,
+   /api/stockistscout/katya). One tag per page, after SCRIPT, and the file guards itself
+   too (window.__katyaLoaded): on bins-usa.com a second copy drew a second, blank launcher.
+   The version is a hash of the file, like the stylesheet's. */
+const KATYA_VERSION = createHash('sha256').update(readFileSync(new URL('../katya.js', import.meta.url))).digest('hex').slice(0, 10);
 
 export const NAV = [
   ['/', 'Home', 'Inicio'],
@@ -350,6 +355,7 @@ ${body.trim()}
 </main>
 ${footer()}
 ${SCRIPT}
+<script src="/katya.js?v=${KATYA_VERSION}" defer></script>
 </body>
 </html>
 `;
