@@ -449,6 +449,9 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 .family-story .faces figcaption { margin-top: 6px; font-size: 14px; font-weight: 600; color: var(--ink); }
 .family-story .faces .avatar { width: 72px; height: 72px; border-radius: 50%; }
 .family-story p { max-width: 720px; }
+/* The family headline reads as one line on wide screens; phones still wrap it. */
+.family-story .section-head { max-width: none; }
+@media (min-width: 1000px) { .family-story .section-head h2 { white-space: nowrap; font-size: clamp(30px, 3.3vw, 42px); } }
 .family-note { margin-top: 22px; color: var(--muted); font-size: 14.5px; }
 .explore-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .explore-grid a.card { text-decoration: none; color: inherit; transition: border-color .15s, transform .15s; }
