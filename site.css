@@ -295,7 +295,7 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 
 /* ---------- Pricing ---------- */
 .plans { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-@media (min-width: 1040px) { .plans { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1040px) { .plans { grid-template-columns: repeat(3, 1fr); } }
 .plan { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px 22px 22px; display: flex; flex-direction: column; }
 .plan h3 { font: 700 17px var(--sans); letter-spacing: 0; margin-bottom: 8px; color: var(--ink); }
 .plan .amount { font: 800 40px/1.05 var(--display); letter-spacing: -0.03em; margin: 4px 0 2px; }
