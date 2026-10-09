@@ -64,6 +64,9 @@ function readPage(file) {
 
 const outFile = (path) => path === '/' ? 'index.html' : path.slice(1) + '.html';
 
+// Pages without their own date carry the build date, so Google sees when the site changed.
+const TODAY = new Date().toISOString().slice(0, 10);
+
 function sitemap(urls) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -83,7 +86,7 @@ export function build() {
   for (const file of readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort()) {
     const { meta, body } = readPage(file);
     writeFileSync(join(ROOT, outFile(meta.path)), page({ ...meta, body: fill(body) }));
-    if (!meta.noindex) urls.push([meta.path, meta.updated || null]);
+    if (!meta.noindex) urls.push([meta.path, meta.updated || TODAY]);
   }
   urls.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));
   writeFileSync(join(ROOT, 'sitemap.xml'), sitemap(urls));

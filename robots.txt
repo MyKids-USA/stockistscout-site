@@ -1,3 +1,4 @@
-# Pre-launch: the site is not to be indexed yet. Flip INDEXABLE in site/shell.mjs at launch.
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://stockistscout.com/sitemap.xml

@@ -19,7 +19,7 @@ export const COMPANY = 'Aharon &amp; Ita Corp';
    WAITLIST_OPEN: true since 8 Oct 2026. The form posts to WAITLIST_API (the WMS Cloud
    API, POST /api/stockistscout/waitlist, table wms.stockistscout_waitlist) until
    StockistScout has a backend of its own; each sign-up is emailed to Aharon there. */
-export const INDEXABLE = false;
+export const INDEXABLE = true;
 export const WAITLIST_OPEN = true;
 export const WAITLIST_API = 'https://api.binsusa.com/api/stockistscout/waitlist';
 /* The public address (Aharon, 8 Oct 2026). Mail to it is forwarded by Cloudflare Email
