@@ -93,8 +93,8 @@ main:focus { outline: none; }
 .site-head.open .menu-btn .bars { background: transparent; }
 .site-head.open .menu-btn .bars::before { transform: translateY(7px) rotate(45deg); }
 .site-head.open .menu-btn .bars::after { transform: translateY(-7px) rotate(-45deg); }
-@media (max-width: 1360px) { .nav-links { gap: 22px; } .head-row { padding: 0 24px; } }
-@media (max-width: 1299px) {
+@media (max-width: 1520px) { .nav-links { gap: 22px; } .head-row { padding: 0 24px; } }
+@media (max-width: 1439px) {
   :root { --head-h: 68px; }
   .head-row { padding: 0 16px; }
   .brand img { width: 168px; }
@@ -426,7 +426,7 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 .foot-legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 28px; border-top: 1px solid rgba(255,255,255,.12); margin-top: 48px; padding-top: 22px; font-size: 13.5px; color: #9fb3c7; }
 
 /* ---------- Small-screen touches ---------- */
-@media (min-width: 1300px) { .brand img { width: 216px; } }
+@media (min-width: 1440px) { .brand img { width: 216px; } }
 @media (max-width: 560px) {
   .mock { padding: 18px 16px; }
   .mock-top { flex-wrap: wrap; }

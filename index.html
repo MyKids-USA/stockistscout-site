@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="/site.css?v=b3cd7c8004">
+<link rel="stylesheet" href="/site.css?v=239a994c29">
 </head>
 <body>
 <a class="skip" href="#main" data-es="Ir al contenido">Skip to content</a>
@@ -44,6 +44,7 @@
       <a href="/features" data-es="Funciones">Features</a>
       <a href="/agents" data-es="Conoce a nuestros agentes">Meet our agents</a>
       <a href="/pricing" data-es="Precios">Pricing</a>
+      <a href="/results" data-es="Resultados">Results</a>
       <a href="/faq" data-es="Preguntas">FAQ</a>
       <a href="/about" data-es="Quiénes somos">About</a>
       <a href="/contact" data-es="Contacto">Contact</a>
@@ -65,7 +66,7 @@
       <h1 data-es="Agentes de IA que encuentran las <em>tiendas que venderán tus productos</em>.">AI agents that find the <em>stores to carry your products</em>.</h1>
       <p class="lead" data-es="Cuéntanos qué vendes y qué tipo de tienda quieres. Cada día tu agente busca tiendas que encajan, le escribe a cada una un correo personal en nombre de tu negocio y te muestra qué tiendas respondieron con interés y qué conversaciones empezaron. Las respuestas llegan a tu bandeja.">Tell us what you sell and the kind of store you want. Every day your agent finds stores that fit, writes each one a personal email on behalf of your business, and shows you which stores replied with interest and which conversations started. Replies land in your own inbox.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="/contact#waitlist" data-es="Únete a la lista de espera">Join the waitlist</a>
+        <a class="btn btn-primary" href="/contact" data-es="Únete a la lista de espera">Join the waitlist</a>
         <a class="btn btn-ghost" href="/how-it-works" data-es="Cómo funciona">How it works</a>
       </div>
       <p class="fine" data-es="Para marcas, mayoristas y proveedores que venden a tiendas. Solo B2B: nunca escribimos a consumidores.">For brands, wholesalers and suppliers who sell to stores. B2B only: we never email consumers.</p>
@@ -160,67 +161,8 @@
       <a class="card" href="/how-it-works"><h3 data-es="Cómo funciona">How it works</h3><p data-es="Del cuestionario a la primera respuesta, paso a paso.">From the questionnaire to the first reply, step by step.</p></a>
       <a class="card" href="/agents"><h3 data-es="Los agentes">The agents</h3><p data-es="Ocho especialistas, uno por tipo de tienda.">Eight specialists, one per kind of store.</p></a>
       <a class="card" href="/pricing"><h3 data-es="Precios">Pricing</h3><p data-es="Desde $49.99 al mes. Sin comisión.">From $49.99 a month. No commission.</p></a>
-      <a class="card" href="/about"><h3 data-es="Resultados reales">Real results</h3><p data-es="Lo que hicieron los agentes con nuestras propias marcas.">What the agents did for our own brands.</p></a>
-      <a class="card" href="/faq"><h3 data-es="Preguntas">Questions</h3><p data-es="Respuestas directas sobre envío, datos y cobro.">Straight answers on sending, data and billing.</p></a>
-    </div>
-  </div>
-</section>
-
-<section class="section tint waitlist-band" id="waitlist">
-  <div class="wrap">
-    <div class="contact-form-grid">
-      <div class="contact-form-intro">
-        <p class="eyebrow" data-es="Lista de espera">Waitlist</p>
-        <h2 data-es="Guarda tu lugar.">Save your spot.</h2>
-        <p data-es="Abrimos por orden de llegada. Déjanos tu negocio y lo que vendes y te escribiremos cuando haya lugar. Sin compromiso y sin costo.">We open first come, first served. Leave your business and what you sell, and we will write when there is room. No commitment, no cost.</p>
-      </div>
-      <div>
-<form class="card contact-form" data-waitlist="https://api.binsusa.com/api/stockistscout/waitlist" novalidate>
-  <fieldset>
-    <legend class="sr" data-es="Únete a la lista de espera">Join the waitlist</legend>
-    <div class="field-row">
-      <div class="field">
-        <label for="wl-email" data-es="Correo electrónico">Email</label>
-        <input type="email" id="wl-email" name="email" autocomplete="email" required maxlength="254" aria-describedby="wl-email-err">
-        <p class="field-err" id="wl-email-err" hidden data-es="Escribe un correo válido.">Enter a valid email.</p>
-      </div>
-      <div class="field">
-        <label for="wl-company" data-es="Empresa">Company</label>
-        <input type="text" id="wl-company" name="company" autocomplete="organization" required maxlength="200" aria-describedby="wl-company-err">
-        <p class="field-err" id="wl-company-err" hidden data-es="Escribe el nombre de tu empresa.">Enter your company name.</p>
-      </div>
-    </div>
-    <div class="field-row">
-      <div class="field">
-        <label for="wl-site"><span data-es="Sitio web">Website</span> <span class="opt" data-es="(opcional)">(optional)</span></label>
-        <input type="text" id="wl-site" name="website" inputmode="url" autocomplete="url" maxlength="300" placeholder="yourbrand.com" data-es-placeholder="tumarca.com" aria-describedby="wl-site-err">
-        <p class="field-err" id="wl-site-err" hidden data-es="Ese sitio web no parece válido.">That website does not look right.</p>
-      </div>
-      <div class="field">
-        <label for="wl-lang" data-es="Idioma para escribirte">Language we write to you in</label>
-        <select id="wl-lang" name="language">
-          <option value="en">English</option>
-          <option value="es">Español</option>
-        </select>
-      </div>
-    </div>
-    <div class="field">
-      <label for="wl-sells" data-es="¿Qué vendes y a qué tipo de tiendas?">What do you sell, and to which kinds of stores?</label>
-      <textarea id="wl-sells" name="sells" required maxlength="1000" placeholder="Organic baby clothing, to independent kids’ boutiques" data-es-placeholder="Ropa de bebé orgánica, para boutiques infantiles independientes" aria-describedby="wl-sells-err"></textarea>
-      <p class="field-err" id="wl-sells-err" hidden data-es="Cuéntanos en pocas palabras qué vendes.">Tell us in a few words what you sell.</p>
-    </div>
-    <div class="hp" aria-hidden="true">
-      <label for="wl-nickname">Leave this empty</label>
-      <input type="text" id="wl-nickname" name="nickname" tabindex="-1" autocomplete="off">
-    </div>
-    <div class="form-actions">
-      <button class="btn btn-primary" type="submit" data-es="Únete a la lista de espera">Join the waitlist</button>
-      <p class="form-fine" data-es="Solo lo usamos para avisarte cuando abramos y saber si podemos ayudarte. Ve la <a href=&quot;/privacy&quot;>privacidad</a>.">We use it only to tell you when we open and to see whether we can help. See <a href="/privacy">privacy</a>.</p>
-    </div>
-    <p class="form-status" role="status" aria-live="polite" hidden></p>
-  </fieldset>
-</form>
-      </div>
+      <a class="card" href="/results"><h3 data-es="Resultados reales">Real results</h3><p data-es="Lo que hicieron los agentes con nuestras propias marcas.">What the agents did for our own brands.</p></a>
+      <a class="card" href="/faq"><h3 data-es="Preguntas">Questions</h3><p data-es="Respuestas directas sobre el servicio y tus datos.">Straight answers on the service and your data.</p></a>
     </div>
   </div>
 </section>
@@ -229,10 +171,10 @@
   <div class="wrap cta-inner">
     <div>
       <h2 data-es="Deja que un agente encuentre tus próximas tiendas.">Let an agent find your next stockists.</h2>
-      <p data-es="StockistScout abre pronto. Únete a la lista de espera y te escribiremos cuando haya lugar. La prueba incluye 50 correos, una vez, sin costo. Planes mensuales desde $49.99; cancela cuando quieras.">StockistScout opens soon. Join the waitlist and we will write when there is room. The trial includes 50 emails, once, at no cost. Monthly plans from $49.99, cancel anytime.</p>
+      <p data-es="StockistScout abre pronto. Únete a la lista de espera y te escribiremos cuando haya lugar.">StockistScout opens soon. Join the waitlist and we will write when there is room.</p>
     </div>
     <div class="cta-actions">
-      <a class="btn btn-light" href="/contact#waitlist" data-es="Únete a la lista de espera">Join the waitlist</a>
+      <a class="btn btn-light" href="/contact" data-es="Únete a la lista de espera">Join the waitlist</a>
       <a class="btn btn-outline-light" href="/pricing" data-es="Ver precios">See pricing</a>
     </div>
   </div>
@@ -250,6 +192,7 @@
       <a href="/how-it-works" data-es="Cómo funciona">How it works</a>
       <a href="/features" data-es="Funciones">Features</a>
       <a href="/pricing" data-es="Precios">Pricing</a>
+      <a href="/results" data-es="Resultados">Results</a>
       <a href="/faq" data-es="Preguntas frecuentes">FAQ</a>
     </nav>
     <nav aria-label="Company" data-es-label="Empresa">

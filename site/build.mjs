@@ -82,7 +82,7 @@ const ROBOTS = INDEXABLE
 
 export function build() {
   const urls = [];
-  const order = ['/', '/how-it-works', '/features', '/agents', '/pricing', '/faq', '/about', '/contact', '/privacy', '/terms'];
+  const order = ['/', '/how-it-works', '/features', '/agents', '/pricing', '/results', '/faq', '/about', '/contact', '/privacy', '/terms'];
   for (const file of readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort()) {
     const { meta, body } = readPage(file);
     writeFileSync(join(ROOT, outFile(meta.path)), page({ ...meta, body: fill(body) }));

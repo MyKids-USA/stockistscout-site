@@ -26,7 +26,7 @@ export const WAITLIST_API = 'https://api.binsusa.com/api/stockistscout/waitlist'
    Routing once that is set up; the waitlist never depends on it. */
 export const CONTACT_EMAIL = 'sales@stockistscout.com';
 
-export const CTA_URL = '/contact#waitlist';
+export const CTA_URL = '/contact';
 export const CTA_LABEL = WAITLIST_OPEN ? 'Join the waitlist' : 'Coming soon';
 export const CTA_LABEL_ES = WAITLIST_OPEN ? 'Únete a la lista de espera' : 'Próximamente';
 
@@ -44,6 +44,7 @@ export const NAV = [
   ['/features', 'Features', 'Funciones'],
   ['/agents', 'Meet our agents', 'Conoce a nuestros agentes'],
   ['/pricing', 'Pricing', 'Precios'],
+  ['/results', 'Results', 'Resultados'],
   ['/faq', 'FAQ', 'Preguntas'],
   ['/about', 'About', 'Quiénes somos'],
   ['/contact', 'Contact', 'Contacto'],
@@ -181,6 +182,7 @@ function footer() {
       <a href="/how-it-works" data-es="Cómo funciona">How it works</a>
       <a href="/features" data-es="Funciones">Features</a>
       <a href="/pricing" data-es="Precios">Pricing</a>
+      <a href="/results" data-es="Resultados">Results</a>
       <a href="/faq" data-es="Preguntas frecuentes">FAQ</a>
     </nav>
     <nav aria-label="Company" data-es-label="Empresa">
@@ -359,7 +361,7 @@ export function ctaBand() {
   <div class="wrap cta-inner">
     <div>
       <h2 data-es="Deja que un agente encuentre tus próximas tiendas.">Let an agent find your next stockists.</h2>
-      <p data-es="StockistScout abre pronto. Únete a la lista de espera y te escribiremos cuando haya lugar. La prueba incluye 50 correos, una vez, sin costo. Planes mensuales desde $49.99; cancela cuando quieras.">StockistScout opens soon. Join the waitlist and we will write when there is room. The trial includes 50 emails, once, at no cost. Monthly plans from $49.99, cancel anytime.</p>
+      <p data-es="StockistScout abre pronto. Únete a la lista de espera y te escribiremos cuando haya lugar.">StockistScout opens soon. Join the waitlist and we will write when there is room.</p>
     </div>
     <div class="cta-actions">
       ${ctaButton('btn-light')}
