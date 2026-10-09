@@ -14,6 +14,7 @@
  * {{AVATAR:Name}} (one agent's picture).
  */
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr } from './shell.mjs';
@@ -45,9 +46,13 @@ function fill(html) {
       if (!AGENTS.some((a) => a.name === name)) throw new Error(`unknown agent ${name}`);
       return agentImg(name, 44, false);
     });
-  const left = out.match(/\{\{[^}]*\}\}/);
+  // Images under /img/ get a hash of their bytes in the URL, so replacing a file is a new
+  // URL and no cache in front of the site keeps serving the old picture.
+  const versioned = out.replace(/src="(\/img\/[^"?]+)"/g, (_, f) =>
+    `src="${f}?v=${createHash('sha1').update(readFileSync(join(ROOT, f))).digest('hex').slice(0, 8)}"`);
+  const left = versioned.match(/\{\{[^}]*\}\}/);
   if (left) throw new Error(`unfilled placeholder ${left[0]}`);
-  return out;
+  return versioned;
 }
 
 function readPage(file) {
