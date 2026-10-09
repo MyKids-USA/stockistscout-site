@@ -442,7 +442,9 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 .grow { margin-top: 28px; }
 .grow h3 { font-size: 21px; }
 .grow .table-wrap { margin-top: 16px; }
-.family-story .faces { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 22px; }
-.family-story .faces .avatar { width: 64px; height: 64px; border-radius: 50%; }
+.family-story .faces { display: flex; flex-wrap: wrap; gap: 14px 16px; margin: 0 0 22px; }
+.family-story .faces figure { margin: 0; text-align: center; width: 72px; }
+.family-story .faces figcaption { margin-top: 6px; font-size: 14px; font-weight: 600; color: var(--ink); }
+.family-story .faces .avatar { width: 72px; height: 72px; border-radius: 50%; }
 .family-story p { max-width: 720px; }
 .family-note { margin-top: 22px; color: var(--muted); font-size: 14.5px; }
