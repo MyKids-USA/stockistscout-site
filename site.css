@@ -512,3 +512,10 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 .custom-avatars img { width: 100%; height: auto; aspect-ratio: 1; border-radius: 50%; display: block; box-shadow: 0 2px 8px rgba(15,42,74,.12); }
 .plan .team .custom { font-size: 13px; font-weight: 500; color: var(--green-text, #11785a); text-decoration: none; }
 .plan .team .custom:hover { text-decoration: underline; }
+
+/* Open for business: log in and start free in the header */
+.nav-end { gap: 10px; }
+.nav-login, .nav-cta { padding: 8px 14px; font-size: 14px; white-space: nowrap; }
+@media (max-width: 900px) { .nav-end { flex-wrap: wrap; } }
+.site-nav .nav-end { margin-left: 18px; }
+@media (max-width: 1280px) { .site-nav .nav-links a { padding-left: 8px; padding-right: 8px; } .nav-login, .nav-cta { padding: 7px 11px; } }

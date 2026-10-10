@@ -26,9 +26,12 @@ export const WAITLIST_API = 'https://api.binsusa.com/api/stockistscout/waitlist'
    Routing once that is set up; the waitlist never depends on it. */
 export const CONTACT_EMAIL = 'sales@stockistscout.com';
 
-export const CTA_URL = '/contact';
-export const CTA_LABEL = WAITLIST_OPEN ? 'Join the waitlist' : 'Coming soon';
-export const CTA_LABEL_ES = WAITLIST_OPEN ? 'Únete a la lista de espera' : 'Próximamente';
+/* Open for business (Aharon, 10 Oct 2026): the call to action is the free trial in the app, no waitlist. */
+export const APP_URL = 'https://app.stockistscout.com';
+export const CTA_URL = `${APP_URL}/signup`;
+export const LOGIN_URL = `${APP_URL}/login`;
+export const CTA_LABEL = 'Start free';
+export const CTA_LABEL_ES = 'Empieza gratis';
 
 /** The one call-to-action button; `cls` is the button style of the place it sits in. */
 export function ctaButton(cls) {
@@ -164,6 +167,8 @@ function header(path) {
 ${links}
       </div>
       <div class="nav-end">
+        <a class="btn btn-ghost nav-login" href="${LOGIN_URL}" data-es="Iniciar sesión">Log in</a>
+        <a class="btn btn-primary nav-cta" href="${CTA_URL}" data-es="Empieza gratis">Start free</a>
         <div class="lang" id="langToggle" role="group" aria-label="Language">
           <button type="button" data-lang="en" aria-pressed="true">English</button>
           <button type="button" data-lang="es" aria-pressed="false">Español</button>
@@ -180,7 +185,7 @@ function footer() {
     <div class="foot-brand">
       <a class="foot-logo" href="/" aria-label="StockistScout, home" data-es-label="StockistScout, inicio"><img src="/img/logo-dark-520.png" alt="StockistScout" width="196" height="52" loading="lazy"></a>
       <p data-es="Agentes de IA que encuentran tiendas que encajan con tus productos y les escriben en nombre de tu negocio. Solo B2B: tiendas, nunca consumidores.">AI agents that find stores that fit your products and write to them on behalf of your business. B2B only: stores, never consumers.</p>
-      <p class="disclaimer" data-es="Abre pronto: únete a la lista de espera. Ningún resultado de ventas está garantizado.">Opening soon: join the waitlist. No sales results are guaranteed.</p>
+      <p class="disclaimer" data-es="Prueba gratis con 50 correos, sin tarjeta. Ningún resultado de ventas está garantizado.">Free trial with 50 emails, no card needed. No sales results are guaranteed.</p>
     </div>
     <nav aria-label="Product" data-es-label="Producto">
       <h2 data-es="Producto">Product</h2>
@@ -367,7 +372,7 @@ export function ctaBand() {
   <div class="wrap cta-inner">
     <div>
       <h2 data-es="Deja que un agente encuentre tus próximas tiendas.">Let an agent find your next stockists.</h2>
-      <p data-es="StockistScout abre pronto. Únete a la lista de espera y te escribiremos cuando haya lugar.">StockistScout opens soon. Join the waitlist and we will write when there is room.</p>
+      <p data-es="Empieza con una prueba gratis de 50 correos, sin tarjeta. Configura tu negocio, tu cliente ideal y tu oferta, y tu agente empieza a buscar.">Start with a free trial of 50 emails, no card needed. Set up your business, your ideal customer and your offer, and your agent starts looking.</p>
     </div>
     <div class="cta-actions">
       ${ctaButton('btn-light')}

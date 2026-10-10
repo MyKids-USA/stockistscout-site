@@ -404,8 +404,8 @@
       el.panel.style.display = 'flex';
       launcher.style.display = 'none';
       if (!el.log.children.length) {
-        say('assistant', L('¡Hola! 👋 Soy Katya. Pregúntame cómo los agentes de StockistScout encuentran tiendas para tus productos, por los planes o cómo unirte a la lista de espera.',
-                           'Hi! 👋 I\u2019m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to join the waitlist.'));
+        say('assistant', L('¡Hola! 👋 Soy Katya. Pregúntame cómo los agentes de StockistScout encuentran tiendas para tus productos, por los planes o cómo empezar tu prueba gratis.',
+                           'Hi! 👋 I\u2019m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to start your free trial.'));
       }
       el.input.focus();
     }
