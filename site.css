@@ -519,3 +519,17 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 @media (max-width: 900px) { .nav-end { flex-wrap: wrap; } }
 .site-nav .nav-end { margin-left: 18px; }
 @media (max-width: 1280px) { .site-nav .nav-links a { padding-left: 8px; padding-right: 8px; } .nav-login, .nav-cta { padding: 7px 11px; } }
+
+/* Screenshots of the app (sample account, fictional names) */
+.app-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 28px; }
+.app-shot { margin: 0; }
+.shot-frame { display: block; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 12px 32px rgba(15, 42, 74, .10); transition: transform .15s ease, box-shadow .15s ease; }
+.shot-frame:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(15, 42, 74, .16); }
+.shot-bar { display: flex; gap: 6px; padding: 9px 12px; background: var(--line-2); border-bottom: 1px solid var(--line); }
+.shot-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+.shot-frame img { display: block; width: 100%; height: auto; }
+.app-shot figcaption { margin-top: 12px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.app-shot figcaption strong { color: var(--ink); }
+.shots-note { margin-top: 6px; }
+.feature-shot { margin: 28px 0 0; }
+@media (max-width: 800px) { .app-shots { grid-template-columns: 1fr; gap: 22px; } }

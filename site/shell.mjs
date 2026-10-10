@@ -237,6 +237,8 @@ const SCRIPT = `<script>
       el.innerHTML = (lang === 'es') ? el.dataset.es : el.dataset.en;
     });
     swap('[data-es-alt]', 'alt', 'enAlt', 'esAlt', lang);
+    swap('[data-es-src]', 'src', 'enSrc', 'esSrc', lang);
+    swap('[data-es-href]', 'href', 'enHref', 'esHref', lang);
     swap('[data-es-placeholder]', 'placeholder', 'enPlaceholder', 'esPlaceholder', lang);
     swap('[data-es-label]', 'aria-label', 'enLabel', 'esLabel', lang);
     document.documentElement.lang = (lang === 'es') ? 'es' : 'en';
