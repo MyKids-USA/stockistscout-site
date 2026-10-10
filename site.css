@@ -506,3 +506,9 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
   .katya-bubble { right: 88px; max-width: calc(100vw - 112px); }
 }
 @media (prefers-reduced-motion: reduce) { .katya-bubble { transition: none; } }
+
+/* Custom agents: the avatar gallery */
+.custom-avatars { list-style: none; margin: 0 0 28px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 14px; max-width: 1000px; }
+.custom-avatars img { width: 100%; height: auto; aspect-ratio: 1; border-radius: 50%; display: block; box-shadow: 0 2px 8px rgba(15,42,74,.12); }
+.plan .team .custom { font-size: 13px; font-weight: 500; color: var(--green-text, #11785a); text-decoration: none; }
+.plan .team .custom:hover { text-decoration: underline; }

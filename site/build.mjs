@@ -11,7 +11,7 @@
  * Placeholders inside a fragment: {{CTA_BUTTON}} {{CTA_BUTTON_LIGHT}} {{CTA}}
  * {{WAITLIST_FORM}} (the waitlist form, one per page), {{CONTACT_EMAIL}},
  * {{AGENTS}} / {{AGENTS_FULL}} (the eight agent cards, short and long) and
- * {{AVATAR:Name}} (one agent's picture).
+ * {{AVATAR:Name}} (one agent's picture) and {{CUSTOM_AVATARS}} (the custom-agent avatar gallery).
  */
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -33,6 +33,12 @@ function agentCards(full) {
 </li>`).join('\n');
 }
 
+/* The 20 avatars a customer can give a custom agent (same files as the app's gallery). */
+function customAvatars() {
+  return readdirSync(join(ROOT, 'img/agents/custom')).filter((f) => /^a\d{2}\.png$/.test(f)).sort()
+    .map((f) => `      <li><img class="avatar" src="/img/agents/custom/${f}" alt="" width="72" height="72" loading="lazy" decoding="async"></li>`).join('\n');
+}
+
 function fill(html) {
   const out = html
     .replaceAll('{{CTA_BUTTON}}', ctaButton('btn-primary'))
@@ -42,6 +48,7 @@ function fill(html) {
     .replaceAll('{{CONTACT_EMAIL}}', CONTACT_EMAIL)
     .replaceAll('{{AGENTS}}', agentCards(false))
     .replaceAll('{{AGENTS_FULL}}', agentCards(true))
+    .replaceAll('{{CUSTOM_AVATARS}}', customAvatars())
     .replace(/\{\{AVATAR:(\w+)\}\}/g, (_, name) => {
       if (!AGENTS.some((a) => a.name === name)) throw new Error(`unknown agent ${name}`);
       return agentImg(name, 44, false);
