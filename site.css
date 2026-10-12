@@ -533,3 +533,8 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 .shots-note { margin-top: 6px; }
 .feature-shot { margin: 28px 0 0; }
 @media (max-width: 800px) { .app-shots { grid-template-columns: 1fr; gap: 22px; } }
+
+/* Katya, the setup coach (features#setup). */
+.katya-intro { display: flex; gap: 18px; align-items: center; }
+.katya-intro img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: none; }
+@media (max-width: 560px) { .katya-intro { align-items: flex-start; } .katya-intro img { width: 52px; height: 52px; } }
