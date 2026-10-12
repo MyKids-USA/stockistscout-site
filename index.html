@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="/site.css?v=72a2a74736">
+<link rel="stylesheet" href="/site.css?v=c202e2f223">
 </head>
 <body>
 <a class="skip" href="#main" data-es="Ir al contenido">Skip to content</a>
@@ -202,9 +202,12 @@
   fetch('https://app.stockistscout.com/api/public/testimonials').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     var list = d && d.testimonials; if (!list || !list.length) return;
     document.getElementById('reviewList').innerHTML = list.map(function (t) {
-      var who = esc(t.display_name) + (t.role ? ', ' + esc(t.role) : '') + (t.company ? ' &middot; ' + esc(t.company) : '');
+      var logo = t.logo_url && /^https:\/\/app\.stockistscout\.com\//.test(t.logo_url)
+        ? '<img src="' + esc(t.logo_url) + '" alt="" width="44" height="44" loading="lazy">'
+        : '<span class="review-logo-empty" aria-hidden="true">' + esc((t.company || t.name || '?').slice(0, 1)) + '</span>';
+      var who = '<strong>' + esc(t.name) + (t.title ? ', ' + esc(t.title) : '') + '</strong>' + (t.company ? '<span>' + esc(t.company) + '</span>' : '');
       return '<figure class="card review"><div class="review-stars" aria-label="' + t.rating + ' / 5">' + '\u2605'.repeat(t.rating) + '<span>' + '\u2605'.repeat(5 - t.rating) + '</span></div>'
-        + '<blockquote>&ldquo;' + esc(t.body) + '&rdquo;</blockquote><figcaption>' + who + '</figcaption></figure>';
+        + '<blockquote>&ldquo;' + esc(t.body) + '&rdquo;</blockquote><figcaption>' + logo + '<span class="review-who">' + who + '</span></figcaption></figure>';
     }).join('');
     document.getElementById('reviews').hidden = false;
   }).catch(function () {});

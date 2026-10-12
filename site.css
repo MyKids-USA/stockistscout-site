@@ -543,4 +543,7 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 .review { margin: 0; display: grid; gap: 10px; }
 .review-stars { color: #f5a524; font-size: 18px; letter-spacing: 2px; } .review-stars span { color: var(--line); }
 .review blockquote { margin: 0; color: var(--ink-2); }
-.review figcaption { font-weight: 600; font-size: 14px; }
+.review figcaption { display: flex; gap: 12px; align-items: center; font-size: 14px; }
+.review figcaption img, .review-logo-empty { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background: #fff; border: 1px solid var(--line); flex: none; }
+.review-logo-empty { display: grid; place-items: center; font-weight: 700; color: var(--muted); }
+.review-who { display: grid; } .review-who span { color: var(--muted); font-size: 13px; }
