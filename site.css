@@ -538,3 +538,9 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 .katya-intro { display: flex; gap: 18px; align-items: center; }
 .katya-intro img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: none; }
 @media (max-width: 560px) { .katya-intro { align-items: flex-start; } .katya-intro img { width: 52px; height: 52px; } }
+
+/* Customer reviews on the home page (approved in the admin). */
+.review { margin: 0; display: grid; gap: 10px; }
+.review-stars { color: #f5a524; font-size: 18px; letter-spacing: 2px; } .review-stars span { color: var(--line); }
+.review blockquote { margin: 0; color: var(--ink-2); }
+.review figcaption { font-weight: 600; font-size: 14px; }
