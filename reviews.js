@@ -9,10 +9,16 @@
     var logo = t.logo_url && /^https:\/\/app\.stockistscout\.com\//.test(t.logo_url)
       ? '<img src="' + esc(t.logo_url) + '" alt="" width="44" height="44" loading="lazy">'
       : '<span class="review-logo-empty" aria-hidden="true">' + esc((t.company || t.name || '?').slice(0, 1)) + '</span>';
-    var who = '<strong>' + esc(t.name) + (t.title ? ', ' + esc(t.title) : '') + '</strong>' + (t.company ? '<span>' + esc(t.company) + '</span>' : '');
     var n = Math.max(1, Math.min(5, t.rating | 0));
-    return '<figure class="card review"><div class="review-stars" aria-label="' + n + ' / 5">' + '★'.repeat(n) + '<span>' + '★'.repeat(5 - n) + '</span></div>'
-      + '<blockquote>&ldquo;' + esc(t.body) + '&rdquo;</blockquote><figcaption>' + logo + '<span class="review-who">' + who + '</span></figcaption></figure>';
+    // Both languages ride along in data-en / data-es, like the rest of the site, so the language switch swaps them.
+    // They hold HTML that the switch puts back with innerHTML: escaped twice, so the reader's text never becomes markup.
+    var es = document.documentElement.lang === 'es';
+    var bodyEn = '&ldquo;' + esc(t.body_en || t.body) + '&rdquo;', bodyEs = '&ldquo;' + esc(t.body_es || t.body) + '&rdquo;';
+    var whoEn = esc(t.name) + ((t.title_en || t.title) ? ', ' + esc(t.title_en || t.title) : '');
+    var whoEs = esc(t.name) + ((t.title_es || t.title) ? ', ' + esc(t.title_es || t.title) : '');
+    var who = '<strong data-en="' + esc(whoEn) + '" data-es="' + esc(whoEs) + '">' + (es ? whoEs : whoEn) + '</strong>' + (t.company ? '<span>' + esc(t.company) + '</span>' : '');
+    return '<figure class="card review"><div class="review-stars" aria-label="' + n + ' / 5">' + '\u2605'.repeat(n) + '<span>' + '\u2605'.repeat(5 - n) + '</span></div>'
+      + '<blockquote data-en="' + esc(bodyEn) + '" data-es="' + esc(bodyEs) + '">' + (es ? bodyEs : bodyEn) + '</blockquote><figcaption>' + logo + '<span class="review-who">' + who + '</span></figcaption></figure>';
   }
   fetch('https://app.stockistscout.com/api/public/testimonials').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     var list = (d && d.testimonials) || [];
