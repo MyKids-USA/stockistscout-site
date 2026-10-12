@@ -129,28 +129,12 @@
   </div>
 </section>
 
-<section class="wrap" id="reviews" hidden style="padding-bottom:72px">
+<section class="wrap" id="reviews" data-reviews data-limit="3" hidden style="padding-bottom:72px">
   <h2 style="font-size:clamp(26px,3.6vw,36px);margin-bottom:24px" data-es="Lo que dicen nuestros clientes">What our customers say</h2>
-  <div class="grid" id="reviewList"></div>
+  <div class="grid" data-reviews-list></div>
+  <p class="more" style="margin-top:16px" data-es="<a href=&quot;/reviews&quot;>Ver todas las reseñas &rarr;</a>"><a href="/reviews">See all reviews &rarr;</a></p>
 </section>
-<script>
-/* Reviews customers wrote in the app and we approved (app.stockistscout.com). Hidden until there is one. */
-(function () {
-  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-  fetch('https://app.stockistscout.com/api/public/testimonials').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
-    var list = d && d.testimonials; if (!list || !list.length) return;
-    document.getElementById('reviewList').innerHTML = list.map(function (t) {
-      var logo = t.logo_url && /^https:\/\/app\.stockistscout\.com\//.test(t.logo_url)
-        ? '<img src="' + esc(t.logo_url) + '" alt="" width="44" height="44" loading="lazy">'
-        : '<span class="review-logo-empty" aria-hidden="true">' + esc((t.company || t.name || '?').slice(0, 1)) + '</span>';
-      var who = '<strong>' + esc(t.name) + (t.title ? ', ' + esc(t.title) : '') + '</strong>' + (t.company ? '<span>' + esc(t.company) + '</span>' : '');
-      return '<figure class="card review"><div class="review-stars" aria-label="' + t.rating + ' / 5">' + '\u2605'.repeat(t.rating) + '<span>' + '\u2605'.repeat(5 - t.rating) + '</span></div>'
-        + '<blockquote>&ldquo;' + esc(t.body) + '&rdquo;</blockquote><figcaption>' + logo + '<span class="review-who">' + who + '</span></figcaption></figure>';
-    }).join('');
-    document.getElementById('reviews').hidden = false;
-  }).catch(function () {});
-})();
-</script>
+<script src="/reviews.js?v=2" defer></script>
 
 <section class="section explore">
   <div class="wrap">

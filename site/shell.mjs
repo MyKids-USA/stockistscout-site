@@ -53,6 +53,7 @@ export const NAV = [
   ['/agents', 'Meet our agents', 'Conoce a nuestros agentes'],
   ['/pricing', 'Pricing', 'Precios'],
   ['/results', 'Results', 'Resultados'],
+  ['/reviews', 'Reviews', 'Reseñas'],
   ['/faq', 'FAQ', 'Preguntas'],
   ['/about', 'About', 'Quiénes somos'],
   ['/contact', 'Contact', 'Contacto'],
