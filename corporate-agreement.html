@@ -152,12 +152,15 @@
   </ul>
 
   <h2 id="order-form" data-es="Anexo A. Orden de compra">Exhibit A. Order Form</h2>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap">
   <p data-es="Esta Orden de compra se rige por el Contrato de suscripción corporativa de esta página. Rellénala aquí: el precio y los totales se calculan solos. Enviarla es la firma electrónica del Cliente: te mandamos una copia al momento, después la firmamos nosotros y te enviamos el Contrato firmado por las dos partes. La primera factura se paga completa al firmarla nosotros.">This Order Form is governed by the Corporate Subscription Agreement on this page. Fill it in here: the price and totals are worked out for you. Sending it, the signer accepts the Agreement on the Customer's behalf; we countersign and send it back by email.</p>
   <form id="orderForm" class="card contact-form" novalidate style="padding:24px;margin:16px 0 40px">
     <div class="field"><label for="of-legal" data-es="Razón social del Cliente">Customer legal name</label><input id="of-legal" name="customer_legal_name" autocomplete="organization" required></div>
     <div class="field" style="margin-top:16px"><label for="of-address" data-es="Dirección">Address</label><textarea id="of-address" name="address" rows="2" style="min-height:70px" autocomplete="street-address" required></textarea></div>
     <div class="field-row" style="margin-top:16px">
-      <div class="field"><label for="of-signer" data-es="Nombre del firmante">Signer's full name</label><input id="of-signer" name="signer_name" autocomplete="name" required></div>
+      <div class="field"><label for="of-signer" data-es="Nombre del firmante">Signer's full name</label><input id="of-signer" name="signer_name" autocomplete="name" required>
+        <div id="of-sigprev" aria-hidden="true" style="font-family:'Great Vibes',cursive;font-size:34px;line-height:1.1;color:#0d2169;border-bottom:1px solid var(--ink);min-height:44px;padding:4px 2px 0;margin-top:6px"></div>
+        <span class="muted small" data-es="Así se verá tu firma en el contrato.">This is how your signature will look on the agreement.</span></div>
       <div class="field"><label for="of-title" data-es="Cargo">Title</label><input id="of-title" name="signer_title" autocomplete="organization-title"></div>
     </div>
     <div class="field" style="margin-top:16px"><label for="of-email" data-es="Correo del firmante">Signer's email</label><input id="of-email" name="signer_email" type="email" autocomplete="email" required></div>
@@ -196,8 +199,8 @@
       <span data-es="Tengo autoridad para firmar por el Cliente y acepto este Contrato y esta Orden de compra. Mi nombre escrito arriba es mi firma.">I have authority to sign for the Customer, and I accept this Agreement and this Order Form. My name typed above is my signature.</span>
     </label>
     <p class="no-print" style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-primary" type="submit" data-es="Enviar orden de compra">Send order form</button>
-      <button class="btn btn-ghost" type="button" id="of-print" data-es="Imprimir / guardar PDF">Print / save as PDF</button>
+      <button class="btn btn-primary" type="submit" disabled data-es="Firmar y enviar">Sign and send</button>
+      <span class="muted small" id="of-needcheck" data-es="Marca la casilla de aceptación para poder firmar.">Tick the acceptance box to sign.</span>
     </p>
     <p class="form-status" role="status" hidden></p>
   </form>
@@ -238,7 +241,13 @@
     f.users.addEventListener('change', render); f.billing.addEventListener('change', render);
     document.querySelectorAll('#langToggle button').forEach(function (b) { b.addEventListener('click', function () { setTimeout(render, 0); }); });
     render();
-    document.getElementById('of-print').addEventListener('click', function () { window.print(); });
+    // Nothing is signed (and no PDF exists) until the acceptance box is ticked.
+    var sendBtn = form.querySelector('button[type=submit]'), needCheck = document.getElementById('of-needcheck');
+    function gate() { sendBtn.disabled = !f.accept.checked; needCheck.hidden = f.accept.checked; }
+    f.accept.addEventListener('change', gate); gate();
+    var prev = document.getElementById('of-sigprev');
+    function sig() { prev.textContent = f.signer_name.value.trim(); }
+    f.signer_name.addEventListener('input', sig); sig();
     function say(en, sp) { status.innerHTML = es() ? sp : en; status.hidden = false; }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -259,8 +268,12 @@
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { code: r.status, body: j }; }); })
         .then(function (res) {
           if (res.code === 200 && res.body.ok) {
-            say('<strong>Thank you. Your order form was sent.</strong> We will countersign it and email it back to ' + data.signer_email + ' within one business day. You can print this page now for your records.',
-                '<strong>Gracias. Tu orden de compra se envió.</strong> La firmaremos y te la devolveremos por correo a ' + data.signer_email + ' en un día hábil. Puedes imprimir esta página ahora para tu archivo.');
+            var dl = res.body.pdf_url ? '<p style="margin:12px 0 0"><a class="btn btn-primary" href="' + res.body.pdf_url + '">' + (es() ? 'Descargar tu contrato firmado (PDF)' : 'Download your signed agreement (PDF)') + '</a></p>' : '';
+            var done = document.createElement('div'); done.className = 'note'; done.setAttribute('role', 'status'); done.setAttribute('tabindex', '-1');
+            done.innerHTML = (es()
+              ? '<p><strong>Gracias. Firmaste la orden de compra.</strong> Te enviamos una copia del contrato firmado a ' + data.signer_email + '. Lo firmaremos nosotros y te enviaremos el contrato firmado por las dos partes, con el enlace para pagar la primera factura, en un día hábil.</p>'
+              : '<p><strong>Thank you. You signed the order form.</strong> A copy of the signed agreement is on its way to ' + data.signer_email + '. We will countersign it and email you the agreement signed by both parties, with the link to pay the first invoice, within one business day.</p>') + dl;
+            form.replaceChildren(done); done.focus();
             return;
           }
           btn.disabled = false;
