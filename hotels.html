@@ -172,6 +172,7 @@
   if (!form) return;
   var status = form.querySelector('.form-status');
   var btn = form.querySelector('button[type=submit]');
+  var loaded = Date.now();
   function es() { return document.documentElement.lang === 'es'; }
   function say(en, sp) { status.innerHTML = es() ? sp : en; status.hidden = false; }
   form.addEventListener('submit', function (e) {
@@ -179,7 +180,7 @@
     var f = form.elements;
     var data = { name: f.name.value.trim(), title: f.title.value.trim(), email: f.email.value.trim(), company: f.company.value.trim(),
       properties: f.properties.value, users: f.users.value, phone: f.phone.value.trim(), message: f.message.value.trim(),
-      nickname: f.nickname.value, language: es() ? 'es' : 'en' };
+      nickname: f.nickname.value, language: es() ? 'es' : 'en', elapsed_ms: Date.now() - loaded };
     var bad = [];
     if (!data.name) bad.push(f.name);
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email)) bad.push(f.email);
@@ -197,7 +198,9 @@
           form.replaceChildren(done); done.focus(); return;
         }
         btn.disabled = false;
-        if (res.code === 429) say('Too many tries from this connection. Please write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.', 'Demasiados intentos desde esta conexión. Escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.');
+        if (res.code === 400 && res.body.error === 'email_domain') { f.email.setAttribute('aria-invalid', 'true'); f.email.focus();
+          say('That email address cannot receive mail. Please check it.', 'Ese correo no puede recibir mensajes. Revísalo, por favor.'); }
+        else if (res.code === 429) say('Too many tries from this connection. Please write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.', 'Demasiados intentos desde esta conexión. Escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.');
         else say('We could not send it. Please try again, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.', 'No pudimos enviarlo. Vuelve a intentarlo o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.');
       })
       .catch(function () { btn.disabled = false; say('We could not send it. Please try again, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.', 'No pudimos enviarlo. Vuelve a intentarlo o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.'); });
