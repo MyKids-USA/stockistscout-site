@@ -205,6 +205,7 @@ function footer() {
       <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
       <a href="/privacy" data-es="Privacidad">Privacy</a>
       <a href="/terms" data-es="Términos">Terms</a>
+      <a href="/corporate-agreement" data-es="Contrato corporativo">Corporate agreement</a>
     </nav>
     <nav aria-label="Our other products" data-es-label="Nuestros otros productos">
       <h2 data-es="Del mismo equipo">From the same team</h2>
