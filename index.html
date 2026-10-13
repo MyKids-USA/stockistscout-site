@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="/site.css?v=c202e2f223">
+<link rel="stylesheet" href="/site.css?v=7616ce5b49">
 </head>
 <body>
 <a class="skip" href="#main" data-es="Ir al contenido">Skip to content</a>
@@ -101,6 +101,33 @@
     </figure>
   </div>
 </section>
+
+<section class="section" id="video">
+  <div class="wrap">
+    <p class="eyebrow" data-es="En 60 segundos">In 60 seconds</p>
+    <h2 data-es="Katya te muestra StockistScout.">Katya shows you StockistScout.</h2>
+    <div class="promo-video" data-yt="HE0cuxSvniM" data-yt-es="HE0cuxSvniM">
+      <button type="button" class="promo-play" aria-label="Play the video" data-es-label="Ver el vídeo">
+        <img src="/img/video/katya-en.jpg?v=cfaf9fb5" data-es-src="/img/video/katya-es.jpg?v=274e77a2" alt="Katya presents StockistScout" data-es-alt="Katya presenta StockistScout" width="1280" height="720" loading="lazy" decoding="async">
+        <span class="promo-btn" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</section>
+<script>
+/* The YouTube player loads only on click, in the language the page is showing. It must send a referrer
+   (strict-origin-when-cross-origin) or YouTube refuses to play it (error 153). */
+document.querySelectorAll('.promo-video').forEach(function (box) {
+  box.querySelector('.promo-play').addEventListener('click', function () {
+    var id = document.documentElement.lang === 'es' ? box.dataset.ytEs : box.dataset.yt;
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+    f.title = 'StockistScout'; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.referrerPolicy = 'strict-origin-when-cross-origin'; f.allowFullscreen = true;
+    box.innerHTML = ''; box.appendChild(f);
+  });
+});
+</script>
 
 <section class="section" id="inside">
   <div class="wrap">

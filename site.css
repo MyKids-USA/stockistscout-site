@@ -547,3 +547,14 @@ html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
 .review figcaption img, .review-logo-empty { width: 44px; height: 44px; border-radius: 10px; object-fit: contain; background: #fff; border: 1px solid var(--line); flex: none; }
 .review-logo-empty { display: grid; place-items: center; font-weight: 700; color: var(--muted); }
 .review-who { display: grid; } .review-who span { color: var(--muted); font-size: 13px; }
+
+/* Promo video: a thumbnail until clicked, then the YouTube player in the same 16:9 box. */
+.promo-video { position: relative; max-width: 960px; margin: 28px auto 0; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; background: #0b1f33; box-shadow: 0 24px 60px -24px rgba(15, 40, 70, .35); }
+.promo-video iframe, .promo-play, .promo-play img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.promo-play { padding: 0; cursor: pointer; background: none; }
+.promo-play img { object-fit: cover; }
+.promo-btn { position: absolute; left: 68%; top: 76%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: rgba(15, 122, 90, .92); box-shadow: 0 10px 30px rgba(0,0,0,.3); transition: transform .15s; }
+.promo-btn::after { content: ""; position: absolute; left: 34px; top: 26px; border-style: solid; border-width: 16px 0 16px 26px; border-color: transparent transparent transparent #fff; }
+.promo-play:hover .promo-btn, .promo-play:focus-visible .promo-btn { transform: scale(1.08); }
+@media (max-width: 600px) { .promo-btn { width: 56px; height: 56px; margin: -28px 0 0 -28px; } .promo-btn::after { left: 22px; top: 17px; border-width: 11px 0 11px 18px; } }
+#video .wrap { text-align: center; }
