@@ -52,6 +52,7 @@ export const NAV = [
   ['/features', 'Features', 'Funciones'],
   ['/agents', 'Meet our agents', 'Conoce a nuestros agentes'],
   ['/pricing', 'Pricing', 'Precios'],
+  ['/hotels', 'For hotels', 'Para hoteles'],
   ['/results', 'Results', 'Resultados'],
   ['/reviews', 'Reviews', 'Reseñas'],
   ['/faq', 'FAQ', 'Preguntas'],
@@ -193,6 +194,7 @@ function footer() {
       <a href="/how-it-works" data-es="Cómo funciona">How it works</a>
       <a href="/features" data-es="Funciones">Features</a>
       <a href="/pricing" data-es="Precios">Pricing</a>
+      <a href="/hotels" data-es="Para cadenas de hoteles">For hotel chains</a>
       <a href="/results" data-es="Resultados">Results</a>
       <a href="/faq" data-es="Preguntas frecuentes">FAQ</a>
     </nav>
