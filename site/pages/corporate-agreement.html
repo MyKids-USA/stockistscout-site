@@ -1,4 +1,4 @@
-<!--{"path":"/corporate-agreement","title":"Corporate Subscription Agreement","titleEs":"Contrato de suscripción corporativa","description":"The annual Corporate Subscription Agreement for StockistScout corporate plans: 12-month term, users, fees and invoicing, the shared do-not-contact list, data, confidentiality and limits of liability, with the Order Form.","updated":"2026-10-13"}-->
+<!--{"path":"/corporate-agreement","title":"Corporate Subscription Agreement","titleEs":"Contrato de suscripción corporativa","description":"The annual Corporate Subscription Agreement for StockistScout corporate plans: 12-month term, users, fees and invoicing, the shared do-not-contact list, data, confidentiality and limits of liability, with the Order Form.","updated":"2026-10-14"}-->
 <div class="wrap">
 <article class="legal">
   <h1 data-es="Contrato de suscripción corporativa">Corporate Subscription Agreement</h1>
@@ -11,8 +11,8 @@
   <h2 data-es="2. El servicio">2. The service</h2>
   <p data-es="Cada usuario (un gerente de ventas con nombre) recibe una cuenta de hotel o sede en StockistScout con:">Each user (one named sales manager) gets one hotel or location account in StockistScout with:</p>
   <ul>
-    <li data-es="Un agente de ventas de IA que busca empresas que encajan con el cliente ideal de esa sede y les escribe en su nombre, con un primer correo y un seguimiento.">One AI sales agent that looks for companies matching that location’s ideal customer and writes to them on its behalf, with a first email and one follow-up.</li>
-    <li data-es="Unos 1.000 correos al mes, salvo que la Orden de compra diga otra cosa. Los correos no usados no se acumulan.">About 1,000 emails a month, unless the Order Form says otherwise. Unused emails do not carry over.</li>
+    <li data-es="Agentes de ventas de IA según el número de usuarios de la Orden de compra: 2 por usuario con 10 o 25 usuarios, 3 con 50 o 100, 4 con 250, 5 con 500, 6 con 1.000 y 8 con 2.500 o más. Cada agente busca empresas que encajan con un cliente ideal de esa sede, en un país (Estados Unidos o México), y les escribe en su nombre, con un primer correo y un seguimiento.">AI sales agents, by the number of users in the Order Form: 2 per user for 10 or 25 users, 3 for 50 or 100, 4 for 250, 5 for 500, 6 for 1,000, and 8 for 2,500 or more. Each agent looks for companies matching one ideal customer of that location, in one country (the United States or Mexico), and writes to them on its behalf, with a first email and one follow-up.</li>
+    <li data-es="Unos 1.000 correos al mes, compartidos entre sus agentes, salvo que la Orden de compra diga otra cosa. Los correos no usados no se acumulan.">About 1,000 emails a month, shared by its agents, unless the Order Form says otherwise. Unused emails do not carry over.</li>
     <li data-es="Su propio dominio de envío, calentado poco a poco, para que una sede nunca afecte la entrega de otra.">Its own sending domain, warmed up step by step, so one location never affects the delivery of another.</li>
     <li data-es="Reportes de lo encontrado, enviado, abierto y respondido.">Reports of what was found, sent, opened and answered.</li>
   </ul>
@@ -152,6 +152,8 @@
   (function () {
     // The corporate price list (stockistscout.com/hotels; the server works it out again from its own copy).
     var TIERS = { 10: 199, 25: 179, 50: 159, 100: 139, 250: 119, 500: 99, 1000: 79, 2500: 69, 5000: 59, 7500: 52, 10000: 49 };
+    // Agents per user by the number of users (Aharon, 14 Oct 2026: from 2, up with the plan, at most 8).
+    var AGENTS = { 10: 2, 25: 2, 50: 3, 100: 3, 250: 4, 500: 5, 1000: 6, 2500: 8, 5000: 8, 7500: 8, 10000: 8 };
     var form = document.getElementById('orderForm'); if (!form) return;
     var f = form.elements, quote = document.getElementById('of-quote'), status = form.querySelector('.form-status');
     var loaded = Date.now();
@@ -171,8 +173,8 @@
       var inv = b === 'annual' ? annual : b === 'quarterly' ? annual / 4 : monthly;
       var bl = es() ? { annual: 'cada año', quarterly: 'cada trimestre', monthly: 'cada mes' } : { annual: 'each year', quarterly: 'each quarter', monthly: 'each month' };
       quote.innerHTML = es()
-        ? '<p style="margin:0 0 4px"><strong>' + usd(per) + '</strong> por usuario al mes × ' + n.toLocaleString('en-US') + ' usuarios</p><p style="margin:0">Total al mes: <strong>' + usd(monthly) + '</strong> · Total anual: <strong>' + usd(annual) + '</strong></p><p style="margin:4px 0 0">Factura: <strong>' + usd(inv) + '</strong> ' + bl[b] + ', por adelantado</p>'
-        : '<p style="margin:0 0 4px"><strong>' + usd(per) + '</strong> per user per month × ' + n.toLocaleString('en-US') + ' users</p><p style="margin:0">Monthly total: <strong>' + usd(monthly) + '</strong> · Annual total: <strong>' + usd(annual) + '</strong></p><p style="margin:4px 0 0">Invoice: <strong>' + usd(inv) + '</strong> ' + bl[b] + ', in advance</p>';
+        ? '<p style="margin:0 0 4px"><strong>' + usd(per) + '</strong> por usuario al mes × ' + n.toLocaleString('en-US') + ' usuarios · ' + AGENTS[u] + ' agentes por usuario</p><p style="margin:0">Total al mes: <strong>' + usd(monthly) + '</strong> · Total anual: <strong>' + usd(annual) + '</strong></p><p style="margin:4px 0 0">Factura: <strong>' + usd(inv) + '</strong> ' + bl[b] + ', por adelantado</p>'
+        : '<p style="margin:0 0 4px"><strong>' + usd(per) + '</strong> per user per month × ' + n.toLocaleString('en-US') + ' users · ' + AGENTS[u] + ' agents per user</p><p style="margin:0">Monthly total: <strong>' + usd(monthly) + '</strong> · Annual total: <strong>' + usd(annual) + '</strong></p><p style="margin:4px 0 0">Invoice: <strong>' + usd(inv) + '</strong> ' + bl[b] + ', in advance</p>';
     }
     f.users.addEventListener('change', render); f.billing.addEventListener('change', render);
     document.querySelectorAll('#langToggle button').forEach(function (b) { b.addEventListener('click', function () { setTimeout(render, 0); }); });
