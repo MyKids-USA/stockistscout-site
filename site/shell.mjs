@@ -376,6 +376,7 @@ ${body.trim()}
 ${footer()}
 ${SCRIPT}
 <script src="/katya.js?v=${KATYA_VERSION}" defer></script>
+<script src="https://api.binsusa.com/api/site/tracker.js" data-site="stockistscout" defer></script>
 </body>
 </html>
 `;
