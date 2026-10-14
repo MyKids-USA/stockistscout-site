@@ -82,6 +82,11 @@ main:focus { outline: none; }
 .nav-links > a:hover { color: var(--ink); }
 .nav-links > a[aria-current="page"] { color: var(--green-text); font-weight: 600; }
 .nav-end { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.nav-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; }
+.nav-phone svg { color: var(--green-text); flex-shrink: 0; }
+.nav-phone:hover { color: var(--green-text); }
+.contact-phone { font-size: 22px; font-weight: 700; margin: 4px 0 10px; }
+.contact-phone a { color: var(--ink); text-decoration: none; }
 .lang { flex-shrink: 0; display: inline-flex; border: 1px solid var(--head-line); border-radius: 8px; overflow: hidden; background: var(--head-bg); }
 .lang button { font: 700 13px var(--sans); padding: 6px 12px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
 .lang button[aria-pressed="true"] { background: var(--navy); color: #fff; }
@@ -105,6 +110,7 @@ main:focus { outline: none; }
   .nav-links > a { font-size: 17px; min-height: 52px; padding: 12px 8px; display: flex; align-items: center; border-bottom: 1px solid var(--line-2); }
   .nav-links > a[aria-current="page"] { box-shadow: inset 4px 0 0 var(--green); padding-left: 16px; }
   .nav-end { margin-top: 16px; flex-wrap: wrap; justify-content: space-between; }
+  .nav-phone { width: 100%; min-height: 48px; font-size: 17px; }
   .lang button { padding: 10px 16px; font-size: 14px; }
 }
 @media (max-width: 420px) { .brand img { width: 150px; } }

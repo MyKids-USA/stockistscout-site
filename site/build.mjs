@@ -17,7 +17,7 @@ import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr } from './shell.mjs';
+import { page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr } from './shell.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
@@ -46,6 +46,9 @@ function fill(html) {
     .replaceAll('{{CTA}}', ctaBand())
     .replaceAll('{{WAITLIST_FORM}}', waitlistForm())
     .replaceAll('{{CONTACT_EMAIL}}', CONTACT_EMAIL)
+    .replaceAll('{{CONTACT_PHONE}}', CONTACT_PHONE)
+    .replaceAll('{{CONTACT_PHONE_DIGITS}}', CONTACT_PHONE_DIGITS)
+    .replaceAll('{{CONTACT_TEL}}', CONTACT_TEL)
     .replaceAll('{{AGENTS}}', agentCards(false))
     .replaceAll('{{AGENTS_FULL}}', agentCards(true))
     .replaceAll('{{CUSTOM_AVATARS}}', customAvatars())

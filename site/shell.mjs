@@ -25,6 +25,11 @@ export const WAITLIST_API = 'https://api.binsusa.com/api/stockistscout/waitlist'
 /* The public address (Aharon, 8 Oct 2026). Mail to it is forwarded by Cloudflare Email
    Routing once that is set up; the waitlist never depends on it. */
 export const CONTACT_EMAIL = 'sales@stockistscout.com';
+// The sales line (Aharon, 14 Oct 2026): Katya answers it, in English or Spanish, any hour.
+export const CONTACT_PHONE = '(401) 41-SCOUT';
+export const CONTACT_PHONE_DIGITS = '(401) 417-2688';
+export const CONTACT_TEL = 'tel:+14014172688';
+const PHONE_ICON = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>';
 
 /* Open for business (Aharon, 10 Oct 2026): the call to action is the free trial in the app, no waitlist. */
 export const APP_URL = 'https://app.stockistscout.com';
@@ -169,6 +174,7 @@ function header(path) {
 ${links}
       </div>
       <div class="nav-end">
+        <a class="nav-phone" href="${CONTACT_TEL}" aria-label="Call StockistScout at ${CONTACT_PHONE_DIGITS}" data-es-label="Llama a StockistScout al ${CONTACT_PHONE_DIGITS}">${PHONE_ICON}<span>${CONTACT_PHONE}</span></a>
         <a class="btn btn-ghost nav-login" href="${LOGIN_URL}" data-es="Iniciar sesión">Log in</a>
         <a class="btn btn-primary nav-cta" href="${CTA_URL}" data-es="Empieza gratis">Start free</a>
         <div class="lang" id="langToggle" role="group" aria-label="Language">
@@ -203,6 +209,7 @@ function footer() {
       <a href="/about" data-es="Quiénes somos">About</a>
       <a href="/contact" data-es="Contacto">Contact</a>
       <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
+      <a href="${CONTACT_TEL}" aria-label="Call ${CONTACT_PHONE_DIGITS}" data-es-label="Llamar al ${CONTACT_PHONE_DIGITS}">${CONTACT_PHONE} · ${CONTACT_PHONE_DIGITS}</a>
       <a href="/privacy" data-es="Privacidad">Privacy</a>
       <a href="/terms" data-es="Términos">Terms</a>
       <a href="/corporate-agreement" data-es="Contrato corporativo">Corporate agreement</a>
