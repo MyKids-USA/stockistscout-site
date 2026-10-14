@@ -124,6 +124,15 @@ function head({ path, title, titleEs, description }) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google tag (gtag.js), GA4 property G-6V3RJHBRL5 (Aharon, 14 Oct 2026) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6V3RJHBRL5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6V3RJHBRL5');
+</script>
 <title${fullEs ? ` data-es="${attr(fullEs)}"` : ''}>${full}</title>
 <meta name="description" content="${esc(description)}">
 ${INDEXABLE ? '' : '<meta name="robots" content="noindex">\n'}<link rel="canonical" href="${url}">
