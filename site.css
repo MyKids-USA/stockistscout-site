@@ -85,6 +85,8 @@ main:focus { outline: none; }
 .nav-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; }
 .nav-phone svg { color: var(--green-text); flex-shrink: 0; }
 .nav-phone:hover { color: var(--green-text); }
+.foot-contact { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+.foot-contact a { font-weight: 600; }
 .contact-phone { font-size: 22px; font-weight: 700; margin: 4px 0 10px; }
 .contact-phone a { color: var(--ink); text-decoration: none; }
 .lang { flex-shrink: 0; display: inline-flex; border: 1px solid var(--head-line); border-radius: 8px; overflow: hidden; background: var(--head-bg); }

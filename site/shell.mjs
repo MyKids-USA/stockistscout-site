@@ -194,6 +194,10 @@ function footer() {
       <a class="foot-logo" href="/" aria-label="StockistScout, home" data-es-label="StockistScout, inicio"><img src="/img/logo-dark-520.png" alt="StockistScout" width="196" height="52" loading="lazy"></a>
       <p data-es="Agentes de IA que encuentran tiendas que encajan con tus productos y les escriben en nombre de tu negocio. Solo B2B: tiendas, nunca consumidores.">AI agents that find stores that fit your products and write to them on behalf of your business. B2B only: stores, never consumers.</p>
       <p class="disclaimer" data-es="Prueba gratis con 50 correos, sin tarjeta. Ningún resultado de ventas está garantizado.">Free trial with 50 emails, no card needed. No sales results are guaranteed.</p>
+      <p class="foot-contact">
+        <a href="${CONTACT_TEL}" aria-label="Call ${CONTACT_PHONE_DIGITS}" data-es-label="Llamar al ${CONTACT_PHONE_DIGITS}">${CONTACT_PHONE} · ${CONTACT_PHONE_DIGITS}</a>
+        <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
+      </p>
     </div>
     <nav aria-label="Product" data-es-label="Producto">
       <h2 data-es="Producto">Product</h2>
@@ -208,8 +212,6 @@ function footer() {
       <h2 data-es="Empresa">Company</h2>
       <a href="/about" data-es="Quiénes somos">About</a>
       <a href="/contact" data-es="Contacto">Contact</a>
-      <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
-      <a href="${CONTACT_TEL}" aria-label="Call ${CONTACT_PHONE_DIGITS}" data-es-label="Llamar al ${CONTACT_PHONE_DIGITS}">${CONTACT_PHONE} · ${CONTACT_PHONE_DIGITS}</a>
       <a href="/privacy" data-es="Privacidad">Privacy</a>
       <a href="/terms" data-es="Términos">Terms</a>
       <a href="/corporate-agreement" data-es="Contrato corporativo">Corporate agreement</a>
