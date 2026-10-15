@@ -193,6 +193,7 @@ main:focus { outline: none; }
 .mock-rows .why { grid-column: 1 / -1; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
 .mock-rows .why::before { content: "Why it fits: "; font-weight: 600; color: var(--ink-2); }
 html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
+html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; }
 .mock-rows .chip { align-self: start; }
 @media (prefers-reduced-motion: no-preference) {
   .mock-rows li { animation: rise .6s ease both; }
@@ -428,6 +429,7 @@ details .ans p:last-child { margin-bottom: 0; }
 .mock-kpis span { font-size: 12.5px; color: var(--muted); line-height: 1.3; }
 .mock-minor { font-size: 12.5px; color: var(--muted); padding-top: 10px; }
 html[lang="es"] .mock-rows .why::before { content: "Por qué encaja: "; }
+html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; }
 
 /* ---------- Footer ---------- */
 .site-foot { background: var(--navy); color: #c6d4e2; padding: 64px 0 28px; font-size: 15.5px; }
