@@ -3,9 +3,10 @@
  * the language script. Change the menu here and run `npm run build`; every page picks it
  * up, because build.mjs re-wraps all of them. Modelled on trademarkscanner.app.
  *
- * Bilingual the bins-usa.com way: English is the real text in the HTML (what search
- * engines index), Spanish rides along in data-es, and the script swaps it in. The
- * visitor's choice is remembered; a first visit follows the browser language.
+ * Three languages, one URL each (15 Oct 2026): the pages carry English with Spanish and French in data-es /
+ * data-fr, and build.mjs writes /es/ and /fr/ copies with that text in the HTML, so search engines index all
+ * three. The toggle goes to the other language's URL; the choice is remembered, and a first visit to an
+ * English page follows the browser language.
  */
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -258,34 +259,18 @@ const SCRIPT = `<script>
 (function () {
   if (window.__ssSite) return; window.__ssSite = true;
   var KEY = 'ss_lang';
-  /* French (Canada, 14 Oct 2026): data-fr next to data-es; whatever has no French shows in English. */
-  function pick(el, enKey, esKey, frKey, lang) {
-    if (lang === 'es') return el.dataset[esKey];
-    if (lang === 'fr' && el.dataset[frKey] !== undefined) return el.dataset[frKey];
-    return el.dataset[enKey];
+  /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
+     toggle goes to the same page in the other language, and the choice is remembered. */
+  function pageLang() { var l = document.documentElement.lang; return (l === 'es' || l === 'fr') ? l : 'en'; }
+  function urlFor(lang) {
+    var p = location.pathname;
+    if (p === '/es' || p === '/fr' || p.indexOf('/es/') === 0 || p.indexOf('/fr/') === 0) p = p.slice(3) || '/';
+    var to = lang === 'en' ? p : '/' + lang + (p === '/' ? '/' : p);
+    return to + location.search + location.hash;
   }
-  function swap(sel, attrName, enKey, esKey, lang) {
-    var frKey = 'fr' + esKey.slice(2);
-    document.querySelectorAll(sel).forEach(function (el) {
-      if (el.dataset[enKey] === undefined) el.dataset[enKey] = el.getAttribute(attrName) || '';
-      el.setAttribute(attrName, pick(el, enKey, esKey, frKey, lang));
-    });
-  }
-  function apply(lang) {
-    document.querySelectorAll('[data-es]').forEach(function (el) {
-      if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
-      el.innerHTML = pick(el, 'en', 'es', 'fr', lang);
-    });
-    swap('[data-es-alt]', 'alt', 'enAlt', 'esAlt', lang);
-    swap('[data-es-src]', 'src', 'enSrc', 'esSrc', lang);
-    swap('[data-es-href]', 'href', 'enHref', 'esHref', lang);
-    swap('[data-es-placeholder]', 'placeholder', 'enPlaceholder', 'esPlaceholder', lang);
-    swap('[data-es-label]', 'aria-label', 'enLabel', 'esLabel', lang);
-    document.documentElement.lang = (lang === 'es' || lang === 'fr') ? lang : 'en';
-    document.querySelectorAll('#langToggle button').forEach(function (b) {
-      b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
-    });
+  function go(lang) {
     try { localStorage.setItem(KEY, lang); } catch (e) {}
+    if (lang !== pageLang()) location.href = urlFor(lang);
   }
   /* Waitlist form: posts JSON to the address in data-waitlist and confirms on screen. */
   var LOADED = Date.now();
@@ -373,10 +358,18 @@ const SCRIPT = `<script>
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
   var nav = (navigator.language || 'en').toLowerCase();
-  var start = saved || (nav.indexOf('es') === 0 ? 'es' : nav.indexOf('fr') === 0 ? 'fr' : 'en');
+  /* On an English page, a visitor who chose Spanish or French before, or whose browser speaks it on a first visit,
+     goes to that page in their language. A page reached in Spanish or French remembers it. */
+  if (pageLang() === 'en') {
+    var want = saved || (nav.indexOf('es') === 0 ? 'es' : nav.indexOf('fr') === 0 ? 'fr' : 'en');
+    if (want === 'es' || want === 'fr') { location.replace(urlFor(want)); return; }
+  } else {
+    try { localStorage.setItem(KEY, pageLang()); } catch (e) {}
+  }
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('#langToggle button').forEach(function (b) {
-      b.addEventListener('click', function () { apply(b.dataset.lang); });
+      b.setAttribute('aria-pressed', b.dataset.lang === pageLang() ? 'true' : 'false');
+      b.addEventListener('click', function () { go(b.dataset.lang); });
     });
     var btn = document.querySelector('.menu-btn');
     var head = document.querySelector('.site-head');
@@ -389,8 +382,7 @@ const SCRIPT = `<script>
         if (e.key === 'Escape' && head.classList.contains('open')) { head.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
       });
     }
-    if (start === 'es' || start === 'fr') apply(start);
-    // After apply: the language select starts on the language the page is shown in.
+    // The language select starts on the page's language.
     document.querySelectorAll('form[data-waitlist]').forEach(wireWaitlist);
   });
 })();

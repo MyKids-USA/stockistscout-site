@@ -17,7 +17,9 @@ import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr } from './shell.mjs';
+import { mkdirSync } from 'node:fs';
+import { parseHTML } from 'linkedom';
+import { page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL } from './shell.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
@@ -74,13 +76,82 @@ function readPage(file) {
 
 const outFile = (path) => path === '/' ? 'index.html' : path.slice(1) + '.html';
 
+/* One URL per language (Aharon, 15 Oct 2026: "hay que hacer /en /fr /es en las paginas para que google lo muestre").
+   Until then the Spanish and French rode in data-es / data-fr and a script swapped them in, so Google only ever saw
+   English. Now the build writes each page three times with the text already in it: English at the root (the URLs
+   Google already knows; /en redirects there), Spanish under /es/ and French under /fr/, joined by hreflang, each with
+   its own canonical and listed in the sitemap with its alternates. The data-* stay, harmless. */
+export const LANGS = ['en', 'es', 'fr'];
+const LOCALE = { en: 'en_US', es: 'es_MX', fr: 'fr_CA' };
+/** A page's path in a language: /pricing → /es/pricing, / → /es/. */
+export const pathIn = (path, lang) => lang === 'en' ? path : `/${lang}${path === '/' ? '/' : path}`;
+const fileIn = (path, lang) => lang === 'en' ? outFile(path) : `${lang}/${outFile(path)}`;
+
+/** The text of a data-es / data-fr pair, the way the old script picked it: French falls back to English. */
+function pick(el, lang, en, esKey, frKey) {
+  if (lang === 'es') return el.getAttribute(esKey) ?? en;
+  if (lang === 'fr') return el.getAttribute(frKey) ?? en;
+  return en;
+}
+
+/** Writes the English page's translation into the HTML itself, and points its links and head at that language. */
+export function localize(html, lang, path, pages, meta) {
+  const { document } = parseHTML(html);
+  const head = document.head;
+  if (lang !== 'en') {
+    document.documentElement.setAttribute('lang', lang);
+    for (const el of document.querySelectorAll('[data-es]')) {
+      const text = pick(el, lang, null, 'data-es', 'data-fr');
+      if (text == null) continue;
+      if (el.tagName === 'TITLE') el.textContent = text; else el.innerHTML = text;
+    }
+    for (const [a, key] of [['alt', 'alt'], ['src', 'src'], ['href', 'href'], ['placeholder', 'placeholder'], ['aria-label', 'label']]) {
+      for (const el of document.querySelectorAll(`[data-es-${key}]`)) {
+        const v = pick(el, lang, el.getAttribute(a), `data-es-${key}`, `data-fr-${key}`);
+        if (v != null) el.setAttribute(a, v);
+      }
+    }
+    const desc = lang === 'es' ? meta.descriptionEs : meta.descriptionFr;
+    if (desc) {
+      head.querySelector('meta[name="description"]')?.setAttribute('content', desc);
+      head.querySelector('meta[property="og:description"]')?.setAttribute('content', desc);
+    }
+    head.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
+    // Links to our pages stay in the language; the app opens in it too.
+    for (const a of document.querySelectorAll('a[href]')) {
+      const href = a.getAttribute('href');
+      const m = /^(\/[a-z0-9-]*)(#.*)?$/.exec(href);
+      if (m && pages.has(m[1])) a.setAttribute('href', pathIn(m[1], lang) + (m[2] || ''));
+      else if (href.startsWith(APP_URL + '/')) a.setAttribute('href', href + (href.includes('?') ? '&' : '?') + `lang=${lang}`);
+    }
+  }
+  const url = ORIGIN + pathIn(path, lang);
+  head.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+  head.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
+  const og = document.createElement('meta'); og.setAttribute('property', 'og:locale'); og.setAttribute('content', LOCALE[lang]);
+  head.querySelector('meta[property="og:type"]')?.after(og);
+  if (!meta.noindex) {
+    const canonical = head.querySelector('link[rel="canonical"]');
+    for (const l of [...LANGS, 'x-default']) {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'alternate'); link.setAttribute('hreflang', l);
+      link.setAttribute('href', ORIGIN + pathIn(path, l === 'x-default' ? 'en' : l));
+      canonical.after(link);
+    }
+  }
+  return document.toString();
+}
+
 // Pages without their own date carry the build date, so Google sees when the site changed.
 const TODAY = new Date().toISOString().slice(0, 10);
 
+/* Every language of every page, each listing all three as alternates (Google's sitemap form of hreflang). */
 function sitemap(urls) {
+  const alts = (u) => LANGS.map((l) => `<xhtml:link rel="alternate" hreflang="${l}" href="${ORIGIN}${pathIn(u, l)}"/>`)
+    .concat(`<xhtml:link rel="alternate" hreflang="x-default" href="${ORIGIN}${u}"/>`).join('');
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(([u, d]) => `  <url><loc>${ORIGIN}${u}</loc>${d ? `<lastmod>${d}</lastmod>` : ''}</url>`).join('\n')}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls.flatMap(([u, d]) => LANGS.map((l) => `  <url><loc>${ORIGIN}${pathIn(u, l)}</loc>${d ? `<lastmod>${d}</lastmod>` : ''}${alts(u)}</url>`)).join('\n')}
 </urlset>
 `;
 }
@@ -93,9 +164,13 @@ const ROBOTS = INDEXABLE
 export function build() {
   const urls = [];
   const order = ['/', '/how-it-works', '/features', '/agents', '/pricing', '/results', '/faq', '/about', '/contact', '/privacy', '/terms'];
-  for (const file of readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort()) {
-    const { meta, body } = readPage(file);
-    writeFileSync(join(ROOT, outFile(meta.path)), page({ ...meta, body: fill(body) }));
+  const all = readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort().map(readPage);
+  const pages = new Set(all.map((x) => x.meta.path));
+  for (const l of LANGS.slice(1)) mkdirSync(join(ROOT, l), { recursive: true });
+  for (const { meta, body } of all) {
+    const en = page({ ...meta, body: fill(body) });
+    // The 404 stays English-only: it is never indexed.
+    for (const l of meta.noindex ? ['en'] : LANGS) writeFileSync(join(ROOT, fileIn(meta.path, l)), localize(en, l, meta.path, pages, meta));
     if (!meta.noindex) urls.push([meta.path, meta.updated || TODAY]);
   }
   urls.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));
@@ -105,5 +180,5 @@ export function build() {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  console.log(`site: ${build()} pages${INDEXABLE ? '' : ' (noindex, robots disallow all)'}`);
+  console.log(`site: ${build()} pages × ${LANGS.length} languages${INDEXABLE ? '' : ' (noindex, robots disallow all)'}`);
 }

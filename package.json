@@ -6,5 +6,8 @@
   "scripts": {
     "build": "node site/build.mjs",
     "avatars": "node site/avatars.mjs"
+  },
+  "devDependencies": {
+    "linkedom": "^0.18.12"
   }
 }
