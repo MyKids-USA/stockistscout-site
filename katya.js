@@ -304,6 +304,7 @@
     b.textContent = text;
     d.appendChild(b); el.log.appendChild(d);
     el.log.scrollTop = el.log.scrollHeight;
+    return b;
   }
 
   async function send() {
@@ -384,7 +385,14 @@
     document.getElementById('katyaFace2').src = '/img/katya/katya.png';
     var launcher = document.getElementById('katyaLauncher');
 
+    // Her greeting follows the language switch too (Aharon, 14 Oct 2026: the chat stayed in English after ES or FR).
+    var greetEl = null;
+    function greeting() {
+      return L('¡Hola! 👋 Soy Katya. Pregúntame cómo los agentes de StockistScout encuentran tiendas para tus productos, por los planes o cómo empezar tu prueba gratis.',
+               'Hi! 👋 I\u2019m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to start your free trial.', 'Bonjour! 👋 Je suis Katya. Demandez-moi comment les agents de StockistScout trouvent des boutiques pour vos produits, les forfaits, ou comment commencer votre essai gratuit.');
+    }
     function texts() {
+      if (greetEl) greetEl.textContent = greeting();
       document.getElementById('katyaTitle').textContent = L('Katya · Asistente de StockistScout', 'Katya · StockistScout Assistant', 'Katya · Assistante de StockistScout');
       document.getElementById('katyaSub').textContent = L('Tus preguntas, respondidas al instante', 'Your questions, answered instantly', 'Vos questions, répondues instantanément');
       el.input.placeholder = L('Escribe tu pregunta…', 'Type your question…', 'Écrivez votre question…');
@@ -405,8 +413,7 @@
       el.panel.style.display = 'flex';
       launcher.style.display = 'none';
       if (!el.log.children.length) {
-        say('assistant', L('¡Hola! 👋 Soy Katya. Pregúntame cómo los agentes de StockistScout encuentran tiendas para tus productos, por los planes o cómo empezar tu prueba gratis.',
-                           'Hi! 👋 I\u2019m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to start your free trial.', 'Bonjour! 👋 Je suis Katya. Demandez-moi comment les agents de StockistScout trouvent des boutiques pour vos produits, les forfaits, ou comment commencer votre essai gratuit.'));
+        greetEl = say('assistant', greeting());
       }
       el.input.focus();
     }
