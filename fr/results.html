@@ -167,6 +167,22 @@
     var to = lang === 'en' ? p : '/' + lang + (p === '/' ? '/' : p);
     return to + location.search + location.hash;
   }
+  /* The funnel (15 Oct 2026): a click to the app carries this visit's session id (the tracker's), the page's language
+     and where the visit landed, so a sign-up can be traced back to its visit. Added at click time only. */
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="https://app.stockistscout.com/"]') : null;
+    if (!a) return;
+    var sid = null;
+    try { sid = sessionStorage.getItem('wms_sid'); } catch (err) {}
+    if (!sid || sid === 'nostorage') return;
+    try {
+      var u = new URL(a.href);
+      u.searchParams.set('ss_sid', sid);
+      u.searchParams.set('ss_lang', pageLang());
+      u.searchParams.set('ss_path', location.pathname);
+      a.href = u.toString();
+    } catch (err) {}
+  }, true);
   function go(lang) {
     try { localStorage.setItem(KEY, lang); } catch (e) {}
     if (lang !== pageLang()) location.href = urlFor(lang);
