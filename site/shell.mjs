@@ -26,7 +26,7 @@ export const WAITLIST_API = 'https://api.binsusa.com/api/stockistscout/waitlist'
 /* The public address (Aharon, 8 Oct 2026). Mail to it is forwarded by Cloudflare Email
    Routing once that is set up; the waitlist never depends on it. */
 export const CONTACT_EMAIL = 'sales@stockistscout.com';
-// The sales line (Aharon, 14 Oct 2026): Katya answers it, in English or Spanish, any hour.
+// The sales line (Aharon, 14 Oct 2026): Katya answers it, in English, Spanish or French, any hour.
 export const CONTACT_PHONE = '(401) 41-SCOUT';
 export const CONTACT_PHONE_DIGITS = '(401) 417-2688';
 export const CONTACT_TEL = 'tel:+14014172688';
