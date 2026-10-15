@@ -18,8 +18,9 @@
   var API = 'https://api.binsusa.com/api/stockistscout/katya';
   var SDK_URL = 'https://unpkg.com/@heygen/liveavatar-web-sdk@0.0.18/dist/index.umd.js';
   var EMAIL = 'sales@stockistscout.com';
-  var lang = function () { return (document.documentElement.lang === 'es') ? 'es' : 'en'; };
-  var L = function (es, en) { return lang() === 'es' ? es : en; };
+  var lang = function () { var l = document.documentElement.lang; return (l === 'es' || l === 'fr') ? l : 'en'; };
+  // French since 14 Oct 2026 (Canada); a text without French shows in English.
+  var L = function (es, en, fr) { var l = lang(); return l === 'es' ? es : (l === 'fr' && fr) ? fr : en; };
 
   /* Their UMD hands the factory `window.events$1` for Node's EventEmitter and never
      ships one, so evaluation throws partway and leaves a global with the enums but
@@ -149,8 +150,8 @@
   }
 
   function callLabel() {
-    el.callBtn.textContent = session ? L('Terminar', 'End call')
-      : starting ? L('Cancelar', 'Cancel') : L('Hablar con Katya', 'Talk to Katya');
+    el.callBtn.textContent = session ? L('Terminar', 'End call', 'Terminer')
+      : starting ? L('Cancelar', 'Cancel', 'Annuler') : L('Hablar con Katya', 'Talk to Katya', 'Parler avec Katya');
   }
 
   function stopLive() {
@@ -246,8 +247,8 @@
       if (cancelStart) return;
       if (data._status === 429) {
         say('assistant', data.error === 'busy'
-          ? L('El video está muy solicitado hoy. Escríbeme aquí y te respondo enseguida.', 'Video is in high demand today. Type here and I will answer right away.')
-          : L('Ya hablamos varias veces esta hora. Escríbeme aquí y te respondo enseguida.', 'We have already talked several times this hour. Type here and I will answer right away.'));
+          ? L('El video está muy solicitado hoy. Escríbeme aquí y te respondo enseguida.', 'Video is in high demand today. Type here and I will answer right away.', 'La vidéo est très demandée aujourd’hui. Écrivez-moi ici et je vous réponds tout de suite.')
+          : L('Ya hablamos varias veces esta hora. Escríbeme aquí y te respondo enseguida.', 'We have already talked several times this hour. Type here and I will answer right away.', 'Nous avons déjà parlé plusieurs fois cette heure-ci. Écrivez-moi ici et je vous réponds tout de suite.'));
         return;
       }
       if (!data || !data.session_token) throw new Error('token');
@@ -280,14 +281,14 @@
       if (session !== s) { try { s.stop(); } catch (e) {} return; }
       if (s.voiceChat.state !== 'ACTIVE') {
         say('assistant', L('No pude usar tu micrófono: revisa el permiso, o escríbeme abajo.',
-                           'I could not reach your microphone: check the permission, or type below.'));
+                           'I could not reach your microphone: check the permission, or type below.', 'Je n’ai pas pu accéder à votre micro : vérifiez l’autorisation, ou écrivez ci-dessous.'));
       }
     } catch (e) {
       if (s && session === s) stopLive();
       else if (s) { try { s.stop(); } catch (x) {} }
       if (!cancelStart) {
         say('assistant', L('No pude iniciar el video ahora mismo. Escríbeme y te respondo igual.',
-                           'I could not start the video just now. Type your question and I will answer anyway.'));
+                           'I could not start the video just now. Type your question and I will answer anyway.', 'Je n’ai pas pu lancer la vidéo pour l’instant. Écrivez votre question et je vous répondrai quand même.'));
       }
     } finally {
       starting = false; cancelStart = false;
@@ -313,7 +314,7 @@
     msgs.push({ role: 'user', content: text });
     var typing = document.createElement('div');
     typing.className = 'katya-typing';
-    typing.textContent = L('Katya está escribiendo…', 'Katya is typing…');
+    typing.textContent = L('Katya está escribiendo…', 'Katya is typing…', 'Katya écrit…');
     el.log.appendChild(typing); el.log.scrollTop = el.log.scrollHeight;
     try {
       var r = await fetch(API + '/ask', {
@@ -328,7 +329,7 @@
     } catch (e) {
       typing.remove();
       say('assistant', L('No pude responder ahora. Escríbenos a ' + EMAIL + '.',
-                         'I could not answer just now. Email us at ' + EMAIL + '.'));
+                         'I could not answer just now. Email us at ' + EMAIL + '.', 'Je n’ai pas pu répondre pour l’instant. Écrivez-nous à ' + EMAIL + '.'));
     }
     busy = false;
   }
@@ -384,16 +385,16 @@
     var launcher = document.getElementById('katyaLauncher');
 
     function texts() {
-      document.getElementById('katyaTitle').textContent = L('Katya · Asistente de StockistScout', 'Katya · StockistScout Assistant');
-      document.getElementById('katyaSub').textContent = L('Tus preguntas, respondidas al instante', 'Your questions, answered instantly');
-      el.input.placeholder = L('Escribe tu pregunta…', 'Type your question…');
-      el.input.setAttribute('aria-label', L('Tu pregunta', 'Your question'));
-      document.getElementById('katyaSend').setAttribute('aria-label', L('Enviar', 'Send'));
-      document.getElementById('katyaClose').setAttribute('aria-label', L('Cerrar', 'Close'));
-      document.getElementById('katyaBubbleX').setAttribute('aria-label', L('Cerrar', 'Close'));
-      launcher.setAttribute('aria-label', L('Chatear con Katya', 'Chat with Katya'));
+      document.getElementById('katyaTitle').textContent = L('Katya · Asistente de StockistScout', 'Katya · StockistScout Assistant', 'Katya · Assistante de StockistScout');
+      document.getElementById('katyaSub').textContent = L('Tus preguntas, respondidas al instante', 'Your questions, answered instantly', 'Vos questions, répondues instantanément');
+      el.input.placeholder = L('Escribe tu pregunta…', 'Type your question…', 'Écrivez votre question…');
+      el.input.setAttribute('aria-label', L('Tu pregunta', 'Your question', 'Votre question'));
+      document.getElementById('katyaSend').setAttribute('aria-label', L('Enviar', 'Send', 'Envoyer'));
+      document.getElementById('katyaClose').setAttribute('aria-label', L('Cerrar', 'Close', 'Fermer'));
+      document.getElementById('katyaBubbleX').setAttribute('aria-label', L('Cerrar', 'Close', 'Fermer'));
+      launcher.setAttribute('aria-label', L('Chatear con Katya', 'Chat with Katya', 'Clavarder avec Katya'));
       document.getElementById('katyaNotice').textContent =
-        L('Guardamos las conversaciones para atenderte mejor.', 'Chats are saved to help us answer you better.');
+        L('Guardamos las conversaciones para atenderte mejor.', 'Chats are saved to help us answer you better.', 'Nous conservons les conversations pour mieux vous servir.');
       callLabel();
     }
     texts();
@@ -405,7 +406,7 @@
       launcher.style.display = 'none';
       if (!el.log.children.length) {
         say('assistant', L('¡Hola! 👋 Soy Katya. Pregúntame cómo los agentes de StockistScout encuentran tiendas para tus productos, por los planes o cómo empezar tu prueba gratis.',
-                           'Hi! 👋 I\u2019m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to start your free trial.'));
+                           'Hi! 👋 I\u2019m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to start your free trial.', 'Bonjour! 👋 Je suis Katya. Demandez-moi comment les agents de StockistScout trouvent des boutiques pour vos produits, les forfaits, ou comment commencer votre essai gratuit.'));
       }
       el.input.focus();
     }
@@ -433,7 +434,7 @@
     }
     function bubbleText() {
       document.getElementById('katyaBubbleText').textContent =
-        L('¿Preguntas sobre StockistScout? Con gusto te ayudo. 👋', 'Questions about StockistScout? Happy to help. 👋');
+        L('¿Preguntas sobre StockistScout? Con gusto te ayudo. 👋', 'Questions about StockistScout? Happy to help. 👋', 'Des questions sur StockistScout? Je suis là pour vous aider. 👋');
     }
     var seen = false;
     try { seen = localStorage.getItem('ss_katya_bubble') === 'seen'; } catch (e) {}
