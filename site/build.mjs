@@ -28,8 +28,8 @@ function agentCards(full) {
   return AGENTS.map((a) => `<li class="agent${full ? ' agent-full' : ''}">
   ${agentImg(a.name, full ? 112 : 80)}
   <span class="agent-name">${a.name}</span>
-  <span class="agent-spec" data-es="${attr(a.specEs)}">${a.spec}</span>${full ? `
-  <p data-es="${attr(a.doesEs)}">${a.does}</p>` : ''}
+  <span class="agent-spec" data-es="${attr(a.specEs)}" data-fr="${attr(a.specFr)}">${a.spec}</span>${full ? `
+  <p data-es="${attr(a.doesEs)}" data-fr="${attr(a.doesFr)}">${a.does}</p>` : ''}
 </li>`).join('\n');
 }
 
