@@ -131,7 +131,9 @@
    (strict-origin-when-cross-origin) or YouTube refuses to play it (error 153). */
 document.querySelectorAll('.promo-video').forEach(function (box) {
   box.querySelector('.promo-play').addEventListener('click', function () {
-    var id = document.documentElement.lang === 'es' ? box.dataset.ytEs : box.dataset.yt;
+    var l = document.documentElement.lang;
+    // French: its own video once data-yt-fr is set (Canada, 14 Oct 2026); until then the English one.
+    var id = l === 'es' ? box.dataset.ytEs : (l === 'fr' && box.dataset.ytFr) ? box.dataset.ytFr : box.dataset.yt;
     var f = document.createElement('iframe');
     f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
     f.title = 'StockistScout'; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
