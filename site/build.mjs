@@ -144,7 +144,7 @@ export function localize(html, lang, path, pages, meta) {
 
 /** Every French text has its Portuguese (16 Oct 2026): an element with data-fr, data-fr-alt, ... and not the matching
     data-pt* would show English on /pt/ without anyone noticing, so the build stops. Images and links (-src, -href)
-    may stay English: there are no Portuguese screenshots yet. Returns the problems, empty when all is well. */
+    may stay English: the app screenshots have Portuguese (16 Oct 2026), the video thumbnail may not. Returns the problems, empty when all is well. */
 export function missingPt(html, where) {
   const { document } = parseHTML(html);
   const out = [];
