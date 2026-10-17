@@ -717,5 +717,17 @@
  "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "当社がメールを送るのは、本サイトの「エージェントが店舗を探す国」に記載された国・地域の受信者に限られ、各国の法律が認める範囲に限ります。",
  "Agents find stores here": "エージェントが店舗を探す国",
  "Coming soon": "近日対応",
- "World map of the countries where our agents find stores: {countries}. {soon}": "エージェントが店舗を探す国の世界地図：{countries}。{soon}"
+ "World map of the countries where our agents find stores: {countries}. {soon}": "エージェントが店舗を探す国の世界地図：{countries}。{soon}",
+ "Corporate plans ↓": "法人プラン ↓",
+ "For hotel chains and businesses with many locations: one account per sales manager, billed per user on an annual contract.": "ホテルチェーンや多拠点の企業向け：営業マネージャー1名につき1アカウント、ユーザー単位の料金で年間契約。",
+ "What each user gets": "各ユーザーに含まれるもの",
+ "2 to 8 AI sales agents, by the number of users": "ユーザー数に応じて2〜8人のAI営業エージェント",
+ "About 1,000 emails a month": "月約1,000通のメール",
+ "Their own sending domain, warmed up step by step": "段階的にウォームアップする専用の送信ドメイン",
+ "One do-not-contact list shared by every location": "全拠点で共有する1つの連絡禁止リスト",
+ "A corporate dashboard with every location on one page": "全拠点を1ページで見られる法人ダッシュボード",
+ "A pilot at a few locations first, if you want": "ご希望なら、まず数拠点でパイロット",
+ "Per user, per month, in US dollars. Annual contract, invoiced, under the Corporate Subscription Agreement and its order form.": "ユーザーあたり、月額、米ドル建て。年間契約、請求書払い。年間法人サブスクリプション契約とその注文書に基づきます。",
+ "See corporate plans": "法人プランを見る",
+ "Read the agreement": "契約を読む"
 }

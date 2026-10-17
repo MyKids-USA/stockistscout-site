@@ -717,5 +717,17 @@
  "Why it fits:": "سبب الملاءمة:",
  "Agents find stores here": "هنا يعثر الوكلاء على المتاجر",
  "Coming soon": "قريبًا",
- "World map of the countries where our agents find stores: {countries}. {soon}": "خريطة العالم للدول التي يعثر فيها وكلاؤنا على المتاجر: {countries}. {soon}"
+ "World map of the countries where our agents find stores: {countries}. {soon}": "خريطة العالم للدول التي يعثر فيها وكلاؤنا على المتاجر: {countries}. {soon}",
+ "Corporate plans ↓": "خطط الشركات ↓",
+ "For hotel chains and businesses with many locations: one account per sales manager, billed per user on an annual contract.": "لسلاسل الفنادق والشركات ذات الفروع الكثيرة: حساب واحد لكل مدير مبيعات، بفوترة لكل مستخدم ضمن عقد سنوي.",
+ "What each user gets": "ما يحصل عليه كل مستخدم",
+ "2 to 8 AI sales agents, by the number of users": "من 2 إلى 8 وكلاء مبيعات بالذكاء الاصطناعي، حسب عدد المستخدمين",
+ "About 1,000 emails a month": "نحو 1,000 رسالة بريد إلكتروني شهريًا",
+ "Their own sending domain, warmed up step by step": "نطاق إرسال خاص به، مع تهيئة تدريجية خطوة بخطوة",
+ "One do-not-contact list shared by every location": "قائمة واحدة لمن لا يجب التواصل معهم، مشتركة بين جميع الفروع",
+ "A corporate dashboard with every location on one page": "لوحة تحكم مؤسسية تعرض كل الفروع في صفحة واحدة",
+ "A pilot at a few locations first, if you want": "فترة تجريبية في بضعة فروع أولًا، إن رغبتم",
+ "Per user, per month, in US dollars. Annual contract, invoiced, under the Corporate Subscription Agreement and its order form.": "لكل مستخدم، شهريًا، بالدولار الأمريكي. عقد سنوي، مع إصدار فواتير، وفق اتفاقية اشتراك الشركات السنوية ونموذج الطلب الخاص بها.",
+ "See corporate plans": "عرض خطط الشركات",
+ "Read the agreement": "قراءة الاتفاقية"
 }

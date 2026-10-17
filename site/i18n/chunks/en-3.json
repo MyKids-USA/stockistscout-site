@@ -1,8 +1,4 @@
 [
- "Each hotel sends from its own domain, warmed up step by step. One hotel never affects another hotel's delivery.",
- "The brand's voice",
- "Templates approved before anything is sent, so every manager speaks the same way.",
- "Corporate plans",
  "Per user (one sales manager with their agents), per month, in US dollars. Each user gets 2 to 8 agents depending on the plan, and about 1,000 emails a month. Each agent searches one country: the United States, Mexico, Canada, Guatemala, Peru, Colombia, Panama, Argentina, Chile, Brazil, the United Kingdom, Ireland, France, Belgium, Israel, Singapore, Hong Kong, Australia or New Zealand. Annual contract, invoiced.",
  "Users",
  "Per user / month",
@@ -171,6 +167,7 @@
  "StockistScout pricing: a free trial of 50 emails, then monthly plans by emails sent, from Basic (200 emails, $49.99) to Enterprise (20,000 emails, 8 agents, $1,499.99). Billed monthly, cancel anytime, no commission.",
  "Pay for the emails sent.<br>Never for your sales.",
  "Monthly plans by emails sent per month, in US dollars. Billed monthly, cancel anytime. No commission on any order.",
+ "Corporate plans ↓",
  "Start here",
  "Trial",
  "50 emails, once",
@@ -216,6 +213,17 @@
  "your plan",
  "Enterprise (2 domains)",
  "With one sending domain about 1,640 emails can go out in month 1 and about 8,700 in month 2; Enterprise uses two domains, so twice that: about 3,280 and 17,500. Each month you get the emails and agents of the plan you pay for that month. If a week has bounces or complaints, the ramp holds and the move up waits until it can climb. You can cancel anytime.",
+ "For hotel chains and businesses with many locations: one account per sales manager, billed per user on an annual contract.",
+ "What each user gets",
+ "2 to 8 AI sales agents, by the number of users",
+ "About 1,000 emails a month",
+ "Their own sending domain, warmed up step by step",
+ "One do-not-contact list shared by every location",
+ "A corporate dashboard with every location on one page",
+ "A pilot at a few locations first, if you want",
+ "Per user, per month, in US dollars. Annual contract, invoiced, under the Corporate Subscription Agreement and its order form.",
+ "See corporate plans",
+ "Read the agreement",
  "The sending ramp: why your plan does not go out on day one",
  "A new sender that sends a lot at once ends up in spam, and your name with it. So every account starts at a cap of 25 emails a day, which rises 50% each week up to 500 a day per sending domain. Enterprise sends from two domains, each with its own ramp, so it can reach 1,000 a day. The ramp climbs only after a healthy week: bounces under 2% and no complaints. If not, it holds where it is until it is.",
  "Plan",
@@ -258,6 +266,5 @@
  "You do not lose those 50 emails. If you choose a plan without having used the trial, they are added to your first month: 250 on Basic, 550 on Starter, 1,050 on Plus, 2,050 on Growth, and so on for every plan. From the second month you get the plan’s normal amount. The daily ramp still applies, so on the larger plans the first month will not all go out.",
  "Privacy Policy",
  "What StockistScout collects from customers, from stores it contacts and from site visitors, how it is used, who processes it, and how to opt out or ask for deletion.",
- "Last updated: 14 October 2026",
- "StockistScout (“the service”, “we”) is a service of Aharon &amp; Ita Corp, a company based in Florida, United States. Our agents find stores that may carry our customers’ products and write to them on those customers’ behalf. This policy explains what data we handle, about whom, why, and for how long."
+ "Last updated: 14 October 2026"
 ]

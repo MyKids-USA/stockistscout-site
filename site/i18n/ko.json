@@ -717,5 +717,17 @@
  "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "당사는 이 사이트의 ‘에이전트가 매장을 찾는 곳’에 나열된 국가/지역의 수신자에게만, 각 국가의 법이 허용하는 범위 내에서만 이메일을 보냅니다.",
  "Agents find stores here": "에이전트가 매장을 찾는 곳",
  "Coming soon": "곧 지원",
- "World map of the countries where our agents find stores: {countries}. {soon}": "에이전트가 매장을 찾는 국가의 세계 지도: {countries}. {soon}"
+ "World map of the countries where our agents find stores: {countries}. {soon}": "에이전트가 매장을 찾는 국가의 세계 지도: {countries}. {soon}",
+ "Corporate plans ↓": "기업 요금제 ↓",
+ "For hotel chains and businesses with many locations: one account per sales manager, billed per user on an annual contract.": "호텔 체인과 지점이 많은 기업을 위한 요금제: 영업 관리자마다 계정 하나, 사용자당 요금, 연간 계약.",
+ "What each user gets": "사용자마다 제공되는 것",
+ "2 to 8 AI sales agents, by the number of users": "사용자 수에 따라 2~8명의 AI 영업 에이전트",
+ "About 1,000 emails a month": "월 약 1,000통의 이메일",
+ "Their own sending domain, warmed up step by step": "단계적으로 워밍업되는 전용 발송 도메인",
+ "One do-not-contact list shared by every location": "모든 지점이 함께 쓰는 하나의 연락 금지 목록",
+ "A corporate dashboard with every location on one page": "모든 지점을 한 페이지에서 보는 기업 대시보드",
+ "A pilot at a few locations first, if you want": "원하시면 먼저 몇 개 지점에서 파일럿",
+ "Per user, per month, in US dollars. Annual contract, invoiced, under the Corporate Subscription Agreement and its order form.": "사용자당 월 요금, 미국 달러 기준. 연간 계약, 청구서 발행, 연간 기업 구독 계약과 주문서에 따릅니다.",
+ "See corporate plans": "기업 요금제 보기",
+ "Read the agreement": "계약서 읽기"
 }
