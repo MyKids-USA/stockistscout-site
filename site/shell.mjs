@@ -495,6 +495,7 @@ function header(path) {
 <div class="topbar">
   <div class="topbar-row">
     <a class="topbar-phone" href="${CONTACT_TEL}" ${callLabel}>${PHONE_ICON}<span class="tel-num">${US_FLAG}${CONTACT_PHONE}</span></a>
+    <span class="topbar-note" data-es="24/7 · 14 idiomas" data-fr="24 h/24, 7 j/7 · 14 langues" data-pt="24 horas, 7 dias · 14 idiomas" data-zh="全天候 · 14 种语言">24/7 · 14 languages</span>
     <a class="topbar-mail" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
   </div>
 </div>

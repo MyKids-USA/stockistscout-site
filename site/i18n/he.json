@@ -102,7 +102,6 @@
  "Write to us": "כתבו לנו",
  "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>": "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>",
  "Tell us what you sell and to which kinds of stores: we will tell you which agent you would get and whether we can find you good stores today.": "ספרו לנו מה אתם מוכרים ולאילו סוגי חנויות: נגיד לכם איזה סוכן תקבלו והאם נוכל למצוא לכם חנויות טובות כבר היום.",
- "Or call us": "או התקשרו אלינו",
  "You can also chat with Katya, bottom right.": "אפשר גם לשוחח עם Katya, בפינה התחתונה של המסך.",
  "Start free today": "התחילו בחינם היום",
  "50 trial emails, no card needed. Sign in with your email or Google.": "50 מיילים לניסיון, בלי כרטיס אשראי. נכנסים עם המייל או עם Google.",
@@ -758,5 +757,7 @@
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "לא הצלחנו לשלוח. בדקו את החיבור ונסו שוב, או כתבו ל-<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
  "Why it fits:": "למה זה מתאים:",
  "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "הסוכן שלכם מתחיל לעבוד מהחיפוש הראשון: כל חנות שהוא מוצא מגיעה עם הסיבה שהיא מתאימה, והחנויות מאושרות אוטומטית. אם אתם מעדיפים לאשר כל חנות בעצמכם, הפעילו זאת ב\"חנויות שנוצר איתן קשר\"; חנויות שדחיתם לא יוצעו לכם שוב.",
- "Katya answers at any hour, in your language: she speaks 14, from English, Spanish, French and Portuguese to Chinese, Japanese, Korean, Hebrew, Arabic, Hindi, Italian, German and Dutch. She explains how it works, which plan fits you and how to start. If you want a person to call you back, leave her your details.": "קטיה עונה בכל שעה, בשפה שלכם: היא מדברת 14 שפות, מאנגלית, ספרדית, צרפתית ופורטוגזית ועד סינית, יפנית, קוריאנית, עברית, ערבית, הינדי, איטלקית, גרמנית והולנדית. היא מסבירה איך זה עובד, איזו תוכנית מתאימה לכם ואיך מתחילים. אם תרצו שאדם יחזור אליכם, השאירו לה את הפרטים שלכם."
+ "Talk to Katya, your AI sales assistant: 24/7, in 14 languages": "דברו עם קטיה, עוזרת המכירות מבוססת הבינה המלאכותית שלכם: 24/7, ב-14 שפות",
+ "Call Katya any time to learn how StockistScout works, find the plan that fits you and get the next steps by email. Speak naturally, in your own language: she speaks English, Spanish, French, Portuguese, Chinese, Japanese, Korean, Hebrew, Arabic, Hindi, Italian, German and Dutch. If you want a person to call you back, leave her your details.": "התקשרו לקטיה מתי שתרצו כדי ללמוד איך StockistScout עובד, למצוא את התוכנית שמתאימה לכם ולקבל את השלבים הבאים במייל. דברו בטבעיות, בשפה שלכם: היא מדברת אנגלית, ספרדית, צרפתית, פורטוגזית, סינית, יפנית, קוריאנית, עברית, ערבית, הינדי, איטלקית, גרמנית והולנדית. אם תרצו שאדם יחזור אליכם, השאירו לה את הפרטים שלכם.",
+ "24/7 · 14 languages": "24/7 · 14 שפות"
 }
