@@ -77,7 +77,9 @@ export function worldMapSvg(covered, soon) {
       const p = c.at ? projection(c.at) : path.centroid(f);
       if (!p || p.some(Number.isNaN)) throw new Error(`map: no place for ${c.iso} (give it at: [lon, lat])`);
       const [x, y] = p.map((v) => Math.round(v * 10) / 10);
-      out.push(`<g class="${cls} cmap-dot" data-iso="${c.iso}"><circle cx="${x}" cy="${y}" r="7" class="cmap-ring"/><circle cx="${x}" cy="${y}" r="3.2"/><title>${esc(name)}</title></g>`);
+      // `small` (the Lesser Antilles: Guadeloupe, Martinique, Barbados, Trinidad and Tobago, a few degrees apart): a smaller dot.
+      const [ring, core, sm] = c.small ? [4.6, 2.2, ' cmap-dot-sm'] : [7, 3.2, ''];
+      out.push(`<g class="${cls} cmap-dot${sm}" data-iso="${c.iso}"><circle cx="${x}" cy="${y}" r="${ring}" class="cmap-ring"/><circle cx="${x}" cy="${y}" r="${core}"/><title>${esc(name)}</title></g>`);
     }
     return out.join('');
   };

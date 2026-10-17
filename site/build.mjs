@@ -24,7 +24,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
-import { LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
+import { LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
 
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
 
@@ -55,6 +55,7 @@ function fill(html) {
     .replaceAll('{{CTA}}', ctaBand())
     .replaceAll('{{WAITLIST_FORM}}', waitlistForm())
     .replaceAll('{{CONTACT_EMAIL}}', CONTACT_EMAIL)
+    .replaceAll('{{US_FLAG}}', US_FLAG)
     .replaceAll('{{CONTACT_PHONE}}', CONTACT_PHONE)
     .replaceAll('{{CONTACT_PHONE_DIGITS}}', CONTACT_PHONE_DIGITS)
     .replaceAll('{{CONTACT_TEL}}', CONTACT_TEL)
@@ -228,6 +229,7 @@ export function localize(html, lang, path, pages, meta, dict) {
   }
   // The map's country names and aria-label in the language (the chips' names: COUNTRIES, or the dictionary).
   const isDict = lang !== 'en' && BY[lang].dict;
+  flagPhones(document); // the US flag before the number inside translated texts (privacy)
   localizeMap(document, (c) => lang === 'en' ? c.en : isDict ? dict?.[c.en] : c[lang], { zh: '、', ja: '、', ar: '، ' }[lang] ?? ', ');
   const url = ORIGIN + pathIn(path, lang);
   head.querySelector('link[rel="canonical"]')?.setAttribute('href', url);

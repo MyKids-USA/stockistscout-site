@@ -75,15 +75,26 @@ export const COUNTRIES = [
   { region: 'americas', iso: 'MX', num: '484', en: 'Mexico', es: 'México', fr: 'Mexique', frArt: 'le Mexique', frIn: 'au Mexique', pt: 'México', zh: '墨西哥' },
   { region: 'americas', iso: 'CA', num: '124', en: 'Canada', es: 'Canadá', fr: 'Canada', frArt: 'le Canada', frIn: 'au Canada', pt: 'Canadá', zh: '加拿大' },
   { region: 'americas', iso: 'GT', num: '320', en: 'Guatemala', es: 'Guatemala', fr: 'Guatemala', frArt: 'le Guatemala', frIn: 'au Guatemala', pt: 'Guatemala', zh: '危地马拉' },
+  // Honduras and Paraguay (17 Oct 2026, app commit 1a5eaf9): Spanish, company inboxes only; Paraguay's Ley 4868 notice.
+  { region: 'americas', iso: 'HN', num: '340', en: 'Honduras', es: 'Honduras', fr: 'Honduras', frArt: 'le Honduras', frIn: 'au Honduras', pt: 'Honduras', zh: '洪都拉斯' },
   { region: 'americas', iso: 'PE', num: '604', en: 'Peru', es: 'Perú', fr: 'Pérou', frArt: 'le Pérou', frIn: 'au Pérou', pt: 'Peru', zh: '秘鲁' },
   { region: 'americas', iso: 'CO', num: '170', en: 'Colombia', es: 'Colombia', fr: 'Colombie', frArt: 'la Colombie', frIn: 'en Colombie', pt: 'Colômbia', zh: '哥伦比亚' },
   { region: 'americas', iso: 'PA', num: '591', en: 'Panama', es: 'Panamá', fr: 'Panama', frArt: 'le Panama', frIn: 'au Panama', pt: 'Panamá', zh: '巴拿马' },
   { region: 'americas', iso: 'AR', num: '032', en: 'Argentina', es: 'Argentina', fr: 'Argentine', frArt: 'l’Argentine', frIn: 'en Argentine', pt: 'Argentina', zh: '阿根廷' },
   { region: 'americas', iso: 'CL', num: '152', en: 'Chile', es: 'Chile', fr: 'Chili', frArt: 'le Chili', frIn: 'au Chili', pt: 'Chile', zh: '智利' },
+  { region: 'americas', iso: 'PY', num: '600', en: 'Paraguay', es: 'Paraguay', fr: 'Paraguay', frArt: 'le Paraguay', frIn: 'au Paraguay', pt: 'Paraguai', zh: '巴拉圭' },
   { region: 'americas', iso: 'BR', num: '076', en: 'Brazil', es: 'Brasil', fr: 'Brésil', frArt: 'le Brésil', frIn: 'au Brésil', pt: 'Brasil', zh: '巴西' },
   { region: 'europe', iso: 'GB', num: '826', en: 'United Kingdom', the: true, es: 'Reino Unido', fr: 'Royaume-Uni', frArt: 'le Royaume-Uni', frIn: 'au Royaume-Uni', pt: 'Reino Unido', zh: '英国' },
   { region: 'europe', iso: 'IE', num: '372', en: 'Ireland', es: 'Irlanda', fr: 'Irlande', frArt: 'l’Irlande', frIn: 'en Irlande', pt: 'Irlanda', zh: '爱尔兰' },
-  { region: 'europe', iso: 'FR', num: '250', en: 'France', es: 'Francia', fr: 'France', frArt: 'la France', frIn: 'en France', pt: 'França', zh: '法国' },
+  // France with Guadeloupe and Martinique (17 Oct 2026, app commit 2e20645: French rules, regions of France): `adds` is
+  // what the sentences say after France (`chip`, shorter, on its chip), `dots` the two islands on the map (green dots, named in each language).
+  { region: 'europe', iso: 'FR', num: '250', en: 'France', es: 'Francia', fr: 'France', frArt: 'la France', frIn: 'en France', pt: 'França', zh: '法国',
+    adds: { en: 'with Guadeloupe and Martinique', es: 'con Guadalupe y Martinica', fr: 'avec la Guadeloupe et la Martinique', pt: 'com Guadalupe e Martinica', zh: '含瓜德罗普和马提尼克' },
+    chip: { en: '+ Guadeloupe, Martinique', es: '+ Guadalupe, Martinica', fr: '+ Guadeloupe, Martinique', pt: '+ Guadalupe, Martinica', zh: '含瓜德罗普、马提尼克' },
+    dots: [
+      { small: true, iso: 'GP', num: '312', at: [-61.55, 16.25], en: 'Guadeloupe', es: 'Guadalupe', fr: 'Guadeloupe', pt: 'Guadalupe', zh: '瓜德罗普' },
+      { small: true, iso: 'MQ', num: '474', at: [-61.02, 14.64], en: 'Martinique', es: 'Martinica', fr: 'Martinique', pt: 'Martinica', zh: '马提尼克' },
+    ] },
   { region: 'europe', iso: 'BE', num: '056', en: 'Belgium', es: 'Bélgica', fr: 'Belgique', frArt: 'la Belgique', frIn: 'en Belgique', pt: 'Bélgica', zh: '比利时' },
   // Israel (16 Oct 2026, app commit 2338602): a single consent request first, the offer only after a written yes.
   { region: 'mideast', iso: 'IL', num: '376', en: 'Israel', es: 'Israel', fr: 'Israël', frArt: 'Israël', frIn: 'en Israël', pt: 'Israel', zh: '以色列' },
@@ -91,7 +102,20 @@ export const COUNTRIES = [
   { region: 'apac', iso: 'HK', num: '344', at: [114.17, 22.32], en: 'Hong Kong', es: 'Hong Kong', fr: 'Hong Kong', frArt: 'Hong Kong', frIn: 'à Hong Kong', pt: 'Hong Kong', zh: '香港' },
   { region: 'apac', iso: 'AU', num: '036', en: 'Australia', es: 'Australia', fr: 'Australie', frArt: 'l’Australie', frIn: 'en Australie', pt: 'Austrália', zh: '澳大利亚' },
   { region: 'apac', iso: 'NZ', num: '554', en: 'New Zealand', es: 'Nueva Zelanda', fr: 'Nouvelle-Zélande', frArt: 'la Nouvelle-Zélande', frIn: 'en Nouvelle-Zélande', pt: 'Nova Zelândia', zh: '新西兰' },
+  // The Caribbean islands (17 Oct 2026, app commit 2e20645): ONE country option in the app ("Caribbean Islands"), one agent
+  // for all six; English, Barbados to company inboxes only. Jamaica is not open. The sentences name them as one item
+  // ("the Caribbean islands (Trinidad and Tobago, ...)", CARIBBEAN below); `esArt` is the Spanish name in that sentence.
+  { region: 'caribbean', small: true, iso: 'TT', num: '780', at: [-61.25, 10.45], en: 'Trinidad and Tobago', es: 'Trinidad y Tobago', fr: 'Trinité-et-Tobago', frArt: 'Trinité-et-Tobago', pt: 'Trinidad e Tobago', zh: '特立尼达和多巴哥' },
+  { region: 'caribbean', iso: 'BS', num: '044', at: [-77.35, 25.05], en: 'Bahamas', the: true, es: 'Bahamas', esArt: 'las Bahamas', fr: 'Bahamas', frArt: 'les Bahamas', pt: 'Bahamas', zh: '巴哈马' },
+  { region: 'caribbean', small: true, iso: 'BB', num: '052', at: [-59.55, 13.15], en: 'Barbados', es: 'Barbados', fr: 'Barbade', frArt: 'la Barbade', pt: 'Barbados', zh: '巴巴多斯' },
+  { region: 'caribbean', iso: 'KY', num: '136', at: [-81.25, 19.31], en: 'Cayman Islands', the: true, es: 'Islas Caimán', esArt: 'las Islas Caimán', fr: 'Îles Caïmans', frArt: 'les îles Caïmans', pt: 'Ilhas Cayman', zh: '开曼群岛' },
+  { region: 'caribbean', iso: 'BM', num: '060', at: [-64.75, 32.31], en: 'Bermuda', es: 'Bermudas', fr: 'Bermudes', frArt: 'les Bermudes', pt: 'Bermudas', zh: '百慕大' },
+  { region: 'caribbean', iso: 'AW', num: '533', at: [-69.97, 12.52], en: 'Aruba', es: 'Aruba', fr: 'Aruba', frArt: 'Aruba', pt: 'Aruba', zh: '阿鲁巴' },
 ];
+/** The Caribbean islands as one item of a sentence, in each attribute language (the islands follow in parentheses). */
+const CARIBBEAN = { en: 'the Caribbean islands', es: 'las islas del Caribe', frArt: 'les îles des Caraïbes', frIn: 'dans les îles des Caraïbes', pt: 'ilhas do Caribe', zh: '加勒比群岛' };
+/** Every place painted on the map: the countries, and the dots that belong to one (Guadeloupe and Martinique). */
+export const MAP_PLACES = COUNTRIES.flatMap((c) => [c, ...(c.dots || [])]);
 /* Next in line (shown on the map in a lighter green, and as the line under the chips): not on any list above until it moves
    into COUNTRIES. `soon` is the line in each attribute language; dictionary languages translate its English. */
 export const COMING_SOON = [
@@ -99,6 +123,7 @@ export const COMING_SOON = [
 ];
 const REGIONS = [
   { id: 'americas', en: 'Americas', es: 'América', fr: 'Amériques', pt: 'Américas', zh: '美洲' },
+  { id: 'caribbean', en: 'Caribbean islands', es: 'Islas del Caribe', fr: 'Îles des Caraïbes', pt: 'Ilhas do Caribe', zh: '加勒比群岛' },
   { id: 'europe', en: 'Europe', es: 'Europa', fr: 'Europe', pt: 'Europa', zh: '欧洲' },
   { id: 'mideast', en: 'Middle East', es: 'Oriente Medio', fr: 'Moyen-Orient', pt: 'Oriente Médio', zh: '中东' },
   { id: 'apac', en: 'Asia-Pacific', es: 'Asia-Pacífico', fr: 'Asie-Pacifique', pt: 'Ásia-Pacífico', zh: '亚太地区' },
@@ -106,11 +131,17 @@ const REGIONS = [
 const CONJ = { en: { and: 'and', or: 'or' }, es: { and: 'y', or: 'o' }, fr: { and: 'et', or: 'ou' }, pt: { and: 'e', or: 'ou' }, zh: { and: '和', or: '或' } };
 /** The countries as a sentence in a language: "the United States, Mexico, ... and New Zealand". */
 export function countryList(lang, conj = 'and', form = '') {
-  const names = COUNTRIES.map((c) => lang === 'en' ? (c.the ? 'the ' : '') + c.en : lang === 'fr' ? (form === 'in' ? c.frIn : c.frArt) : c[lang]);
-  const word = CONJ[lang]?.[conj];
-  if (!word || names.some((n) => !n)) throw new Error(`countryList: no ${lang}/${conj}`);
-  if (lang === 'zh') return names.slice(0, -1).join('、') + word + names.at(-1);
-  return names.slice(0, -1).join(', ') + ` ${word} ` + names.at(-1);
+  const one = (c, f = form) => lang === 'en' ? (c.the ? 'the ' : '') + c.en : lang === 'fr' ? (f === 'in' ? c.frIn : c.frArt) : lang === 'es' ? c.esArt || c.es : c[lang];
+  const join = (names, word) => {
+    if (!word || names.some((n) => !n)) throw new Error(`countryList: no ${lang}/${conj}`);
+    if (lang === 'zh') return names.slice(0, -1).join('、') + word + names.at(-1);
+    return names.slice(0, -1).join(', ') + ` ${word} ` + names.at(-1);
+  };
+  const [lp, rp] = lang === 'zh' ? ['（', '）'] : [' (', ')'];
+  const names = COUNTRIES.filter((c) => c.region !== 'caribbean').map((c) => c.adds ? one(c) + lp + c.adds[lang] + rp : one(c));
+  const islands = COUNTRIES.filter((c) => c.region === 'caribbean').map((c) => one(c, ''));
+  names.push((lang === 'fr' ? CARIBBEAN[form === 'in' ? 'frIn' : 'frArt'] : CARIBBEAN[lang]) + lp + join(islands, CONJ[lang]?.and) + rp);
+  return join(names, CONJ[lang]?.[conj]);
 }
 /** The section that lists them by region ({{WHERE_COUNTRIES}}, home and pricing): the anchor #countries. */
 export function countriesSection() {
@@ -118,7 +149,7 @@ export function countriesSection() {
   const groups = REGIONS.map((r) => `      <div class="country-group">
         ${t(r, 'h3')}
         <ul class="country-chips">
-${COUNTRIES.filter((c) => c.region === r.id).map((c) => `          <li>${t(c, 'span')}</li>`).join('\n')}
+${COUNTRIES.filter((c) => c.region === r.id).map((c) => `          <li>${t(c, 'span')}${c.chip ? ` ${t(c.chip, 'small', ' class="chip-adds"')}` : ''}</li>`).join('\n')}
         </ul>
       </div>`).join('\n');
   return `<section class="countries-band" id="countries" aria-labelledby="countries-h">
@@ -126,13 +157,14 @@ ${COUNTRIES.filter((c) => c.region === r.id).map((c) => `          <li>${t(c, 's
     ${t({ en: 'Where our agents find stores', es: 'Dónde encuentran tiendas nuestros agentes', fr: 'Où nos agents trouvent des boutiques', pt: 'Onde nossos agentes encontram lojas', zh: '我们的智能体在哪些国家/地区寻找零售店' }, 'h2', ' id="countries-h"')}
     ${t({ en: 'Your business can be anywhere; your agents write to stores in these countries. More are coming as we check each country’s law.', es: 'Tu negocio puede estar en cualquier lugar; tus agentes escriben a tiendas de estos países. Iremos sumando más a medida que revisamos la ley de cada país.', fr: 'Votre entreprise peut être n’importe où; vos agents écrivent à des boutiques de ces pays. D’autres s’ajouteront à mesure que nous vérifions la loi de chaque pays.', pt: 'Sua empresa pode estar em qualquer lugar; seus agentes escrevem para lojas destes países. Outros virão à medida que verificamos a lei de cada país.', zh: '您的企业可以位于任何地方；您的智能体会给这些国家/地区的零售店写信。我们核查各国法律后，会陆续增加更多国家/地区。' }, 'p', ' class="countries-lead"')}
     <figure class="cmap-wrap">
-      ${worldMapSvg(COUNTRIES, COMING_SOON)}
+      ${worldMapSvg(MAP_PLACES, COMING_SOON)}
       <span class="cmap-tip" hidden></span>
       <figcaption class="cmap-legend">
         <span class="cmap-key"><i class="cmap-sw" aria-hidden="true"></i>${t({ en: 'Agents find stores here', es: 'Los agentes encuentran tiendas aquí', fr: 'Les agents trouvent des boutiques ici', pt: 'Os agentes encontram lojas aqui', zh: '智能体在这里寻找零售店' })}</span>
         <span class="cmap-key"><i class="cmap-sw cmap-sw-soon" aria-hidden="true"></i>${t({ en: 'Coming soon', es: 'Próximamente', fr: 'Bientôt', pt: 'Em breve', zh: '即将推出' })}</span>
       </figcaption>
     </figure>
+${COUNTRIES.flatMap((c) => c.dots || []).map((c) => `    ${t(c, 'span', ` class="cmap-name" data-iso="${c.iso}" hidden`)}`).join('\n')}
     ${t({ en: 'World map of the countries where our agents find stores: {countries}. {soon}', es: 'Mapa del mundo con los países donde nuestros agentes encuentran tiendas: {countries}. {soon}', fr: 'Carte du monde des pays où nos agents trouvent des boutiques : {countries}. {soon}', pt: 'Mapa-múndi dos países onde nossos agentes encontram lojas: {countries}. {soon}', zh: '我们的智能体寻找零售店的国家/地区世界地图：{countries}。{soon}' }, 'span', ' class="cmap-label" hidden')}
     <div class="country-groups">
 ${groups}
@@ -152,6 +184,7 @@ export function localizeMap(document, name, join) {
   const svg = document.querySelector('svg.cmap');
   if (!svg) return;
   const byIso = new Map(COUNTRIES.map((c) => [c.iso, name(c)]));
+  for (const el of document.querySelectorAll('.cmap-name[data-iso]')) { byIso.set(el.getAttribute('data-iso'), el.textContent.trim()); el.remove(); }
   for (const c of COMING_SOON) byIso.set(c.iso, document.querySelector(`.countries-soon[data-iso="${c.iso}"]`)?.textContent.trim());
   for (const el of svg.querySelectorAll('[data-iso]')) {
     const n = byIso.get(el.getAttribute('data-iso'));
@@ -161,7 +194,7 @@ export function localizeMap(document, name, join) {
   }
   const label = document.querySelector('.cmap-label');
   const soon = COMING_SOON.map((c) => byIso.get(c.iso)).join(' ');
-  svg.setAttribute('aria-label', label.textContent.replace('{countries}', COUNTRIES.map((c) => byIso.get(c.iso)).join(join)).replace('{soon}', soon).trim());
+  svg.setAttribute('aria-label', label.textContent.replace('{countries}', MAP_PLACES.map((c) => byIso.get(c.iso)).join(join)).replace('{soon}', soon).trim());
   label.remove();
 }
 
@@ -184,8 +217,35 @@ export const WAITLIST_API = 'https://api.binsusa.com/api/stockistscout/waitlist'
 export const CONTACT_EMAIL = 'sales@stockistscout.com';
 // The sales line (Aharon, 14 Oct 2026): Katya answers it, in English, Spanish or French, any hour (the site is also in Portuguese; the line is not).
 export const CONTACT_PHONE = '(401) 41-SCOUT';
-export const CONTACT_PHONE_DIGITS = '(401) 417-2688';
+export const CONTACT_PHONE_DIGITS = '+1 (401) 417-2688'; // with the US country code (Aharon, 17 Oct 2026)
 export const CONTACT_TEL = 'tel:+14014172688';
+/* A tiny US flag in front of the number (17 Oct 2026): an inline SVG, never the flag emoji (Windows shows the letters
+   "US"). Written by the templates (nav, footer, contact) and, for a number inside a translated text (privacy), by
+   flagPhones after the page is translated. The number and its flag sit in .tel-num, a left-to-right island on he/ar. */
+export const US_FLAG = '<svg class="us-flag" aria-hidden="true" focusable="false" width="16" height="11" viewBox="0 0 16 11"><rect width="16" height="11" fill="#B22234"/><path fill="#fff" d="M0 0.846h16v0.846H0zM0 2.538h16v0.846H0zM0 4.231h16v0.846H0zM0 5.923h16v0.846H0zM0 7.615h16v0.846H0zM0 9.308h16v0.846H0z"/><rect width="6.8" height="5.923" fill="#3C3B6E"/></svg>';
+/** Wraps every CONTACT_PHONE_DIGITS in the body's text that is not already in .tel-num with the flag (build.mjs calls it
+    after a page is translated, so the dictionaries keep the bare number). */
+export function flagPhones(document) {
+  const walker = document.createTreeWalker(document.body, 4 /* NodeFilter.SHOW_TEXT */);
+  const hits = [];
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+    if (n.textContent.includes(CONTACT_PHONE_DIGITS) && !n.parentNode.closest('.tel-num, script, style')) hits.push(n);
+  }
+  for (const n of hits) {
+    const parts = n.textContent.split(CONTACT_PHONE_DIGITS);
+    const frag = document.createDocumentFragment();
+    parts.forEach((t, i) => {
+      if (i) {
+        const span = document.createElement('span');
+        span.setAttribute('class', 'tel-num');
+        span.innerHTML = US_FLAG + CONTACT_PHONE_DIGITS;
+        frag.appendChild(span);
+      }
+      if (t) frag.appendChild(document.createTextNode(t));
+    });
+    n.parentNode.replaceChild(frag, n);
+  }
+}
 const PHONE_ICON = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>';
 
 /* Open for business (Aharon, 10 Oct 2026): the call to action is the free trial in the app, no waitlist. */
@@ -391,7 +451,7 @@ function header(path) {
 ${links}
       </div>
       <div class="nav-end">
-        <a class="nav-phone" href="${CONTACT_TEL}" aria-label="Call StockistScout at ${CONTACT_PHONE_DIGITS}" data-es-label="Llama a StockistScout al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligue para o StockistScout no ${CONTACT_PHONE_DIGITS}" data-zh-label="致电 StockistScout：${CONTACT_PHONE_DIGITS}">${PHONE_ICON}<span>${CONTACT_PHONE}</span></a>
+        <a class="nav-phone" href="${CONTACT_TEL}" aria-label="Call StockistScout at ${CONTACT_PHONE_DIGITS}" data-es-label="Llama a StockistScout al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligue para o StockistScout no ${CONTACT_PHONE_DIGITS}" data-zh-label="致电 StockistScout：${CONTACT_PHONE_DIGITS}">${PHONE_ICON}<span class="tel-num">${US_FLAG}${CONTACT_PHONE}</span></a>
         <a class="btn btn-ghost nav-login" href="${LOGIN_URL}" data-es="Iniciar sesión" data-fr="Se connecter" data-pt="Entrar" data-zh="登录">Log in</a>
         <a class="btn btn-primary nav-cta" href="${CTA_URL}" data-es="Empieza gratis" data-fr="Commencer gratuitement" data-pt="Comece grátis" data-zh="免费开始">Start free</a>
         ${langMenu(path)}
@@ -409,7 +469,7 @@ function footer() {
       <p data-es="Agentes de IA que encuentran tiendas que encajan con tus productos y les escriben en nombre de tu negocio. Solo B2B: tiendas, nunca consumidores." data-fr="Des agents d'IA qui trouvent des boutiques qui correspondent à vos produits et leur écrivent au nom de votre entreprise. B2B seulement : des boutiques, jamais des consommateurs." data-pt="Agentes de IA que encontram lojas que combinam com seus produtos e escrevem para elas em nome da sua empresa. Somente B2B: lojas, nunca consumidores." data-zh="AI 智能体为您找到与产品相匹配的零售店，并以您企业的名义给它们写信。仅限 B2B：只联系零售店，从不联系消费者。">AI agents that find stores that fit your products and write to them on behalf of your business. B2B only: stores, never consumers.</p>
       <p class="disclaimer" data-es="Prueba gratis con 50 correos, sin tarjeta. Ningún resultado de ventas está garantizado." data-fr="Essai gratuit de 50 courriels, sans carte. Aucun résultat de vente n'est garanti." data-pt="Teste grátis com 50 e-mails, sem cartão. Nenhum resultado de vendas é garantido." data-zh="免费试用 50 封邮件，无需信用卡。不保证任何销售结果。">Free trial with 50 emails, no card needed. No sales results are guaranteed.</p>
       <p class="foot-contact">
-        <a href="${CONTACT_TEL}" aria-label="Call ${CONTACT_PHONE_DIGITS}" data-es-label="Llamar al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligar para ${CONTACT_PHONE_DIGITS}" data-zh-label="拨打 ${CONTACT_PHONE_DIGITS}">${CONTACT_PHONE} · ${CONTACT_PHONE_DIGITS}</a>
+        <a href="${CONTACT_TEL}" aria-label="Call ${CONTACT_PHONE_DIGITS}" data-es-label="Llamar al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligar para ${CONTACT_PHONE_DIGITS}" data-zh-label="拨打 ${CONTACT_PHONE_DIGITS}"><span class="tel-num">${US_FLAG}${CONTACT_PHONE} · ${CONTACT_PHONE_DIGITS}</span></a>
         <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
       </p>
     </div>
