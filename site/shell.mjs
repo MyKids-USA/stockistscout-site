@@ -60,6 +60,7 @@ export const VIDEO_IDS = {
   it: '2__CEktNPHc',
   de: 'gSSVdn8cr9E',
   nl: 'M60E8OVhar8',
+  'zh-Hant': '', // none yet: English video and thumbnail until it has its own (then img/video/katya-zh-hant.jpg shows)
 };
 /** Where a dictionary language's translations live. */
 export const dictFile = (code) => new URL(`./i18n/${code}.json`, import.meta.url);

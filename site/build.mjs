@@ -159,16 +159,25 @@ const imgVersion = (f) => createHash('sha1').update(readFileSync(join(ROOT, f)))
     <name>-<lang>.jpg when that file exists (the full-size link's href too); with no such file it stays English. So a
     language gets its screenshots by adding the four files, with no change to the pages. And the home video plays the
     page's own YouTube id from VIDEO_IDS (shell.mjs), or the English one where a language has none. */
+const dirListing = new Map();
+/** Whether a site file exists with exactly this spelling, case included, on any file system. */
+function existsExactly(f) {
+  const dir = dirname(join(ROOT, f)), name = f.slice(f.lastIndexOf('/') + 1);
+  if (!dirListing.has(dir)) dirListing.set(dir, new Set(existsSync(dir) ? readdirSync(dir) : []));
+  return dirListing.get(dir).has(name);
+}
 function localizedImages(document, lang) {
   for (const box of document.querySelectorAll('.promo-video')) box.setAttribute('data-yt', VIDEO_IDS[lang] || VIDEO_IDS.en);
   if (lang === 'en') return;
   const inLang = (url) => {
     const m = /^(\/img\/(?:app|video)\/[\w-]+)-en\.jpg(?:\?v=\w+)?$/.exec(url || '');
     if (!m) return null;
-    const f = `${m[1]}-${lang}.jpg`;
+    // File names are lower case (zh-Hant → katya-zh-hant.jpg), and the file must exist with exactly that spelling: macOS
+    // finds -zh-Hant.jpg for -zh-hant.jpg, Render's Linux does not, so a case-blind check would publish a 404.
+    const f = `${m[1]}-${lang.toLowerCase()}.jpg`;
     // The video's own thumbnail only once that language has its own video: a Chinese picture over the English video misleads.
     if (m[1] === '/img/video/katya' && !VIDEO_IDS[lang]) return null;
-    return existsSync(join(ROOT, f)) ? f : null;
+    return existsExactly(f) ? f : null;
   };
   for (const img of document.querySelectorAll('img[src]')) {
     const f = inLang(img.getAttribute('src'));
