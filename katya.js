@@ -439,6 +439,9 @@
     el.input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
     el.panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     el.callBtn.addEventListener('click', startLive);
+    // The live avatar has no Hebrew (LiveAvatar's languages, 17 Oct 2026): on /he/ she would answer in English, so the
+    // video call is not offered there and the typed chat, which speaks Hebrew, stays.
+    if (lang() === 'he') el.callBtn.style.display = 'none';
 
     var bubble = document.getElementById('katyaBubble');
     var bubbleTimer = null;
