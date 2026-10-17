@@ -103,7 +103,6 @@
  "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>": "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>",
  "Tell us what you sell and to which kinds of stores: we will tell you which agent you would get and whether we can find you good stores today.": "何を販売していて、どんな業態の店舗に届けたいかをお知らせください。どのエージェントが担当になるか、そして今すぐ良い店舗を見つけられるかをお答えします。",
  "Or call us": "またはお電話で",
- "Katya answers, at any hour, in English, Spanish, French or Portuguese: she explains how it works, which plan fits you and how to start. If you want a person to call you back, leave her your details.": "Katyaが24時間、英語、スペイン語、フランス語、ポルトガル語で対応します。仕組み、あなたに合うプラン、始め方をご説明します。担当者からの折り返しをご希望の場合は、Katyaに連絡先をお伝えください。",
  "You can also chat with Katya, bottom right.": "右下のチャットでKatyaと話すこともできます。",
  "Start free today": "今すぐ無料で始める",
  "50 trial emails, no card needed. Sign in with your email or Google.": "トライアル用メール50通、カードは不要です。メールアドレスまたはGoogleでサインインできます。",
@@ -758,5 +757,6 @@
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "この接続からの試行回数が多すぎます。1時間ほどお待ちいただくか、<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>までメールでご連絡ください。",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "送信できませんでした。接続を確認して再度お試しいただくか、<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>までメールでご連絡ください。",
  "Why it fits:": "合う理由：",
- "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "エージェントは最初の検索から仕事を始めます。見つけた各店舗には合う理由が添えられ、店舗は自動で承認されます。店舗を一つずつ自分で承認したい場合は「連絡した店舗」でオンにしてください。却下した店舗が再び提案されることはありません。"
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "エージェントは最初の検索から仕事を始めます。見つけた各店舗には合う理由が添えられ、店舗は自動で承認されます。店舗を一つずつ自分で承認したい場合は「連絡した店舗」でオンにしてください。却下した店舗が再び提案されることはありません。",
+ "Katya answers at any hour, in your language: she speaks 14, from English, Spanish, French and Portuguese to Chinese, Japanese, Korean, Hebrew, Arabic, Hindi, Italian, German and Dutch. She explains how it works, which plan fits you and how to start. If you want a person to call you back, leave her your details.": "Katyaはいつでも、あなたの言語で応対します。英語、スペイン語、フランス語、ポルトガル語から、中国語、日本語、韓国語、ヘブライ語、アラビア語、ヒンディー語、イタリア語、ドイツ語、オランダ語まで14言語を話します。仕組み、あなたに合うプラン、始め方をご説明します。担当者からの折り返しをご希望の場合は、Katyaに連絡先をお伝えください。"
 }

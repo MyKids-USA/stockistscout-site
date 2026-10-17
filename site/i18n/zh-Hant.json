@@ -103,7 +103,6 @@
  "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>": "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>",
  "Tell us what you sell and to which kinds of stores: we will tell you which agent you would get and whether we can find you good stores today.": "告訴我們您銷售什麼產品、希望進入哪類零售店：我們會告訴您將由哪位代理為您服務，以及我們目前能否為您找到合適的零售店。",
  "Or call us": "或致電我們",
- "Katya answers, at any hour, in English, Spanish, French or Portuguese: she explains how it works, which plan fits you and how to start. If you want a person to call you back, leave her your details.": "Katya 全天候接聽，可使用英語、西班牙語、法語或葡萄牙語：她會為您介紹產品如何運作、哪個方案適合您以及如何開始。如果您希望由專人回電，請把您的聯絡方式留給她。",
  "You can also chat with Katya, bottom right.": "您也可以透過右下角與 Katya 線上聊天。",
  "Start free today": "立即免費開始",
  "50 trial emails, no card needed. Sign in with your email or Google.": "50 封試用郵件，無需信用卡。使用您的電子郵件或 Google 帳號登入。",
@@ -758,5 +757,6 @@
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "此網路連線嘗試次數過多。請等待一小時，或寫信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "未能傳送。請檢查網路連線後重試，或寫信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。",
  "Why it fits:": "符合原因：",
- "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "您的智能代理從首次搜尋起就開始工作：找到的每家零售店都附有契合理由，並自動核准。如果您希望自己逐一核准，請在「已聯絡的零售店」中開啟；您拒絕的零售店不會再被推薦。"
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "您的智能代理從首次搜尋起就開始工作：找到的每家零售店都附有契合理由，並自動核准。如果您希望自己逐一核准，請在「已聯絡的零售店」中開啟；您拒絕的零售店不會再被推薦。",
+ "Katya answers at any hour, in your language: she speaks 14, from English, Spanish, French and Portuguese to Chinese, Japanese, Korean, Hebrew, Arabic, Hindi, Italian, German and Dutch. She explains how it works, which plan fits you and how to start. If you want a person to call you back, leave her your details.": "Katya 全天候用您的語言接聽：她會說 14 種語言，從英語、西班牙語、法語和葡萄牙語，到中文、日語、韓語、希伯來語、阿拉伯語、印地語、義大利語、德語和荷蘭語。她會為您介紹產品如何運作、哪個方案適合您以及如何開始。如果您希望由專人回電，請把您的聯絡方式留給她。"
 }

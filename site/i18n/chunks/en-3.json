@@ -1,4 +1,6 @@
 [
+ "Ready to start your corporate plan?",
+ "Talk to sales",
  "How it works at one hotel",
  "The manager describes the customer",
  "Which companies matter (sports teams, productions, companies with projects nearby, weddings, conferences), in which cities, and what the hotel offers. Katya helps write it.",
@@ -306,6 +308,5 @@
  "How am I billed?",
  "Monthly. If you installed the app from the Shopify App Store, Shopify bills your plan on your Shopify invoice. If you opened your account on our website, you pay by card through Stripe, and we never see your card number. The prices are the same.",
  "Can I cancel or change plans?",
- "Yes, whenever you want. Monthly plans have no contract: if you cancel, you are not charged again. Corporate plans for hotel chains are different: an <a href=\"/corporate-agreement\">annual agreement</a> of 12 months that renews unless either side gives notice 60 days before the end; the number of users can only go down at renewal.",
- "Is there a catch to the trial?"
+ "Yes, whenever you want. Monthly plans have no contract: if you cancel, you are not charged again. Corporate plans for hotel chains are different: an <a href=\"/corporate-agreement\">annual agreement</a> of 12 months that renews unless either side gives notice 60 days before the end; the number of users can only go down at renewal."
 ]
