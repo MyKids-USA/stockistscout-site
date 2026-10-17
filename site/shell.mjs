@@ -50,7 +50,7 @@ export const VIDEO_IDS = {
   ja: 'GpeiUl_p0Tc',
   ko: 'sRWcQ7uPGqs',
   he: 'nhGyUfqmA_w',
-  ar: '',
+  ar: 'Nq4Z18A1uU8',
   it: '',
   de: 'gSSVdn8cr9E',
   nl: 'M60E8OVhar8',
