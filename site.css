@@ -590,3 +590,76 @@ html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; 
 .promo-play:hover .promo-btn, .promo-play:focus-visible .promo-btn { transform: scale(1.08); }
 @media (max-width: 600px) { .promo-btn { width: 56px; height: 56px; margin: -28px 0 0 -28px; } .promo-btn::after { left: 22px; top: 17px; border-width: 11px 0 11px 18px; } }
 #video .wrap { text-align: center; }
+
+/* ---------- Where our agents find stores (#countries, home and pricing; 17 Oct 2026) ---------- */
+a.badge { text-decoration: none; }
+a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.countries-band { padding: 40px 0 48px; border-top: 1px solid var(--line-2); scroll-margin-top: var(--head-h); }
+.countries-band h2 { font-size: clamp(22px, 3vw, 28px); margin: 0 0 8px; }
+.countries-lead { color: var(--ink-2); max-width: 760px; margin: 0 0 22px; }
+.country-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px 28px; }
+.country-group h3 { font: 500 12.5px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--green-text); margin: 0 0 10px; }
+.country-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.country-chips li { font: 500 14px var(--sans); color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+.countries-soon { margin: 20px 0 0; font-size: 14px; color: var(--muted); }
+:lang(zh) .country-group h3, :lang(ja) .country-group h3, :lang(ko) .country-group h3, :lang(he) .country-group h3 { letter-spacing: 0; }
+:lang(pt) .mock-rows .why::before { content: "Por que combina: "; }
+:lang(zh) .mock-rows .why::before { content: "匹配原因："; }
+
+/* ---------- Japanese, Korean, Hebrew (17 Oct 2026): system fonts behind the Latin ones, as for Chinese ---------- */
+:root:lang(ja) {
+  --display: "Plus Jakarta Sans", "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", "Noto Sans JP", sans-serif;
+  --sans: "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", "Noto Sans JP", sans-serif;
+}
+:root:lang(ko) {
+  --display: "Plus Jakarta Sans", "Inter", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --sans: "Inter", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+}
+:root:lang(he) {
+  --display: "Plus Jakarta Sans", "Inter", "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif;
+  --sans: "Inter", "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif;
+}
+:lang(ja) h1, :lang(ja) h2, :lang(ja) h3, :lang(ko) h1, :lang(ko) h2, :lang(ko) h3, :lang(he) h1, :lang(he) h2, :lang(he) h3 { letter-spacing: 0; }
+:lang(ja) .page-head h1, :lang(ja) .hero h1, :lang(ko) .page-head h1, :lang(ko) .hero h1 { line-height: 1.25; }
+:lang(ko) body { word-break: keep-all; }
+
+/* ---------- Right to left (Hebrew, <html dir="rtl">) ----------
+   Flex and grid already follow the direction; these are the rules written with left/right. Emails, URLs, prices,
+   phone numbers and code stay left-to-right islands inside the Hebrew. */
+[dir=rtl] .skip { left: auto; right: -9999px; }
+[dir=rtl] .skip:focus { right: 12px; }
+[dir=rtl] .lang.js .lang-menu { right: auto; left: 0; }
+[dir=rtl] .menu-btn { margin-left: 0; margin-right: auto; }
+[dir=rtl] .site-nav .nav-end { margin-left: 0; margin-right: 18px; }
+[dir=rtl] .mock-label { right: auto; left: 18px; }
+[dir=rtl] .mock-top .ok { margin-left: 0; margin-right: auto; }
+[dir=rtl] .checks li { padding-left: 0; padding-right: 28px; }
+[dir=rtl] .checks li::before { left: auto; right: 0; }
+[dir=rtl] .plan .ribbon { left: auto; right: 20px; }
+[dir=rtl] th, [dir=rtl] td { text-align: right; }
+[dir=rtl] td.num, [dir=rtl] th.num { text-align: left; }
+[dir=rtl] details summary { padding: 18px 20px 18px 52px; }
+[dir=rtl] details summary::after { right: auto; left: 20px; }
+[dir=rtl] .note { border-left: 0; border-right: 4px solid var(--green); border-radius: 12px 0 0 12px; }
+[dir=rtl] .limits li { padding: 16px 50px 16px 18px; }
+[dir=rtl] .limits li::before { left: auto; right: 16px; }
+[dir=rtl] .katya-launcher, [dir=rtl] .katya-panel { right: auto; left: 20px; }
+[dir=rtl] .katya-bubble { right: auto; left: 92px; padding: 12px 14px 12px 34px; }
+[dir=rtl] .katya-bubble-x { right: auto; left: 8px; }
+[dir=rtl] .katya-head { padding: 12px 14px 12px 12px; }
+[dir=rtl] .katya-msg-her { border-bottom-left-radius: 14px; border-bottom-right-radius: 4px; }
+[dir=rtl] .katya-msg-user { border-bottom-right-radius: 14px; border-bottom-left-radius: 4px; }
+@media (max-width: 1439px) {
+  [dir=rtl] .nav-links > a[aria-current="page"] { box-shadow: inset -4px 0 0 var(--green); padding-left: 0; padding-right: 16px; }
+  [dir=rtl] .lang-btn .lang-caret { margin-left: 0; margin-right: auto; }
+}
+@media (max-width: 560px) { [dir=rtl] .mock-top .ok { margin-right: 56px; margin-left: 0; } }
+@media (max-width: 600px) {
+  [dir=rtl] .katya-panel { left: 16px; right: 16px; }
+  [dir=rtl] .katya-bubble { left: 88px; right: auto; }
+}
+/* Left-to-right islands: addresses, links, numbers and code read the same in every language. */
+[dir=rtl] a[href^="mailto:"], [dir=rtl] a[href^="tel:"], [dir=rtl] .nav-phone span, [dir=rtl] .foot-contact a,
+[dir=rtl] code, [dir=rtl] kbd, [dir=rtl] pre, [dir=rtl] .amount,
+[dir=rtl] input[type=email], [dir=rtl] input[type=url], [dir=rtl] input[inputmode=url], [dir=rtl] input[type=tel] { direction: ltr; unicode-bidi: isolate; }
+[dir=rtl] .foot-contact { align-items: flex-start; }

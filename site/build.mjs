@@ -11,15 +11,22 @@
  * Placeholders inside a fragment: {{CTA_BUTTON}} {{CTA_BUTTON_LIGHT}} {{CTA}}
  * {{WAITLIST_FORM}} (the waitlist form, one per page), {{CONTACT_EMAIL}},
  * {{AGENTS}} / {{AGENTS_FULL}} (the eight agent cards, short and long) and
- * {{AVATAR:Name}} (one agent's picture) and {{CUSTOM_AVATARS}} (the custom-agent avatar gallery).
+ * {{AVATAR:Name}} (one agent's picture) and {{CUSTOM_AVATARS}} (the custom-agent avatar gallery),
+ * {{COUNTRIES:<lang>:<and|or>[:in]}} (the countries the agents write to, as a sentence) and {{WHERE_COUNTRIES}}
+ * (the same countries by region, id="countries"): both from COUNTRIES in shell.mjs.
+ *
+ * Languages: see LANGUAGES in shell.mjs. es/fr/pt/zh ride in data-<lang> attributes; ja/ko/he/it/de/nl come from
+ * site/i18n/<lang>.json once it exists, and the build stops if that file misses any string (site/i18n/strings.mjs).
  */
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
-import { LANGUAGES, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL } from './shell.mjs';
+import { LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL } from './shell.mjs';
+
+import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
@@ -54,6 +61,8 @@ function fill(html) {
     .replaceAll('{{AGENTS}}', agentCards(false))
     .replaceAll('{{AGENTS_FULL}}', agentCards(true))
     .replaceAll('{{CUSTOM_AVATARS}}', customAvatars())
+    .replaceAll('{{WHERE_COUNTRIES}}', countriesSection())
+    .replace(/\{\{COUNTRIES:(\w+):(and|or)(?::(in))?\}\}/g, (_, lang, conj, form) => countryList(lang, conj, form))
     .replace(/\{\{AVATAR:(\w+)\}\}/g, (_, name) => {
       if (!AGENTS.some((a) => a.name === name)) throw new Error(`unknown agent ${name}`);
       return agentImg(name, 44, false);
@@ -83,8 +92,11 @@ const outFile = (path) => path === '/' ? 'index.html' : path.slice(1) + '.html';
    its own canonical and listed in the sitemap with its alternates. The data-* stay, harmless.
    Brazilian Portuguese (16 Oct 2026) is the fourth: data-pt, under /pt/, the same way. Simplified Chinese (16 Oct 2026,
    for factories looking for stores abroad) is the fifth: data-zh, under /zh/, <html lang="zh-CN">, hreflang zh-Hans.
-   The languages themselves are the one LANGUAGES list in shell.mjs (16 Oct 2026); everything here comes from it. */
-export const LANGS = LANGUAGES.map((l) => l.code);
+   The languages themselves are the one LANGUAGES list in shell.mjs (16 Oct 2026); everything here comes from it.
+   Dictionary languages (17 Oct 2026, ja ko he it de nl): their text comes from site/i18n/<lang>.json, keyed by the
+   English; each is built only once its file exists (SITE_LANGUAGES), and Hebrew pages get dir="rtl". */
+export const LANGS = SITE_LANGUAGES.map((l) => l.code);
+const ATTR_LANGS = ATTR_LANGUAGES.map((l) => l.code);
 const BY = Object.fromEntries(LANGUAGES.map((l) => [l.code, l]));
 const hreflang = (l) => BY[l]?.hreflang ?? l; // x-default stays itself
 export { pathIn };
@@ -96,11 +108,57 @@ function pick(el, lang, en, key) {
   return lang === 'en' ? en : el.getAttribute(`data-${lang}${key}`) ?? en;
 }
 
-/** Writes the English page's translation into the HTML itself, and points its links and head at that language. */
-export function localize(html, lang, path, pages, meta) {
+/** A page's title as the shell writes it: the home's alone, every other with the site's name. */
+const titled = (path, t) => path === '/' ? t : `${t} | StockistScout`;
+
+/** A dictionary language's text into the page: every element with data-pt (and its -alt / -label / -placeholder) gets
+    the translation of its English, unless it carries the language's own attribute; then the title, the description,
+    and for the scripts window.SS_I18N (Katya, the waitlist) and the label of the home mock. Returns the misses. */
+function translateFromDict(document, lang, path, meta, dict) {
+  const miss = [];
+  const tr = (en) => { const t = dict[en]; if (t == null) miss.push(en.slice(0, 80)); return t; };
+  for (const el of document.querySelectorAll('[data-pt]')) {
+    if (el.tagName === 'TITLE') continue;
+    const text = el.getAttribute(`data-${lang}`) ?? tr(el.innerHTML);
+    if (text != null) el.innerHTML = text;
+  }
+  for (const [a, key] of ATTRS) {
+    for (const el of document.querySelectorAll(`[data-pt-${key}]`)) {
+      if (!el.hasAttribute(a)) continue;
+      const v = el.getAttribute(`data-${lang}-${key}`) ?? tr(el.getAttribute(a));
+      if (v != null) el.setAttribute(a, v);
+    }
+  }
+  const head = document.head;
+  const title = tr(meta.title);
+  if (title != null) document.title = titled(path, title);
+  const desc = tr(meta.description);
+  if (desc != null) {
+    head.querySelector('meta[name="description"]')?.setAttribute('content', desc);
+    head.querySelector('meta[property="og:description"]')?.setAttribute('content', desc);
+  }
+  const scripts = Object.fromEntries(scriptStrings().map((en) => [en, tr(en)]));
+  const s = document.createElement('script');
+  // As JSON in a script: "<" escaped, so no text can close the tag.
+  s.textContent = `window.SS_I18N=${JSON.stringify(scripts).replace(/</g, '\\u003c')};`;
+  head.appendChild(s);
+  const style = document.createElement('style');
+  style.textContent = `.mock-rows .why::before{content:${JSON.stringify(scripts[WHY_LABEL] + ' ')}}`;
+  head.appendChild(style);
+  return miss;
+}
+
+/** Writes the English page's translation into the HTML itself, and points its links and head at that language.
+    `dict` is the language's dictionary when it is a dictionary language. */
+export function localize(html, lang, path, pages, meta, dict) {
   const { document } = parseHTML(html);
   const head = document.head;
-  if (lang !== 'en') {
+  if (lang !== 'en' && BY[lang].dict) {
+    document.documentElement.setAttribute('lang', BY[lang].html);
+    if (BY[lang].dir) document.documentElement.setAttribute('dir', BY[lang].dir);
+    const miss = translateFromDict(document, lang, path, meta, dict || {});
+    if (miss.length) throw new Error(`${lang}${path}: no translation for\n${miss.join('\n')}`);
+  } else if (lang !== 'en') {
     document.documentElement.setAttribute('lang', BY[lang].html);
     for (const el of document.querySelectorAll(`[data-${lang}]`)) {
       const text = pick(el, lang, null, '');
@@ -118,6 +176,8 @@ export function localize(html, lang, path, pages, meta) {
       head.querySelector('meta[name="description"]')?.setAttribute('content', desc);
       head.querySelector('meta[property="og:description"]')?.setAttribute('content', desc);
     }
+  }
+  if (lang !== 'en') {
     head.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
     // Links to our pages stay in the language; the app opens in it too.
     for (const a of document.querySelectorAll('a[href]')) {
@@ -163,7 +223,7 @@ export function localize(html, lang, path, pages, meta) {
 export function missingTranslations(html, where) {
   const { document } = parseHTML(html);
   const out = [];
-  const checked = LANGS.slice(LANGS.indexOf('fr'));
+  const checked = ATTR_LANGS.slice(ATTR_LANGS.indexOf('fr'));
   for (const el of document.querySelectorAll('*')) for (const { name } of [...el.attributes]) {
     const from = checked.find((l) => name === `data-${l}` || name.startsWith(`data-${l}-`));
     if (!from) continue;
@@ -195,22 +255,51 @@ const ROBOTS = INDEXABLE
   ? `User-agent: *\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`
   : `# Pre-launch: the site is not to be indexed yet. Flip INDEXABLE in site/shell.mjs at launch.\nUser-agent: *\nDisallow: /\n`;
 
+/** Every page in English, as the build makes it: { meta, html }. extract.mjs reads its strings from these. */
+export function englishPages() {
+  return readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort().map(readPage)
+    .map(({ meta, body }) => ({ meta, html: page({ ...meta, body: fill(body) }) }));
+}
+
+export const EN_JSON = join(HERE, 'i18n', 'en.json');
+
+/** The dictionaries of the dictionary languages being built, each checked to hold every string (or the build stops). */
+function loadDictionaries(all) {
+  const problems = [];
+  const strings = collectStrings(all, problems);
+  if (problems.length) throw new Error('Strings the dictionaries cannot key:\n' + problems.join('\n'));
+  if (!existsSync(EN_JSON) || JSON.stringify(JSON.parse(readFileSync(EN_JSON, 'utf8'))) !== JSON.stringify(strings)) {
+    console.warn(`site/i18n/en.json is out of date (${strings.length} strings now): run node site/i18n/extract.mjs and send the new ones to the translators.`);
+  }
+  const dicts = {};
+  for (const l of SITE_LANGUAGES.filter((x) => x.dict)) {
+    const dict = JSON.parse(readFileSync(dictFile(l.code), 'utf8'));
+    const missing = strings.filter((en) => typeof dict[en] !== 'string' || !dict[en].trim());
+    if (missing.length) {
+      throw new Error(`site/i18n/${l.code}.json misses ${missing.length} of ${strings.length} strings, so /${l.code}/ would show English. The first:\n`
+        + missing.slice(0, 10).map((m) => '  ' + m.slice(0, 100)).join('\n'));
+    }
+    dicts[l.code] = dict;
+  }
+  return dicts;
+}
+
 export function build() {
   const urls = [];
   const order = ['/', '/how-it-works', '/features', '/agents', '/pricing', '/results', '/faq', '/about', '/contact', '/privacy', '/terms'];
-  const all = readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort().map(readPage);
+  const all = englishPages();
   const pages = new Set(all.map((x) => x.meta.path));
+  const dicts = loadDictionaries(all);
   for (const l of LANGS.slice(1)) mkdirSync(join(ROOT, l), { recursive: true });
-  for (const { meta, body } of all) {
-    const en = page({ ...meta, body: fill(body) });
+  for (const { meta, html: en } of all) {
     const gaps = missingTranslations(en, meta.path);
     // titleFr, titlePt, titleZh ... and the same for description: each language from French on has them when French does.
     const cap = (l) => l[0].toUpperCase() + l.slice(1);
     for (const k of ['title', 'description']) if (meta[k + 'Fr'])
-      for (const l of LANGS.slice(LANGS.indexOf('fr') + 1)) if (!meta[k + cap(l)]) gaps.push(`${meta.path}: ${k}Fr without ${k}${cap(l)}`);
+      for (const l of ATTR_LANGS.slice(ATTR_LANGS.indexOf('fr') + 1)) if (!meta[k + cap(l)]) gaps.push(`${meta.path}: ${k}Fr without ${k}${cap(l)}`);
     if (gaps.length) throw new Error('Missing translations:\n' + gaps.join('\n'));
     // The 404 stays English-only: it is never indexed.
-    for (const l of meta.noindex ? ['en'] : LANGS) writeFileSync(join(ROOT, fileIn(meta.path, l)), localize(en, l, meta.path, pages, meta));
+    for (const l of meta.noindex ? ['en'] : LANGS) writeFileSync(join(ROOT, fileIn(meta.path, l)), localize(en, l, meta.path, pages, meta, dicts[l]));
     if (!meta.noindex) urls.push([meta.path, meta.updated || TODAY]);
   }
   urls.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));

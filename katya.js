@@ -19,9 +19,16 @@
   var SDK_URL = 'https://unpkg.com/@heygen/liveavatar-web-sdk@0.0.18/dist/index.umd.js';
   var EMAIL = 'sales@stockistscout.com';
   // /zh/ pages say lang="zh-CN": the language is its first two letters. Her backend may still answer 'zh' in English.
-  var lang = function () { var l = (document.documentElement.lang || '').slice(0, 2); return (l === 'es' || l === 'fr' || l === 'pt' || l === 'zh') ? l : 'en'; };
+  // The page's language goes to her backend as it is (it answers in the languages it knows, English otherwise).
+  var lang = function () { var l = (document.documentElement.lang || '').slice(0, 2); return /^[a-z]{2}$/.test(l) ? l : 'en'; };
   // French since 14 Oct 2026 (Canada), Brazilian Portuguese and Simplified Chinese since 16 Oct 2026 (/pt/, /zh/); a text without one shows in English.
-  var L = function (es, en, fr, pt, zh) { var l = lang(); return l === 'es' ? es : (l === 'fr' && fr) ? fr : (l === 'pt' && pt) ? pt : (l === 'zh' && zh) ? zh : en; };
+  // The dictionary languages (ja, ko, he, it, de, nl: 17 Oct 2026) find the English in window.SS_I18N, which the build
+  // writes into their pages from site/i18n/<lang>.json. site/i18n/strings.mjs reads the English (the second argument)
+  // of every call of L here, so each argument must be one plain quoted string: no + inside a call.
+  var L = function (es, en, fr, pt, zh) {
+    var l = lang(), d = window.SS_I18N;
+    return l === 'es' ? es : (l === 'fr' && fr) ? fr : (l === 'pt' && pt) ? pt : (l === 'zh' && zh) ? zh : (d && d[en]) || en;
+  };
 
   /* Their UMD hands the factory `window.events$1` for Node's EventEmitter and never
      ships one, so evaluation throws partway and leaves a global with the enums but
@@ -330,8 +337,8 @@
       if (r.ok) msgs.push({ role: 'assistant', content: d.reply });
     } catch (e) {
       typing.remove();
-      say('assistant', L('No pude responder ahora. Escríbenos a ' + EMAIL + '.',
-                         'I could not answer just now. Email us at ' + EMAIL + '.', 'Je n’ai pas pu répondre pour l’instant. Écrivez-nous à ' + EMAIL + '.', 'Não consegui responder agora. Escreva para ' + EMAIL + '.', '暂时无法回答。请发邮件至 ' + EMAIL + '。'));
+      say('assistant', L('No pude responder ahora. Escríbenos a {email}.',
+                         'I could not answer just now. Email us at {email}.', 'Je n’ai pas pu répondre pour l’instant. Écrivez-nous à {email}.', 'Não consegui responder agora. Escreva para {email}.', '暂时无法回答。请发邮件至 {email}。').replace('{email}', EMAIL));
     }
     busy = false;
   }

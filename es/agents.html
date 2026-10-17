@@ -34,7 +34,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="/site.css?v=d555762cd8">
+<link rel="stylesheet" href="/site.css?v=eae063a5f7">
 </head>
 <body>
 <a class="skip" href="#main" data-es="Ir al contenido" data-fr="Aller au contenu" data-pt="Pular para o conteúdo" data-zh="跳到正文">Ir al contenido</a>
@@ -65,7 +65,7 @@
         <a class="btn btn-ghost nav-login" href="https://app.stockistscout.com/login?lang=es" data-es="Iniciar sesión" data-fr="Se connecter" data-pt="Entrar" data-zh="登录">Iniciar sesión</a>
         <a class="btn btn-primary nav-cta" href="https://app.stockistscout.com/signup?lang=es" data-es="Empieza gratis" data-fr="Commencer gratuitement" data-pt="Comece grátis" data-zh="免费开始">Empieza gratis</a>
         <div class="lang" id="langToggle">
-          <button type="button" class="lang-btn" aria-expanded="false" aria-controls="langMenu" aria-label="Idioma: Español" data-es-label="Idioma: Español" data-fr-label="Langue: Français" data-pt-label="Idioma: Português" data-zh-label="语言: 中文"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg><span data-es="Español" data-fr="Français" data-pt="Português" data-zh="中文">Español</span><span class="lang-caret" aria-hidden="true"></span></button>
+          <button type="button" class="lang-btn" aria-expanded="false" aria-controls="langMenu" aria-label="Idioma: Español" data-es-label="Idioma: Español" data-fr-label="Langue: Français" data-pt-label="Idioma: Português" data-zh-label="语言: 中文" data-ja-label="言語: 日本語" data-ko-label="언어: 한국어" data-he-label="שפה: עברית" data-it-label="Lingua: Italiano" data-de-label="Sprache: Deutsch" data-nl-label="Taal: Nederlands"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg><span data-es="Español" data-fr="Français" data-pt="Português" data-zh="中文" data-ja="日本語" data-ko="한국어" data-he="עברית" data-it="Italiano" data-de="Deutsch" data-nl="Nederlands">Español</span><span class="lang-caret" aria-hidden="true"></span></button>
           <ul class="lang-menu" id="langMenu">
             <li><a href="/agents" hreflang="en" lang="en" data-lang="en">English</a></li>
             <li><a aria-current="true" href="/es/agents" hreflang="es" lang="es" data-lang="es">Español</a></li>
@@ -258,7 +258,7 @@
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
   var LANGS = ["es","fr","pt","zh"];
-  // /zh/ pages say lang="zh-CN"; the language code is its first two letters.
+  // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {
     var p = location.pathname;
@@ -289,29 +289,11 @@
   }
   /* Waitlist form: posts JSON to the address in data-waitlist and confirms on screen. */
   var LOADED = Date.now();
-  var MSG = {
-    ok: { en: '<strong>You are on the list. Thank you.</strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.',
-          es: '<strong>Ya estás en la lista. Gracias.</strong> Te escribiremos cuando StockistScout abra. Todavía no enviamos un correo de confirmación, así que este mensaje es tu confirmación.',
-          fr: '<strong>Vous êtes sur la liste. Merci.</strong> Nous vous écrirons à l’ouverture de StockistScout. Nous n’envoyons pas encore de courriel de confirmation : ce message est votre confirmation.',
-          pt: '<strong>Você está na lista. Obrigado.</strong> Vamos escrever para você quando o StockistScout abrir. Ainda não enviamos e-mail de confirmação, então esta mensagem é a sua confirmação.',
-          zh: '<strong>您已加入名单，谢谢。</strong>StockistScout 开放时我们会写信通知您。我们暂不发送确认邮件，因此本条消息即为您的确认。' },
-    sending: { en: 'Sending…', es: 'Enviando…', fr: 'Envoi…', pt: 'Enviando…', zh: '正在发送…' },
-    fix: { en: 'Please check the highlighted fields.', es: 'Revisa los campos marcados.', fr: 'Veuillez vérifier les champs indiqués.', pt: 'Confira os campos destacados.', zh: '请检查标出的字段。' },
-    many: { en: 'Too many tries from this connection. Please wait an hour, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            es: 'Demasiados intentos desde esta conexión. Espera una hora o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            fr: 'Trop de tentatives depuis cette connexion. Attendez une heure ou écrivez-nous à <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            pt: 'Tentativas demais a partir desta conexão. Aguarde uma hora ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            zh: '此网络连接尝试次数过多。请等待一小时，或写信至 <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>。' },
-    fail: { en: 'We could not send it. Check your connection and try again, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            es: 'No pudimos enviarlo. Revisa tu conexión y vuelve a intentarlo, o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            fr: 'Nous n’avons pas pu l’envoyer. Vérifiez votre connexion et réessayez, ou écrivez-nous à <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            pt: 'Não conseguimos enviar. Verifique sua conexão e tente de novo, ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            zh: '未能发送。请检查网络连接后重试，或写信至 <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>。' }
-  };
+  var MSG = {"ok":{"en":"<strong>You are on the list. Thank you.</strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.","es":"<strong>Ya estás en la lista. Gracias.</strong> Te escribiremos cuando StockistScout abra. Todavía no enviamos un correo de confirmación, así que este mensaje es tu confirmación.","fr":"<strong>Vous êtes sur la liste. Merci.</strong> Nous vous écrirons à l’ouverture de StockistScout. Nous n’envoyons pas encore de courriel de confirmation : ce message est votre confirmation.","pt":"<strong>Você está na lista. Obrigado.</strong> Vamos escrever para você quando o StockistScout abrir. Ainda não enviamos e-mail de confirmação, então esta mensagem é a sua confirmação.","zh":"<strong>您已加入名单，谢谢。</strong>StockistScout 开放时我们会写信通知您。我们暂不发送确认邮件，因此本条消息即为您的确认。"},"sending":{"en":"Sending…","es":"Enviando…","fr":"Envoi…","pt":"Enviando…","zh":"正在发送…"},"fix":{"en":"Please check the highlighted fields.","es":"Revisa los campos marcados.","fr":"Veuillez vérifier les champs indiqués.","pt":"Confira os campos destacados.","zh":"请检查标出的字段。"},"many":{"en":"Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.","es":"Demasiados intentos desde esta conexión. Espera una hora o escríbenos a <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.","fr":"Trop de tentatives depuis cette connexion. Attendez une heure ou écrivez-nous à <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.","pt":"Tentativas demais a partir desta conexão. Aguarde uma hora ou escreva para <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.","zh":"此网络连接尝试次数过多。请等待一小时，或写信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。"},"fail":{"en":"We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.","es":"No pudimos enviarlo. Revisa tu conexión y vuelve a intentarlo, o escríbenos a <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.","fr":"Nous n’avons pas pu l’envoyer. Vérifiez votre connexion et réessayez, ou écrivez-nous à <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.","pt":"Não conseguimos enviar. Verifique sua conexão e tente de novo, ou escreva para <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.","zh":"未能发送。请检查网络连接后重试，或写信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。"}};
   function curLang() { return pageLang(); }
   function say(el, m) {
     el.dataset.en = m.en; el.dataset.es = m.es; el.dataset.fr = m.fr || m.en; el.dataset.pt = m.pt || m.en; el.dataset.zh = m.zh || m.en;
-    el.innerHTML = m[curLang()] || m.en;
+    el.innerHTML = m[curLang()] || (window.SS_I18N && window.SS_I18N[m.en]) || m.en;
     el.hidden = false;
   }
   function looksLikeEmail(v) {
@@ -375,11 +357,13 @@
   }
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
-  var nav = (navigator.language || 'en').toLowerCase();
-  /* On an English page, a visitor who chose Spanish, French, Portuguese or Chinese before, or whose browser speaks it on a
-     first visit (es-*, fr-*, pt-*, zh-*), goes to that page in their language. A page reached in another language remembers it. */
+  var nav = (navigator.language || 'en').toLowerCase().slice(0, 2);
+  if (nav === 'iw') nav = 'he'; // older browsers still say iw-IL for Hebrew
+  /* On an English page, a visitor who chose another language before, or whose browser speaks one the site is built in on
+     a first visit (es-*, fr-*, pt-*, zh-*, and once their files exist ja-*, ko-*, he-* or iw-*, it-*, de-*, nl-*), goes to
+     that page in their language. A saved language the site no longer has stays on English. A page reached in another language remembers it. */
   if (pageLang() === 'en') {
-    var want = saved || (LANGS.indexOf(nav.slice(0, 2)) >= 0 ? nav.slice(0, 2) : 'en');
+    var want = saved || (LANGS.indexOf(nav) >= 0 ? nav : 'en');
     if (LANGS.indexOf(want) >= 0) { location.replace(urlFor(want)); return; }
   } else {
     try { localStorage.setItem(KEY, pageLang()); } catch (e) {}
@@ -424,7 +408,7 @@
   });
 })();
 </script>
-<script src="/katya.js?v=8a1c10e54f" defer></script>
+<script src="/katya.js?v=1d05581a7b" defer></script>
 <script src="https://api.binsusa.com/api/site/tracker.js" data-site="stockistscout" defer></script>
 </body>
 </html>

@@ -9,22 +9,103 @@
  * English page follows the browser language.
  */
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 
 export const ORIGIN = 'https://stockistscout.com';
 
 /* The site's languages, in the order of the language menu: one entry per language (Aharon, 16 Oct 2026: a dropdown,
-   because there will be eight: English, Español, Français, Português, 中文, then 日本語, 한국어, עברית). `code` is the URL
-   folder and the data-<code> attribute that carries the text, `name` the language's name in itself, `word` its word for "Language", `html` its
-   <html lang>, `hreflang` its hreflang, `locale` its og:locale. A new language is one entry here plus its data-<code>
-   texts (and, for a right-to-left one, dir="rtl" in build.mjs). English is first and lives at the root. */
+   because there will be more: English, Español, Français, Português, 中文, then 日本語, 한국어, עברית, Italiano, Deutsch,
+   Nederlands). `code` is the URL folder, `name` the language's name in itself, `word` its word for "Language", `html` its
+   <html lang>, `hreflang` its hreflang, `locale` its og:locale, `dir` 'rtl' for a right-to-left language.
+   Two ways to carry the texts:
+   - es, fr, pt, zh: in data-<code> attributes beside the English in site/pages (and here);
+   - `dict: true` (17 Oct 2026, ja ko he it de nl): a dictionary file site/i18n/<code>.json, {english: translation}, for
+     every string in site/i18n/en.json (node site/i18n/extract.mjs writes it). The build refuses a dictionary that misses one.
+   A dictionary language is built (folder, menu entry, hreflang, sitemap, browser redirect) only once its file exists, so
+   adding a language is one entry here plus its JSON file. English is first and lives at the root. */
 export const LANGUAGES = [
   { code: 'en', name: 'English', word: 'Language', html: 'en', hreflang: 'en', locale: 'en_US' },
   { code: 'es', name: 'Español', word: 'Idioma', html: 'es', hreflang: 'es', locale: 'es_MX' },
   { code: 'fr', name: 'Français', word: 'Langue', html: 'fr', hreflang: 'fr', locale: 'fr_CA' },
   { code: 'pt', name: 'Português', word: 'Idioma', html: 'pt-BR', hreflang: 'pt', locale: 'pt_BR' },
   { code: 'zh', name: '中文', word: '语言', html: 'zh-CN', hreflang: 'zh-Hans', locale: 'zh_CN' },
+  { code: 'ja', name: '日本語', word: '言語', html: 'ja', hreflang: 'ja', locale: 'ja_JP', dict: true },
+  { code: 'ko', name: '한국어', word: '언어', html: 'ko', hreflang: 'ko', locale: 'ko_KR', dict: true },
+  { code: 'he', name: 'עברית', word: 'שפה', html: 'he', hreflang: 'he', locale: 'he_IL', dir: 'rtl', dict: true },
+  { code: 'it', name: 'Italiano', word: 'Lingua', html: 'it', hreflang: 'it', locale: 'it_IT', dict: true },
+  { code: 'de', name: 'Deutsch', word: 'Sprache', html: 'de', hreflang: 'de', locale: 'de_DE', dict: true },
+  { code: 'nl', name: 'Nederlands', word: 'Taal', html: 'nl', hreflang: 'nl', locale: 'nl_NL', dict: true },
 ];
+/** Where a dictionary language's translations live. */
+export const dictFile = (code) => new URL(`./i18n/${code}.json`, import.meta.url);
+/** The languages the site is built in: every attribute language, and each dictionary language whose file exists. */
+export const SITE_LANGUAGES = LANGUAGES.filter((l) => !l.dict || existsSync(dictFile(l.code)));
+/** The attribute languages (data-es, data-fr, ...): the build checks their coverage itself. */
+export const ATTR_LANGUAGES = LANGUAGES.filter((l) => !l.dict);
+
+/* The countries where the agents find stores and write to them (Aharon, 17 Oct 2026: "Available worldwide" needs one
+   clear list, so a customer elsewhere does not buy thinking we cover their country). The one source for every list on
+   the site: {{COUNTRIES:<lang>:<and|or>[:in]}} in a page writes the sentence form ("the United States, Mexico, ...
+   and New Zealand"; French :in is "aux États-Unis, au Mexique, ..."), and {{WHERE_COUNTRIES}} the section of chips by
+   region (home and pricing, id="countries"). The corporate agreement keeps its own fixed list: it is a dated contract,
+   checked against the app's src/corporate/agreement.json. A new country is one entry here (and its rules in faq.html). */
+export const COUNTRIES = [
+  { region: 'americas', en: 'United States', the: true, es: 'Estados Unidos', fr: 'États-Unis', frArt: 'les États-Unis', frIn: 'aux États-Unis', pt: 'Estados Unidos', zh: '美国' },
+  { region: 'americas', en: 'Mexico', es: 'México', fr: 'Mexique', frArt: 'le Mexique', frIn: 'au Mexique', pt: 'México', zh: '墨西哥' },
+  { region: 'americas', en: 'Canada', es: 'Canadá', fr: 'Canada', frArt: 'le Canada', frIn: 'au Canada', pt: 'Canadá', zh: '加拿大' },
+  { region: 'americas', en: 'Guatemala', es: 'Guatemala', fr: 'Guatemala', frArt: 'le Guatemala', frIn: 'au Guatemala', pt: 'Guatemala', zh: '危地马拉' },
+  { region: 'americas', en: 'Peru', es: 'Perú', fr: 'Pérou', frArt: 'le Pérou', frIn: 'au Pérou', pt: 'Peru', zh: '秘鲁' },
+  { region: 'americas', en: 'Colombia', es: 'Colombia', fr: 'Colombie', frArt: 'la Colombie', frIn: 'en Colombie', pt: 'Colômbia', zh: '哥伦比亚' },
+  { region: 'americas', en: 'Panama', es: 'Panamá', fr: 'Panama', frArt: 'le Panama', frIn: 'au Panama', pt: 'Panamá', zh: '巴拿马' },
+  { region: 'americas', en: 'Argentina', es: 'Argentina', fr: 'Argentine', frArt: 'l’Argentine', frIn: 'en Argentine', pt: 'Argentina', zh: '阿根廷' },
+  { region: 'americas', en: 'Chile', es: 'Chile', fr: 'Chili', frArt: 'le Chili', frIn: 'au Chili', pt: 'Chile', zh: '智利' },
+  { region: 'americas', en: 'Brazil', es: 'Brasil', fr: 'Brésil', frArt: 'le Brésil', frIn: 'au Brésil', pt: 'Brasil', zh: '巴西' },
+  { region: 'europe', en: 'United Kingdom', the: true, es: 'Reino Unido', fr: 'Royaume-Uni', frArt: 'le Royaume-Uni', frIn: 'au Royaume-Uni', pt: 'Reino Unido', zh: '英国' },
+  { region: 'europe', en: 'Ireland', es: 'Irlanda', fr: 'Irlande', frArt: 'l’Irlande', frIn: 'en Irlande', pt: 'Irlanda', zh: '爱尔兰' },
+  { region: 'europe', en: 'France', es: 'Francia', fr: 'France', frArt: 'la France', frIn: 'en France', pt: 'França', zh: '法国' },
+  { region: 'europe', en: 'Belgium', es: 'Bélgica', fr: 'Belgique', frArt: 'la Belgique', frIn: 'en Belgique', pt: 'Bélgica', zh: '比利时' },
+  // Israel (16 Oct 2026, app commit 2338602): a single consent request first, the offer only after a written yes.
+  { region: 'mideast', en: 'Israel', es: 'Israel', fr: 'Israël', frArt: 'Israël', frIn: 'en Israël', pt: 'Israel', zh: '以色列' },
+  { region: 'apac', en: 'Singapore', es: 'Singapur', fr: 'Singapour', frArt: 'Singapour', frIn: 'à Singapour', pt: 'Singapura', zh: '新加坡' },
+  { region: 'apac', en: 'Hong Kong', es: 'Hong Kong', fr: 'Hong Kong', frArt: 'Hong Kong', frIn: 'à Hong Kong', pt: 'Hong Kong', zh: '香港' },
+  { region: 'apac', en: 'Australia', es: 'Australia', fr: 'Australie', frArt: 'l’Australie', frIn: 'en Australie', pt: 'Austrália', zh: '澳大利亚' },
+  { region: 'apac', en: 'New Zealand', es: 'Nueva Zelanda', fr: 'Nouvelle-Zélande', frArt: 'la Nouvelle-Zélande', frIn: 'en Nouvelle-Zélande', pt: 'Nova Zelândia', zh: '新西兰' },
+];
+const REGIONS = [
+  { id: 'americas', en: 'Americas', es: 'América', fr: 'Amériques', pt: 'Américas', zh: '美洲' },
+  { id: 'europe', en: 'Europe', es: 'Europa', fr: 'Europe', pt: 'Europa', zh: '欧洲' },
+  { id: 'mideast', en: 'Middle East', es: 'Oriente Medio', fr: 'Moyen-Orient', pt: 'Oriente Médio', zh: '中东' },
+  { id: 'apac', en: 'Asia-Pacific', es: 'Asia-Pacífico', fr: 'Asie-Pacifique', pt: 'Ásia-Pacífico', zh: '亚太地区' },
+];
+const CONJ = { en: { and: 'and', or: 'or' }, es: { and: 'y', or: 'o' }, fr: { and: 'et', or: 'ou' }, pt: { and: 'e', or: 'ou' }, zh: { and: '和', or: '或' } };
+/** The countries as a sentence in a language: "the United States, Mexico, ... and New Zealand". */
+export function countryList(lang, conj = 'and', form = '') {
+  const names = COUNTRIES.map((c) => lang === 'en' ? (c.the ? 'the ' : '') + c.en : lang === 'fr' ? (form === 'in' ? c.frIn : c.frArt) : c[lang]);
+  const word = CONJ[lang]?.[conj];
+  if (!word || names.some((n) => !n)) throw new Error(`countryList: no ${lang}/${conj}`);
+  if (lang === 'zh') return names.slice(0, -1).join('、') + word + names.at(-1);
+  return names.slice(0, -1).join(', ') + ` ${word} ` + names.at(-1);
+}
+/** The section that lists them by region ({{WHERE_COUNTRIES}}, home and pricing): the anchor #countries. */
+export function countriesSection() {
+  const t = (o, tag = 'span', extra = '') => `<${tag}${extra} data-es="${attr(o.es)}" data-fr="${attr(o.fr)}" data-pt="${attr(o.pt)}" data-zh="${attr(o.zh)}">${o.en}</${tag}>`;
+  const groups = REGIONS.map((r) => `      <div class="country-group">
+        ${t(r, 'h3')}
+        <ul class="country-chips">
+${COUNTRIES.filter((c) => c.region === r.id).map((c) => `          <li>${t(c, 'span')}</li>`).join('\n')}
+        </ul>
+      </div>`).join('\n');
+  return `<section class="countries-band" id="countries" aria-labelledby="countries-h">
+  <div class="wrap">
+    ${t({ en: 'Where our agents find stores', es: 'Dónde encuentran tiendas nuestros agentes', fr: 'Où nos agents trouvent des boutiques', pt: 'Onde nossos agentes encontram lojas', zh: '我们的智能体在哪些国家/地区寻找零售店' }, 'h2', ' id="countries-h"')}
+    ${t({ en: 'Your business can be anywhere; your agents write to stores in these countries. More are coming as we check each country’s law.', es: 'Tu negocio puede estar en cualquier lugar; tus agentes escriben a tiendas de estos países. Iremos sumando más a medida que revisamos la ley de cada país.', fr: 'Votre entreprise peut être n’importe où; vos agents écrivent à des boutiques de ces pays. D’autres s’ajouteront à mesure que nous vérifions la loi de chaque pays.', pt: 'Sua empresa pode estar em qualquer lugar; seus agentes escrevem para lojas destes países. Outros virão à medida que verificamos a lei de cada país.', zh: '您的企业可以位于任何地方；您的智能体会给这些国家/地区的零售店写信。我们核查各国法律后，会陆续增加更多国家/地区。' }, 'p', ' class="countries-lead"')}
+    <div class="country-groups">
+${groups}
+    </div>
+    ${t({ en: 'Portugal: coming soon', es: 'Portugal: próximamente', fr: 'Portugal : bientôt', pt: 'Portugal: em breve', zh: '葡萄牙：即将推出' }, 'p', ' class="countries-soon"')}
+  </div>
+</section>`;
+}
 /** A page's path in a language: /pricing → /es/pricing, / → /es/. */
 export const pathIn = (path, lang) => lang === 'en' ? path : `/${lang}${path === '/' ? '/' : path}`;
 const GLOBE_ICON = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
@@ -218,9 +299,11 @@ function logo(w, h, extra = '') {
    that language and named in its own language. Without JavaScript the list is simply always shown. build.mjs marks the
    page's own language (aria-current) and leaves these links alone when it points the other links at the language. */
 function langMenu(path) {
+  // The button names the page's language in that language: every language carries it here as data-<code>, dictionary
+  // languages too (their own attribute wins over the dictionary), so these two never go to the translators.
   const current = LANGUAGES.slice(1).map((l) => ` data-${l.code}="${attr(l.name)}"`).join('');
   const label = ' aria-label="Language: English"' + LANGUAGES.slice(1).map((l) => ` data-${l.code}-label="${attr(l.word)}: ${attr(l.name)}"`).join('');
-  const items = LANGUAGES.map((l) =>
+  const items = SITE_LANGUAGES.map((l) =>
     `            <li><a href="${pathIn(path, l.code)}" hreflang="${l.hreflang}" lang="${l.html}" data-lang="${l.code}">${l.name}</a></li>`).join('\n');
   return `<div class="lang" id="langToggle">
           <button type="button" class="lang-btn" aria-expanded="false" aria-controls="langMenu"${label}>${GLOBE_ICON}<span${current}>English</span><span class="lang-caret" aria-hidden="true"></span></button>
@@ -303,6 +386,27 @@ function footer() {
 </footer>`;
 }
 
+/* The waitlist form's messages (shown by SCRIPT). A dictionary language finds the English in window.SS_I18N. */
+export const MSG = {
+    ok: { en: '<strong>You are on the list. Thank you.</strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.',
+          es: '<strong>Ya estás en la lista. Gracias.</strong> Te escribiremos cuando StockistScout abra. Todavía no enviamos un correo de confirmación, así que este mensaje es tu confirmación.',
+          fr: '<strong>Vous êtes sur la liste. Merci.</strong> Nous vous écrirons à l’ouverture de StockistScout. Nous n’envoyons pas encore de courriel de confirmation : ce message est votre confirmation.',
+          pt: '<strong>Você está na lista. Obrigado.</strong> Vamos escrever para você quando o StockistScout abrir. Ainda não enviamos e-mail de confirmação, então esta mensagem é a sua confirmação.',
+          zh: '<strong>您已加入名单，谢谢。</strong>StockistScout 开放时我们会写信通知您。我们暂不发送确认邮件，因此本条消息即为您的确认。' },
+    sending: { en: 'Sending…', es: 'Enviando…', fr: 'Envoi…', pt: 'Enviando…', zh: '正在发送…' },
+    fix: { en: 'Please check the highlighted fields.', es: 'Revisa los campos marcados.', fr: 'Veuillez vérifier les champs indiqués.', pt: 'Confira os campos destacados.', zh: '请检查标出的字段。' },
+    many: { en: 'Too many tries from this connection. Please wait an hour, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            es: 'Demasiados intentos desde esta conexión. Espera una hora o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            fr: 'Trop de tentatives depuis cette connexion. Attendez une heure ou écrivez-nous à <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            pt: 'Tentativas demais a partir desta conexão. Aguarde uma hora ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            zh: '此网络连接尝试次数过多。请等待一小时，或写信至 <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>。' },
+    fail: { en: 'We could not send it. Check your connection and try again, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            es: 'No pudimos enviarlo. Revisa tu conexión y vuelve a intentarlo, o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            fr: 'Nous n’avons pas pu l’envoyer. Vérifiez votre connexion et réessayez, ou écrivez-nous à <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            pt: 'Não conseguimos enviar. Verifique sua conexão e tente de novo, ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            zh: '未能发送。请检查网络连接后重试，或写信至 <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>。' }
+  };
+
 /* Included exactly once per page (the bins-usa.com lesson: a script included twice
    ran twice). The guard makes a second copy harmless anyway. No regex literals in here:
    this is a template literal and a backslash would be eaten before the browser sees it. */
@@ -312,8 +416,8 @@ const SCRIPT = `<script>
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ${JSON.stringify(LANGUAGES.slice(1).map((l) => l.code))};
-  // /zh/ pages say lang="zh-CN"; the language code is its first two letters.
+  var LANGS = ${JSON.stringify(SITE_LANGUAGES.slice(1).map((l) => l.code))};
+  // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {
     var p = location.pathname;
@@ -344,29 +448,11 @@ const SCRIPT = `<script>
   }
   /* Waitlist form: posts JSON to the address in data-waitlist and confirms on screen. */
   var LOADED = Date.now();
-  var MSG = {
-    ok: { en: '<strong>You are on the list. Thank you.</strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.',
-          es: '<strong>Ya estás en la lista. Gracias.</strong> Te escribiremos cuando StockistScout abra. Todavía no enviamos un correo de confirmación, así que este mensaje es tu confirmación.',
-          fr: '<strong>Vous êtes sur la liste. Merci.</strong> Nous vous écrirons à l’ouverture de StockistScout. Nous n’envoyons pas encore de courriel de confirmation : ce message est votre confirmation.',
-          pt: '<strong>Você está na lista. Obrigado.</strong> Vamos escrever para você quando o StockistScout abrir. Ainda não enviamos e-mail de confirmação, então esta mensagem é a sua confirmação.',
-          zh: '<strong>您已加入名单，谢谢。</strong>StockistScout 开放时我们会写信通知您。我们暂不发送确认邮件，因此本条消息即为您的确认。' },
-    sending: { en: 'Sending…', es: 'Enviando…', fr: 'Envoi…', pt: 'Enviando…', zh: '正在发送…' },
-    fix: { en: 'Please check the highlighted fields.', es: 'Revisa los campos marcados.', fr: 'Veuillez vérifier les champs indiqués.', pt: 'Confira os campos destacados.', zh: '请检查标出的字段。' },
-    many: { en: 'Too many tries from this connection. Please wait an hour, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            es: 'Demasiados intentos desde esta conexión. Espera una hora o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            fr: 'Trop de tentatives depuis cette connexion. Attendez une heure ou écrivez-nous à <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            pt: 'Tentativas demais a partir desta conexão. Aguarde uma hora ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            zh: '此网络连接尝试次数过多。请等待一小时，或写信至 <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>。' },
-    fail: { en: 'We could not send it. Check your connection and try again, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            es: 'No pudimos enviarlo. Revisa tu conexión y vuelve a intentarlo, o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            fr: 'Nous n’avons pas pu l’envoyer. Vérifiez votre connexion et réessayez, ou écrivez-nous à <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            pt: 'Não conseguimos enviar. Verifique sua conexão e tente de novo, ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            zh: '未能发送。请检查网络连接后重试，或写信至 <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>。' }
-  };
+  var MSG = ${JSON.stringify(MSG)};
   function curLang() { return pageLang(); }
   function say(el, m) {
     el.dataset.en = m.en; el.dataset.es = m.es; el.dataset.fr = m.fr || m.en; el.dataset.pt = m.pt || m.en; el.dataset.zh = m.zh || m.en;
-    el.innerHTML = m[curLang()] || m.en;
+    el.innerHTML = m[curLang()] || (window.SS_I18N && window.SS_I18N[m.en]) || m.en;
     el.hidden = false;
   }
   function looksLikeEmail(v) {
@@ -430,11 +516,13 @@ const SCRIPT = `<script>
   }
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
-  var nav = (navigator.language || 'en').toLowerCase();
-  /* On an English page, a visitor who chose Spanish, French, Portuguese or Chinese before, or whose browser speaks it on a
-     first visit (es-*, fr-*, pt-*, zh-*), goes to that page in their language. A page reached in another language remembers it. */
+  var nav = (navigator.language || 'en').toLowerCase().slice(0, 2);
+  if (nav === 'iw') nav = 'he'; // older browsers still say iw-IL for Hebrew
+  /* On an English page, a visitor who chose another language before, or whose browser speaks one the site is built in on
+     a first visit (es-*, fr-*, pt-*, zh-*, and once their files exist ja-*, ko-*, he-* or iw-*, it-*, de-*, nl-*), goes to
+     that page in their language. A saved language the site no longer has stays on English. A page reached in another language remembers it. */
   if (pageLang() === 'en') {
-    var want = saved || (LANGS.indexOf(nav.slice(0, 2)) >= 0 ? nav.slice(0, 2) : 'en');
+    var want = saved || (LANGS.indexOf(nav) >= 0 ? nav : 'en');
     if (LANGS.indexOf(want) >= 0) { location.replace(urlFor(want)); return; }
   } else {
     try { localStorage.setItem(KEY, pageLang()); } catch (e) {}
