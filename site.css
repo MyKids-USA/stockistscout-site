@@ -687,7 +687,9 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 .flag { width: 20px; height: 15px; flex: none; border-radius: 2px; box-shadow: 0 0 0 1px rgba(15, 42, 74, .18); object-fit: cover; }
 .countries-soon { display: flex; align-items: center; gap: 8px; }
 @media (prefers-color-scheme: dark) { .flag { box-shadow: 0 0 0 1px rgba(255, 255, 255, .28); } }
-.contact-phone .contact-digits { display: block; font-size: .8em; margin-top: 2px; }
+/* Both numbers on one line, the digits after a dot (Aharon, 17 Oct 2026); they wrap only when there is no room. */
+.contact-phone .contact-digits { display: inline-block; font-size: .8em; }
+.contact-phone .contact-digits::before { content: "·"; margin-inline: .5em; }
 .country-chips li:has(.chip-adds) { border-radius: 14px; }
 .country-chips .chip-adds { font: 400 12.5px var(--sans); color: var(--muted); }
 .countries-soon { margin: 20px 0 0; font-size: 14px; color: var(--muted); }
