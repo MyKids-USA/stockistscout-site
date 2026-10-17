@@ -102,7 +102,6 @@
  "Write to us": "メールで問い合わせる",
  "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>": "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>",
  "Tell us what you sell and to which kinds of stores: we will tell you which agent you would get and whether we can find you good stores today.": "何を販売していて、どんな業態の店舗に届けたいかをお知らせください。どのエージェントが担当になるか、そして今すぐ良い店舗を見つけられるかをお答えします。",
- "You can also chat with Katya, bottom right.": "右下のチャットでKatyaと話すこともできます。",
  "Start free today": "今すぐ無料で始める",
  "50 trial emails, no card needed. Sign in with your email or Google.": "トライアル用メール50通、カードは不要です。メールアドレスまたはGoogleでサインインできます。",
  "Already have an account? <a href=\"https://app.stockistscout.com/login\">Log in</a>.": "すでにアカウントをお持ちですか？<a href=\"https://app.stockistscout.com/login\">ログイン</a>。",
@@ -761,5 +760,6 @@
  "Call Katya any time to learn how StockistScout works, find the plan that fits you and get the next steps by email. Speak naturally, in your own language: she speaks English, Spanish, French, Portuguese, Chinese, Japanese, Korean, Hebrew, Arabic, Hindi, Italian, German and Dutch. If you want a person to call you back, leave her your details.": "いつでもKatyaにお電話ください。StockistScoutの仕組み、あなたに合うプラン、次のステップをメールでお伝えします。ご自分の言語で気軽に話してください。英語、スペイン語、フランス語、ポルトガル語、中国語、日本語、韓国語、ヘブライ語、アラビア語、ヒンディー語、イタリア語、ドイツ語、オランダ語を話します。担当者からの折り返しをご希望の場合は、Katyaに連絡先をお伝えください。",
  "24/7 · 14 languages": "24時間年中無休 · 14言語",
  "Your best sellers, in every email": "売れ筋商品を、すべてのメールに",
- "Bring in your best sellers from your Shopify store, by collection, category, tag, title or SKU, or add them by hand. Keep up to 36 in your gallery: every email shows a few of them as a sample of what you sell, a different choice for each store. Each product is checked before it is sent.": "Shopifyストアから、コレクション、カテゴリ、タグ、タイトル、SKUで売れ筋商品を取り込むか、手動で追加できます。ギャラリーには最大36点。各メールにはその中から数点が、取り扱い商品の見本として店舗ごとに異なる組み合わせで表示されます。各商品は送信前に確認されます。"
+ "Bring in your best sellers from your Shopify store, by collection, category, tag, title or SKU, or add them by hand. Keep up to 36 in your gallery: every email shows a few of them as a sample of what you sell, a different choice for each store. Each product is checked before it is sent.": "Shopifyストアから、コレクション、カテゴリ、タグ、タイトル、SKUで売れ筋商品を取り込むか、手動で追加できます。ギャラリーには最大36点。各メールにはその中から数点が、取り扱い商品の見本として店舗ごとに異なる組み合わせで表示されます。各商品は送信前に確認されます。",
+ "You can also chat or speak with Katya, bottom right.": "右下からKatyaとチャットまたは音声で話すこともできます。"
 }

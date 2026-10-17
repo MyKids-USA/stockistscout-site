@@ -102,7 +102,6 @@
  "Write to us": "اكتبوا إلينا",
  "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>": "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>",
  "Tell us what you sell and to which kinds of stores: we will tell you which agent you would get and whether we can find you good stores today.": "أخبرونا بما تبيعونه ولأي أنواع من المتاجر: وسنخبركم بالوكيل الذي ستحصلون عليه، وما إذا كنا نستطيع أن نجد لكم متاجر جيدة اليوم.",
- "You can also chat with Katya, bottom right.": "يمكنكم أيضًا الدردشة مع Katya، في أسفل يسار الشاشة.",
  "Start free today": "ابدأوا مجانًا اليوم",
  "50 trial emails, no card needed. Sign in with your email or Google.": "50 رسالة تجريبية، دون الحاجة إلى بطاقة. سجّلوا الدخول ببريدكم الإلكتروني أو بحساب Google.",
  "Already have an account? <a href=\"https://app.stockistscout.com/login\">Log in</a>.": "لديكم حساب بالفعل؟ <a href=\"https://app.stockistscout.com/login\">سجّلوا الدخول</a>.",
@@ -761,5 +760,6 @@
  "Call Katya any time to learn how StockistScout works, find the plan that fits you and get the next steps by email. Speak naturally, in your own language: she speaks English, Spanish, French, Portuguese, Chinese, Japanese, Korean, Hebrew, Arabic, Hindi, Italian, German and Dutch. If you want a person to call you back, leave her your details.": "اتصلوا بكاتيا في أي وقت لتعرفوا كيف يعمل StockistScout، وتجدوا الخطة التي تناسبكم، وتتلقّوا الخطوات التالية بالبريد الإلكتروني. تحدّثوا بطبيعية وبلغتكم: فهي تتحدث الإنجليزية والإسبانية والفرنسية والبرتغالية والصينية واليابانية والكورية والعبرية والعربية والهندية والإيطالية والألمانية والهولندية. وإذا أردتم أن يعاود شخص الاتصال بكم، فاتركوا لها بياناتكم.",
  "24/7 · 14 languages": "على مدار الساعة · 14 لغة",
  "Your best sellers, in every email": "منتجاتكم الأكثر مبيعًا، في كل رسالة",
- "Bring in your best sellers from your Shopify store, by collection, category, tag, title or SKU, or add them by hand. Keep up to 36 in your gallery: every email shows a few of them as a sample of what you sell, a different choice for each store. Each product is checked before it is sent.": "استوردوا منتجاتكم الأكثر مبيعًا من متجر Shopify الخاص بكم، حسب المجموعة أو الفئة أو الوسم أو الاسم أو SKU، أو أضيفوها يدويًا. احتفظوا بما يصل إلى 36 منتجًا في معرضكم: تعرض كل رسالة بعضها كعيّنة مما تبيعونه، باختيار مختلف لكل متجر. يُراجَع كل منتج قبل إرساله."
+ "Bring in your best sellers from your Shopify store, by collection, category, tag, title or SKU, or add them by hand. Keep up to 36 in your gallery: every email shows a few of them as a sample of what you sell, a different choice for each store. Each product is checked before it is sent.": "استوردوا منتجاتكم الأكثر مبيعًا من متجر Shopify الخاص بكم، حسب المجموعة أو الفئة أو الوسم أو الاسم أو SKU، أو أضيفوها يدويًا. احتفظوا بما يصل إلى 36 منتجًا في معرضكم: تعرض كل رسالة بعضها كعيّنة مما تبيعونه، باختيار مختلف لكل متجر. يُراجَع كل منتج قبل إرساله.",
+ "You can also chat or speak with Katya, bottom right.": "يمكنكم أيضًا مراسلة كاتيا أو التحدث معها، في أسفل الصفحة."
 }

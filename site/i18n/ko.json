@@ -102,7 +102,6 @@
  "Write to us": "메일 보내기",
  "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>": "<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>",
  "Tell us what you sell and to which kinds of stores: we will tell you which agent you would get and whether we can find you good stores today.": "무엇을 판매하고 어떤 종류의 매장에 팔고 싶은지 알려 주세요. 어떤 에이전트가 배정될지, 그리고 지금 바로 좋은 매장을 찾아 드릴 수 있는지 알려 드립니다.",
- "You can also chat with Katya, bottom right.": "오른쪽 아래에서 Katya와 채팅할 수도 있습니다.",
  "Start free today": "오늘 무료로 시작하기",
  "50 trial emails, no card needed. Sign in with your email or Google.": "카드 없이 체험 이메일 50통. 이메일이나 Google로 로그인하세요.",
  "Already have an account? <a href=\"https://app.stockistscout.com/login\">Log in</a>.": "이미 계정이 있으신가요? <a href=\"https://app.stockistscout.com/login\">로그인</a>.",
@@ -761,5 +760,6 @@
  "Call Katya any time to learn how StockistScout works, find the plan that fits you and get the next steps by email. Speak naturally, in your own language: she speaks English, Spanish, French, Portuguese, Chinese, Japanese, Korean, Hebrew, Arabic, Hindi, Italian, German and Dutch. If you want a person to call you back, leave her your details.": "언제든 Katya에게 전화해 StockistScout의 작동 방식을 알아보고, 맞는 플랜을 찾고, 다음 단계를 이메일로 받으세요. 편하게 여러분의 언어로 말씀하세요. 영어, 스페인어, 프랑스어, 포르투갈어, 중국어, 일본어, 한국어, 히브리어, 아랍어, 힌디어, 이탈리아어, 독일어, 네덜란드어를 합니다. 담당자의 회신 전화를 원하시면 Katya에게 연락처를 남겨 주세요.",
  "24/7 · 14 languages": "연중무휴 24시간 · 14개 언어",
  "Your best sellers, in every email": "베스트셀러를 모든 이메일에",
- "Bring in your best sellers from your Shopify store, by collection, category, tag, title or SKU, or add them by hand. Keep up to 36 in your gallery: every email shows a few of them as a sample of what you sell, a different choice for each store. Each product is checked before it is sent.": "Shopify 스토어에서 컬렉션, 카테고리, 태그, 제목 또는 SKU로 베스트셀러를 가져오거나 직접 추가하세요. 갤러리에 최대 36개를 보관하면, 이메일마다 그중 몇 개가 판매 상품의 샘플로, 매장마다 다른 조합으로 표시됩니다. 모든 상품은 발송 전에 검토됩니다."
+ "Bring in your best sellers from your Shopify store, by collection, category, tag, title or SKU, or add them by hand. Keep up to 36 in your gallery: every email shows a few of them as a sample of what you sell, a different choice for each store. Each product is checked before it is sent.": "Shopify 스토어에서 컬렉션, 카테고리, 태그, 제목 또는 SKU로 베스트셀러를 가져오거나 직접 추가하세요. 갤러리에 최대 36개를 보관하면, 이메일마다 그중 몇 개가 판매 상품의 샘플로, 매장마다 다른 조합으로 표시됩니다. 모든 상품은 발송 전에 검토됩니다.",
+ "You can also chat or speak with Katya, bottom right.": "오른쪽 아래에서 Katya와 채팅하거나 음성으로 대화할 수도 있습니다."
 }
