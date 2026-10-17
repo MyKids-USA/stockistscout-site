@@ -155,14 +155,32 @@
 
   function place() {
     if (!el.stage || !el.panel || el.stage.style.display === 'none') return;
-    var r = el.panel.getBoundingClientRect();
-    // On a phone the panel fills the screen; she shrinks and is clamped into view.
     var narrow = window.innerWidth < 600;
-    var w = narrow ? 150 : 230, h = narrow ? 165 : 253;
+    if (narrow) {
+      // On a phone the panel filled the screen and she covered its top half. During the call she takes the top of the
+      // screen, whole, and the chat moves down below her (Aharon, 17 Oct 2026).
+      var pw = Math.min(window.innerWidth - 32, 300), ph = Math.round(pw * 1.1);
+      el.stage.style.width = pw + 'px';
+      el.stage.style.height = ph + 'px';
+      el.stage.style.left = Math.round((window.innerWidth - pw) / 2) + 'px';
+      el.stage.style.top = '12px';
+      el.panel.classList.add('katya-live');
+      el.panel.style.top = (12 + ph + 10) + 'px';
+      return;
+    }
+    unplace();
+    var r = el.panel.getBoundingClientRect();
+    var w = 230, h = 253;
     el.stage.style.width = w + 'px';
     el.stage.style.height = h + 'px';
     el.stage.style.left = Math.round(r.left + r.width / 2 - w / 2) + 'px';
-    el.stage.style.top = Math.max(6, Math.round(r.top - h + (narrow ? 26 : 10))) + 'px';
+    el.stage.style.top = Math.max(6, Math.round(r.top - h + 10)) + 'px';
+  }
+  // The chat goes back to full size when the call ends or the stage is hidden.
+  function unplace() {
+    if (!el.panel) return;
+    el.panel.classList.remove('katya-live');
+    el.panel.style.top = '';
   }
 
   function callLabel() {
@@ -176,6 +194,7 @@
     if (starting) cancelStart = true;
     if (s) { try { s.stop(); } catch (e) {} }
     if (el.stage) el.stage.style.display = 'none';
+    unplace();
     if (el.callBtn) callLabel();
   }
 

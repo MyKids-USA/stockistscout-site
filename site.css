@@ -573,6 +573,7 @@ html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; 
 .katya-bubble-x { position: absolute; top: 6px; right: 8px; border: none; background: none; font-size: 16px; line-height: 1; cursor: pointer; color: var(--muted); }
 @media (max-width: 600px) {
   .katya-panel { right: 16px; left: 16px; bottom: 16px; width: auto; max-width: none; height: calc(100vh - 32px); max-height: 640px; }
+  .katya-panel.katya-live { height: auto; max-height: none; }
   .katya-bubble { right: 88px; max-width: calc(100vw - 112px); }
 }
 @media (prefers-reduced-motion: reduce) { .katya-bubble { transition: none; } }
