@@ -830,8 +830,8 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 
 /* ---------- Blog (17 Oct 2026) ---------- */
 .blog-hero { padding: clamp(40px, 6vw, 72px) 0 28px; background: radial-gradient(900px 420px at 85% 10%, var(--blue-soft), transparent 70%), radial-gradient(700px 380px at 0% 100%, var(--green-soft), transparent 70%); }
-.blog-hero h1 { font-size: clamp(34px, 5vw, 54px); max-width: 860px; }
-.blog-hero .lede { font-size: 19px; color: var(--ink-2); max-width: 720px; margin: 16px 0 0; }
+.blog-hero h1 { font-size: clamp(32px, 4.3vw, 52px); max-width: none; }
+.blog-hero .lede { font-size: 19px; color: var(--ink-2); max-width: 900px; margin: 16px 0 0; }
 .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 26px; padding: 36px 0 80px; }
 .post-card { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; text-decoration: none; color: var(--ink); transition: transform .15s ease, box-shadow .15s ease; }
 .post-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -26px rgba(15, 42, 74, .5); }
