@@ -470,6 +470,8 @@ details .ans p:last-child { margin-bottom: 0; }
 
 /* ---------- Contact ---------- */
 .contact-form-grid { display: grid; gap: 22px; }
+/* The card is as tall as what it holds, not as the column beside it (Aharon, 17 Oct 2026: "un montón de espacio en blanco"). */
+.contact-form-grid > .card { align-self: start; }
 @media (min-width: 900px) { .contact-form-grid { grid-template-columns: 0.8fr 1.2fr; gap: 56px; } }
 .contact-form-intro h2 { font-size: clamp(26px, 3.4vw, 34px); margin-bottom: 12px; }
 .contact-form-intro p { color: var(--ink-2); }
