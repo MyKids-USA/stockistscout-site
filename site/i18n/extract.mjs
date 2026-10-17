@@ -14,6 +14,10 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { englishPages, EN_JSON } from '../build.mjs';
 import { collectStrings } from './strings.mjs';
+import { writeFlags } from '../flags.mjs';
+import { FLAG_ISOS } from '../shell.mjs';
+
+await writeFlags(FLAG_ISOS()); // the pages hash their images, so the chip flags must exist first
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const n = Math.max(1, parseInt(process.argv[2] || '4', 10));

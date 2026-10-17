@@ -11,6 +11,8 @@
 import { createHash } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
 import { worldMapSvg } from './map.mjs';
+// Chip flags: flag-icons (lipis/flag-icons, MIT licence), see site/flags.mjs.
+import { flagImg } from './flags.mjs';
 
 export const ORIGIN = 'https://stockistscout.com';
 
@@ -95,13 +97,34 @@ export const COUNTRIES = [
       { small: true, iso: 'GP', num: '312', at: [-61.55, 16.25], en: 'Guadeloupe', es: 'Guadalupe', fr: 'Guadeloupe', pt: 'Guadalupe', zh: '瓜德罗普' },
       { small: true, iso: 'MQ', num: '474', at: [-61.02, 14.64], en: 'Martinique', es: 'Martinica', fr: 'Martinique', pt: 'Martinica', zh: '马提尼克' },
     ] },
-  { region: 'europe', iso: 'BE', num: '056', en: 'Belgium', es: 'Bélgica', fr: 'Belgique', frArt: 'la Belgique', frIn: 'en Belgique', pt: 'Bélgica', zh: '比利时' },
+  // Belgium: Brussels and Wallonia in French, Flanders in English (17 Oct 2026, app commit badd871: two options in the app,
+  // 'BE' and 'XF'); one country here and on the map, its chip and the sentences name the three regions.
+  { region: 'europe', iso: 'BE', num: '056', en: 'Belgium', es: 'Bélgica', fr: 'Belgique', frArt: 'la Belgique', frIn: 'en Belgique', pt: 'Bélgica', zh: '比利时',
+    adds: { en: 'Brussels, Wallonia and Flanders', es: 'Bruselas, Valonia y Flandes', fr: 'Bruxelles, la Wallonie et la Flandre', pt: 'Bruxelas, Valônia e Flandres', zh: '布鲁塞尔、瓦隆和佛兰德' },
+    chip: { en: 'Brussels, Wallonia, Flanders', es: 'Bruselas, Valonia, Flandes', fr: 'Bruxelles, Wallonie, Flandre', pt: 'Bruxelas, Valônia, Flandres', zh: '布鲁塞尔、瓦隆、佛兰德' } },
+  // Northern Europe and Croatia (17 Oct 2026, app commit badd871): English, a company's generic inbox only, companies only
+  // (no sole traders), the GDPR notice.
+  { region: 'europe', iso: 'NO', num: '578', en: 'Norway', es: 'Noruega', fr: 'Norvège', frArt: 'la Norvège', frIn: 'en Norvège', pt: 'Noruega', zh: '挪威' },
+  { region: 'europe', iso: 'FI', num: '246', en: 'Finland', es: 'Finlandia', fr: 'Finlande', frArt: 'la Finlande', frIn: 'en Finlande', pt: 'Finlândia', zh: '芬兰' },
+  { region: 'europe', iso: 'EE', num: '233', en: 'Estonia', es: 'Estonia', fr: 'Estonie', frArt: 'l’Estonie', frIn: 'en Estonie', pt: 'Estônia', zh: '爱沙尼亚' },
+  { region: 'europe', iso: 'LT', num: '440', en: 'Lithuania', es: 'Lituania', fr: 'Lituanie', frArt: 'la Lituanie', frIn: 'en Lituanie', pt: 'Lituânia', zh: '立陶宛' },
+  { region: 'europe', iso: 'IS', num: '352', en: 'Iceland', es: 'Islandia', fr: 'Islande', frArt: 'l’Islande', frIn: 'en Islande', pt: 'Islândia', zh: '冰岛' },
+  { region: 'europe', iso: 'HR', num: '191', en: 'Croatia', es: 'Croacia', fr: 'Croatie', frArt: 'la Croatie', frIn: 'en Croatie', pt: 'Croácia', zh: '克罗地亚' },
   // Israel (16 Oct 2026, app commit 2338602): a single consent request first, the offer only after a written yes.
   { region: 'mideast', iso: 'IL', num: '376', en: 'Israel', es: 'Israel', fr: 'Israël', frArt: 'Israël', frIn: 'en Israël', pt: 'Israel', zh: '以色列' },
+  // The United Arab Emirates, Jordan, Morocco (French) and South Africa (17 Oct 2026, app commit ac1d00e): company inboxes only;
+  // South Africa is consent first like Israel (one request for consent, the offer only after a written yes, no follow-up).
+  { region: 'mideast', iso: 'AE', num: '784', en: 'United Arab Emirates', the: true, es: 'Emiratos Árabes Unidos', fr: 'Émirats arabes unis', frArt: 'les Émirats arabes unis', frIn: 'aux Émirats arabes unis', pt: 'Emirados Árabes Unidos', zh: '阿拉伯联合酋长国' },
+  { region: 'mideast', iso: 'JO', num: '400', en: 'Jordan', es: 'Jordania', fr: 'Jordanie', frArt: 'la Jordanie', frIn: 'en Jordanie', pt: 'Jordânia', zh: '约旦' },
+  { region: 'africa', iso: 'MA', num: '504', en: 'Morocco', es: 'Marruecos', fr: 'Maroc', frArt: 'le Maroc', frIn: 'au Maroc', pt: 'Marrocos', zh: '摩洛哥' },
+  { region: 'africa', iso: 'ZA', num: '710', en: 'South Africa', es: 'Sudáfrica', fr: 'Afrique du Sud', frArt: 'l’Afrique du Sud', frIn: 'en Afrique du Sud', pt: 'África do Sul', zh: '南非' },
   { region: 'apac', iso: 'SG', num: '702', at: [103.82, 1.35], en: 'Singapore', es: 'Singapur', fr: 'Singapour', frArt: 'Singapour', frIn: 'à Singapour', pt: 'Singapura', zh: '新加坡' },
   { region: 'apac', iso: 'HK', num: '344', at: [114.17, 22.32], en: 'Hong Kong', es: 'Hong Kong', fr: 'Hong Kong', frArt: 'Hong Kong', frIn: 'à Hong Kong', pt: 'Hong Kong', zh: '香港' },
   { region: 'apac', iso: 'AU', num: '036', en: 'Australia', es: 'Australia', fr: 'Australie', frArt: 'l’Australie', frIn: 'en Australie', pt: 'Austrália', zh: '澳大利亚' },
   { region: 'apac', iso: 'NZ', num: '554', en: 'New Zealand', es: 'Nueva Zelanda', fr: 'Nouvelle-Zélande', frArt: 'la Nouvelle-Zélande', frIn: 'en Nouvelle-Zélande', pt: 'Nova Zelândia', zh: '新西兰' },
+  // India and the Philippines (17 Oct 2026, app commit ac1d00e): English, company inboxes only; the Philippines adds a privacy notice.
+  { region: 'apac', iso: 'IN', num: '356', en: 'India', es: 'India', fr: 'Inde', frArt: 'l’Inde', frIn: 'en Inde', pt: 'Índia', zh: '印度' },
+  { region: 'apac', iso: 'PH', num: '608', en: 'Philippines', the: true, es: 'Filipinas', fr: 'Philippines', frArt: 'les Philippines', frIn: 'aux Philippines', pt: 'Filipinas', zh: '菲律宾' },
   // The Caribbean islands (17 Oct 2026, app commit 2e20645): ONE country option in the app ("Caribbean Islands"), one agent
   // for all six; English, Barbados to company inboxes only. Jamaica is not open. The sentences name them as one item
   // ("the Caribbean islands (Trinidad and Tobago, ...)", CARIBBEAN below); `esArt` is the Spanish name in that sentence.
@@ -114,6 +137,8 @@ export const COUNTRIES = [
 ];
 /** The Caribbean islands as one item of a sentence, in each attribute language (the islands follow in parentheses). */
 const CARIBBEAN = { en: 'the Caribbean islands', es: 'las islas del Caribe', frArt: 'les îles des Caraïbes', frIn: 'dans les îles des Caraïbes', pt: 'ilhas do Caribe', zh: '加勒比群岛' };
+/** The iso codes that need a flag on the chips (build.mjs writes img/flags/ for them). */
+export const FLAG_ISOS = () => [...COUNTRIES, ...COMING_SOON].map((c) => c.iso);
 /** Every place painted on the map: the countries, and the dots that belong to one (Guadeloupe and Martinique). */
 export const MAP_PLACES = COUNTRIES.flatMap((c) => [c, ...(c.dots || [])]);
 /* Next in line (shown on the map in a lighter green, and as the line under the chips): not on any list above until it moves
@@ -126,6 +151,7 @@ const REGIONS = [
   { id: 'caribbean', en: 'Caribbean islands', es: 'Islas del Caribe', fr: 'Îles des Caraïbes', pt: 'Ilhas do Caribe', zh: '加勒比群岛' },
   { id: 'europe', en: 'Europe', es: 'Europa', fr: 'Europe', pt: 'Europa', zh: '欧洲' },
   { id: 'mideast', en: 'Middle East', es: 'Oriente Medio', fr: 'Moyen-Orient', pt: 'Oriente Médio', zh: '中东' },
+  { id: 'africa', en: 'Africa', es: 'África', fr: 'Afrique', pt: 'África', zh: '非洲' },
   { id: 'apac', en: 'Asia-Pacific', es: 'Asia-Pacífico', fr: 'Asie-Pacifique', pt: 'Ásia-Pacífico', zh: '亚太地区' },
 ];
 const CONJ = { en: { and: 'and', or: 'or' }, es: { and: 'y', or: 'o' }, fr: { and: 'et', or: 'ou' }, pt: { and: 'e', or: 'ou' }, zh: { and: '和', or: '或' } };
@@ -149,7 +175,7 @@ export function countriesSection() {
   const groups = REGIONS.map((r) => `      <div class="country-group">
         ${t(r, 'h3')}
         <ul class="country-chips">
-${COUNTRIES.filter((c) => c.region === r.id).map((c) => `          <li>${t(c, 'span')}${c.chip ? ` ${t(c.chip, 'small', ' class="chip-adds"')}` : ''}</li>`).join('\n')}
+${COUNTRIES.filter((c) => c.region === r.id).map((c) => `          <li>${flagImg(c.iso)}${t(c, 'span')}${c.chip ? ` ${t(c.chip, 'small', ' class="chip-adds"')}` : ''}</li>`).join('\n')}
         </ul>
       </div>`).join('\n');
   return `<section class="countries-band" id="countries" aria-labelledby="countries-h">
@@ -169,7 +195,7 @@ ${COUNTRIES.flatMap((c) => c.dots || []).map((c) => `    ${t(c, 'span', ` class=
     <div class="country-groups">
 ${groups}
     </div>
-${COMING_SOON.map((c) => `    ${t(c.soon, 'p', ` class="countries-soon" data-iso="${c.iso}"`)}`).join('\n')}
+${COMING_SOON.map((c) => `    <p class="countries-soon" data-iso="${c.iso}">${flagImg(c.iso)}${t(c.soon)}</p>`).join('\n')}
     ${MAP_SCRIPT}
   </div>
 </section>`;
@@ -216,7 +242,7 @@ export const WAITLIST_API = 'https://api.binsusa.com/api/stockistscout/waitlist'
    Routing once that is set up; the waitlist never depends on it. */
 export const CONTACT_EMAIL = 'sales@stockistscout.com';
 // The sales line (Aharon, 14 Oct 2026): Katya answers it, in English, Spanish or French, any hour (the site is also in Portuguese; the line is not).
-export const CONTACT_PHONE = '(401) 41-SCOUT';
+export const CONTACT_PHONE = '+1 (401) 41-SCOUT'; // the country code shown with the letters too (Aharon, 17 Oct 2026)
 export const CONTACT_PHONE_DIGITS = '+1 (401) 417-2688'; // with the US country code (Aharon, 17 Oct 2026)
 export const CONTACT_TEL = 'tel:+14014172688';
 /* A tiny US flag in front of the number (17 Oct 2026): an inline SVG, never the flag emoji (Windows shows the letters
@@ -532,6 +558,19 @@ export const MSG = {
 const SCRIPT = `<script>
 (function () {
   if (window.__ssSite) return; window.__ssSite = true;
+  /* The full menu row only when it fits (any language, any width from 1440px): otherwise html.nav-compact shows the
+     compact menu (site.css). Measured with the class off, again once the web fonts have loaded and on every resize. */
+  (function () {
+    var root = document.documentElement, row = document.querySelector('.head-row');
+    if (!row) return;
+    function fit() {
+      root.classList.remove('nav-compact');
+      if (window.innerWidth >= 1440 && row.scrollWidth > row.clientWidth + 1) root.classList.add('nav-compact');
+    }
+    fit();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    window.addEventListener('resize', fit);
+  })();
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */

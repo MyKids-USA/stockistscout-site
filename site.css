@@ -82,7 +82,7 @@ main:focus { outline: none; }
 
 /* ---------- Header ---------- */
 .site-head { position: sticky; top: 0; z-index: 100; background: var(--head-bg); border-bottom: 2px solid var(--head-line); box-shadow: 0 2px 0 0 var(--green); }
-.head-row { display: flex; align-items: center; gap: 24px; min-height: var(--head-h); padding: 0 40px; max-width: 1440px; margin: 0 auto; }
+.head-row { display: flex; align-items: center; gap: 24px; min-height: var(--head-h); padding: 0 40px; max-width: 1800px; margin: 0 auto; }
 .brand { display: inline-flex; align-items: center; flex-shrink: 0; text-decoration: none; }
 .brand img { display: block; width: 196px; height: auto; }
 .site-nav { display: flex; align-items: center; flex: 1; }
@@ -137,6 +137,27 @@ main:focus { outline: none; }
   .lang.js .lang-menu { position: static; min-width: 0; margin-top: 6px; box-shadow: none; }
   .lang-menu a { min-height: 44px; display: flex; align-items: center; font-size: 16px; }
 }
+/* The same compact menu at any width where the full row does not fit (17 Oct 2026: with eleven links, the phone, two buttons
+   and the language menu, the row ran off the right edge even at 1920 in English, further in Spanish or German). The script
+   in shell.mjs measures the row and sets html.nav-compact; without JavaScript the 1439px breakpoint above still applies. */
+  html.nav-compact { --head-h: 68px; }
+  html.nav-compact .head-row { padding: 0 16px; }
+  html.nav-compact .brand img { width: 168px; }
+  html.nav-compact .menu-btn { display: block; }
+  html.nav-compact .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--head-bg); border-bottom: 2px solid var(--green); flex-direction: column; align-items: stretch; padding: 8px 16px 20px; box-shadow: 0 18px 30px -18px rgba(15, 42, 74, .35); max-height: calc(100vh - var(--head-h)); overflow-y: auto; }
+  html.nav-compact .site-head.open .site-nav { display: flex; }
+  html.nav-compact .nav-links { flex-direction: column; align-items: stretch; gap: 0; }
+  html.nav-compact .nav-links > a { font-size: 17px; min-height: 52px; padding: 12px 8px; display: flex; align-items: center; border-bottom: 1px solid var(--line-2); }
+  html.nav-compact .nav-links > a[aria-current="page"] { box-shadow: inset 4px 0 0 var(--green); padding-left: 16px; }
+  html.nav-compact .nav-end { margin-top: 16px; flex-wrap: wrap; justify-content: space-between; }
+  html.nav-compact .nav-phone { width: 100%; min-height: 48px; font-size: 17px; }
+  html.nav-compact .lang { width: 100%; }
+  html.nav-compact .lang-btn { width: 100%; min-height: 48px; font-size: 16px; }
+  html.nav-compact .lang-btn .lang-caret { margin-left: auto; }
+  html.nav-compact .lang.js .lang-menu { position: static; min-width: 0; margin-top: 6px; box-shadow: none; }
+  html.nav-compact .lang-menu a { min-height: 44px; display: flex; align-items: center; font-size: 16px; }
+  html.nav-compact[dir=rtl] .nav-links > a[aria-current="page"] { box-shadow: inset -4px 0 0 var(--green); padding-left: 0; padding-right: 16px; }
+  html.nav-compact[dir=rtl] .lang-btn .lang-caret { margin-left: 0; margin-right: auto; }
 @media (max-width: 420px) { .brand img { width: 150px; } }
 
 /* ---------- Buttons ---------- */
@@ -612,6 +633,13 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 .country-group h3 { font: 500 12.5px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--green-text); margin: 0 0 10px; }
 .country-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .country-chips li { font: 500 14px var(--sans); color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+.country-chips li { display: inline-flex; align-items: center; gap: 7px; }
+/* The chip flags (site/flags.mjs): a thin rounding and a 1px outline, so a mostly white flag stays visible on the card. */
+.flag { width: 20px; height: 15px; flex: none; border-radius: 2px; box-shadow: 0 0 0 1px rgba(15, 42, 74, .18); object-fit: cover; }
+.countries-soon { display: flex; align-items: center; gap: 8px; }
+@media (prefers-color-scheme: dark) { .flag { box-shadow: 0 0 0 1px rgba(255, 255, 255, .28); } }
+.contact-phone .contact-digits { display: block; font-size: .8em; margin-top: 2px; }
+.country-chips li:has(.chip-adds) { border-radius: 14px; }
 .country-chips .chip-adds { font: 400 12.5px var(--sans); color: var(--muted); }
 .countries-soon { margin: 20px 0 0; font-size: 14px; color: var(--muted); }
 /* The world map (18 Oct 2026, site/map.mjs): an inline SVG drawn at build time. The ocean is the section's own

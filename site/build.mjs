@@ -24,6 +24,8 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
+import { writeFlags } from './flags.mjs';
+import { FLAG_ISOS } from './shell.mjs';
 import { LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
 
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
@@ -344,5 +346,6 @@ export function build() {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  await writeFlags(FLAG_ISOS());
   console.log(`site: ${build()} pages × ${LANGS.length} languages${INDEXABLE ? '' : ' (noindex, robots disallow all)'}`);
 }
