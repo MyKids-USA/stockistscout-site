@@ -322,6 +322,7 @@ export const NAV = [
   ['/hotels', 'For hotels', 'Para hoteles', 'Pour les hôtels', 'Para hotéis', '酒店方案'],
   ['/results', 'Results', 'Resultados', 'Résultats', 'Resultados', '成效'],
   ['/reviews', 'Reviews', 'Reseñas', 'Avis', 'Avaliações', '用户评价'],
+  ['/blog', 'Blog', 'Blog', 'Blogue', 'Blog', '博客'],
   ['/faq', 'FAQ', 'Preguntas', 'FAQ', 'Perguntas', '常见问题'],
   ['/about', 'About', 'Quiénes somos', 'À propos', 'Quem somos', '关于我们'],
   ['/contact', 'Contact', 'Contacto', 'Contact', 'Contato', '联系我们'],
@@ -428,7 +429,8 @@ function head(meta) {
 <title${titles}>${full}</title>
 <meta name="description" content="${esc(description)}">
 ${INDEXABLE ? '' : '<meta name="robots" content="noindex">\n'}<link rel="canonical" href="${url}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="${meta.article ? 'article' : 'website'}">${meta.article ? `
+<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: title, description, datePublished: meta.article.published, dateModified: meta.updated || meta.article.published, author: { '@type': 'Organization', name: 'StockistScout', url: ORIGIN }, publisher: { '@type': 'Organization', name: 'StockistScout', logo: { '@type': 'ImageObject', url: ORIGIN + '/img/logo-520.png' } }, image: ORIGIN + (meta.article.image || '/img/og.png'), mainEntityOfPage: url }).replace(/</g, '\\u003c')}</script>` : ''}
 <meta property="og:site_name" content="StockistScout">
 <meta property="og:title" content="${esc(full)}">
 <meta property="og:description" content="${esc(description)}">
@@ -478,7 +480,7 @@ ${items}
    (Spanish and German were falling back to the hamburger on a PC). The phone moved to a slim bar above the header on
    desktop; under 1280px the hamburger menu lists every link flat, the phone included. Home is the logo on desktop. */
 const NAV_MAIN = ['/how-it-works', '/agents', '/pricing', '/hotels'];
-const NAV_MORE = ['/features', '/results', '/reviews', '/faq', '/about', '/contact'];
+const NAV_MORE = ['/features', '/results', '/reviews', '/blog', '/faq', '/about', '/contact'];
 
 function navLink(path, href, cls = '') {
   const [, en, es, fr, pt, zh] = NAV.find((n) => n[0] === href);
@@ -489,7 +491,7 @@ function navLink(path, href, cls = '') {
 function header(path) {
   const main = ['      ' + navLink(path, '/', 'nav-home'), ...NAV_MAIN.map((h) => '      ' + navLink(path, h))].join('\n');
   const more = NAV_MORE.map((h) => '            ' + navLink(path, h)).join('\n');
-  const moreOn = NAV_MORE.includes(path) ? ' has-current' : '';
+  const moreOn = NAV_MORE.includes(path) || path.startsWith('/blog/') ? ' has-current' : '';
   const callLabel = `aria-label="Call StockistScout at ${CONTACT_PHONE_DIGITS}" data-es-label="Llama a StockistScout al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligue para o StockistScout no ${CONTACT_PHONE_DIGITS}" data-zh-label="致电 StockistScout：${CONTACT_PHONE_DIGITS}"`;
   return `<a class="skip" href="#main" data-es="Ir al contenido" data-fr="Aller au contenu" data-pt="Pular para o conteúdo" data-zh="跳到正文">Skip to content</a>
 <div class="topbar">
@@ -548,6 +550,7 @@ function footer() {
       <a href="/hotels" data-es="Para cadenas de hoteles" data-fr="Pour les chaînes hôtelières" data-pt="Para redes hoteleiras" data-zh="酒店集团方案">For hotel chains</a>
       <a href="/results" data-es="Resultados" data-fr="Résultats" data-pt="Resultados" data-zh="成效">Results</a>
       <a href="/faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-pt="Perguntas frequentes" data-zh="常见问题">FAQ</a>
+      <a href="/blog" data-es="Blog" data-fr="Blogue" data-pt="Blog" data-zh="博客">Blog</a>
     </nav>
     <nav aria-label="Company" data-es-label="Empresa" data-fr-label="Entreprise" data-pt-label="Empresa" data-zh-label="公司">
       <h2 data-es="Empresa" data-fr="Entreprise" data-pt="Empresa" data-zh="公司">Company</h2>

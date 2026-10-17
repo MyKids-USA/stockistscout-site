@@ -50,8 +50,30 @@ function customAvatars() {
     .map((f) => `      <li><img class="avatar" src="/img/agents/custom/${f}" alt="" width="72" height="72" loading="lazy" decoding="async"></li>`).join('\n');
 }
 
-function fill(html) {
+/* The blog (17 Oct 2026): a card per post, from the post's own metadata (title, description, cover, tag, each in every
+   language the post has), so the index and the "Keep reading" of every post need no texts of their own. */
+let POSTS = [];
+const ATTR4 = ['es', 'fr', 'pt', 'zh'];
+const cap1 = (l) => l[0].toUpperCase() + l.slice(1);
+function postCard(m, featured = false) {
+  const a = m.article;
+  const tr = (k) => ATTR4.map((l) => (m[k + cap1(l)] ? ` data-${l}="${attr(m[k + cap1(l)])}"` : '')).join('');
+  const tag = a.tag ? `<span class="pc-tag"${ATTR4.map((l) => (a['tag' + cap1(l)] ? ` data-${l}="${attr(a['tag' + cap1(l)])}"` : '')).join('')}>${a.tag}</span>` : '';
+  return `<a class="post-card${featured ? ' featured' : ''}" href="${m.path}">
+  <img src="${a.image}" alt="" width="1600" height="1067" loading="lazy" decoding="async">
+  <div class="pc-body">${tag}
+    <h2${tr('title')}>${m.title}</h2>
+    <p${tr('description')}>${m.description}</p>
+  </div>
+</a>`;
+}
+const blogCards = () => POSTS.map((m, i) => postCard(m, i === 0)).join('\n');
+const blogMore = (path) => POSTS.filter((m) => m.path !== path).slice(0, 3).map((m) => postCard(m)).join('\n');
+
+function fill(html, path = '') {
   const out = html
+    .replaceAll('{{BLOG_CARDS}}', blogCards())
+    .replaceAll('{{BLOG_MORE}}', blogMore(path))
     .replaceAll('{{CTA_BUTTON}}', ctaButton('btn-primary'))
     .replaceAll('{{CTA_BUTTON_LIGHT}}', ctaButton('btn-light'))
     .replaceAll('{{CTA}}', ctaBand())
@@ -225,7 +247,7 @@ export function localize(html, lang, path, pages, meta, dict) {
     for (const a of document.querySelectorAll('a[href]')) {
       if (a.closest('#langMenu')) continue; // the language menu already points at each language
       const href = a.getAttribute('href');
-      const m = /^(\/[a-z0-9-]*)(#.*)?$/.exec(href);
+      const m = /^(\/[a-z0-9-]*(?:\/[a-z0-9-]+)?)(#.*)?$/.exec(href);
       if (m && pages.has(m[1])) a.setAttribute('href', pathIn(m[1], lang) + (m[2] || ''));
       else if (href.startsWith(APP_URL + '/')) a.setAttribute('href', href + (href.includes('?') ? '&' : '?') + `lang=${lang}`);
     }
@@ -303,8 +325,13 @@ const ROBOTS = INDEXABLE
 
 /** Every page in English, as the build makes it: { meta, html }. extract.mjs reads its strings from these. */
 export function englishPages() {
-  return readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort().map(readPage)
-    .map(({ meta, body }) => ({ meta, html: page({ ...meta, body: fill(body) }) }));
+  // The blog's posts live in site/pages/blog/ (17 Oct 2026): /blog/<file name>.
+  const blog = existsSync(join(PAGES, 'blog')) ? readdirSync(join(PAGES, 'blog')).filter((f) => f.endsWith('.html')).sort().map((f) => `blog/${f}`) : [];
+  const read = [...readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort(), ...blog].map(readPage);
+  // Newest first; the first is the featured card of the index.
+  POSTS = read.map((x) => x.meta).filter((m) => m.article).sort((a, b) => (b.article.published + b.path).localeCompare(a.article.published + a.path) || (a.article.order ?? 0) - (b.article.order ?? 0));
+  POSTS.sort((a, b) => (a.article.order ?? 99) - (b.article.order ?? 99));
+  return read.map(({ meta, body }) => ({ meta, html: page({ ...meta, body: fill(body, meta.path) }) }));
 }
 
 export const EN_JSON = join(HERE, 'i18n', 'en.json');
@@ -345,10 +372,16 @@ export function build() {
       for (const l of ATTR_LANGS.slice(ATTR_LANGS.indexOf('fr') + 1)) if (!meta[k + cap(l)]) gaps.push(`${meta.path}: ${k}Fr without ${k}${cap(l)}`);
     if (gaps.length) throw new Error('Missing translations:\n' + gaps.join('\n'));
     // The 404 stays English-only: it is never indexed.
-    for (const l of meta.noindex ? ['en'] : LANGS) writeFileSync(join(ROOT, fileIn(meta.path, l)), localize(en, l, meta.path, pages, meta, dicts[l]));
+    for (const l of meta.noindex ? ['en'] : LANGS) {
+      const out = join(ROOT, fileIn(meta.path, l));
+      mkdirSync(dirname(out), { recursive: true });
+      writeFileSync(out, localize(en, l, meta.path, pages, meta, dicts[l]));
+    }
     if (!meta.noindex) urls.push([meta.path, meta.updated || TODAY]);
   }
-  urls.sort((a, b) => order.indexOf(a[0]) - order.indexOf(b[0]));
+  // Pages not in the list (the blog and its posts) after the ones that are, in path order.
+  const rank = (u) => (order.indexOf(u) + 1 || order.length + 1);
+  urls.sort((a, b) => rank(a[0]) - rank(b[0]) || a[0].localeCompare(b[0]));
   writeFileSync(join(ROOT, 'sitemap.xml'), sitemap(urls));
   writeFileSync(join(ROOT, 'robots.txt'), ROBOTS);
   return urls.length;
