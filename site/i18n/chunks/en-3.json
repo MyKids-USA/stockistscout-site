@@ -169,6 +169,12 @@
  "Sent, opened, clicked and replied, per day and per agent, so you see what works.",
  "Agents",
  "Pick our specialists or create your own agent, with its name, specialty and face.",
+ "On your phone",
+ "StockistScout works on your phone, too.",
+ "Add it to your home screen and it opens like an app, with its own icon. Check on your agents, see who replied and ask the assistant from wherever you are.",
+ "On iPhone and Android, with no app store in between.",
+ "A bottom bar with the pages you use most, and the assistant one tap away.",
+ "To install it: in the app, Menu → Install the app.",
  "The problem",
  "Landing new stockists is hours of work almost nobody has time to do well.",
  "<b>Finding stores that fit is slow.</b> Maps, social media, store websites one by one, and then working out who to write to.",
@@ -211,6 +217,7 @@
  "Straight answers on the service and your data.",
  "Katya presents StockistScout",
  "StockistScout: Agents",
+ "StockistScout on an iPhone",
  "Play the video",
  "StockistScout pricing: a free trial of 50 emails, then monthly plans by emails sent, from Basic (200 emails, $49.99) to Enterprise (20,000 emails, 8 agents, $1,499.99). Billed monthly, cancel anytime, no commission.",
  "Pay for the emails sent.<br>Never for your sales.",
@@ -307,6 +314,5 @@
  "Your agents stop sending until your plan’s next month starts, or until you move up a plan. You are never charged extra without asking for it.",
  "How am I billed?",
  "Monthly. If you installed the app from the Shopify App Store, Shopify bills your plan on your Shopify invoice. If you opened your account on our website, you pay by card through Stripe, and we never see your card number. The prices are the same.",
- "Can I cancel or change plans?",
- "Yes, whenever you want. Monthly plans have no contract: if you cancel, you are not charged again. Corporate plans for hotel chains are different: an <a href=\"/corporate-agreement\">annual agreement</a> of 12 months that renews unless either side gives notice 60 days before the end; the number of users can only go down at renewal."
+ "Can I cancel or change plans?"
 ]

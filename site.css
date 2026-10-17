@@ -645,6 +645,12 @@ html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; 
 .app-shot figcaption strong { color: var(--ink); }
 .shots-note { margin-top: 6px; }
 .feature-shot { margin: 28px 0 0; }
+/* Home: the app on a phone (17 Oct 2026). */
+.phone-band { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+.phone-points { margin: 18px 0 0; padding-inline-start: 20px; display: grid; gap: 8px; color: var(--ink-2, var(--ink)); }
+.phone-shot { margin: 0; }
+.phone-shot img { display: block; width: 100%; max-width: 380px; height: auto; margin: 0 auto; border-radius: 24px; }
+@media (max-width: 800px) { .phone-band { grid-template-columns: 1fr; gap: 20px; } }
 @media (max-width: 800px) { .app-shots { grid-template-columns: 1fr; gap: 22px; } }
 
 /* Katya, the setup coach (features#setup). */
