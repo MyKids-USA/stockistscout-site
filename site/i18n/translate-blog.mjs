@@ -35,6 +35,8 @@ const STYLE = {
   de: 'German, addressing the reader as “Sie”',
   nl: 'Dutch, addressing the reader as “je”',
   hi: 'Hindi in Devanagari, everyday business Hindi, Western digits (0-9)',
+  bn: 'Bengali (Bangla) as written in Bangladesh, in Bengali script, polite আপনি form, plain business Bengali; Western digits (0-9) for numbers and prices',
+  ur: 'Urdu as written in Pakistan, in Urdu (Nastaliq) script, polite آپ form, plain business Urdu; Western digits (0-9) for numbers and prices',
 };
 
 /** Glossary: a few of the site's own short texts in that language (its menu, its features, its agents). */
@@ -60,7 +62,7 @@ async function translate(lang, texts) {
     const batch = texts.slice(i, i + 40);
     const system = `You translate the website of StockistScout (AI agents that find stores for brands and write to them) into ${STYLE[lang]}.
 You get a JSON array of English texts; answer with ONLY a JSON array of the same length, each item the translation of the item at the same position.
-Rules: keep every HTML tag, attribute and entity exactly (translate only the text between tags); keep names of products, people, agents and businesses (StockistScout, Katya, Elias, Clay & Fern, Lin, Maya, Ana) as they are; keep numbers, prices in US dollars and percentages exactly; translate “[three shops you admire]” keeping the square brackets.
+Rules: keep every HTML tag, attribute and entity exactly (translate only the text between tags); keep names of products, people, agents and businesses (StockistScout, Katya, Elias, Clay & Fern, Lin, Maya, Ana) as they are; keep numbers, prices in US dollars and percentages exactly; keep URLs, email addresses, phone numbers, placeholders in braces like {email}, plan names, law names and the words quoted in another language (PUBLICIDAD, &lt;ADV&gt;, פרסומת, 不要再寄, Comunicación comercial no solicitada) exactly as they are; keep URLs, email addresses, phone numbers, placeholders in braces like {email}, plan names, law names and the words quoted in another language (PUBLICIDAD, &lt;ADV&gt;, פרסומת, 不要再寄, Comunicación comercial no solicitada) exactly as they are; translate “[three shops you admire]” keeping the square brackets.
 Write naturally, the way a careful native copywriter would, faithful to the meaning, without adding or removing claims.
 Use the site's existing terms; this glossary is how the site already says things in this language:
 ${glossary(lang)}`;

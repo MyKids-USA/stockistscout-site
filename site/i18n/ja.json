@@ -826,7 +826,6 @@
  "7 min read": "読了時間：7分",
  "Lin runs a family factory that makes stoneware plates and bowls. For years they sold through import agents and trade fairs. Now they want to sell directly to independent kitchen, gift and home shops in the United States, where their products would sit next to brands that cost three times more. The problem is the usual one: how do you find hundreds of the right shops on the other side of the world, and how do you write to them in a way they read?": "Linは、ストーンウェアの皿やボウルをつくる家族経営の工場です。長年、輸入代理店や展示会を通じて販売してきました。今は、アメリカの個人経営のキッチン用品店、ギフトショップ、ホームショップに直接販売したいと考えています。そこでは、価格が3倍もするブランドの隣に商品が並びます。悩みはよくあるものです。地球の反対側で、条件に合う店舗を何百店も見つけるにはどうすればいいのか。そして、きちんと読んでもらえるメールをどう書けばいいのか。",
  "Set it up in your own language": "自分の言語で設定",
- "Lin fills in the setup in Chinese: the app and the setup coach speak fourteen languages. What changes is the country of each agent. Lin chooses the United States, so the agent searches US shops and writes to them in English, while every screen, report and suggestion stays in Chinese for Lin.": "Linは中国語で設定を入力します。アプリと設定コーチは14言語に対応しています。変わるのは、エージェントごとの対象国です。LinがアメリカをHとして選ぶと、エージェントはアメリカの店舗を検索して英語で連絡します。一方、画面、レポート、提案はすべて、Linのために中国語のままです。",
  "<strong>Ideal customer:</strong> independent kitchenware, gift and home shops in the United States that sell tableware, with a website and a business email; no chains, no discount stores.": "<strong>理想の顧客：</strong>アメリカの個人経営のキッチン用品店、ギフトショップ、ホームショップのうち、食器を扱い、Webサイトとビジネス用メールアドレスがある店舗。チェーン店やディスカウントストアは除きます。",
  "<strong>Example stores:</strong> three US shops Lin would love to be in.": "<strong>店舗の例：</strong>Linが商品を置いてもらいたいアメリカの店舗3店。",
  "<strong>Offer:</strong> a $300 opening order, prices in US dollars, shipped from their US warehouse in 5 to 7 days, payment by card or invoice.": "<strong>オファー：</strong>初回注文は$300、価格は米ドル、アメリカの倉庫から5～7日で発送、支払いはカードまたは請求書払い。",
@@ -941,5 +940,6 @@
  "Please check the highlighted fields.": "ハイライトされた項目をご確認ください。",
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "この接続からの試行回数が多すぎます。1時間ほどお待ちいただくか、<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>までメールでご連絡ください。",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "送信できませんでした。接続を確認して再度お試しいただくか、<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>までメールでご連絡ください。",
- "Why it fits:": "合う理由："
+ "Why it fits:": "合う理由：",
+ "Lin fills in the setup in Chinese: the app and the setup coach speak sixteen languages. What changes is the country of each agent. Lin chooses the United States, so the agent searches US shops and writes to them in English, while every screen, report and suggestion stays in Chinese for Lin.": "Linは中国語で設定を行います。アプリと設定コーチは16言語に対応しており、変わるのは各エージェントの担当国です。Linが米国を選ぶと、エージェントは米国の店舗を検索して英語でメールを書き、Linが見る画面、レポート、提案はすべて中国語のままです。"
 }

@@ -892,3 +892,30 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 .post-more { max-width: 1040px; margin: 56px auto 0; }
 .post-more h2 { font-size: 24px; margin-bottom: 18px; }
 .post-more .blog-grid { padding: 0; }
+
+/* ---------- Bengali and Urdu (17 Oct 2026) ----------
+   Bengali: the system's Bengali face behind the Latin fonts (Noto on Android, Nirmala UI or Vrinda on Windows, Kohinoor
+   Bangla on Apple); like Devanagari it hangs from a headline, so no letter-spacing and taller headings.
+   Urdu: Nastaliq, the way Urdu is read (Noto Nastaliq Urdu ships with iOS and macOS; Jameel Noori and Urdu Typesetting
+   on Windows), Naskh as the fallback. Nastaliq is tall and slanted: generous line heights, no letter-spacing (joined script). */
+:root:lang(bn) {
+  --display: "Plus Jakarta Sans", "Inter", "Noto Sans Bengali", "Nirmala UI", "Vrinda", "Kohinoor Bangla", "Bangla Sangam MN", sans-serif;
+  --sans: "Inter", "Noto Sans Bengali", "Nirmala UI", "Vrinda", "Kohinoor Bangla", "Bangla Sangam MN", sans-serif;
+  --mono: "Inter", "Noto Sans Bengali", "Nirmala UI", "Vrinda", "Kohinoor Bangla", sans-serif;
+}
+:lang(bn) *, :lang(bn) *::before, :lang(bn) *::after { letter-spacing: 0 !important; }
+:lang(bn) h1, :lang(bn) h2, :lang(bn) h3 { line-height: 1.4; }
+:lang(bn) code, :lang(bn) kbd, :lang(bn) pre { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+:root:lang(ur) {
+  --display: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --sans: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+  --mono: "Noto Nastaliq Urdu", "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
+}
+:lang(ur) *, :lang(ur) *::before, :lang(ur) *::after { letter-spacing: 0 !important; }
+:lang(ur) body { line-height: 2; }
+:lang(ur) h1, :lang(ur) h2, :lang(ur) h3 { line-height: 1.75; font-weight: 700; }
+:lang(ur) .eyebrow, :lang(ur) .pc-tag, :lang(ur) .mc-label { text-transform: none; }
+:lang(ur) code, :lang(ur) kbd, :lang(ur) pre { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+:lang(ur) .plan .amount { white-space: normal; }
+:lang(ur) .plan .amount small { display: inline-block; white-space: nowrap; }
+@media (min-width: 1180px) { :lang(ur) .plans { grid-template-columns: repeat(5, minmax(0, 1fr)); } }

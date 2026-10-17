@@ -45,6 +45,10 @@ export const LANGUAGES = [
   { code: 'nl', name: 'Nederlands', word: 'Taal', html: 'nl', hreflang: 'nl', locale: 'nl_NL', dict: true },
   // Hindi (17 Oct 2026), Devanagari, for Indian brands and manufacturers selling to stores abroad: /hi/, site/i18n/hi.json.
   { code: 'hi', name: 'हिन्दी', word: 'भाषा', html: 'hi', hreflang: 'hi', locale: 'hi_IN', dict: true },
+  // Bengali and Urdu (17 Oct 2026, Aharon: the most spoken languages we lacked; Russian left out on purpose), for the
+  // garment and textile makers of Bangladesh and Pakistan selling to stores abroad. Urdu reads right to left, in Nastaliq.
+  { code: 'bn', name: 'বাংলা', word: 'ভাষা', html: 'bn', hreflang: 'bn', locale: 'bn_BD', dict: true },
+  { code: 'ur', name: 'اردو', word: 'زبان', html: 'ur', hreflang: 'ur', locale: 'ur_PK', dir: 'rtl', dict: true },
 ];
 /* The home video (Katya, "In 60 seconds"): its YouTube id per language, the one place to set them. An empty id, or a
    language not listed, plays the English video. The build writes the page's id into data-yt of .promo-video. Its
