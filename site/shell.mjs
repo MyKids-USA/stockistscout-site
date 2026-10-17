@@ -18,7 +18,7 @@ export const ORIGIN = 'https://stockistscout.com';
 
 /* The site's languages, in the order of the language menu: one entry per language (Aharon, 16 Oct 2026: a dropdown,
    because there will be more: English, Español, Français, Português, 中文, then 日本語, 한국어, עברית, Italiano, Deutsch,
-   Nederlands, العربية). `code` is the URL folder, `name` the language's name in itself, `word` its word for "Language", `html` its
+   Nederlands, العربية). `code` is the URL folder (or `folder`), `name` the language's name in itself, `word` its word for "Language", `html` its
    <html lang>, `hreflang` its hreflang, `locale` its og:locale, `dir` 'rtl' for a right-to-left language.
    Two ways to carry the texts:
    - es, fr, pt, zh: in data-<code> attributes beside the English in site/pages (and here);
@@ -31,7 +31,11 @@ export const LANGUAGES = [
   { code: 'es', name: 'Español', word: 'Idioma', html: 'es', hreflang: 'es', locale: 'es_MX' },
   { code: 'fr', name: 'Français', word: 'Langue', html: 'fr', hreflang: 'fr', locale: 'fr_CA' },
   { code: 'pt', name: 'Português', word: 'Idioma', html: 'pt-BR', hreflang: 'pt', locale: 'pt_BR' },
-  { code: 'zh', name: '中文', word: '语言', html: 'zh-CN', hreflang: 'zh-Hans', locale: 'zh_CN' },
+  { code: 'zh', name: '简体中文', word: '语言', html: 'zh-CN', hreflang: 'zh-Hans', locale: 'zh_CN' },
+  // Traditional Chinese (17 Oct 2026), as Taiwan writes it, for Taiwan and Hong Kong: a dictionary language whose
+  // site/i18n/zh-Hant.json is the Simplified texts converted (site/i18n/zh-hant.mjs, OpenCC cn → twp) and reviewed.
+  // The code is the BCP 47 tag, as in the app (?lang=zh-Hant); `folder` is its URL (/zh-hant/).
+  { code: 'zh-Hant', folder: 'zh-hant', name: '繁體中文', word: '語言', html: 'zh-Hant', hreflang: 'zh-Hant', locale: 'zh_TW', dict: true },
   { code: 'ja', name: '日本語', word: '言語', html: 'ja', hreflang: 'ja', locale: 'ja_JP', dict: true },
   { code: 'ko', name: '한국어', word: '언어', html: 'ko', hreflang: 'ko', locale: 'ko_KR', dict: true },
   { code: 'he', name: 'עברית', word: 'שפה', html: 'he', hreflang: 'he', locale: 'he_IL', dir: 'rtl', dict: true },
@@ -224,8 +228,12 @@ export function localizeMap(document, name, join) {
   label.remove();
 }
 
+/** A language's URL folder: its code, or `folder` where the code has capitals (zh-Hant → zh-hant). */
+export const folderOf = (lang) => LANGUAGES.find((l) => l.code === lang)?.folder ?? lang;
+/** A language's data-<key> attribute name: lower case (data-zh-hant), as HTML writes attribute names. */
+export const attrKey = (lang) => lang.toLowerCase();
 /** A page's path in a language: /pricing → /es/pricing, / → /es/. */
-export const pathIn = (path, lang) => lang === 'en' ? path : `/${lang}${path === '/' ? '/' : path}`;
+export const pathIn = (path, lang) => lang === 'en' ? path : `/${folderOf(lang)}${path === '/' ? '/' : path}`;
 const GLOBE_ICON = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
 export const COMPANY = 'Aharon &amp; Ita Corp';
 
@@ -446,8 +454,8 @@ function logo(w, h, extra = '') {
 function langMenu(path) {
   // The button names the page's language in that language: every language carries it here as data-<code>, dictionary
   // languages too (their own attribute wins over the dictionary), so these two never go to the translators.
-  const current = LANGUAGES.slice(1).map((l) => ` data-${l.code}="${attr(l.name)}"`).join('');
-  const label = ' aria-label="Language: English"' + LANGUAGES.slice(1).map((l) => ` data-${l.code}-label="${attr(l.word)}: ${attr(l.name)}"`).join('');
+  const current = LANGUAGES.slice(1).map((l) => ` data-${attrKey(l.code)}="${attr(l.name)}"`).join('');
+  const label = ' aria-label="Language: English"' + LANGUAGES.slice(1).map((l) => ` data-${attrKey(l.code)}-label="${attr(l.word)}: ${attr(l.name)}"`).join('');
   const items = SITE_LANGUAGES.map((l) =>
     `            <li><a href="${pathIn(path, l.code)}" hreflang="${l.hreflang}" lang="${l.html}" data-lang="${l.code}">${l.name}</a></li>`).join('\n');
   return `<div class="lang" id="langToggle">
@@ -575,13 +583,20 @@ const SCRIPT = `<script>
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
   var LANGS = ${JSON.stringify(SITE_LANGUAGES.slice(1).map((l) => l.code))};
-  // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, ar, it, de, nl are two letters already).
-  function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
+  // Each language's URL folder, in the order of LANGS (zh-Hant lives at /zh-hant/).
+  var FOLDERS = ${JSON.stringify(SITE_LANGUAGES.slice(1).map((l) => folderOf(l.code)))};
+  // /zh/ pages say lang="zh-CN", /pt/ "pt-BR": the language code is the first two letters, except Traditional Chinese
+  // (lang="zh-Hant"), whose code is the whole tag.
+  function pageLang() {
+    var h = document.documentElement.lang || '';
+    if (/^zh-hant/i.test(h)) return LANGS.indexOf('zh-Hant') >= 0 ? 'zh-Hant' : 'en';
+    var l = h.slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en';
+  }
   function urlFor(lang) {
     var p = location.pathname;
-    var first = p.slice(1, 3);
-    if (LANGS.indexOf(first) >= 0 && (p.length === 3 || p.charAt(3) === '/')) p = p.slice(3) || '/';
-    var to = lang === 'en' ? p : '/' + lang + (p === '/' ? '/' : p);
+    var first = p.split('/')[1];
+    if (FOLDERS.indexOf(first) >= 0) p = p.slice(first.length + 1) || '/';
+    var to = lang === 'en' ? p : '/' + FOLDERS[LANGS.indexOf(lang)] + (p === '/' ? '/' : p);
     return to + location.search + location.hash;
   }
   /* The funnel (15 Oct 2026): a click to the app carries this visit's session id (the tracker's), the page's language
@@ -674,10 +689,16 @@ const SCRIPT = `<script>
   }
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
-  var nav = (navigator.language || 'en').toLowerCase().slice(0, 2);
+  var tag = (navigator.language || 'en').toLowerCase(), nav = tag.slice(0, 2);
   if (nav === 'iw') nav = 'he'; // older browsers still say iw-IL for Hebrew
+  // Chinese by its script, else its region (as the app): zh-TW, zh-HK, zh-MO and zh-Hant* read Traditional; zh-CN, zh-SG,
+  // zh-Hans* and plain zh Simplified.
+  if (nav === 'zh') {
+    var sub = tag.split(/[-_]/).slice(1);
+    if (sub.indexOf('hant') >= 0 || (sub.indexOf('hans') < 0 && (sub.indexOf('tw') >= 0 || sub.indexOf('hk') >= 0 || sub.indexOf('mo') >= 0))) nav = 'zh-Hant';
+  }
   /* On an English page, a visitor who chose another language before, or whose browser speaks one the site is built in on
-     a first visit (es-*, fr-*, pt-*, zh-*, and once their files exist ja-*, ko-*, he-* or iw-*, ar-*, it-*, de-*, nl-*), goes to
+     a first visit (es-*, fr-*, pt-*, zh-* (Traditional for zh-TW, zh-HK, zh-MO, zh-Hant*), and once their files exist ja-*, ko-*, he-* or iw-*, ar-*, it-*, de-*, nl-*), goes to
      that page in their language. A saved language the site no longer has stays on English. A page reached in another language remembers it. */
   if (pageLang() === 'en') {
     var want = saved || (LANGS.indexOf(nav) >= 0 ? nav : 'en');

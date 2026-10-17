@@ -12,7 +12,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
-import { LANGUAGES, MSG } from '../shell.mjs';
+import { LANGUAGES, MSG, attrKey } from '../shell.mjs';
 
 export const DICT_LANGS = LANGUAGES.filter((l) => l.dict).map((l) => l.code);
 /** The attribute variants a dictionary covers: [html attribute, data-<lang>-<key> suffix]. Images and links stay English. */
@@ -57,7 +57,7 @@ export function pageStrings(html, meta, problems = []) {
   if (meta.noindex) return [];
   const out = [meta.title, meta.description];
   const { document } = parseHTML(html);
-  const own = (el, key) => DICT_LANGS.some((l) => el.hasAttribute(`data-${l}${key}`));
+  const own = (el, key) => DICT_LANGS.some((l) => el.hasAttribute(`data-${attrKey(l)}${key}`));
   for (const el of document.querySelectorAll('[data-pt]')) {
     if (el.tagName === 'TITLE' || own(el, '')) continue;
     if (el.querySelector('[data-pt]')) problems.push(`${meta.path}: <${el.tagName.toLowerCase()}> with data-pt holds another element with data-pt`);

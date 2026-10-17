@@ -26,7 +26,7 @@ import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
 import { writeFlags } from './flags.mjs';
 import { FLAG_ISOS } from './shell.mjs';
-import { LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
+import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
 
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
 
@@ -103,7 +103,7 @@ const ATTR_LANGS = ATTR_LANGUAGES.map((l) => l.code);
 const BY = Object.fromEntries(LANGUAGES.map((l) => [l.code, l]));
 const hreflang = (l) => BY[l]?.hreflang ?? l; // x-default stays itself
 export { pathIn };
-const fileIn = (path, lang) => lang === 'en' ? outFile(path) : `${lang}/${outFile(path)}`;
+const fileIn = (path, lang) => lang === 'en' ? outFile(path) : `${folderOf(lang)}/${outFile(path)}`;
 
 /** The text of an element in a language (data-es / data-fr / data-pt, or data-es-alt and the like): French and
     Portuguese fall back to English. `key` is '' for the element's own text, '-alt', '-src', ... for an attribute. */
@@ -122,13 +122,13 @@ function translateFromDict(document, lang, path, meta, dict) {
   const tr = (en) => { const t = dict[en]; if (t == null) miss.push(en.slice(0, 80)); return t; };
   for (const el of document.querySelectorAll('[data-pt]')) {
     if (el.tagName === 'TITLE') continue;
-    const text = el.getAttribute(`data-${lang}`) ?? tr(el.innerHTML);
+    const text = el.getAttribute(`data-${attrKey(lang)}`) ?? tr(el.innerHTML);
     if (text != null) el.innerHTML = text;
   }
   for (const [a, key] of ATTRS) {
     for (const el of document.querySelectorAll(`[data-pt-${key}]`)) {
       if (!el.hasAttribute(a)) continue;
-      const v = el.getAttribute(`data-${lang}-${key}`) ?? tr(el.getAttribute(a));
+      const v = el.getAttribute(`data-${attrKey(lang)}-${key}`) ?? tr(el.getAttribute(a));
       if (v != null) el.setAttribute(a, v);
     }
   }
@@ -232,7 +232,7 @@ export function localize(html, lang, path, pages, meta, dict) {
   // The map's country names and aria-label in the language (the chips' names: COUNTRIES, or the dictionary).
   const isDict = lang !== 'en' && BY[lang].dict;
   flagPhones(document); // the US flag before the number inside translated texts (privacy)
-  localizeMap(document, (c) => lang === 'en' ? c.en : isDict ? dict?.[c.en] : c[lang], { zh: '、', ja: '、', ar: '، ' }[lang] ?? ', ');
+  localizeMap(document, (c) => lang === 'en' ? c.en : isDict ? dict?.[c.en] : c[lang], { zh: '、', 'zh-Hant': '、', ja: '、', ar: '، ' }[lang] ?? ', ');
   const url = ORIGIN + pathIn(path, lang);
   head.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
   head.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
@@ -327,7 +327,7 @@ export function build() {
   const all = englishPages();
   const pages = new Set(all.map((x) => x.meta.path));
   const dicts = loadDictionaries(all);
-  for (const l of LANGS.slice(1)) mkdirSync(join(ROOT, l), { recursive: true });
+  for (const l of LANGS.slice(1)) mkdirSync(join(ROOT, folderOf(l)), { recursive: true });
   for (const { meta, html: en } of all) {
     const gaps = missingTranslations(en, meta.path);
     // titleFr, titlePt, titleZh ... and the same for description: each language from French on has them when French does.

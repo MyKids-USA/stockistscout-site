@@ -12,7 +12,8 @@
     var n = Math.max(1, Math.min(5, t.rating | 0));
     // The five languages ride along in data-en / data-es / data-fr / data-pt / data-zh (Chinese falls back to English), like the rest of the site, so the language switch swaps them.
     // They hold HTML that the switch puts back with innerHTML: escaped twice, so the reader's text never becomes markup.
-    var lang = (document.documentElement.lang || '').slice(0, 2); var es = lang === 'es', fr = lang === 'fr', pt = lang === 'pt', zh = lang === 'zh';
+    // Traditional Chinese pages (lang="zh-Hant") show the English: the reviews are translated into Simplified only.
+    var lang = /^zh-hant/i.test(document.documentElement.lang || '') ? 'en' : (document.documentElement.lang || '').slice(0, 2); var es = lang === 'es', fr = lang === 'fr', pt = lang === 'pt', zh = lang === 'zh';
     var bodyEn = '&ldquo;' + esc(t.body_en || t.body) + '&rdquo;', bodyEs = '&ldquo;' + esc(t.body_es || t.body) + '&rdquo;', bodyFr = '&ldquo;' + esc(t.body_fr || t.body_en || t.body) + '&rdquo;';
     var bodyPt = '&ldquo;' + esc(t.body_pt || t.body_en || t.body) + '&rdquo;';
     var bodyZh = '&ldquo;' + esc(t.body_zh || t.body_en || t.body) + '&rdquo;';

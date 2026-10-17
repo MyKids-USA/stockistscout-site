@@ -19,8 +19,16 @@
   var SDK_URL = 'https://unpkg.com/@heygen/liveavatar-web-sdk@0.0.18/dist/index.umd.js';
   var EMAIL = 'sales@stockistscout.com';
   // /zh/ pages say lang="zh-CN": the language is its first two letters. Her backend may still answer 'zh' in English.
-  // The page's language goes to her backend as it is (it answers in the languages it knows, English otherwise).
-  var lang = function () { var l = (document.documentElement.lang || '').slice(0, 2); return /^[a-z]{2}$/.test(l) ? l : 'en'; };
+  // Traditional Chinese (/zh-hant/, lang="zh-Hant", 17 Oct 2026) is the whole tag: its texts come from window.SS_I18N.
+  var lang = function () {
+    var h = document.documentElement.lang || '';
+    if (/^zh-hant/i.test(h)) return 'zh-Hant';
+    var l = h.slice(0, 2); return /^[a-z]{2}$/.test(l) ? l : 'en';
+  };
+  // The page's language goes to her backend as it is (it answers in the languages it knows, English otherwise). Her
+  // backend (WMS Cloud, stockistscoutKatya.js) does not know 'zh-Hant' yet, so a Traditional page asks it in 'zh' (she
+  // would answer in English otherwise) until it learns Traditional Chinese.
+  var apiLang = function () { var l = lang(); return l === 'zh-Hant' ? 'zh' : l; };
   // French since 14 Oct 2026 (Canada), Brazilian Portuguese and Simplified Chinese since 16 Oct 2026 (/pt/, /zh/); a text without one shows in English.
   // The dictionary languages (ja, ko, he, ar, it, de, nl: 17 Oct 2026) find the English in window.SS_I18N, which the build
   // writes into their pages from site/i18n/<lang>.json. site/i18n/strings.mjs reads the English (the second argument)
@@ -248,7 +256,7 @@
         loadSdk(),
         fetch(API + '/session', {
           method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'omit',
-          body: JSON.stringify({ language: lang(), page: where().page, ref: where().ref })
+          body: JSON.stringify({ language: apiLang(), page: where().page, ref: where().ref })
         }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { j._status = r.status; return j; }); })
       ]);
       var SDK = out[0], data = out[1];
@@ -328,7 +336,7 @@
     try {
       var r = await fetch(API + '/ask', {
         method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'omit',
-        body: JSON.stringify({ messages: msgs.slice(-10), lang: lang(), cid: await conversationId(), page: where().page, ref: where().ref })
+        body: JSON.stringify({ messages: msgs.slice(-10), lang: apiLang(), cid: await conversationId(), page: where().page, ref: where().ref })
       });
       var d = await r.json();
       typing.remove();

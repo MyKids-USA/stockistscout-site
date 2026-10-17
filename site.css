@@ -37,6 +37,12 @@
   --display: "Plus Jakarta Sans", "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
   --sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
 }
+/* Traditional Chinese (/zh-hant/, lang="zh-Hant", 17 Oct 2026): the Traditional system fonts (:lang(zh) also matches it, so
+   its spacing rules apply as they are). */
+:root:lang(zh-Hant) {
+  --display: "Plus Jakarta Sans", "Inter", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", "Noto Sans CJK TC", "Source Han Sans TC", sans-serif;
+  --sans: "Inter", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", "Noto Sans CJK TC", "Source Han Sans TC", sans-serif;
+}
 :lang(zh) h1, :lang(zh) h2, :lang(zh) h3 { letter-spacing: 0; }
 :lang(zh) .page-head h1, :lang(zh) .hero h1 { letter-spacing: 0; line-height: 1.25; }
 @media (prefers-color-scheme: dark) {
@@ -669,6 +675,7 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 :lang(zh) .country-group h3, :lang(ja) .country-group h3, :lang(ko) .country-group h3, :lang(he) .country-group h3, :lang(ar) .country-group h3 { letter-spacing: 0; }
 :lang(pt) .mock-rows .why::before { content: "Por que combina: "; }
 :lang(zh) .mock-rows .why::before { content: "匹配原因："; }
+:lang(zh-Hant) .mock-rows .why::before { content: "符合原因："; }
 
 /* ---------- Japanese, Korean, Hebrew, Arabic (17 Oct 2026): system fonts behind the Latin ones, as for Chinese ---------- */
 :root:lang(ja) {
