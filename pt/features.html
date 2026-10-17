@@ -14,7 +14,7 @@
 </script>
 <title data-es="Funciones | StockistScout" data-fr="Fonctionnalités | StockistScout" data-pt="Recursos | StockistScout" data-zh="功能 | StockistScout">Recursos | StockistScout</title>
 <meta name="description" content="O que o StockistScout faz: encontra lojas que combinam e explica por quê, escreve um e-mail pessoal para cada uma em nome da sua empresa, revisa cada modelo, envia dentro de limites diários e mostra primeiro as lojas qualificadas, as respostas positivas e as conversas.">
-<link rel="canonical" href="https://stockistscout.com/pt/features"><link href="https://stockistscout.com/features" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/zh/features" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/features" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/features" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/features" hreflang="es" rel="alternate"><link href="https://stockistscout.com/features" hreflang="en" rel="alternate">
+<link rel="canonical" href="https://stockistscout.com/pt/features"><link href="https://stockistscout.com/features" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/nl/features" hreflang="nl" rel="alternate"><link href="https://stockistscout.com/de/features" hreflang="de" rel="alternate"><link href="https://stockistscout.com/it/features" hreflang="it" rel="alternate"><link href="https://stockistscout.com/he/features" hreflang="he" rel="alternate"><link href="https://stockistscout.com/ko/features" hreflang="ko" rel="alternate"><link href="https://stockistscout.com/ja/features" hreflang="ja" rel="alternate"><link href="https://stockistscout.com/zh/features" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/features" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/features" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/features" hreflang="es" rel="alternate"><link href="https://stockistscout.com/features" hreflang="en" rel="alternate">
 <meta property="og:type" content="website"><meta content="pt_BR" property="og:locale">
 <meta property="og:site_name" content="StockistScout">
 <meta property="og:title" content="Recursos | StockistScout">
@@ -72,6 +72,12 @@
             <li><a href="/fr/features" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
             <li><a aria-current="true" href="/pt/features" hreflang="pt" lang="pt-BR" data-lang="pt">Português</a></li>
             <li><a href="/zh/features" hreflang="zh-Hans" lang="zh-CN" data-lang="zh">中文</a></li>
+            <li><a href="/ja/features" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+            <li><a href="/ko/features" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+            <li><a href="/he/features" hreflang="he" lang="he" data-lang="he">עברית</a></li>
+            <li><a href="/it/features" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+            <li><a href="/de/features" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+            <li><a href="/nl/features" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
           </ul>
         </div>
       </div>
@@ -255,7 +261,7 @@
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ["es","fr","pt","zh"];
+  var LANGS = ["es","fr","pt","zh","ja","ko","he","it","de","nl"];
   // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {

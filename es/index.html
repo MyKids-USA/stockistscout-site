@@ -14,7 +14,7 @@
 </script>
 <title data-es="StockistScout: agentes de IA que encuentran las tiendas que venderán tus productos" data-fr="StockistScout : des agents IA qui trouvent les boutiques qui vendront vos produits" data-pt="StockistScout: agentes de IA que encontram as lojas que vão vender seus produtos" data-zh="StockistScout：AI 智能体，为您找到销售您产品的零售店">StockistScout: agentes de IA que encuentran las tiendas que venderán tus productos</title>
 <meta name="description" content="Los agentes de IA de StockistScout encuentran tiendas que encajan con tus productos, escriben a cada una un correo personal con el nombre de tu negocio y te muestran qué tiendas respondieron. Prueba gratis de 50 correos, sin tarjeta.">
-<link rel="canonical" href="https://stockistscout.com/es/"><link href="https://stockistscout.com/" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/zh/" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/" hreflang="es" rel="alternate"><link href="https://stockistscout.com/" hreflang="en" rel="alternate">
+<link rel="canonical" href="https://stockistscout.com/es/"><link href="https://stockistscout.com/" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/nl/" hreflang="nl" rel="alternate"><link href="https://stockistscout.com/de/" hreflang="de" rel="alternate"><link href="https://stockistscout.com/it/" hreflang="it" rel="alternate"><link href="https://stockistscout.com/he/" hreflang="he" rel="alternate"><link href="https://stockistscout.com/ko/" hreflang="ko" rel="alternate"><link href="https://stockistscout.com/ja/" hreflang="ja" rel="alternate"><link href="https://stockistscout.com/zh/" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/" hreflang="es" rel="alternate"><link href="https://stockistscout.com/" hreflang="en" rel="alternate">
 <meta property="og:type" content="website"><meta content="es_MX" property="og:locale">
 <meta property="og:site_name" content="StockistScout">
 <meta property="og:title" content="StockistScout: agentes de IA que encuentran las tiendas que venderán tus productos">
@@ -72,6 +72,12 @@
             <li><a href="/fr/" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
             <li><a href="/pt/" hreflang="pt" lang="pt-BR" data-lang="pt">Português</a></li>
             <li><a href="/zh/" hreflang="zh-Hans" lang="zh-CN" data-lang="zh">中文</a></li>
+            <li><a href="/ja/" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+            <li><a href="/ko/" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+            <li><a href="/he/" hreflang="he" lang="he" data-lang="he">עברית</a></li>
+            <li><a href="/it/" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+            <li><a href="/de/" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+            <li><a href="/nl/" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
           </ul>
         </div>
       </div>
@@ -374,7 +380,7 @@ document.querySelectorAll('.promo-video').forEach(function (box) {
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ["es","fr","pt","zh"];
+  var LANGS = ["es","fr","pt","zh","ja","ko","he","it","de","nl"];
   // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {

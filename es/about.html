@@ -14,7 +14,7 @@
 </script>
 <title data-es="Quiénes somos | StockistScout" data-fr="À propos | StockistScout" data-pt="Quem somos | StockistScout" data-zh="关于我们 | StockistScout">Quiénes somos | StockistScout</title>
 <meta name="description" content="StockistScout lo hace Aharon & Ita Corp, el equipo detrás de MyKids-USA, Drop-USA, Bins-USA y ScanRights: nuestra historia, la familia detrás de los agentes y las empresas del mismo equipo.">
-<link rel="canonical" href="https://stockistscout.com/es/about"><link href="https://stockistscout.com/about" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/zh/about" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/about" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/about" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/about" hreflang="es" rel="alternate"><link href="https://stockistscout.com/about" hreflang="en" rel="alternate">
+<link rel="canonical" href="https://stockistscout.com/es/about"><link href="https://stockistscout.com/about" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/nl/about" hreflang="nl" rel="alternate"><link href="https://stockistscout.com/de/about" hreflang="de" rel="alternate"><link href="https://stockistscout.com/it/about" hreflang="it" rel="alternate"><link href="https://stockistscout.com/he/about" hreflang="he" rel="alternate"><link href="https://stockistscout.com/ko/about" hreflang="ko" rel="alternate"><link href="https://stockistscout.com/ja/about" hreflang="ja" rel="alternate"><link href="https://stockistscout.com/zh/about" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/about" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/about" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/about" hreflang="es" rel="alternate"><link href="https://stockistscout.com/about" hreflang="en" rel="alternate">
 <meta property="og:type" content="website"><meta content="es_MX" property="og:locale">
 <meta property="og:site_name" content="StockistScout">
 <meta property="og:title" content="Quiénes somos | StockistScout">
@@ -72,6 +72,12 @@
             <li><a href="/fr/about" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
             <li><a href="/pt/about" hreflang="pt" lang="pt-BR" data-lang="pt">Português</a></li>
             <li><a href="/zh/about" hreflang="zh-Hans" lang="zh-CN" data-lang="zh">中文</a></li>
+            <li><a href="/ja/about" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+            <li><a href="/ko/about" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+            <li><a href="/he/about" hreflang="he" lang="he" data-lang="he">עברית</a></li>
+            <li><a href="/it/about" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+            <li><a href="/de/about" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+            <li><a href="/nl/about" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
           </ul>
         </div>
       </div>
@@ -189,7 +195,7 @@
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ["es","fr","pt","zh"];
+  var LANGS = ["es","fr","pt","zh","ja","ko","he","it","de","nl"];
   // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {

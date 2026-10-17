@@ -14,7 +14,7 @@
 </script>
 <title data-es="Reseñas | StockistScout" data-fr="Avis | StockistScout" data-pt="Avaliações | StockistScout" data-zh="客户评价 | StockistScout">Reseñas | StockistScout</title>
 <meta name="description" content="Lo que dicen de StockistScout, con sus propias palabras, las marcas y empresas que lo usan.">
-<link rel="canonical" href="https://stockistscout.com/es/reviews"><link href="https://stockistscout.com/reviews" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/zh/reviews" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/reviews" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/reviews" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/reviews" hreflang="es" rel="alternate"><link href="https://stockistscout.com/reviews" hreflang="en" rel="alternate">
+<link rel="canonical" href="https://stockistscout.com/es/reviews"><link href="https://stockistscout.com/reviews" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/nl/reviews" hreflang="nl" rel="alternate"><link href="https://stockistscout.com/de/reviews" hreflang="de" rel="alternate"><link href="https://stockistscout.com/it/reviews" hreflang="it" rel="alternate"><link href="https://stockistscout.com/he/reviews" hreflang="he" rel="alternate"><link href="https://stockistscout.com/ko/reviews" hreflang="ko" rel="alternate"><link href="https://stockistscout.com/ja/reviews" hreflang="ja" rel="alternate"><link href="https://stockistscout.com/zh/reviews" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/reviews" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/reviews" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/reviews" hreflang="es" rel="alternate"><link href="https://stockistscout.com/reviews" hreflang="en" rel="alternate">
 <meta property="og:type" content="website"><meta content="es_MX" property="og:locale">
 <meta property="og:site_name" content="StockistScout">
 <meta property="og:title" content="Reseñas | StockistScout">
@@ -72,6 +72,12 @@
             <li><a href="/fr/reviews" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
             <li><a href="/pt/reviews" hreflang="pt" lang="pt-BR" data-lang="pt">Português</a></li>
             <li><a href="/zh/reviews" hreflang="zh-Hans" lang="zh-CN" data-lang="zh">中文</a></li>
+            <li><a href="/ja/reviews" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+            <li><a href="/ko/reviews" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+            <li><a href="/he/reviews" hreflang="he" lang="he" data-lang="he">עברית</a></li>
+            <li><a href="/it/reviews" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+            <li><a href="/de/reviews" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+            <li><a href="/nl/reviews" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
           </ul>
         </div>
       </div>
@@ -141,7 +147,7 @@
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ["es","fr","pt","zh"];
+  var LANGS = ["es","fr","pt","zh","ja","ko","he","it","de","nl"];
   // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {

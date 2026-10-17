@@ -14,7 +14,7 @@
 </script>
 <title data-es="Política de privacidad | StockistScout" data-fr="Politique de confidentialité | StockistScout" data-pt="Política de privacidade | StockistScout" data-zh="隐私政策 | StockistScout">Política de privacidade | StockistScout</title>
 <meta name="description" content="Os dados que o StockistScout coleta de seus clientes, das lojas que contata e dos visitantes do site, como são usados, quem os processa e como cancelar a inscrição ou pedir sua exclusão.">
-<link rel="canonical" href="https://stockistscout.com/pt/privacy"><link href="https://stockistscout.com/privacy" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/zh/privacy" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/privacy" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/privacy" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/privacy" hreflang="es" rel="alternate"><link href="https://stockistscout.com/privacy" hreflang="en" rel="alternate">
+<link rel="canonical" href="https://stockistscout.com/pt/privacy"><link href="https://stockistscout.com/privacy" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/nl/privacy" hreflang="nl" rel="alternate"><link href="https://stockistscout.com/de/privacy" hreflang="de" rel="alternate"><link href="https://stockistscout.com/it/privacy" hreflang="it" rel="alternate"><link href="https://stockistscout.com/he/privacy" hreflang="he" rel="alternate"><link href="https://stockistscout.com/ko/privacy" hreflang="ko" rel="alternate"><link href="https://stockistscout.com/ja/privacy" hreflang="ja" rel="alternate"><link href="https://stockistscout.com/zh/privacy" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/privacy" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/privacy" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/privacy" hreflang="es" rel="alternate"><link href="https://stockistscout.com/privacy" hreflang="en" rel="alternate">
 <meta property="og:type" content="website"><meta content="pt_BR" property="og:locale">
 <meta property="og:site_name" content="StockistScout">
 <meta property="og:title" content="Política de privacidade | StockistScout">
@@ -72,6 +72,12 @@
             <li><a href="/fr/privacy" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
             <li><a aria-current="true" href="/pt/privacy" hreflang="pt" lang="pt-BR" data-lang="pt">Português</a></li>
             <li><a href="/zh/privacy" hreflang="zh-Hans" lang="zh-CN" data-lang="zh">中文</a></li>
+            <li><a href="/ja/privacy" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+            <li><a href="/ko/privacy" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+            <li><a href="/he/privacy" hreflang="he" lang="he" data-lang="he">עברית</a></li>
+            <li><a href="/it/privacy" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+            <li><a href="/de/privacy" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+            <li><a href="/nl/privacy" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
           </ul>
         </div>
       </div>
@@ -195,7 +201,7 @@
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ["es","fr","pt","zh"];
+  var LANGS = ["es","fr","pt","zh","ja","ko","he","it","de","nl"];
   // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {

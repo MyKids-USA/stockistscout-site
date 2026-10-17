@@ -14,7 +14,7 @@
 </script>
 <title data-es="Conoce a nuestros agentes | StockistScout" data-fr="Nos agents | StockistScout" data-pt="Conheça nossos agentes | StockistScout" data-zh="认识我们的智能体 | StockistScout">Meet our agents | StockistScout</title>
 <meta name="description" content="StockistScout's eight AI agents, each a specialist in one kind of store, plus your own custom agents: name one, give it a specialty and pick its face from 20 avatars.">
-<link rel="canonical" href="https://stockistscout.com/agents"><link href="https://stockistscout.com/agents" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/zh/agents" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/agents" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/agents" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/agents" hreflang="es" rel="alternate"><link href="https://stockistscout.com/agents" hreflang="en" rel="alternate">
+<link rel="canonical" href="https://stockistscout.com/agents"><link href="https://stockistscout.com/agents" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/nl/agents" hreflang="nl" rel="alternate"><link href="https://stockistscout.com/de/agents" hreflang="de" rel="alternate"><link href="https://stockistscout.com/it/agents" hreflang="it" rel="alternate"><link href="https://stockistscout.com/he/agents" hreflang="he" rel="alternate"><link href="https://stockistscout.com/ko/agents" hreflang="ko" rel="alternate"><link href="https://stockistscout.com/ja/agents" hreflang="ja" rel="alternate"><link href="https://stockistscout.com/zh/agents" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/agents" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/agents" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/agents" hreflang="es" rel="alternate"><link href="https://stockistscout.com/agents" hreflang="en" rel="alternate">
 <meta property="og:type" content="website"><meta content="en_US" property="og:locale">
 <meta property="og:site_name" content="StockistScout">
 <meta property="og:title" content="Meet our agents | StockistScout">
@@ -72,6 +72,12 @@
             <li><a href="/fr/agents" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
             <li><a href="/pt/agents" hreflang="pt" lang="pt-BR" data-lang="pt">Português</a></li>
             <li><a href="/zh/agents" hreflang="zh-Hans" lang="zh-CN" data-lang="zh">中文</a></li>
+            <li><a href="/ja/agents" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+            <li><a href="/ko/agents" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+            <li><a href="/he/agents" hreflang="he" lang="he" data-lang="he">עברית</a></li>
+            <li><a href="/it/agents" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+            <li><a href="/de/agents" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+            <li><a href="/nl/agents" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
           </ul>
         </div>
       </div>
@@ -257,7 +263,7 @@
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ["es","fr","pt","zh"];
+  var LANGS = ["es","fr","pt","zh","ja","ko","he","it","de","nl"];
   // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {

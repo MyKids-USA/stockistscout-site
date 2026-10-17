@@ -14,7 +14,7 @@
 </script>
 <title data-es="Cómo funciona | StockistScout" data-fr="Comment ça marche | StockistScout" data-pt="Como funciona | StockistScout" data-zh="使用流程 | StockistScout">Comment ça marche | StockistScout</title>
 <meta name="description" content="Comment fonctionne StockistScout : un questionnaire détaillé sur votre entreprise, votre client idéal et votre offre; chaque boutique trouvée avec la raison; Katya révise votre configuration; révision des modèles avant tout envoi; envois quotidiens limités; un tableau de bord; les réponses dans votre propre boîte.">
-<link rel="canonical" href="https://stockistscout.com/fr/how-it-works"><link href="https://stockistscout.com/how-it-works" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/zh/how-it-works" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/how-it-works" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/how-it-works" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/how-it-works" hreflang="es" rel="alternate"><link href="https://stockistscout.com/how-it-works" hreflang="en" rel="alternate">
+<link rel="canonical" href="https://stockistscout.com/fr/how-it-works"><link href="https://stockistscout.com/how-it-works" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/nl/how-it-works" hreflang="nl" rel="alternate"><link href="https://stockistscout.com/de/how-it-works" hreflang="de" rel="alternate"><link href="https://stockistscout.com/it/how-it-works" hreflang="it" rel="alternate"><link href="https://stockistscout.com/he/how-it-works" hreflang="he" rel="alternate"><link href="https://stockistscout.com/ko/how-it-works" hreflang="ko" rel="alternate"><link href="https://stockistscout.com/ja/how-it-works" hreflang="ja" rel="alternate"><link href="https://stockistscout.com/zh/how-it-works" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/how-it-works" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/how-it-works" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/how-it-works" hreflang="es" rel="alternate"><link href="https://stockistscout.com/how-it-works" hreflang="en" rel="alternate">
 <meta property="og:type" content="website"><meta content="fr_CA" property="og:locale">
 <meta property="og:site_name" content="StockistScout">
 <meta property="og:title" content="Comment ça marche | StockistScout">
@@ -72,6 +72,12 @@
             <li><a aria-current="true" href="/fr/how-it-works" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
             <li><a href="/pt/how-it-works" hreflang="pt" lang="pt-BR" data-lang="pt">Português</a></li>
             <li><a href="/zh/how-it-works" hreflang="zh-Hans" lang="zh-CN" data-lang="zh">中文</a></li>
+            <li><a href="/ja/how-it-works" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+            <li><a href="/ko/how-it-works" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+            <li><a href="/he/how-it-works" hreflang="he" lang="he" data-lang="he">עברית</a></li>
+            <li><a href="/it/how-it-works" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+            <li><a href="/de/how-it-works" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+            <li><a href="/nl/how-it-works" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
           </ul>
         </div>
       </div>
@@ -240,7 +246,7 @@
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ["es","fr","pt","zh"];
+  var LANGS = ["es","fr","pt","zh","ja","ko","he","it","de","nl"];
   // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {

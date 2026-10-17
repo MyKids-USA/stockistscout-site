@@ -14,7 +14,7 @@
 </script>
 <title data-es="Precios | StockistScout" data-fr="Tarifs | StockistScout" data-pt="Preços | StockistScout" data-zh="价格 | StockistScout">价格 | StockistScout</title>
 <meta name="description" content="StockistScout 价格：50 封邮件免费试用，之后按发送邮件数量选择月度套餐，从 Basic（200 封邮件，$49.99）到 Enterprise（20,000 封邮件，8 位智能体，$1,499.99）。按月计费，随时取消，不收佣金。">
-<link rel="canonical" href="https://stockistscout.com/zh/pricing"><link href="https://stockistscout.com/pricing" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/zh/pricing" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/pricing" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/pricing" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/pricing" hreflang="es" rel="alternate"><link href="https://stockistscout.com/pricing" hreflang="en" rel="alternate">
+<link rel="canonical" href="https://stockistscout.com/zh/pricing"><link href="https://stockistscout.com/pricing" hreflang="x-default" rel="alternate"><link href="https://stockistscout.com/nl/pricing" hreflang="nl" rel="alternate"><link href="https://stockistscout.com/de/pricing" hreflang="de" rel="alternate"><link href="https://stockistscout.com/it/pricing" hreflang="it" rel="alternate"><link href="https://stockistscout.com/he/pricing" hreflang="he" rel="alternate"><link href="https://stockistscout.com/ko/pricing" hreflang="ko" rel="alternate"><link href="https://stockistscout.com/ja/pricing" hreflang="ja" rel="alternate"><link href="https://stockistscout.com/zh/pricing" hreflang="zh-Hans" rel="alternate"><link href="https://stockistscout.com/pt/pricing" hreflang="pt" rel="alternate"><link href="https://stockistscout.com/fr/pricing" hreflang="fr" rel="alternate"><link href="https://stockistscout.com/es/pricing" hreflang="es" rel="alternate"><link href="https://stockistscout.com/pricing" hreflang="en" rel="alternate">
 <meta property="og:type" content="website"><meta content="zh_CN" property="og:locale">
 <meta property="og:site_name" content="StockistScout">
 <meta property="og:title" content="价格 | StockistScout">
@@ -72,6 +72,12 @@
             <li><a href="/fr/pricing" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
             <li><a href="/pt/pricing" hreflang="pt" lang="pt-BR" data-lang="pt">Português</a></li>
             <li><a aria-current="true" href="/zh/pricing" hreflang="zh-Hans" lang="zh-CN" data-lang="zh">中文</a></li>
+            <li><a href="/ja/pricing" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+            <li><a href="/ko/pricing" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+            <li><a href="/he/pricing" hreflang="he" lang="he" data-lang="he">עברית</a></li>
+            <li><a href="/it/pricing" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+            <li><a href="/de/pricing" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+            <li><a href="/nl/pricing" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
           </ul>
         </div>
       </div>
@@ -337,7 +343,7 @@
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ["es","fr","pt","zh"];
+  var LANGS = ["es","fr","pt","zh","ja","ko","he","it","de","nl"];
   // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {

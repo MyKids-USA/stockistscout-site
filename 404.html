@@ -72,6 +72,12 @@
             <li><a href="/fr/404" hreflang="fr" lang="fr" data-lang="fr">Français</a></li>
             <li><a href="/pt/404" hreflang="pt" lang="pt-BR" data-lang="pt">Português</a></li>
             <li><a href="/zh/404" hreflang="zh-Hans" lang="zh-CN" data-lang="zh">中文</a></li>
+            <li><a href="/ja/404" hreflang="ja" lang="ja" data-lang="ja">日本語</a></li>
+            <li><a href="/ko/404" hreflang="ko" lang="ko" data-lang="ko">한국어</a></li>
+            <li><a href="/he/404" hreflang="he" lang="he" data-lang="he">עברית</a></li>
+            <li><a href="/it/404" hreflang="it" lang="it" data-lang="it">Italiano</a></li>
+            <li><a href="/de/404" hreflang="de" lang="de" data-lang="de">Deutsch</a></li>
+            <li><a href="/nl/404" hreflang="nl" lang="nl" data-lang="nl">Nederlands</a></li>
           </ul>
         </div>
       </div>
@@ -134,7 +140,7 @@
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ["es","fr","pt","zh"];
+  var LANGS = ["es","fr","pt","zh","ja","ko","he","it","de","nl"];
   // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {
