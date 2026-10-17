@@ -22,7 +22,7 @@ export const ORIGIN = 'https://stockistscout.com';
    <html lang>, `hreflang` its hreflang, `locale` its og:locale, `dir` 'rtl' for a right-to-left language.
    Two ways to carry the texts:
    - es, fr, pt, zh: in data-<code> attributes beside the English in site/pages (and here);
-   - `dict: true` (17 Oct 2026, ja ko he it de nl; ar, Modern Standard Arabic, right to left): a dictionary file site/i18n/<code>.json, {english: translation}, for
+   - `dict: true` (17 Oct 2026, ja ko he it de nl hi; ar, Modern Standard Arabic, right to left): a dictionary file site/i18n/<code>.json, {english: translation}, for
      every string in site/i18n/en.json (node site/i18n/extract.mjs writes it). The build refuses a dictionary that misses one.
    A dictionary language is built (folder, menu entry, hreflang, sitemap, browser redirect) only once its file exists, so
    adding a language is one entry here plus its JSON file. English is first and lives at the root. */
@@ -43,6 +43,8 @@ export const LANGUAGES = [
   { code: 'it', name: 'Italiano', word: 'Lingua', html: 'it', hreflang: 'it', locale: 'it_IT', dict: true },
   { code: 'de', name: 'Deutsch', word: 'Sprache', html: 'de', hreflang: 'de', locale: 'de_DE', dict: true },
   { code: 'nl', name: 'Nederlands', word: 'Taal', html: 'nl', hreflang: 'nl', locale: 'nl_NL', dict: true },
+  // Hindi (17 Oct 2026), Devanagari, for Indian brands and manufacturers selling to stores abroad: /hi/, site/i18n/hi.json.
+  { code: 'hi', name: 'हिन्दी', word: 'भाषा', html: 'hi', hreflang: 'hi', locale: 'hi_IN', dict: true },
 ];
 /* The home video (Katya, "In 60 seconds"): its YouTube id per language, the one place to set them. An empty id, or a
    language not listed, plays the English video. The build writes the page's id into data-yt of .promo-video. Its
@@ -60,6 +62,7 @@ export const VIDEO_IDS = {
   it: '2__CEktNPHc',
   de: 'gSSVdn8cr9E',
   nl: 'M60E8OVhar8',
+  hi: '', // none yet: the English video and thumbnail (img/video/katya-hi.jpg once it has its own)
   'zh-Hant': '', // none yet: English video and thumbnail until it has its own (then img/video/katya-zh-hant.jpg shows)
 };
 /** Where a dictionary language's translations live. */
@@ -699,7 +702,7 @@ const SCRIPT = `<script>
     if (sub.indexOf('hant') >= 0 || (sub.indexOf('hans') < 0 && (sub.indexOf('tw') >= 0 || sub.indexOf('hk') >= 0 || sub.indexOf('mo') >= 0))) nav = 'zh-Hant';
   }
   /* On an English page, a visitor who chose another language before, or whose browser speaks one the site is built in on
-     a first visit (es-*, fr-*, pt-*, zh-* (Traditional for zh-TW, zh-HK, zh-MO, zh-Hant*), and once their files exist ja-*, ko-*, he-* or iw-*, ar-*, it-*, de-*, nl-*), goes to
+     a first visit (es-*, fr-*, pt-*, zh-* (Traditional for zh-TW, zh-HK, zh-MO, zh-Hant*), and once their files exist ja-*, ko-*, he-* or iw-*, ar-*, it-*, de-*, nl-*, hi-*), goes to
      that page in their language. A saved language the site no longer has stays on English. A page reached in another language remembers it. */
   if (pageLang() === 'en') {
     var want = saved || (LANGS.indexOf(nav) >= 0 ? nav : 'en');

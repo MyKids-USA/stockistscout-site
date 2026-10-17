@@ -673,7 +673,7 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 @media (prefers-color-scheme: dark) { .cmap-wrap { --land: #1f3555; --soon: #2f6f5c; } }
 /* On a phone the map is a third of its size: the dots grow so Singapore, Hong Kong and Israel stay visible. */
 @media (max-width: 600px) { .cmap-dot .cmap-ring { r: 13px; stroke-width: 2.6; } .cmap-dot circle:not(.cmap-ring) { r: 6px; } .cmap-dot-sm .cmap-ring { r: 8px; stroke-width: 2; } .cmap-dot-sm circle:not(.cmap-ring) { r: 3.6px; } }
-:lang(zh) .country-group h3, :lang(ja) .country-group h3, :lang(ko) .country-group h3, :lang(he) .country-group h3, :lang(ar) .country-group h3 { letter-spacing: 0; }
+:lang(zh) .country-group h3, :lang(ja) .country-group h3, :lang(ko) .country-group h3, :lang(he) .country-group h3, :lang(ar) .country-group h3, :lang(hi) .country-group h3 { letter-spacing: 0; }
 :lang(pt) .mock-rows .why::before { content: "Por que combina: "; }
 :lang(zh) .mock-rows .why::before { content: "匹配原因："; }
 :lang(zh-Hant) .mock-rows .why::before { content: "符合原因："; }
@@ -751,6 +751,21 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 :lang(ar) .plan .amount { white-space: normal; }
 :lang(ar) .plan .amount small { display: inline-block; white-space: nowrap; }
 @media (min-width: 1180px) { :lang(ar) .plans { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+
+/* ---------- Hindi (17 Oct 2026): Devanagari system fonts behind the Latin ones ----------
+   Inter and Plus Jakarta Sans have no Devanagari, so the Hindi falls through to the system's Devanagari face (Noto on
+   Android and Linux, Nirmala UI or Mangal on Windows, Kohinoor on Apple); Latin words inside it keep the site's fonts. */
+:root:lang(hi) {
+  --display: "Plus Jakarta Sans", "Inter", "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Kohinoor Devanagari", sans-serif;
+  --sans: "Inter", "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Kohinoor Devanagari", sans-serif;
+  /* The small mono labels (eyebrows, region names) have no Devanagari in a mono face: they take the Devanagari stack. */
+  --mono: "Inter", "Noto Sans Devanagari", "Nirmala UI", "Mangal", "Kohinoor Devanagari", sans-serif;
+}
+:lang(hi) code, :lang(hi) kbd, :lang(hi) pre { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+/* Devanagari hangs its letters from one headline (shirorekha) and stacks its vowel signs: letter-spacing tears the line
+   and the clusters apart, so none anywhere on a Hindi page; and the tight Latin line-heights clip the marks above and below. */
+:lang(hi) *, :lang(hi) *::before, :lang(hi) *::after { letter-spacing: 0 !important; }
+:lang(hi) h1, :lang(hi) h2, :lang(hi) h3 { line-height: 1.35; }
 
 /* The phone number with its US flag (shell.mjs US_FLAG, 17 Oct 2026): one unit that never breaks between flag and number. */
 .tel-num { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
