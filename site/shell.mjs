@@ -63,7 +63,7 @@ export const VIDEO_IDS = {
   de: 'gSSVdn8cr9E',
   nl: 'M60E8OVhar8',
   hi: '', // none yet: the English video and thumbnail (img/video/katya-hi.jpg once it has its own)
-  'zh-Hant': '', // none yet: English video and thumbnail until it has its own (then img/video/katya-zh-hant.jpg shows)
+  'zh-Hant': 'LL-3vszcp0U', // its thumbnail is img/video/katya-zh-hant.jpg
 };
 /** Where a dictionary language's translations live. */
 export const dictFile = (code) => new URL(`./i18n/${code}.json`, import.meta.url);
@@ -128,6 +128,10 @@ export const COUNTRIES = [
   { region: 'africa', iso: 'ZA', num: '710', en: 'South Africa', es: 'Sudáfrica', fr: 'Afrique du Sud', frArt: 'l’Afrique du Sud', frIn: 'en Afrique du Sud', pt: 'África do Sul', zh: '南非' },
   { region: 'apac', iso: 'SG', num: '702', at: [103.82, 1.35], en: 'Singapore', es: 'Singapur', fr: 'Singapour', frArt: 'Singapour', frIn: 'à Singapour', pt: 'Singapura', zh: '新加坡' },
   { region: 'apac', iso: 'HK', num: '344', at: [114.17, 22.32], en: 'Hong Kong', es: 'Hong Kong', fr: 'Hong Kong', frArt: 'Hong Kong', frIn: 'à Hong Kong', pt: 'Hong Kong', zh: '香港' },
+  // Taiwan (17 Oct 2026, app commit 97ab756): Traditional Chinese by default (or English), the source and a free refusal in every
+  // email, a refusal stops every brand at once, 「謝絕推銷」 sites skipped. Named neutrally everywhere: Taiwan, 台湾 / 台灣.
+  // 27 square units on the 110m map, just above MIN_AREA, so it is painted without a dot.
+  { region: 'apac', iso: 'TW', num: '158', en: 'Taiwan', es: 'Taiwán', fr: 'Taïwan', frArt: 'Taïwan', frIn: 'à Taïwan', pt: 'Taiwan', zh: '台湾' },
   { region: 'apac', iso: 'AU', num: '036', en: 'Australia', es: 'Australia', fr: 'Australie', frArt: 'l’Australie', frIn: 'en Australie', pt: 'Austrália', zh: '澳大利亚' },
   { region: 'apac', iso: 'NZ', num: '554', en: 'New Zealand', es: 'Nueva Zelanda', fr: 'Nouvelle-Zélande', frArt: 'la Nouvelle-Zélande', frIn: 'en Nouvelle-Zélande', pt: 'Nova Zelândia', zh: '新西兰' },
   // India and the Philippines (17 Oct 2026, app commit ac1d00e): English, company inboxes only; the Philippines adds a privacy notice.
@@ -470,12 +474,30 @@ ${items}
         </div>`;
 }
 
+/* The header (17 Oct 2026): four main links, the rest under "More", so the full row fits at 1280px in every language
+   (Spanish and German were falling back to the hamburger on a PC). The phone moved to a slim bar above the header on
+   desktop; under 1280px the hamburger menu lists every link flat, the phone included. Home is the logo on desktop. */
+const NAV_MAIN = ['/how-it-works', '/agents', '/pricing', '/hotels'];
+const NAV_MORE = ['/features', '/results', '/reviews', '/faq', '/about', '/contact'];
+
+function navLink(path, href, cls = '') {
+  const [, en, es, fr, pt, zh] = NAV.find((n) => n[0] === href);
+  const on = path === href ? ' aria-current="page"' : '';
+  return `<a${cls ? ` class="${cls}"` : ''} href="${href}"${on} data-es="${attr(es)}" data-fr="${attr(fr)}" data-pt="${attr(pt)}" data-zh="${attr(zh)}">${en}</a>`;
+}
+
 function header(path) {
-  const links = NAV.map(([href, en, es, fr, pt, zh]) => {
-    const on = path === href ? ' aria-current="page"' : '';
-    return `      <a href="${href}"${on} data-es="${attr(es)}" data-fr="${attr(fr)}" data-pt="${attr(pt)}" data-zh="${attr(zh)}">${en}</a>`;
-  }).join('\n');
+  const main = ['      ' + navLink(path, '/', 'nav-home'), ...NAV_MAIN.map((h) => '      ' + navLink(path, h))].join('\n');
+  const more = NAV_MORE.map((h) => '            ' + navLink(path, h)).join('\n');
+  const moreOn = NAV_MORE.includes(path) ? ' has-current' : '';
+  const callLabel = `aria-label="Call StockistScout at ${CONTACT_PHONE_DIGITS}" data-es-label="Llama a StockistScout al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligue para o StockistScout no ${CONTACT_PHONE_DIGITS}" data-zh-label="致电 StockistScout：${CONTACT_PHONE_DIGITS}"`;
   return `<a class="skip" href="#main" data-es="Ir al contenido" data-fr="Aller au contenu" data-pt="Pular para o conteúdo" data-zh="跳到正文">Skip to content</a>
+<div class="topbar">
+  <div class="topbar-row">
+    <a class="topbar-phone" href="${CONTACT_TEL}" ${callLabel}>${PHONE_ICON}<span class="tel-num">${US_FLAG}${CONTACT_PHONE}</span></a>
+    <a class="topbar-mail" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
+  </div>
+</div>
 <header class="site-head">
   <div class="head-row">
     <a class="brand" href="/" aria-label="StockistScout, home" data-es-label="StockistScout, inicio" data-fr-label="StockistScout, accueil" data-pt-label="StockistScout, início" data-zh-label="StockistScout，首页">
@@ -486,10 +508,16 @@ function header(path) {
     </button>
     <nav id="site-menu" class="site-nav" aria-label="Main">
       <div class="nav-links">
-${links}
+${main}
+        <div class="nav-more${moreOn}" id="navMore">
+          <button type="button" class="nav-more-btn" aria-expanded="false" aria-controls="navMoreMenu"><span data-es="Más" data-fr="Plus" data-pt="Mais" data-zh="更多">More</span><span class="lang-caret" aria-hidden="true"></span></button>
+          <div class="nav-more-menu" id="navMoreMenu">
+${more}
+          </div>
+        </div>
       </div>
       <div class="nav-end">
-        <a class="nav-phone" href="${CONTACT_TEL}" aria-label="Call StockistScout at ${CONTACT_PHONE_DIGITS}" data-es-label="Llama a StockistScout al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligue para o StockistScout no ${CONTACT_PHONE_DIGITS}" data-zh-label="致电 StockistScout：${CONTACT_PHONE_DIGITS}">${PHONE_ICON}<span class="tel-num">${US_FLAG}${CONTACT_PHONE}</span></a>
+        <a class="nav-phone" href="${CONTACT_TEL}" ${callLabel}>${PHONE_ICON}<span class="tel-num">${US_FLAG}${CONTACT_PHONE}</span></a>
         <a class="btn btn-ghost nav-login" href="${LOGIN_URL}" data-es="Iniciar sesión" data-fr="Se connecter" data-pt="Entrar" data-zh="登录">Log in</a>
         <a class="btn btn-primary nav-cta" href="${CTA_URL}" data-es="Empieza gratis" data-fr="Commencer gratuitement" data-pt="Comece grátis" data-zh="免费开始">Start free</a>
         ${langMenu(path)}
@@ -570,14 +598,15 @@ export const MSG = {
 const SCRIPT = `<script>
 (function () {
   if (window.__ssSite) return; window.__ssSite = true;
-  /* The full menu row only when it fits (any language, any width from 1440px): otherwise html.nav-compact shows the
-     compact menu (site.css). Measured with the class off, again once the web fonts have loaded and on every resize. */
+  /* A safety net only: since 17 Oct 2026 the row (four links, More, two buttons, the language menu) fits at 1280px in
+     every language, measured. Should a longer text ever make it overflow, html.nav-compact shows the compact menu
+     (site.css) instead of running off the page. Measured with the class off, again once the fonts load and on resize. */
   (function () {
     var root = document.documentElement, row = document.querySelector('.head-row');
     if (!row) return;
     function fit() {
       root.classList.remove('nav-compact');
-      if (window.innerWidth >= 1440 && row.scrollWidth > row.clientWidth + 1) root.classList.add('nav-compact');
+      if (window.innerWidth >= 1280 && row.scrollWidth > row.clientWidth + 1) root.classList.add('nav-compact');
     }
     fit();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
@@ -733,6 +762,27 @@ const SCRIPT = `<script>
       lm.querySelectorAll('a[data-lang]').forEach(function (a) {
         a.addEventListener('click', function (e) { e.preventDefault(); setOpen(false); go(a.dataset.lang); });
       });
+    }
+    /* "More" (desktop): a disclosure button over a list of links. Enter or Space opens it, Tab walks its links,
+       the arrows move between them, Escape closes it and returns to the button; a click elsewhere or focus leaving it
+       closes it. In the hamburger menu the same links are listed flat (site.css) and the button is hidden. */
+    var nm = document.getElementById('navMore');
+    if (nm) {
+      var mb = nm.querySelector('.nav-more-btn'), mm = nm.querySelector('.nav-more-menu');
+      nm.classList.add('js');
+      var setMore = function (open) { nm.classList.toggle('open', open); mb.setAttribute('aria-expanded', open ? 'true' : 'false'); };
+      mb.addEventListener('click', function () { setMore(!nm.classList.contains('open')); });
+      nm.addEventListener('keydown', function (e) {
+        var open = nm.classList.contains('open');
+        if (e.key === 'Escape' && open) { e.stopPropagation(); setMore(false); mb.focus(); return; }
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          var links = Array.prototype.slice.call(mm.querySelectorAll('a')), i = links.indexOf(document.activeElement);
+          if (document.activeElement === mb) { e.preventDefault(); setMore(true); links[e.key === 'ArrowDown' ? 0 : links.length - 1].focus(); }
+          else if (i >= 0) { e.preventDefault(); links[(i + (e.key === 'ArrowDown' ? 1 : links.length - 1)) % links.length].focus(); }
+        }
+      });
+      nm.addEventListener('focusout', function (e) { if (e.relatedTarget && !nm.contains(e.relatedTarget)) setMore(false); });
+      document.addEventListener('click', function (e) { if (nm.classList.contains('open') && !nm.contains(e.target)) setMore(false); });
     }
     var btn = document.querySelector('.menu-btn');
     var head = document.querySelector('.site-head');

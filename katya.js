@@ -26,9 +26,9 @@
     var l = h.slice(0, 2); return /^[a-z]{2}$/.test(l) ? l : 'en';
   };
   // The page's language goes to her backend as it is (it answers in the languages it knows, English otherwise). Her
-  // backend (WMS Cloud, stockistscoutKatya.js) does not know 'zh-Hant' yet, so a Traditional page asks it in 'zh' (she
-  // would answer in English otherwise) until it learns Traditional Chinese.
-  var apiLang = function () { var l = lang(); return l === 'zh-Hant' ? 'zh' : l; };
+  // backend (WMS Cloud, stockistscoutKatya.js) knows 'zh-Hant' since wms-cloud PR #435: a Traditional page gets Traditional
+  // Chinese answers, and the avatar its own context with LiveAvatar's 'zh' voice.
+  var apiLang = function () { return lang(); };
   // French since 14 Oct 2026 (Canada), Brazilian Portuguese and Simplified Chinese since 16 Oct 2026 (/pt/, /zh/); a text without one shows in English.
   // The dictionary languages (ja, ko, he, ar, it, de, nl, hi: 17 Oct 2026; for 'hi' her backend answers in English until it learns Hindi) find the English in window.SS_I18N, which the build
   // writes into their pages from site/i18n/<lang>.json. site/i18n/strings.mjs reads the English (the second argument)
