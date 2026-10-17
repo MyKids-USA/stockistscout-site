@@ -24,7 +24,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
-import { LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL } from './shell.mjs';
+import { LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
 
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
 
@@ -148,6 +148,33 @@ function translateFromDict(document, lang, path, meta, dict) {
   return miss;
 }
 
+/** The first 8 hex of a file's sha1: the ?v= that fill() puts on every /img/ URL. */
+const imgVersion = (f) => createHash('sha1').update(readFileSync(join(ROOT, f))).digest('hex').slice(0, 8);
+
+/** Pictures in the page's language, for any language (17 Oct 2026): an app screenshot img/app/<name>-en.jpg, or the
+    home video's thumbnail img/video/katya-en.jpg, still in English after the data-<lang>-src swap becomes
+    <name>-<lang>.jpg when that file exists (the full-size link's href too); with no such file it stays English. So a
+    language gets its screenshots by adding the four files, with no change to the pages. And the home video plays the
+    page's own YouTube id from VIDEO_IDS (shell.mjs), or the English one where a language has none. */
+function localizedImages(document, lang) {
+  for (const box of document.querySelectorAll('.promo-video')) box.setAttribute('data-yt', VIDEO_IDS[lang] || VIDEO_IDS.en);
+  if (lang === 'en') return;
+  const inLang = (url) => {
+    const m = /^(\/img\/(?:app|video)\/[\w-]+)-en\.jpg(?:\?v=\w+)?$/.exec(url || '');
+    if (!m) return null;
+    const f = `${m[1]}-${lang}.jpg`;
+    return existsSync(join(ROOT, f)) ? f : null;
+  };
+  for (const img of document.querySelectorAll('img[src]')) {
+    const f = inLang(img.getAttribute('src'));
+    if (f) img.setAttribute('src', `${f}?v=${imgVersion(f)}`);
+  }
+  for (const a of document.querySelectorAll('a[href]')) {
+    const f = inLang(a.getAttribute('href'));
+    if (f) a.setAttribute('href', f);
+  }
+}
+
 /** Writes the English page's translation into the HTML itself, and points its links and head at that language.
     `dict` is the language's dictionary when it is a dictionary language. */
 export function localize(html, lang, path, pages, meta, dict) {
@@ -177,6 +204,7 @@ export function localize(html, lang, path, pages, meta, dict) {
       head.querySelector('meta[property="og:description"]')?.setAttribute('content', desc);
     }
   }
+  localizedImages(document, lang);
   if (lang !== 'en') {
     head.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
     // Links to our pages stay in the language; the app opens in it too.
@@ -220,8 +248,8 @@ export function localize(html, lang, path, pages, meta, dict) {
 /** Every French text has its Portuguese (16 Oct 2026), and every Portuguese text its Chinese (16 Oct 2026): from French on,
     an element with data-<lang>, data-<lang>-alt, ... must have the same attribute in every language after it in LANGUAGES,
     or that page would show English there without anyone noticing, so the build stops. (So data-pt needs data-zh, and a
-    language added later needs its texts before the build passes.) Images and links (-src, -href) may stay English: the
-    app screenshots have Portuguese (16 Oct 2026) but no Chinese yet, and /zh/ uses the English ones.
+    language added later needs its texts before the build passes.) Images and links (-src, -href) may stay English: a
+    language without its screenshot files shows the English ones (localizedImages).
     Returns the problems, empty when all is well. */
 export function missingTranslations(html, where) {
   const { document } = parseHTML(html);

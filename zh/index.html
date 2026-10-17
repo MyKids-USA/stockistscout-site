@@ -189,7 +189,7 @@
   <div class="wrap">
     <p class="eyebrow" data-es="En 60 segundos" data-fr="En 60 secondes" data-pt="Em 60 segundos" data-zh="60 秒了解">60 秒了解</p>
     <h2 data-es="Katya te muestra StockistScout." data-fr="Katya vous présente StockistScout." data-pt="A Katya apresenta o StockistScout." data-zh="Katya 为您介绍 StockistScout。">Katya 为您介绍 StockistScout。</h2>
-    <div class="promo-video" data-yt="HE0cuxSvniM" data-yt-es="JJF5inZs5Wc" data-yt-fr="DrOwz4ygT2s" data-yt-pt="-g9oN6wkOMw" data-yt-zh="">
+    <div class="promo-video" data-yt="HE0cuxSvniM">
       <button type="button" class="promo-play" aria-label="播放视频" data-es-label="Ver el vídeo" data-fr-label="Voir la vidéo" data-pt-label="Assistir ao vídeo" data-zh-label="播放视频">
         <img src="/img/video/katya-en.jpg?v=cfaf9fb5" data-es-src="/img/video/katya-es.jpg?v=274e77a2" data-fr-src="/img/video/katya-fr.jpg?v=87e5a2b6" data-pt-src="/img/video/katya-pt.jpg?v=2fa4d849" alt="Katya 介绍 StockistScout" data-es-alt="Katya presenta StockistScout" data-fr-alt="Katya présente StockistScout" data-pt-alt="Katya apresenta o StockistScout" data-zh-alt="Katya 介绍 StockistScout" width="1280" height="720" loading="lazy" decoding="async">
         <span class="promo-btn" aria-hidden="true"></span>
@@ -202,11 +202,10 @@
    (strict-origin-when-cross-origin) or YouTube refuses to play it (error 153). */
 document.querySelectorAll('.promo-video').forEach(function (box) {
   box.querySelector('.promo-play').addEventListener('click', function () {
-    var l = (document.documentElement.lang || '').slice(0, 2);
-    // French: its own video (Canada, 14 Oct 2026). Portuguese: its own (16 Oct 2026). Chinese: its own once data-yt-zh is set;
-    // until then the English one. YouTube is blocked in mainland China: nothing loads before the click, so there the page
-    // is whole and only the player, once clicked, stays empty.
-    var id = l === 'es' ? box.dataset.ytEs : (l === 'fr' && box.dataset.ytFr) ? box.dataset.ytFr : (l === 'pt' && box.dataset.ytPt) ? box.dataset.ytPt : (l === 'zh' && box.dataset.ytZh) ? box.dataset.ytZh : box.dataset.yt;
+    // The page's own video: the build writes its id from VIDEO_IDS in site/shell.mjs (English where a language has none).
+    // YouTube is blocked in mainland China: nothing loads before the click, so there the page is whole and only the
+    // player, once clicked, stays empty.
+    var id = box.dataset.yt;
     var f = document.createElement('iframe');
     f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
     f.title = 'StockistScout'; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
@@ -223,30 +222,30 @@ document.querySelectorAll('.promo-video').forEach(function (box) {
     <p class="muted shots-note" data-es="Una cuenta de ejemplo con un negocio y tiendas ficticias." data-fr="Un compte d'exemple avec une entreprise et des boutiques fictives." data-pt="Uma conta de exemplo, com uma empresa e lojas fictícias." data-zh="示例账户，其中的企业和零售店均为虚构。">示例账户，其中的企业和零售店均为虚构。</p>
     <div class="app-shots">
       <figure class="app-shot">
-        <a class="shot-frame" href="/img/app/stores-en.jpg" data-es-href="/img/app/stores-es.jpg" data-fr-href="/img/app/stores-fr.jpg" data-pt-href="/img/app/stores-pt.jpg" target="_blank" rel="noopener">
+        <a class="shot-frame" href="/img/app/stores-zh.jpg" data-es-href="/img/app/stores-es.jpg" data-fr-href="/img/app/stores-fr.jpg" data-pt-href="/img/app/stores-pt.jpg" data-zh-href="/img/app/stores-zh.jpg" target="_blank" rel="noopener">
           <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>
-          <img src="/img/app/stores-en.jpg?v=91567679" data-es-src="/img/app/stores-es.jpg?v=2e423cbf" data-fr-src="/img/app/stores-fr.jpg?v=d201b769" data-pt-src="/img/app/stores-pt.jpg?v=a6fbe13a" alt="StockistScout：已联系的零售店" data-es-alt="StockistScout: Tiendas contactadas" data-fr-alt="StockistScout : Boutiques contactées" data-pt-alt="StockistScout: Lojas contatadas" data-zh-alt="StockistScout：已联系的零售店" width="1600" height="1000" loading="lazy" decoding="async">
+          <img src="/img/app/stores-zh.jpg?v=83336386" data-es-src="/img/app/stores-es.jpg?v=2e423cbf" data-fr-src="/img/app/stores-fr.jpg?v=d201b769" data-pt-src="/img/app/stores-pt.jpg?v=a6fbe13a" data-zh-src="/img/app/stores-zh.jpg?v=83336386" alt="StockistScout：已联系的零售店" data-es-alt="StockistScout: Tiendas contactadas" data-fr-alt="StockistScout : Boutiques contactées" data-pt-alt="StockistScout: Lojas contatadas" data-zh-alt="StockistScout：已联系的零售店" width="1600" height="1000" loading="lazy" decoding="async">
         </a>
         <figcaption><strong data-es="Tiendas contactadas" data-fr="Boutiques contactées" data-pt="Lojas contatadas" data-zh="已联系的零售店">已联系的零售店</strong> <span data-es="Cada tienda que encontraron tus agentes, por qué encaja y qué pasó: enviado, abierto, clic, respuesta. Qué versión del correo recibió y cuándo sale el seguimiento." data-fr="Chaque boutique que vos agents ont trouvée, pourquoi elle convient et ce qui s'est passé : envoyé, ouvert, cliqué, répondu. Quelle version du courriel elle a reçue et quand part la relance." data-pt="Cada loja que seus agentes encontraram, por que ela combina e o que aconteceu: enviado, aberto, clicado, respondido. Qual versão do e-mail ela recebeu e quando sai o acompanhamento." data-zh="您的智能体找到的每一家零售店、它为什么合适，以及后续进展：已发送、已打开、已点击、已回复。还能看到它收到的是哪个版本的邮件，以及跟进邮件何时发出。">您的智能体找到的每一家零售店、它为什么合适，以及后续进展：已发送、已打开、已点击、已回复。还能看到它收到的是哪个版本的邮件，以及跟进邮件何时发出。</span></figcaption>
       </figure>
       <figure class="app-shot">
-        <a class="shot-frame" href="/img/app/template-en.jpg" data-es-href="/img/app/template-es.jpg" data-fr-href="/img/app/template-fr.jpg" data-pt-href="/img/app/template-pt.jpg" target="_blank" rel="noopener">
+        <a class="shot-frame" href="/img/app/template-zh.jpg" data-es-href="/img/app/template-es.jpg" data-fr-href="/img/app/template-fr.jpg" data-pt-href="/img/app/template-pt.jpg" data-zh-href="/img/app/template-zh.jpg" target="_blank" rel="noopener">
           <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>
-          <img src="/img/app/template-en.jpg?v=11605ae9" data-es-src="/img/app/template-es.jpg?v=e851b6f7" data-fr-src="/img/app/template-fr.jpg?v=e7ebe7d3" data-pt-src="/img/app/template-pt.jpg?v=9c96cb70" alt="StockistScout：邮件模板" data-es-alt="StockistScout: Plantillas de correo" data-fr-alt="StockistScout : Modèles de courriel" data-pt-alt="StockistScout: Modelos de e-mail" data-zh-alt="StockistScout：邮件模板" width="1600" height="1000" loading="lazy" decoding="async">
+          <img src="/img/app/template-zh.jpg?v=679fd288" data-es-src="/img/app/template-es.jpg?v=e851b6f7" data-fr-src="/img/app/template-fr.jpg?v=e7ebe7d3" data-pt-src="/img/app/template-pt.jpg?v=9c96cb70" data-zh-src="/img/app/template-zh.jpg?v=679fd288" alt="StockistScout：邮件模板" data-es-alt="StockistScout: Plantillas de correo" data-fr-alt="StockistScout : Modèles de courriel" data-pt-alt="StockistScout: Modelos de e-mail" data-zh-alt="StockistScout：邮件模板" width="1600" height="1000" loading="lazy" decoding="async">
         </a>
         <figcaption><strong data-es="Plantillas de correo" data-fr="Modèles de courriel" data-pt="Modelos de e-mail" data-zh="邮件模板">邮件模板</strong> <span data-es="Arma el correo con bloques, una imagen hero o un GIF, y míralo en vivo. Prueba dos versiones, A y B, y quédate con la que consigue más respuestas." data-fr="Composez le courriel avec des blocs, une image principale ou un GIF, et voyez-le en direct. Testez deux versions, A et B, et gardez celle qui obtient le plus de réponses." data-pt="Monte o e-mail com blocos, uma imagem de destaque ou um GIF, e veja como fica na hora. Teste duas versões, A e B, e fique com a que recebe mais respostas." data-zh="用模块搭建邮件，添加主图或 GIF，实时预览效果。测试 A、B 两个版本，保留回复更多的那一个。">用模块搭建邮件，添加主图或 GIF，实时预览效果。测试 A、B 两个版本，保留回复更多的那一个。</span></figcaption>
       </figure>
       <figure class="app-shot">
-        <a class="shot-frame" href="/img/app/reports-en.jpg" data-es-href="/img/app/reports-es.jpg" data-fr-href="/img/app/reports-fr.jpg" data-pt-href="/img/app/reports-pt.jpg" target="_blank" rel="noopener">
+        <a class="shot-frame" href="/img/app/reports-zh.jpg" data-es-href="/img/app/reports-es.jpg" data-fr-href="/img/app/reports-fr.jpg" data-pt-href="/img/app/reports-pt.jpg" data-zh-href="/img/app/reports-zh.jpg" target="_blank" rel="noopener">
           <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>
-          <img src="/img/app/reports-en.jpg?v=b4a4976f" data-es-src="/img/app/reports-es.jpg?v=a0ecf80f" data-fr-src="/img/app/reports-fr.jpg?v=33fd3930" data-pt-src="/img/app/reports-pt.jpg?v=2ac22e8e" alt="StockistScout：报告" data-es-alt="StockistScout: Reportes" data-fr-alt="StockistScout : Rapports" data-pt-alt="StockistScout: Relatórios" data-zh-alt="StockistScout：报告" width="1600" height="1000" loading="lazy" decoding="async">
+          <img src="/img/app/reports-zh.jpg?v=e3a68e30" data-es-src="/img/app/reports-es.jpg?v=a0ecf80f" data-fr-src="/img/app/reports-fr.jpg?v=33fd3930" data-pt-src="/img/app/reports-pt.jpg?v=2ac22e8e" data-zh-src="/img/app/reports-zh.jpg?v=e3a68e30" alt="StockistScout：报告" data-es-alt="StockistScout: Reportes" data-fr-alt="StockistScout : Rapports" data-pt-alt="StockistScout: Relatórios" data-zh-alt="StockistScout：报告" width="1600" height="1000" loading="lazy" decoding="async">
         </a>
         <figcaption><strong data-es="Reportes" data-fr="Rapports" data-pt="Relatórios" data-zh="报告">报告</strong> <span data-es="Enviados, abiertos, clics y respuestas, por día y por agente, para ver qué funciona." data-fr="Envoyés, ouverts, cliqués et répondus, par jour et par agent, pour voir ce qui fonctionne." data-pt="Enviados, abertos, clicados e respondidos, por dia e por agente, para você ver o que funciona." data-zh="按天、按智能体统计发送、打开、点击和回复，让您看清哪些做法有效。">按天、按智能体统计发送、打开、点击和回复，让您看清哪些做法有效。</span></figcaption>
       </figure>
       <figure class="app-shot">
-        <a class="shot-frame" href="/img/app/agents-en.jpg" data-es-href="/img/app/agents-es.jpg" data-fr-href="/img/app/agents-fr.jpg" data-pt-href="/img/app/agents-pt.jpg" target="_blank" rel="noopener">
+        <a class="shot-frame" href="/img/app/agents-zh.jpg" data-es-href="/img/app/agents-es.jpg" data-fr-href="/img/app/agents-fr.jpg" data-pt-href="/img/app/agents-pt.jpg" data-zh-href="/img/app/agents-zh.jpg" target="_blank" rel="noopener">
           <span class="shot-bar" aria-hidden="true"><i></i><i></i><i></i></span>
-          <img src="/img/app/agents-en.jpg?v=d731dc3d" data-es-src="/img/app/agents-es.jpg?v=9b160585" data-fr-src="/img/app/agents-fr.jpg?v=b083fac5" data-pt-src="/img/app/agents-pt.jpg?v=c956f399" alt="StockistScout：智能体" data-es-alt="StockistScout: Agentes" data-fr-alt="StockistScout : Agents" data-pt-alt="StockistScout: Agentes" data-zh-alt="StockistScout：智能体" width="1600" height="1000" loading="lazy" decoding="async">
+          <img src="/img/app/agents-zh.jpg?v=b4906bde" data-es-src="/img/app/agents-es.jpg?v=9b160585" data-fr-src="/img/app/agents-fr.jpg?v=b083fac5" data-pt-src="/img/app/agents-pt.jpg?v=c956f399" data-zh-src="/img/app/agents-zh.jpg?v=b4906bde" alt="StockistScout：智能体" data-es-alt="StockistScout: Agentes" data-fr-alt="StockistScout : Agents" data-pt-alt="StockistScout: Agentes" data-zh-alt="StockistScout：智能体" width="1600" height="1000" loading="lazy" decoding="async">
         </a>
         <figcaption><strong data-es="Agentes" data-fr="Agents" data-pt="Agentes" data-zh="智能体">智能体</strong> <span data-es="Elige a nuestros especialistas o crea tu propio agente, con su nombre, especialidad y cara." data-fr="Choisissez nos spécialistes ou créez votre propre agent, avec son nom, sa spécialité et son visage." data-pt="Escolha nossos especialistas ou crie seu próprio agente, com nome, especialidade e rosto." data-zh="选择我们的专家智能体，或创建您自己的智能体，设定名字、专长和形象。">选择我们的专家智能体，或创建您自己的智能体，设定名字、专长和形象。</span></figcaption>
       </figure>

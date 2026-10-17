@@ -38,6 +38,23 @@ export const LANGUAGES = [
   { code: 'de', name: 'Deutsch', word: 'Sprache', html: 'de', hreflang: 'de', locale: 'de_DE', dict: true },
   { code: 'nl', name: 'Nederlands', word: 'Taal', html: 'nl', hreflang: 'nl', locale: 'nl_NL', dict: true },
 ];
+/* The home video (Katya, "In 60 seconds"): its YouTube id per language, the one place to set them. An empty id, or a
+   language not listed, plays the English video. The build writes the page's id into data-yt of .promo-video. Its
+   thumbnail is img/video/katya-<lang>.jpg when that file exists, else the English one (build.mjs, localizedImages). */
+export const VIDEO_IDS = {
+  en: 'HE0cuxSvniM',
+  es: 'JJF5inZs5Wc',
+  fr: 'DrOwz4ygT2s',
+  pt: '-g9oN6wkOMw',
+  zh: '',
+  ja: '',
+  ko: '',
+  he: '',
+  ar: '',
+  it: '',
+  de: '',
+  nl: '',
+};
 /** Where a dictionary language's translations live. */
 export const dictFile = (code) => new URL(`./i18n/${code}.json`, import.meta.url);
 /** The languages the site is built in: every attribute language, and each dictionary language whose file exists. */
