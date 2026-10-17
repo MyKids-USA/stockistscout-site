@@ -759,5 +759,7 @@
  "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "エージェントは最初の検索から仕事を始めます。見つけた各店舗には合う理由が添えられ、店舗は自動で承認されます。店舗を一つずつ自分で承認したい場合は「連絡した店舗」でオンにしてください。却下した店舗が再び提案されることはありません。",
  "Talk to Katya, your AI sales assistant: 24/7, in 14 languages": "AIセールスアシスタントのKatyaに相談：24時間年中無休、14言語",
  "Call Katya any time to learn how StockistScout works, find the plan that fits you and get the next steps by email. Speak naturally, in your own language: she speaks English, Spanish, French, Portuguese, Chinese, Japanese, Korean, Hebrew, Arabic, Hindi, Italian, German and Dutch. If you want a person to call you back, leave her your details.": "いつでもKatyaにお電話ください。StockistScoutの仕組み、あなたに合うプラン、次のステップをメールでお伝えします。ご自分の言語で気軽に話してください。英語、スペイン語、フランス語、ポルトガル語、中国語、日本語、韓国語、ヘブライ語、アラビア語、ヒンディー語、イタリア語、ドイツ語、オランダ語を話します。担当者からの折り返しをご希望の場合は、Katyaに連絡先をお伝えください。",
- "24/7 · 14 languages": "24時間年中無休 · 14言語"
+ "24/7 · 14 languages": "24時間年中無休 · 14言語",
+ "Your best sellers, in every email": "売れ筋商品を、すべてのメールに",
+ "Bring in your best sellers from your Shopify store, by collection, category, tag, title or SKU, or add them by hand. Keep up to 36 in your gallery: every email shows a few of them as a sample of what you sell, a different choice for each store. Each product is checked before it is sent.": "Shopifyストアから、コレクション、カテゴリ、タグ、タイトル、SKUで売れ筋商品を取り込むか、手動で追加できます。ギャラリーには最大36点。各メールにはその中から数点が、取り扱い商品の見本として店舗ごとに異なる組み合わせで表示されます。各商品は送信前に確認されます。"
 }

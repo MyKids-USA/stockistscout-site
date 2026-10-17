@@ -759,5 +759,7 @@
  "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "您的智能代理從首次搜尋起就開始工作：找到的每家零售店都附有契合理由，並自動核准。如果您希望自己逐一核准，請在「已聯絡的零售店」中開啟；您拒絕的零售店不會再被推薦。",
  "Talk to Katya, your AI sales assistant: 24/7, in 14 languages": "與您的 AI 銷售助理 Katya 通話：全天候，14 種語言",
  "Call Katya any time to learn how StockistScout works, find the plan that fits you and get the next steps by email. Speak naturally, in your own language: she speaks English, Spanish, French, Portuguese, Chinese, Japanese, Korean, Hebrew, Arabic, Hindi, Italian, German and Dutch. If you want a person to call you back, leave her your details.": "隨時致電 Katya，了解 StockistScout 如何運作，找到適合您的方案，並透過電子郵件收到後續步驟。用您自己的語言自然交談：她會說英語、西班牙語、法語、葡萄牙語、中文、日語、韓語、希伯來語、阿拉伯語、印地語、義大利語、德語和荷蘭語。如果您希望由專人回電，請把您的聯絡方式留給她。",
- "24/7 · 14 languages": "全天候 · 14 種語言"
+ "24/7 · 14 languages": "全天候 · 14 種語言",
+ "Your best sellers, in every email": "您的暢銷品，出現在每封郵件中",
+ "Bring in your best sellers from your Shopify store, by collection, category, tag, title or SKU, or add them by hand. Keep up to 36 in your gallery: every email shows a few of them as a sample of what you sell, a different choice for each store. Each product is checked before it is sent.": "從您的 Shopify 商店依系列、分類、標籤、標題或 SKU 匯入暢銷品，也可以手動新增。圖庫最多保存 36 件：每封郵件展示其中幾件，作為您所售商品的範例，每家店鋪看到的組合都不同。每件商品寄出前都會經過審核。"
 }
