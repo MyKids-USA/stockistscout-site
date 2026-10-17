@@ -48,6 +48,14 @@ export function worldMapSvg(covered, soon) {
   const topo = JSON.parse(readFileSync(require.resolve('world-atlas/countries-110m.json'), 'utf8'));
   const world = feature(topo, topo.objects.countries);
   world.features = world.features.filter((f) => f.id !== '010'); // Antarctica
+  // France in the 110m data carries French Guiana; the agents write to metropolitan France only (16 Oct 2026), so it is
+  // split off and drawn as ordinary land.
+  const fr = world.features.find((f) => f.id === '250');
+  if (fr?.geometry.type === 'MultiPolygon') {
+    const far = fr.geometry.coordinates.filter((poly) => poly[0][0][0] < -20);
+    fr.geometry.coordinates = fr.geometry.coordinates.filter((poly) => poly[0][0][0] >= -20);
+    if (far.length) world.features.push({ type: 'Feature', id: '254', properties: {}, geometry: { type: 'MultiPolygon', coordinates: far } });
+  }
   const projection = geoNaturalEarth1().fitWidth(W, world);
   const path = geoPath(projection).digits(1);
   const ctx = compactPath();
