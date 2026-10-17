@@ -376,7 +376,6 @@
  "Your offer": "あなたのオファー",
  "Minimum order, payment terms, samples, an opening discount and what you want the store to do next; plus the tone and language of the emails.": "最低注文数、支払条件、サンプル、初回割引、店舗に次にしてほしいこと。さらにメールのトーンと言語。",
  "Tune and approve": "調整して承認",
- "A new agent’s first search brings up to 10 stores, each with the reason it fits, and nothing is sent until you look at them: approve the ones that fit and reject the rest. After that, stores are approved automatically (or one by one, if you prefer); the ones you reject are never proposed again.": "新しいエージェントの最初の検索では、合う理由付きで最大10店舗が表示され、あなたが確認するまで何も送信されません。合う店舗を承認し、残りは却下してください。その後、店舗は自動で承認されます（ご希望なら一軒ずつ承認も可能）。却下した店舗が再び提案されることはありません。",
  "Then comes the email template. Every template, new or edited, stays “Pending approval” until it passes review. If something needs to change, it comes back with the changes requested.": "次はメールテンプレートです。新規または編集したテンプレートはすべて、審査に通るまで「承認待ち」のままです。修正が必要な場合は、修正点を添えて差し戻されます。",
  "<a href=\"/features#review\">What review checks →</a>": "<a href=\"/features#review\">審査で確認する内容 →</a>",
  "Daily sending, within limits": "上限内で、毎日送信",
@@ -758,5 +757,6 @@
  "Please check the highlighted fields.": "ハイライトされた項目をご確認ください。",
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "この接続からの試行回数が多すぎます。1時間ほどお待ちいただくか、<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>までメールでご連絡ください。",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "送信できませんでした。接続を確認して再度お試しいただくか、<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>までメールでご連絡ください。",
- "Why it fits:": "合う理由："
+ "Why it fits:": "合う理由：",
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "エージェントは最初の検索から仕事を始めます。見つけた各店舗には合う理由が添えられ、店舗は自動で承認されます。店舗を一つずつ自分で承認したい場合は「連絡した店舗」でオンにしてください。却下した店舗が再び提案されることはありません。"
 }

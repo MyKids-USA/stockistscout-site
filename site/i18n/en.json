@@ -375,7 +375,7 @@
  "Your offer",
  "Minimum order, payment terms, samples, an opening discount and what you want the store to do next; plus the tone and language of the emails.",
  "Tune and approve",
- "A new agent’s first search brings up to 10 stores, each with the reason it fits, and nothing is sent until you look at them: approve the ones that fit and reject the rest. After that, stores are approved automatically (or one by one, if you prefer); the ones you reject are never proposed again.",
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.",
  "Then comes the email template. Every template, new or edited, stays “Pending approval” until it passes review. If something needs to change, it comes back with the changes requested.",
  "<a href=\"/features#review\">What review checks →</a>",
  "Daily sending, within limits",

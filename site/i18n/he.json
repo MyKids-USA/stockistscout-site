@@ -376,7 +376,6 @@
  "Your offer": "ההצעה שלכם",
  "Minimum order, payment terms, samples, an opening discount and what you want the store to do next; plus the tone and language of the emails.": "הזמנת מינימום, תנאי תשלום, דוגמאות, הנחת פתיחה ומה אתם רוצים שהחנות תעשה בהמשך; וגם הטון והשפה של המיילים.",
  "Tune and approve": "כוונון ואישור",
- "A new agent’s first search brings up to 10 stores, each with the reason it fits, and nothing is sent until you look at them: approve the ones that fit and reject the rest. After that, stores are approved automatically (or one by one, if you prefer); the ones you reject are never proposed again.": "החיפוש הראשון של סוכן חדש מביא עד 10 חנויות, כל אחת עם הסיבה שהיא מתאימה, ושום דבר לא נשלח עד שתעברו עליהן: מאשרים את המתאימות ודוחים את השאר. מאותו רגע החנויות מאושרות אוטומטית (או אחת אחת, אם תעדיפו); חנויות שדחיתם לא יוצעו שוב לעולם.",
  "Then comes the email template. Every template, new or edited, stays “Pending approval” until it passes review. If something needs to change, it comes back with the changes requested.": "אחר כך מגיעה תבנית המייל. כל תבנית, חדשה או ערוכה, נשארת במצב “ממתינה לאישור” עד שהיא עוברת בדיקה. אם משהו צריך להשתנות, היא חוזרת אליכם עם השינויים המבוקשים.",
  "<a href=\"/features#review\">What review checks →</a>": "<a href=\"/features#review\">מה הבדיקה בודקת ←</a>",
  "Daily sending, within limits": "שליחה יומית, במסגרת מגבלות",
@@ -758,5 +757,6 @@
  "Please check the highlighted fields.": "נא לבדוק את השדות המסומנים.",
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "יותר מדי ניסיונות מהחיבור הזה. נא להמתין שעה, או לכתוב ל-<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "לא הצלחנו לשלוח. בדקו את החיבור ונסו שוב, או כתבו ל-<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
- "Why it fits:": "למה זה מתאים:"
+ "Why it fits:": "למה זה מתאים:",
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "הסוכן שלכם מתחיל לעבוד מהחיפוש הראשון: כל חנות שהוא מוצא מגיעה עם הסיבה שהיא מתאימה, והחנויות מאושרות אוטומטית. אם אתם מעדיפים לאשר כל חנות בעצמכם, הפעילו זאת ב\"חנויות שנוצר איתן קשר\"; חנויות שדחיתם לא יוצעו לכם שוב."
 }

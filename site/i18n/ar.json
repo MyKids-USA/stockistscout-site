@@ -376,7 +376,6 @@
  "Your offer": "عرضكم",
  "Minimum order, payment terms, samples, an opening discount and what you want the store to do next; plus the tone and language of the emails.": "الحد الأدنى للطلب، وشروط الدفع، والعينات، وخصم الطلب الأول، وما تريدون أن يفعله المتجر بعد ذلك؛ إضافةً إلى نبرة الرسائل ولغتها.",
  "Tune and approve": "الضبط والاعتماد",
- "A new agent’s first search brings up to 10 stores, each with the reason it fits, and nothing is sent until you look at them: approve the ones that fit and reject the rest. After that, stores are approved automatically (or one by one, if you prefer); the ones you reject are never proposed again.": "يأتي أول بحث لوكيل جديد بما يصل إلى 10 متاجر، لكل منها سبب ملاءمته، ولا يُرسل شيء حتى تطّلعوا عليها: اعتمدوا المناسبة منها وارفضوا الباقي. بعد ذلك تُعتمد المتاجر تلقائيًا (أو واحدًا تلو الآخر إن فضّلتم)؛ والمتاجر التي ترفضونها لا تُقترح مجددًا أبدًا.",
  "Then comes the email template. Every template, new or edited, stays “Pending approval” until it passes review. If something needs to change, it comes back with the changes requested.": "ثم يأتي قالب البريد الإلكتروني. يبقى كل قالب، جديدًا كان أو معدّلًا، في حالة «بانتظار الاعتماد» حتى يجتاز المراجعة. وإذا احتاج شيء إلى تغيير، يعود إليكم مع التعديلات المطلوبة.",
  "<a href=\"/features#review\">What review checks →</a>": "<a href=\"/features#review\">ما الذي تتحقق منه المراجعة ←</a>",
  "Daily sending, within limits": "إرسال يومي ضمن حدود",
@@ -758,5 +757,6 @@
  "Please check the highlighted fields.": "يُرجى التحقق من الحقول المميَّزة.",
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "محاولات كثيرة جدًا من هذا الاتصال. يُرجى الانتظار ساعة، أو مراسلتنا على <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "تعذّر الإرسال. تحققوا من اتصالكم وحاولوا مجددًا، أو راسلونا على <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
- "Why it fits:": "سبب الملاءمة:"
+ "Why it fits:": "سبب الملاءمة:",
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "يبدأ وكيلكم العمل من أول بحث: كل متجر يجده يأتي مع سبب ملاءمته، وتُعتمد المتاجر تلقائيًا. إذا كنتم تفضّلون اعتماد كل متجر بأنفسكم، ففعّلوا ذلك في «المتاجر التي تم التواصل معها»؛ والمتاجر التي ترفضونها لا تُقترح مجددًا أبدًا."
 }

@@ -376,7 +376,6 @@
  "Your offer": "您的合作條件",
  "Minimum order, payment terms, samples, an opening discount and what you want the store to do next; plus the tone and language of the emails.": "最低訂購量、付款條件、樣品、首筆訂單折扣以及您希望零售店下一步做什麼；還有郵件的語氣和語言。",
  "Tune and approve": "調整與審核",
- "A new agent’s first search brings up to 10 stores, each with the reason it fits, and nothing is sent until you look at them: approve the ones that fit and reject the rest. After that, stores are approved automatically (or one by one, if you prefer); the ones you reject are never proposed again.": "新代理的首次搜尋最多帶來 10 家零售店，每家都附有契合理由；在您檢視之前不會傳送任何郵件：核准合適的，拒絕其餘的。此後零售店將自動核准（如您願意，也可逐一審核）；被您拒絕的零售店不會再被推薦。",
  "Then comes the email template. Every template, new or edited, stays “Pending approval” until it passes review. If something needs to change, it comes back with the changes requested.": "接下來是郵件範本。每個範本，無論是新建的還是修改過的，在通過審核之前都處於「待審核」狀態。如需修改，範本會附上修改要求退回給您。",
  "<a href=\"/features#review\">What review checks →</a>": "<a href=\"/features#review\">審核檢查哪些內容 →</a>",
  "Daily sending, within limits": "每日傳送，嚴守限額",
@@ -758,5 +757,6 @@
  "Please check the highlighted fields.": "請檢查標出的欄位。",
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "此網路連線嘗試次數過多。請等待一小時，或寫信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "未能傳送。請檢查網路連線後重試，或寫信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。",
- "Why it fits:": "符合原因："
+ "Why it fits:": "符合原因：",
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "您的智能代理從首次搜尋起就開始工作：找到的每家零售店都附有契合理由，並自動核准。如果您希望自己逐一核准，請在「已聯絡的零售店」中開啟；您拒絕的零售店不會再被推薦。"
 }

@@ -376,7 +376,6 @@
  "Your offer": "Ihr Angebot",
  "Minimum order, payment terms, samples, an opening discount and what you want the store to do next; plus the tone and language of the emails.": "Mindestbestellwert, Zahlungsbedingungen, Muster, ein Eröffnungsrabatt und was das Geschäft als Nächstes tun soll; dazu Ton und Sprache der E-Mails.",
  "Tune and approve": "Feinjustieren und freigeben",
- "A new agent’s first search brings up to 10 stores, each with the reason it fits, and nothing is sent until you look at them: approve the ones that fit and reject the rest. After that, stores are approved automatically (or one by one, if you prefer); the ones you reject are never proposed again.": "Die erste Suche eines neuen Agenten liefert bis zu 10 Geschäfte, jedes mit der Begründung, warum es passt, und nichts wird versendet, bevor Sie sie angesehen haben: Geben Sie die passenden frei und lehnen Sie die übrigen ab. Danach werden Geschäfte automatisch freigegeben (oder einzeln, wenn Sie das bevorzugen); abgelehnte Geschäfte werden nie wieder vorgeschlagen.",
  "Then comes the email template. Every template, new or edited, stays “Pending approval” until it passes review. If something needs to change, it comes back with the changes requested.": "Dann folgt die E-Mail-Vorlage. Jede Vorlage, neu oder bearbeitet, bleibt „Freigabe ausstehend“, bis sie die Prüfung besteht. Muss etwas geändert werden, kommt sie mit den gewünschten Änderungen zurück.",
  "<a href=\"/features#review\">What review checks →</a>": "<a href=\"/features#review\">Was die Prüfung kontrolliert →</a>",
  "Daily sending, within limits": "Täglicher Versand, innerhalb fester Limits",
@@ -758,5 +757,6 @@
  "Please check the highlighted fields.": "Bitte prüfen Sie die markierten Felder.",
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "Zu viele Versuche von dieser Verbindung. Bitte warten Sie eine Stunde oder schreiben Sie an <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "Wir konnten es nicht senden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut, oder schreiben Sie an <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
- "Why it fits:": "Warum es passt:"
+ "Why it fits:": "Warum es passt:",
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "Ihr Agent arbeitet ab seiner ersten Suche: Jedes gefundene Geschäft kommt mit dem Grund, warum es passt, und Geschäfte werden automatisch freigegeben. Wenn Sie jedes Geschäft lieber selbst freigeben, schalten Sie das unter „Kontaktierte Geschäfte“ ein; abgelehnte Geschäfte werden Ihnen nie wieder vorgeschlagen."
 }

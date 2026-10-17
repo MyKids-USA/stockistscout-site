@@ -1,4 +1,5 @@
 [
+ "How it works at one hotel",
  "The manager describes the customer",
  "Which companies matter (sports teams, productions, companies with projects nearby, weddings, conferences), in which cities, and what the hotel offers. Katya helps write it.",
  "The agent searches every night",
@@ -60,7 +61,7 @@
  "Your offer",
  "Minimum order, payment terms, samples, an opening discount and what you want the store to do next; plus the tone and language of the emails.",
  "Tune and approve",
- "A new agent’s first search brings up to 10 stores, each with the reason it fits, and nothing is sent until you look at them: approve the ones that fit and reject the rest. After that, stores are approved automatically (or one by one, if you prefer); the ones you reject are never proposed again.",
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.",
  "Then comes the email template. Every template, new or edited, stays “Pending approval” until it passes review. If something needs to change, it comes back with the changes requested.",
  "<a href=\"/features#review\">What review checks →</a>",
  "Daily sending, within limits",
@@ -305,5 +306,6 @@
  "How am I billed?",
  "Monthly. If you installed the app from the Shopify App Store, Shopify bills your plan on your Shopify invoice. If you opened your account on our website, you pay by card through Stripe, and we never see your card number. The prices are the same.",
  "Can I cancel or change plans?",
- "Yes, whenever you want. Monthly plans have no contract: if you cancel, you are not charged again. Corporate plans for hotel chains are different: an <a href=\"/corporate-agreement\">annual agreement</a> of 12 months that renews unless either side gives notice 60 days before the end; the number of users can only go down at renewal."
+ "Yes, whenever you want. Monthly plans have no contract: if you cancel, you are not charged again. Corporate plans for hotel chains are different: an <a href=\"/corporate-agreement\">annual agreement</a> of 12 months that renews unless either side gives notice 60 days before the end; the number of users can only go down at renewal.",
+ "Is there a catch to the trial?"
 ]

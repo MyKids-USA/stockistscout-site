@@ -376,7 +376,6 @@
  "Your offer": "Je aanbod",
  "Minimum order, payment terms, samples, an opening discount and what you want the store to do next; plus the tone and language of the emails.": "Minimumbestelling, betalingsvoorwaarden, monsters, een openingskorting en wat je wilt dat de winkel daarna doet; plus de toon en de taal van de e-mails.",
  "Tune and approve": "Bijstellen en goedkeuren",
- "A new agent’s first search brings up to 10 stores, each with the reason it fits, and nothing is sent until you look at them: approve the ones that fit and reject the rest. After that, stores are approved automatically (or one by one, if you prefer); the ones you reject are never proposed again.": "De eerste zoektocht van een nieuwe agent levert tot 10 winkels op, elk met de reden waarom hij past, en er wordt niets verstuurd totdat je ze hebt bekeken: keur de winkels goed die passen en wijs de rest af. Daarna worden winkels automatisch goedgekeurd (of één voor één, als je dat liever hebt); de winkels die je afwijst, worden nooit meer voorgesteld.",
  "Then comes the email template. Every template, new or edited, stays “Pending approval” until it passes review. If something needs to change, it comes back with the changes requested.": "Dan komt het e-mailsjabloon. Elk sjabloon, nieuw of bewerkt, blijft op “Wacht op goedkeuring” staan totdat het door de controle komt. Moet er iets veranderen, dan komt het terug met de gevraagde wijzigingen.",
  "<a href=\"/features#review\">What review checks →</a>": "<a href=\"/features#review\">Wat de controle nakijkt →</a>",
  "Daily sending, within limits": "Dagelijks versturen, binnen limieten",
@@ -758,5 +757,6 @@
  "Please check the highlighted fields.": "Controleer de gemarkeerde velden.",
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "Te veel pogingen vanaf deze verbinding. Wacht een uur, of schrijf naar <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "We konden het niet versturen. Controleer je verbinding en probeer het opnieuw, of schrijf naar <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
- "Why it fits:": "Waarom het past:"
+ "Why it fits:": "Waarom het past:",
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "Je agent gaat aan de slag vanaf de eerste zoekopdracht: elke gevonden winkel komt met de reden waarom hij past, en winkels worden automatisch goedgekeurd. Wil je liever elke winkel zelf goedkeuren, zet dat dan aan bij ‘Benaderde winkels’; winkels die je afwijst, worden nooit meer voorgesteld."
 }

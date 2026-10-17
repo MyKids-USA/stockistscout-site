@@ -376,7 +376,6 @@
  "Your offer": "내 제안",
  "Minimum order, payment terms, samples, an opening discount and what you want the store to do next; plus the tone and language of the emails.": "최소 주문량, 결제 조건, 샘플, 첫 주문 할인, 매장이 다음에 해 주었으면 하는 행동, 그리고 이메일의 어조와 언어.",
  "Tune and approve": "조정하고 승인하기",
- "A new agent’s first search brings up to 10 stores, each with the reason it fits, and nothing is sent until you look at them: approve the ones that fit and reject the rest. After that, stores are approved automatically (or one by one, if you prefer); the ones you reject are never proposed again.": "새 에이전트의 첫 검색에서는 잘 맞는 이유가 붙은 매장이 최대 10곳 나오며, 직접 확인하기 전까지 아무것도 발송되지 않습니다. 맞는 곳은 승인하고 나머지는 거절하세요. 그 후로는 매장이 자동으로 승인됩니다(원하시면 하나씩 승인할 수도 있습니다). 거절한 매장은 다시 제안되지 않습니다.",
  "Then comes the email template. Every template, new or edited, stays “Pending approval” until it passes review. If something needs to change, it comes back with the changes requested.": "다음은 이메일 템플릿입니다. 새로 만들었거나 수정한 모든 템플릿은 검토를 통과할 때까지 “승인 대기” 상태로 남습니다. 바꿀 점이 있으면 수정 요청과 함께 돌아옵니다.",
  "<a href=\"/features#review\">What review checks →</a>": "<a href=\"/features#review\">검토 항목 보기 →</a>",
  "Daily sending, within limits": "한도 내에서 매일 발송",
@@ -758,5 +757,6 @@
  "Please check the highlighted fields.": "표시된 입력란을 확인해 주세요.",
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "이 연결에서 시도가 너무 많았습니다. 한 시간 후에 다시 시도하시거나 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>으로 메일을 보내 주세요.",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "보내지 못했습니다. 연결 상태를 확인하고 다시 시도하시거나 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>으로 메일을 보내 주세요.",
- "Why it fits:": "잘 맞는 이유:"
+ "Why it fits:": "잘 맞는 이유:",
+ "Your agent starts working from its first search: every store it finds comes with the reason it fits, and stores are approved automatically. If you prefer to approve each store yourself, switch that on in “Stores contacted”; the ones you reject are never proposed again.": "에이전트는 첫 검색부터 바로 일합니다. 찾은 매장마다 잘 맞는 이유가 함께 표시되고, 매장은 자동으로 승인됩니다. 매장을 하나씩 직접 승인하고 싶다면 \"연락한 매장\"에서 켜세요. 거절한 매장은 다시 제안되지 않습니다."
 }
