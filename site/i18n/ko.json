@@ -714,5 +714,8 @@
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "보내지 못했습니다. 연결 상태를 확인하고 다시 시도하시거나 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>으로 메일을 보내 주세요.",
  "Why it fits:": "잘 맞는 이유:",
  "Each customer writes to a store once, with at most one follow-up 7 days later if it does not reply; a store receives at most one email through StockistScout every 30 days, from any customer. In Israel there is no follow-up: a store receives a single request for consent, once.": "각 고객은 매장에 한 번만 이메일을 보내며, 답장이 없으면 7일 후 최대 한 번 후속 이메일을 보냅니다. 어느 고객이든 한 매장은 StockistScout를 통해 30일에 최대 한 통의 이메일만 받습니다. 이스라엘에서는 후속 이메일이 없으며, 매장은 동의 요청을 단 한 번만 받습니다.",
- "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "당사는 이 사이트의 ‘에이전트가 매장을 찾는 곳’에 나열된 국가/지역의 수신자에게만, 각 국가의 법이 허용하는 범위 내에서만 이메일을 보냅니다."
+ "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "당사는 이 사이트의 ‘에이전트가 매장을 찾는 곳’에 나열된 국가/지역의 수신자에게만, 각 국가의 법이 허용하는 범위 내에서만 이메일을 보냅니다.",
+ "Agents find stores here": "에이전트가 매장을 찾는 곳",
+ "Coming soon": "곧 지원",
+ "World map of the countries where our agents find stores: {countries}. {soon}": "에이전트가 매장을 찾는 국가의 세계 지도: {countries}. {soon}"
 }

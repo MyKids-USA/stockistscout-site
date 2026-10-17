@@ -1,5 +1,4 @@
 [
- "17. General",
  "Governing law: the laws of the State of Florida, United States, without regard to conflict-of-law rules. Disputes go to the state or federal courts located in Florida.",
  "Languages: this Agreement and its Order Form are given in English, Spanish, French and Portuguese so that anyone can read them, and a Chinese translation is published as a courtesy. If the versions differ, the English version governs.",
  "This Agreement and its Order Forms are the whole agreement on this subject. Changes must be in writing and signed by both parties.",
@@ -150,5 +149,6 @@
  "One shared do-not-contact list",
  "Two hotels of the same chain never write to the same company, and an unsubscribe at one hotel counts for all of them.",
  "A corporate dashboard",
- "Every hotel on one page: companies found, emails sent and replies, by hotel and by manager."
+ "Every hotel on one page: companies found, emails sent and replies, by hotel and by manager.",
+ "A sending domain per hotel"
 ]

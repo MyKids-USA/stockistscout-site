@@ -714,5 +714,8 @@
  "Please check the highlighted fields.": "يُرجى التحقق من الحقول المميَّزة.",
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "محاولات كثيرة جدًا من هذا الاتصال. يُرجى الانتظار ساعة، أو مراسلتنا على <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "تعذّر الإرسال. تحققوا من اتصالكم وحاولوا مجددًا، أو راسلونا على <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
- "Why it fits:": "سبب الملاءمة:"
+ "Why it fits:": "سبب الملاءمة:",
+ "Agents find stores here": "هنا يعثر الوكلاء على المتاجر",
+ "Coming soon": "قريبًا",
+ "World map of the countries where our agents find stores: {countries}. {soon}": "خريطة العالم للدول التي يعثر فيها وكلاؤنا على المتاجر: {countries}. {soon}"
 }

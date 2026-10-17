@@ -8,6 +8,9 @@
     "avatars": "node site/avatars.mjs"
   },
   "devDependencies": {
-    "linkedom": "^0.18.12"
+    "d3-geo": "3.1.1",
+    "linkedom": "^0.18.12",
+    "topojson-client": "3.1.0",
+    "world-atlas": "2.0.2"
   }
 }

@@ -714,5 +714,8 @@
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "送信できませんでした。接続を確認して再度お試しいただくか、<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>までメールでご連絡ください。",
  "Why it fits:": "合う理由：",
  "Each customer writes to a store once, with at most one follow-up 7 days later if it does not reply; a store receives at most one email through StockistScout every 30 days, from any customer. In Israel there is no follow-up: a store receives a single request for consent, once.": "各顧客が店舗にメールを送るのは1回のみで、返信がない場合は7日後に最大1回フォローアップします。どの顧客からであっても、1つの店舗がStockistScout経由で受け取るメールは30日に1通までです。イスラエルではフォローアップは行わず、店舗には同意を求める依頼を1回だけ送ります。",
- "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "当社がメールを送るのは、本サイトの「エージェントが店舗を探す国」に記載された国・地域の受信者に限られ、各国の法律が認める範囲に限ります。"
+ "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "当社がメールを送るのは、本サイトの「エージェントが店舗を探す国」に記載された国・地域の受信者に限られ、各国の法律が認める範囲に限ります。",
+ "Agents find stores here": "エージェントが店舗を探す国",
+ "Coming soon": "近日対応",
+ "World map of the countries where our agents find stores: {countries}. {soon}": "エージェントが店舗を探す国の世界地図：{countries}。{soon}"
 }

@@ -714,5 +714,8 @@
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "לא הצלחנו לשלוח. בדקו את החיבור ונסו שוב, או כתבו ל-<a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
  "Why it fits:": "למה זה מתאים:",
  "Each customer writes to a store once, with at most one follow-up 7 days later if it does not reply; a store receives at most one email through StockistScout every 30 days, from any customer. In Israel there is no follow-up: a store receives a single request for consent, once.": "כל לקוח פונה לחנות פעם אחת בלבד, ואם אין תשובה – לכל היותר מייל המשך אחד כעבור 7 ימים; חנות מקבלת לכל היותר מייל אחד דרך StockistScout בכל 30 יום, מכל לקוח שהוא. בישראל אין מייל המשך: החנות מקבלת פנייה חד-פעמית אחת בלבד לקבלת הסכמה.",
- "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "אנו פונים רק לנמענים במדינות המופיעות באתר זה תחת „איפה הסוכנים שלנו מוצאים חנויות”, ורק כפי שהחוק בכל מדינה מתיר."
+ "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "אנו פונים רק לנמענים במדינות המופיעות באתר זה תחת „איפה הסוכנים שלנו מוצאים חנויות”, ורק כפי שהחוק בכל מדינה מתיר.",
+ "Agents find stores here": "כאן הסוכנים מוצאים חנויות",
+ "Coming soon": "בקרוב",
+ "World map of the countries where our agents find stores: {countries}. {soon}": "מפת העולם של המדינות שבהן הסוכנים שלנו מוצאים חנויות: {countries}. {soon}"
 }

@@ -714,5 +714,8 @@
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "We konden het niet versturen. Controleer je verbinding en probeer het opnieuw, of schrijf naar <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
  "Why it fits:": "Waarom het past:",
  "Each customer writes to a store once, with at most one follow-up 7 days later if it does not reply; a store receives at most one email through StockistScout every 30 days, from any customer. In Israel there is no follow-up: a store receives a single request for consent, once.": "Elke klant schrijft een winkel één keer aan, met hooguit één opvolgmail na 7 dagen als er geen antwoord komt; een winkel ontvangt via StockistScout hooguit één e-mail per 30 dagen, van welke klant ook. In Israël is er geen opvolgmail: een winkel krijgt één keer één verzoek om toestemming.",
- "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "We schrijven alleen naar ontvangers in de landen die op deze site staan onder ‘Waar onze agents winkels vinden’, en alleen zoals de wet van elk land dat toestaat."
+ "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "We schrijven alleen naar ontvangers in de landen die op deze site staan onder ‘Waar onze agents winkels vinden’, en alleen zoals de wet van elk land dat toestaat.",
+ "Agents find stores here": "Hier vinden de agents winkels",
+ "Coming soon": "Binnenkort",
+ "World map of the countries where our agents find stores: {countries}. {soon}": "Wereldkaart van de landen waar onze agents winkels vinden: {countries}. {soon}"
 }

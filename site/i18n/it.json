@@ -714,5 +714,8 @@
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "Non siamo riusciti a inviarlo. Controlla la connessione e riprova, oppure scrivi a <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.",
  "Why it fits:": "Perché è adatto:",
  "Each customer writes to a store once, with at most one follow-up 7 days later if it does not reply; a store receives at most one email through StockistScout every 30 days, from any customer. In Israel there is no follow-up: a store receives a single request for consent, once.": "Ogni cliente scrive a un negozio una sola volta, con al massimo un sollecito dopo 7 giorni se non risponde; un negozio riceve al massimo un’email tramite StockistScout ogni 30 giorni, da qualsiasi cliente. In Israele non c’è sollecito: il negozio riceve una sola richiesta di consenso, una volta sola.",
- "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "Scriviamo solo a destinatari nei paesi elencati su questo sito alla voce “Dove i nostri agenti trovano negozi”, e solo come consente la legge di ciascun paese."
+ "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.": "Scriviamo solo a destinatari nei paesi elencati su questo sito alla voce “Dove i nostri agenti trovano negozi”, e solo come consente la legge di ciascun paese.",
+ "Agents find stores here": "Qui gli agenti trovano negozi",
+ "Coming soon": "In arrivo",
+ "World map of the countries where our agents find stores: {countries}. {soon}": "Mappa del mondo dei paesi in cui i nostri agenti trovano negozi: {countries}. {soon}"
 }

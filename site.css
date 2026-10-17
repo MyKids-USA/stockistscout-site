@@ -602,6 +602,29 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 .country-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .country-chips li { font: 500 14px var(--sans); color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
 .countries-soon { margin: 20px 0 0; font-size: 14px; color: var(--muted); }
+/* The world map (18 Oct 2026, site/map.mjs): an inline SVG drawn at build time. The ocean is the section's own
+   background; land a quiet neutral; the countries of COUNTRIES in the brand green, the coming-soon ones lighter.
+   The SVG keeps dir="ltr" on RTL pages: a map is never mirrored. */
+.cmap-wrap { position: relative; margin: 0 0 26px; --land: #dde6ee; --on: var(--green); --on-hover: var(--green-text); --soon: #8ccfb7; }
+.cmap { display: block; width: 100%; height: auto; }
+.cmap-land { fill: var(--land); }
+.cmap path, .cmap circle { stroke: var(--paper); stroke-width: .5; stroke-linejoin: round; }
+.cmap-on { fill: var(--on); transition: fill .15s; }
+.cmap-soon { fill: var(--soon); }
+.cmap-dot .cmap-ring { fill: none; stroke: var(--on); stroke-width: 1.6; }
+.cmap-soon.cmap-dot .cmap-ring { stroke: var(--soon); }
+.cmap-on:hover, .cmap-on:hover circle:not(.cmap-ring) { fill: var(--on-hover); }
+.cmap-dot:hover .cmap-ring { stroke: var(--on-hover); }
+.cmap-tip { position: absolute; transform: translate(-50%, calc(-100% - 12px)); pointer-events: none; white-space: nowrap;
+  font: 600 13px/1.2 var(--sans); color: var(--card); background: var(--ink); padding: 5px 9px; border-radius: 6px; box-shadow: var(--shadow); }
+.cmap-tip[hidden] { display: none; }
+.cmap-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 12px 0 0; font-size: 14px; color: var(--ink-2); }
+.cmap-key { display: inline-flex; align-items: center; gap: 8px; }
+.cmap-sw { display: inline-block; width: 14px; height: 14px; border-radius: 4px; background: var(--on); flex: none; }
+.cmap-sw-soon { background: var(--soon); }
+@media (prefers-color-scheme: dark) { .cmap-wrap { --land: #1f3555; --soon: #2f6f5c; } }
+/* On a phone the map is a third of its size: the dots grow so Singapore, Hong Kong and Israel stay visible. */
+@media (max-width: 600px) { .cmap-dot .cmap-ring { r: 13px; stroke-width: 2.6; } .cmap-dot circle:not(.cmap-ring) { r: 6px; } }
 :lang(zh) .country-group h3, :lang(ja) .country-group h3, :lang(ko) .country-group h3, :lang(he) .country-group h3, :lang(ar) .country-group h3 { letter-spacing: 0; }
 :lang(pt) .mock-rows .why::before { content: "Por que combina: "; }
 :lang(zh) .mock-rows .why::before { content: "匹配原因："; }

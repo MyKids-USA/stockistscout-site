@@ -10,6 +10,7 @@
  */
 import { createHash } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
+import { worldMapSvg } from './map.mjs';
 
 export const ORIGIN = 'https://stockistscout.com';
 
@@ -49,28 +50,35 @@ export const ATTR_LANGUAGES = LANGUAGES.filter((l) => !l.dict);
    the site: {{COUNTRIES:<lang>:<and|or>[:in]}} in a page writes the sentence form ("the United States, Mexico, ...
    and New Zealand"; French :in is "aux États-Unis, au Mexique, ..."), and {{WHERE_COUNTRIES}} the section of chips by
    region (home and pricing, id="countries"). The corporate agreement keeps its own fixed list: it is a dated contract,
-   checked against the app's src/corporate/agreement.json. A new country is one entry here (and its rules in faq.html). */
+   checked against the app's src/corporate/agreement.json. A new country is one entry here (and its rules in faq.html).
+   `iso` / `num` (ISO 3166-1 alpha-2 and numeric, 18 Oct 2026) paint it green on the section's world map (site/map.mjs,
+   world-atlas ids are the numeric code); `at` [lon, lat] places the dot of a country too small for the 110m map. */
 export const COUNTRIES = [
-  { region: 'americas', en: 'United States', the: true, es: 'Estados Unidos', fr: 'États-Unis', frArt: 'les États-Unis', frIn: 'aux États-Unis', pt: 'Estados Unidos', zh: '美国' },
-  { region: 'americas', en: 'Mexico', es: 'México', fr: 'Mexique', frArt: 'le Mexique', frIn: 'au Mexique', pt: 'México', zh: '墨西哥' },
-  { region: 'americas', en: 'Canada', es: 'Canadá', fr: 'Canada', frArt: 'le Canada', frIn: 'au Canada', pt: 'Canadá', zh: '加拿大' },
-  { region: 'americas', en: 'Guatemala', es: 'Guatemala', fr: 'Guatemala', frArt: 'le Guatemala', frIn: 'au Guatemala', pt: 'Guatemala', zh: '危地马拉' },
-  { region: 'americas', en: 'Peru', es: 'Perú', fr: 'Pérou', frArt: 'le Pérou', frIn: 'au Pérou', pt: 'Peru', zh: '秘鲁' },
-  { region: 'americas', en: 'Colombia', es: 'Colombia', fr: 'Colombie', frArt: 'la Colombie', frIn: 'en Colombie', pt: 'Colômbia', zh: '哥伦比亚' },
-  { region: 'americas', en: 'Panama', es: 'Panamá', fr: 'Panama', frArt: 'le Panama', frIn: 'au Panama', pt: 'Panamá', zh: '巴拿马' },
-  { region: 'americas', en: 'Argentina', es: 'Argentina', fr: 'Argentine', frArt: 'l’Argentine', frIn: 'en Argentine', pt: 'Argentina', zh: '阿根廷' },
-  { region: 'americas', en: 'Chile', es: 'Chile', fr: 'Chili', frArt: 'le Chili', frIn: 'au Chili', pt: 'Chile', zh: '智利' },
-  { region: 'americas', en: 'Brazil', es: 'Brasil', fr: 'Brésil', frArt: 'le Brésil', frIn: 'au Brésil', pt: 'Brasil', zh: '巴西' },
-  { region: 'europe', en: 'United Kingdom', the: true, es: 'Reino Unido', fr: 'Royaume-Uni', frArt: 'le Royaume-Uni', frIn: 'au Royaume-Uni', pt: 'Reino Unido', zh: '英国' },
-  { region: 'europe', en: 'Ireland', es: 'Irlanda', fr: 'Irlande', frArt: 'l’Irlande', frIn: 'en Irlande', pt: 'Irlanda', zh: '爱尔兰' },
-  { region: 'europe', en: 'France', es: 'Francia', fr: 'France', frArt: 'la France', frIn: 'en France', pt: 'França', zh: '法国' },
-  { region: 'europe', en: 'Belgium', es: 'Bélgica', fr: 'Belgique', frArt: 'la Belgique', frIn: 'en Belgique', pt: 'Bélgica', zh: '比利时' },
+  { region: 'americas', iso: 'US', num: '840', en: 'United States', the: true, es: 'Estados Unidos', fr: 'États-Unis', frArt: 'les États-Unis', frIn: 'aux États-Unis', pt: 'Estados Unidos', zh: '美国' },
+  { region: 'americas', iso: 'MX', num: '484', en: 'Mexico', es: 'México', fr: 'Mexique', frArt: 'le Mexique', frIn: 'au Mexique', pt: 'México', zh: '墨西哥' },
+  { region: 'americas', iso: 'CA', num: '124', en: 'Canada', es: 'Canadá', fr: 'Canada', frArt: 'le Canada', frIn: 'au Canada', pt: 'Canadá', zh: '加拿大' },
+  { region: 'americas', iso: 'GT', num: '320', en: 'Guatemala', es: 'Guatemala', fr: 'Guatemala', frArt: 'le Guatemala', frIn: 'au Guatemala', pt: 'Guatemala', zh: '危地马拉' },
+  { region: 'americas', iso: 'PE', num: '604', en: 'Peru', es: 'Perú', fr: 'Pérou', frArt: 'le Pérou', frIn: 'au Pérou', pt: 'Peru', zh: '秘鲁' },
+  { region: 'americas', iso: 'CO', num: '170', en: 'Colombia', es: 'Colombia', fr: 'Colombie', frArt: 'la Colombie', frIn: 'en Colombie', pt: 'Colômbia', zh: '哥伦比亚' },
+  { region: 'americas', iso: 'PA', num: '591', en: 'Panama', es: 'Panamá', fr: 'Panama', frArt: 'le Panama', frIn: 'au Panama', pt: 'Panamá', zh: '巴拿马' },
+  { region: 'americas', iso: 'AR', num: '032', en: 'Argentina', es: 'Argentina', fr: 'Argentine', frArt: 'l’Argentine', frIn: 'en Argentine', pt: 'Argentina', zh: '阿根廷' },
+  { region: 'americas', iso: 'CL', num: '152', en: 'Chile', es: 'Chile', fr: 'Chili', frArt: 'le Chili', frIn: 'au Chili', pt: 'Chile', zh: '智利' },
+  { region: 'americas', iso: 'BR', num: '076', en: 'Brazil', es: 'Brasil', fr: 'Brésil', frArt: 'le Brésil', frIn: 'au Brésil', pt: 'Brasil', zh: '巴西' },
+  { region: 'europe', iso: 'GB', num: '826', en: 'United Kingdom', the: true, es: 'Reino Unido', fr: 'Royaume-Uni', frArt: 'le Royaume-Uni', frIn: 'au Royaume-Uni', pt: 'Reino Unido', zh: '英国' },
+  { region: 'europe', iso: 'IE', num: '372', en: 'Ireland', es: 'Irlanda', fr: 'Irlande', frArt: 'l’Irlande', frIn: 'en Irlande', pt: 'Irlanda', zh: '爱尔兰' },
+  { region: 'europe', iso: 'FR', num: '250', en: 'France', es: 'Francia', fr: 'France', frArt: 'la France', frIn: 'en France', pt: 'França', zh: '法国' },
+  { region: 'europe', iso: 'BE', num: '056', en: 'Belgium', es: 'Bélgica', fr: 'Belgique', frArt: 'la Belgique', frIn: 'en Belgique', pt: 'Bélgica', zh: '比利时' },
   // Israel (16 Oct 2026, app commit 2338602): a single consent request first, the offer only after a written yes.
-  { region: 'mideast', en: 'Israel', es: 'Israel', fr: 'Israël', frArt: 'Israël', frIn: 'en Israël', pt: 'Israel', zh: '以色列' },
-  { region: 'apac', en: 'Singapore', es: 'Singapur', fr: 'Singapour', frArt: 'Singapour', frIn: 'à Singapour', pt: 'Singapura', zh: '新加坡' },
-  { region: 'apac', en: 'Hong Kong', es: 'Hong Kong', fr: 'Hong Kong', frArt: 'Hong Kong', frIn: 'à Hong Kong', pt: 'Hong Kong', zh: '香港' },
-  { region: 'apac', en: 'Australia', es: 'Australia', fr: 'Australie', frArt: 'l’Australie', frIn: 'en Australie', pt: 'Austrália', zh: '澳大利亚' },
-  { region: 'apac', en: 'New Zealand', es: 'Nueva Zelanda', fr: 'Nouvelle-Zélande', frArt: 'la Nouvelle-Zélande', frIn: 'en Nouvelle-Zélande', pt: 'Nova Zelândia', zh: '新西兰' },
+  { region: 'mideast', iso: 'IL', num: '376', en: 'Israel', es: 'Israel', fr: 'Israël', frArt: 'Israël', frIn: 'en Israël', pt: 'Israel', zh: '以色列' },
+  { region: 'apac', iso: 'SG', num: '702', at: [103.82, 1.35], en: 'Singapore', es: 'Singapur', fr: 'Singapour', frArt: 'Singapour', frIn: 'à Singapour', pt: 'Singapura', zh: '新加坡' },
+  { region: 'apac', iso: 'HK', num: '344', at: [114.17, 22.32], en: 'Hong Kong', es: 'Hong Kong', fr: 'Hong Kong', frArt: 'Hong Kong', frIn: 'à Hong Kong', pt: 'Hong Kong', zh: '香港' },
+  { region: 'apac', iso: 'AU', num: '036', en: 'Australia', es: 'Australia', fr: 'Australie', frArt: 'l’Australie', frIn: 'en Australie', pt: 'Austrália', zh: '澳大利亚' },
+  { region: 'apac', iso: 'NZ', num: '554', en: 'New Zealand', es: 'Nueva Zelanda', fr: 'Nouvelle-Zélande', frArt: 'la Nouvelle-Zélande', frIn: 'en Nouvelle-Zélande', pt: 'Nova Zelândia', zh: '新西兰' },
+];
+/* Next in line (shown on the map in a lighter green, and as the line under the chips): not on any list above until it moves
+   into COUNTRIES. `soon` is the line in each attribute language; dictionary languages translate its English. */
+export const COMING_SOON = [
+  { iso: 'PT', num: '620', en: 'Portugal', soon: { en: 'Portugal: coming soon', es: 'Portugal: próximamente', fr: 'Portugal : bientôt', pt: 'Portugal: em breve', zh: '葡萄牙：即将推出' } },
 ];
 const REGIONS = [
   { id: 'americas', en: 'Americas', es: 'América', fr: 'Amériques', pt: 'Américas', zh: '美洲' },
@@ -100,13 +108,46 @@ ${COUNTRIES.filter((c) => c.region === r.id).map((c) => `          <li>${t(c, 's
   <div class="wrap">
     ${t({ en: 'Where our agents find stores', es: 'Dónde encuentran tiendas nuestros agentes', fr: 'Où nos agents trouvent des boutiques', pt: 'Onde nossos agentes encontram lojas', zh: '我们的智能体在哪些国家/地区寻找零售店' }, 'h2', ' id="countries-h"')}
     ${t({ en: 'Your business can be anywhere; your agents write to stores in these countries. More are coming as we check each country’s law.', es: 'Tu negocio puede estar en cualquier lugar; tus agentes escriben a tiendas de estos países. Iremos sumando más a medida que revisamos la ley de cada país.', fr: 'Votre entreprise peut être n’importe où; vos agents écrivent à des boutiques de ces pays. D’autres s’ajouteront à mesure que nous vérifions la loi de chaque pays.', pt: 'Sua empresa pode estar em qualquer lugar; seus agentes escrevem para lojas destes países. Outros virão à medida que verificamos a lei de cada país.', zh: '您的企业可以位于任何地方；您的智能体会给这些国家/地区的零售店写信。我们核查各国法律后，会陆续增加更多国家/地区。' }, 'p', ' class="countries-lead"')}
+    <figure class="cmap-wrap">
+      ${worldMapSvg(COUNTRIES, COMING_SOON)}
+      <span class="cmap-tip" hidden></span>
+      <figcaption class="cmap-legend">
+        <span class="cmap-key"><i class="cmap-sw" aria-hidden="true"></i>${t({ en: 'Agents find stores here', es: 'Los agentes encuentran tiendas aquí', fr: 'Les agents trouvent des boutiques ici', pt: 'Os agentes encontram lojas aqui', zh: '智能体在这里寻找零售店' })}</span>
+        <span class="cmap-key"><i class="cmap-sw cmap-sw-soon" aria-hidden="true"></i>${t({ en: 'Coming soon', es: 'Próximamente', fr: 'Bientôt', pt: 'Em breve', zh: '即将推出' })}</span>
+      </figcaption>
+    </figure>
+    ${t({ en: 'World map of the countries where our agents find stores: {countries}. {soon}', es: 'Mapa del mundo con los países donde nuestros agentes encuentran tiendas: {countries}. {soon}', fr: 'Carte du monde des pays où nos agents trouvent des boutiques : {countries}. {soon}', pt: 'Mapa-múndi dos países onde nossos agentes encontram lojas: {countries}. {soon}', zh: '我们的智能体寻找零售店的国家/地区世界地图：{countries}。{soon}' }, 'span', ' class="cmap-label" hidden')}
     <div class="country-groups">
 ${groups}
     </div>
-    ${t({ en: 'Portugal: coming soon', es: 'Portugal: próximamente', fr: 'Portugal : bientôt', pt: 'Portugal: em breve', zh: '葡萄牙：即将推出' }, 'p', ' class="countries-soon"')}
+${COMING_SOON.map((c) => `    ${t(c.soon, 'p', ` class="countries-soon" data-iso="${c.iso}"`)}`).join('\n')}
+    ${MAP_SCRIPT}
   </div>
 </section>`;
 }
+/* The map's tooltip (hover or tap on a green country): the <title> becomes the tooltip, so the browser's own does not
+   show twice. The SVG is role="img" with an aria-label listing every country, so its inner titles are never read. */
+const MAP_SCRIPT = `<script>(function(){var w=document.querySelector('.cmap-wrap');if(!w)return;var tip=w.querySelector('.cmap-tip');w.querySelectorAll('.cmap [data-iso]').forEach(function(e){var t=e.querySelector('title');if(t){e.setAttribute('data-name',t.textContent);t.remove();}});function hide(){tip.hidden=true;}w.addEventListener('pointermove',function(v){var e=v.target.closest&&v.target.closest('[data-name]');if(!e){hide();return;}var r=w.getBoundingClientRect();tip.textContent=e.getAttribute('data-name');tip.hidden=false;var x=Math.max(8,Math.min(v.clientX-r.left,r.width-tip.offsetWidth/2-8));tip.style.left=Math.max(tip.offsetWidth/2,x)+'px';tip.style.top=(v.clientY-r.top)+'px';});w.addEventListener('pointerleave',hide);})();</script>`;
+
+/** The names in the map in a language, and its aria-label (build.mjs calls it after translating a page): `name(c)`
+    is a country's name in that language, `join` how a list is joined. */
+export function localizeMap(document, name, join) {
+  const svg = document.querySelector('svg.cmap');
+  if (!svg) return;
+  const byIso = new Map(COUNTRIES.map((c) => [c.iso, name(c)]));
+  for (const c of COMING_SOON) byIso.set(c.iso, document.querySelector(`.countries-soon[data-iso="${c.iso}"]`)?.textContent.trim());
+  for (const el of svg.querySelectorAll('[data-iso]')) {
+    const n = byIso.get(el.getAttribute('data-iso'));
+    if (!n) throw new Error(`map: no name for ${el.getAttribute('data-iso')}`);
+    const title = [...el.childNodes].find((x) => x.nodeName.toLowerCase() === 'title');
+    title.textContent = n;
+  }
+  const label = document.querySelector('.cmap-label');
+  const soon = COMING_SOON.map((c) => byIso.get(c.iso)).join(' ');
+  svg.setAttribute('aria-label', label.textContent.replace('{countries}', COUNTRIES.map((c) => byIso.get(c.iso)).join(join)).replace('{soon}', soon).trim());
+  label.remove();
+}
+
 /** A page's path in a language: /pricing → /es/pricing, / → /es/. */
 export const pathIn = (path, lang) => lang === 'en' ? path : `/${lang}${path === '/' ? '/' : path}`;
 const GLOBE_ICON = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';

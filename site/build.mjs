@@ -24,7 +24,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
-import { LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL } from './shell.mjs';
+import { LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL } from './shell.mjs';
 
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
 
@@ -196,6 +196,9 @@ export function localize(html, lang, path, pages, meta, dict) {
       }
     }
   }
+  // The map's country names and aria-label in the language (the chips' names: COUNTRIES, or the dictionary).
+  const isDict = lang !== 'en' && BY[lang].dict;
+  localizeMap(document, (c) => lang === 'en' ? c.en : isDict ? dict?.[c.en] : c[lang], { zh: '、', ja: '、', ar: '، ' }[lang] ?? ', ');
   const url = ORIGIN + pathIn(path, lang);
   head.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
   head.querySelector('meta[property="og:url"]')?.setAttribute('content', url);

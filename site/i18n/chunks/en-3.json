@@ -1,5 +1,4 @@
 [
- "A sending domain per hotel",
  "Each hotel sends from its own domain, warmed up step by step. One hotel never affects another hotel's delivery.",
  "The brand's voice",
  "Templates approved before anything is sent, so every manager speaks the same way.",
@@ -86,6 +85,9 @@
  "Real data from MyKids-USA, our own brand, in its first three days (October 10–12, 2026). Store names left out on purpose: they did not agree to appear here. Each reason is the one the agent wrote.",
  "Where our agents find stores",
  "Your business can be anywhere; your agents write to stores in these countries. More are coming as we check each country’s law.",
+ "Agents find stores here",
+ "Coming soon",
+ "World map of the countries where our agents find stores: {countries}. {soon}",
  "Americas",
  "United States",
  "Mexico",
