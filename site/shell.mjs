@@ -60,7 +60,7 @@ export const VIDEO_IDS = {
   it: '2__CEktNPHc',
   de: 'gSSVdn8cr9E',
   nl: 'M60E8OVhar8',
-  'zh-Hant': '', // none yet: English video and thumbnail until it has its own (then img/video/katya-zh-hant.jpg shows)
+  'zh-Hant': 'LL-3vszcp0U', // its thumbnail is img/video/katya-zh-hant.jpg
 };
 /** Where a dictionary language's translations live. */
 export const dictFile = (code) => new URL(`./i18n/${code}.json`, import.meta.url);
@@ -125,6 +125,10 @@ export const COUNTRIES = [
   { region: 'africa', iso: 'ZA', num: '710', en: 'South Africa', es: 'Sudáfrica', fr: 'Afrique du Sud', frArt: 'l’Afrique du Sud', frIn: 'en Afrique du Sud', pt: 'África do Sul', zh: '南非' },
   { region: 'apac', iso: 'SG', num: '702', at: [103.82, 1.35], en: 'Singapore', es: 'Singapur', fr: 'Singapour', frArt: 'Singapour', frIn: 'à Singapour', pt: 'Singapura', zh: '新加坡' },
   { region: 'apac', iso: 'HK', num: '344', at: [114.17, 22.32], en: 'Hong Kong', es: 'Hong Kong', fr: 'Hong Kong', frArt: 'Hong Kong', frIn: 'à Hong Kong', pt: 'Hong Kong', zh: '香港' },
+  // Taiwan (17 Oct 2026, app commit 97ab756): Traditional Chinese by default (or English), the source and a free refusal in every
+  // email, a refusal stops every brand at once, 「謝絕推銷」 sites skipped. Named neutrally everywhere: Taiwan, 台湾 / 台灣.
+  // 27 square units on the 110m map, just above MIN_AREA, so it is painted without a dot.
+  { region: 'apac', iso: 'TW', num: '158', en: 'Taiwan', es: 'Taiwán', fr: 'Taïwan', frArt: 'Taïwan', frIn: 'à Taïwan', pt: 'Taiwan', zh: '台湾' },
   { region: 'apac', iso: 'AU', num: '036', en: 'Australia', es: 'Australia', fr: 'Australie', frArt: 'l’Australie', frIn: 'en Australie', pt: 'Austrália', zh: '澳大利亚' },
   { region: 'apac', iso: 'NZ', num: '554', en: 'New Zealand', es: 'Nueva Zelanda', fr: 'Nouvelle-Zélande', frArt: 'la Nouvelle-Zélande', frIn: 'en Nouvelle-Zélande', pt: 'Nova Zelândia', zh: '新西兰' },
   // India and the Philippines (17 Oct 2026, app commit ac1d00e): English, company inboxes only; the Philippines adds a privacy notice.
