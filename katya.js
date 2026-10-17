@@ -22,7 +22,7 @@
   // The page's language goes to her backend as it is (it answers in the languages it knows, English otherwise).
   var lang = function () { var l = (document.documentElement.lang || '').slice(0, 2); return /^[a-z]{2}$/.test(l) ? l : 'en'; };
   // French since 14 Oct 2026 (Canada), Brazilian Portuguese and Simplified Chinese since 16 Oct 2026 (/pt/, /zh/); a text without one shows in English.
-  // The dictionary languages (ja, ko, he, it, de, nl: 17 Oct 2026) find the English in window.SS_I18N, which the build
+  // The dictionary languages (ja, ko, he, ar, it, de, nl: 17 Oct 2026) find the English in window.SS_I18N, which the build
   // writes into their pages from site/i18n/<lang>.json. site/i18n/strings.mjs reads the English (the second argument)
   // of every call of L here, so each argument must be one plain quoted string: no + inside a call.
   var L = function (es, en, fr, pt, zh) {

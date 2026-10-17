@@ -15,11 +15,11 @@ export const ORIGIN = 'https://stockistscout.com';
 
 /* The site's languages, in the order of the language menu: one entry per language (Aharon, 16 Oct 2026: a dropdown,
    because there will be more: English, Español, Français, Português, 中文, then 日本語, 한국어, עברית, Italiano, Deutsch,
-   Nederlands). `code` is the URL folder, `name` the language's name in itself, `word` its word for "Language", `html` its
+   Nederlands, العربية). `code` is the URL folder, `name` the language's name in itself, `word` its word for "Language", `html` its
    <html lang>, `hreflang` its hreflang, `locale` its og:locale, `dir` 'rtl' for a right-to-left language.
    Two ways to carry the texts:
    - es, fr, pt, zh: in data-<code> attributes beside the English in site/pages (and here);
-   - `dict: true` (17 Oct 2026, ja ko he it de nl): a dictionary file site/i18n/<code>.json, {english: translation}, for
+   - `dict: true` (17 Oct 2026, ja ko he it de nl; ar, Modern Standard Arabic, right to left): a dictionary file site/i18n/<code>.json, {english: translation}, for
      every string in site/i18n/en.json (node site/i18n/extract.mjs writes it). The build refuses a dictionary that misses one.
    A dictionary language is built (folder, menu entry, hreflang, sitemap, browser redirect) only once its file exists, so
    adding a language is one entry here plus its JSON file. English is first and lives at the root. */
@@ -32,6 +32,7 @@ export const LANGUAGES = [
   { code: 'ja', name: '日本語', word: '言語', html: 'ja', hreflang: 'ja', locale: 'ja_JP', dict: true },
   { code: 'ko', name: '한국어', word: '언어', html: 'ko', hreflang: 'ko', locale: 'ko_KR', dict: true },
   { code: 'he', name: 'עברית', word: 'שפה', html: 'he', hreflang: 'he', locale: 'he_IL', dir: 'rtl', dict: true },
+  { code: 'ar', name: 'العربية', word: 'اللغة', html: 'ar', hreflang: 'ar', locale: 'ar_AR', dir: 'rtl', dict: true },
   { code: 'it', name: 'Italiano', word: 'Lingua', html: 'it', hreflang: 'it', locale: 'it_IT', dict: true },
   { code: 'de', name: 'Deutsch', word: 'Sprache', html: 'de', hreflang: 'de', locale: 'de_DE', dict: true },
   { code: 'nl', name: 'Nederlands', word: 'Taal', html: 'nl', hreflang: 'nl', locale: 'nl_NL', dict: true },
@@ -417,7 +418,7 @@ const SCRIPT = `<script>
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
   var LANGS = ${JSON.stringify(SITE_LANGUAGES.slice(1).map((l) => l.code))};
-  // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, it, de, nl are two letters already).
+  // /zh/ pages say lang="zh-CN"; the language code is its first two letters (ja, ko, he, ar, it, de, nl are two letters already).
   function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {
     var p = location.pathname;
@@ -519,7 +520,7 @@ const SCRIPT = `<script>
   var nav = (navigator.language || 'en').toLowerCase().slice(0, 2);
   if (nav === 'iw') nav = 'he'; // older browsers still say iw-IL for Hebrew
   /* On an English page, a visitor who chose another language before, or whose browser speaks one the site is built in on
-     a first visit (es-*, fr-*, pt-*, zh-*, and once their files exist ja-*, ko-*, he-* or iw-*, it-*, de-*, nl-*), goes to
+     a first visit (es-*, fr-*, pt-*, zh-*, and once their files exist ja-*, ko-*, he-* or iw-*, ar-*, it-*, de-*, nl-*), goes to
      that page in their language. A saved language the site no longer has stays on English. A page reached in another language remembers it. */
   if (pageLang() === 'en') {
     var want = saved || (LANGS.indexOf(nav) >= 0 ? nav : 'en');

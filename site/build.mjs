@@ -15,7 +15,7 @@
  * {{COUNTRIES:<lang>:<and|or>[:in]}} (the countries the agents write to, as a sentence) and {{WHERE_COUNTRIES}}
  * (the same countries by region, id="countries"): both from COUNTRIES in shell.mjs.
  *
- * Languages: see LANGUAGES in shell.mjs. es/fr/pt/zh ride in data-<lang> attributes; ja/ko/he/it/de/nl come from
+ * Languages: see LANGUAGES in shell.mjs. es/fr/pt/zh ride in data-<lang> attributes; ja/ko/he/ar/it/de/nl come from
  * site/i18n/<lang>.json once it exists, and the build stops if that file misses any string (site/i18n/strings.mjs).
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
@@ -94,7 +94,7 @@ const outFile = (path) => path === '/' ? 'index.html' : path.slice(1) + '.html';
    for factories looking for stores abroad) is the fifth: data-zh, under /zh/, <html lang="zh-CN">, hreflang zh-Hans.
    The languages themselves are the one LANGUAGES list in shell.mjs (16 Oct 2026); everything here comes from it.
    Dictionary languages (17 Oct 2026, ja ko he it de nl): their text comes from site/i18n/<lang>.json, keyed by the
-   English; each is built only once its file exists (SITE_LANGUAGES), and Hebrew pages get dir="rtl". */
+   English; each is built only once its file exists (SITE_LANGUAGES), and a right-to-left language (`dir: 'rtl'`: Hebrew, Arabic) gets dir="rtl". */
 export const LANGS = SITE_LANGUAGES.map((l) => l.code);
 const ATTR_LANGS = ATTR_LANGUAGES.map((l) => l.code);
 const BY = Object.fromEntries(LANGUAGES.map((l) => [l.code, l]));

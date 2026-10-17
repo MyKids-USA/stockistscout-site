@@ -602,11 +602,11 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 .country-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .country-chips li { font: 500 14px var(--sans); color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
 .countries-soon { margin: 20px 0 0; font-size: 14px; color: var(--muted); }
-:lang(zh) .country-group h3, :lang(ja) .country-group h3, :lang(ko) .country-group h3, :lang(he) .country-group h3 { letter-spacing: 0; }
+:lang(zh) .country-group h3, :lang(ja) .country-group h3, :lang(ko) .country-group h3, :lang(he) .country-group h3, :lang(ar) .country-group h3 { letter-spacing: 0; }
 :lang(pt) .mock-rows .why::before { content: "Por que combina: "; }
 :lang(zh) .mock-rows .why::before { content: "匹配原因："; }
 
-/* ---------- Japanese, Korean, Hebrew (17 Oct 2026): system fonts behind the Latin ones, as for Chinese ---------- */
+/* ---------- Japanese, Korean, Hebrew, Arabic (17 Oct 2026): system fonts behind the Latin ones, as for Chinese ---------- */
 :root:lang(ja) {
   --display: "Plus Jakarta Sans", "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", "Noto Sans JP", sans-serif;
   --sans: "Inter", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", "Noto Sans JP", sans-serif;
@@ -619,13 +619,22 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
   --display: "Plus Jakarta Sans", "Inter", "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif;
   --sans: "Inter", "Segoe UI", Arial, "Noto Sans Hebrew", sans-serif;
 }
-:lang(ja) h1, :lang(ja) h2, :lang(ja) h3, :lang(ko) h1, :lang(ko) h2, :lang(ko) h3, :lang(he) h1, :lang(he) h2, :lang(he) h3 { letter-spacing: 0; }
+/* Arabic: the Arabic system fonts first, so the Latin fonts' missing Arabic does not fall to a mismatched face. */
+:root:lang(ar) {
+  --display: "Segoe UI", Tahoma, "Noto Sans Arabic", "Geeza Pro", sans-serif;
+  --sans: "Segoe UI", Tahoma, "Noto Sans Arabic", "Geeza Pro", sans-serif;
+  /* The small mono labels (eyebrows, region names) have no Arabic in a mono face: they take the Arabic stack, bold. */
+  --mono: "Segoe UI", Tahoma, "Noto Sans Arabic", "Geeza Pro", sans-serif;
+}
+:lang(ar) code, :lang(ar) kbd, :lang(ar) pre { font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; }
+:lang(ja) h1, :lang(ja) h2, :lang(ja) h3, :lang(ko) h1, :lang(ko) h2, :lang(ko) h3, :lang(he) h1, :lang(he) h2, :lang(he) h3,
+:lang(ar) h1, :lang(ar) h2, :lang(ar) h3 { letter-spacing: 0; }
 :lang(ja) .page-head h1, :lang(ja) .hero h1, :lang(ko) .page-head h1, :lang(ko) .hero h1 { line-height: 1.25; }
 :lang(ko) body { word-break: keep-all; }
 
-/* ---------- Right to left (Hebrew, <html dir="rtl">) ----------
+/* ---------- Right to left (any dir: 'rtl' language: Hebrew, Arabic; <html dir="rtl">) ----------
    Flex and grid already follow the direction; these are the rules written with left/right. Emails, URLs, prices,
-   phone numbers and code stay left-to-right islands inside the Hebrew. */
+   phone numbers and code stay left-to-right islands inside the right-to-left text. */
 [dir=rtl] .skip { left: auto; right: -9999px; }
 [dir=rtl] .skip:focus { right: 12px; }
 [dir=rtl] .lang.js .lang-menu { right: auto; left: 0; }
@@ -663,3 +672,10 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 [dir=rtl] code, [dir=rtl] kbd, [dir=rtl] pre, [dir=rtl] .amount,
 [dir=rtl] input[type=email], [dir=rtl] input[type=url], [dir=rtl] input[inputmode=url], [dir=rtl] input[type=tel] { direction: ltr; unicode-bidi: isolate; }
 [dir=rtl] .foot-contact { align-items: flex-start; }
+/* Arabic letters join: any letter-spacing breaks the joins, so none anywhere on an Arabic page. */
+:lang(ar) *, :lang(ar) *::before, :lang(ar) *::after { letter-spacing: 0 !important; }
+/* Arabic "/ شهريًا" is wider than "/month": the plan price may wrap its period under the amount, and the five plan
+   columns never grow past the page (their min-content was pushing the grid off the left edge at 1280). */
+:lang(ar) .plan .amount { white-space: normal; }
+:lang(ar) .plan .amount small { display: inline-block; white-space: nowrap; }
+@media (min-width: 1180px) { :lang(ar) .plans { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
