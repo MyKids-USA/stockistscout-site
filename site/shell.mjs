@@ -52,7 +52,7 @@ export const VIDEO_IDS = {
   he: '',
   ar: '',
   it: '',
-  de: '',
+  de: 'gSSVdn8cr9E',
   nl: '',
 };
 /** Where a dictionary language's translations live. */
