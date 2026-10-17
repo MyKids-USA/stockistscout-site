@@ -548,6 +548,12 @@ html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; 
 .section-head h2, .problem h2 { letter-spacing: -0.015em; }
 .section-head .eyebrow { color: var(--green-text); margin: 0 0 14px; font-size: 13px; }
 .plan .trial-skip { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 14px; color: var(--muted); }
+/* The trial's explanation, under the plans (Aharon, 17 Oct 2026: inside the Trial card it made every card in the row tall). */
+.trial-note { display: flex; gap: 16px; align-items: flex-start; margin: 18px 0 6px; padding: 16px 18px; border-radius: 14px;
+  background: linear-gradient(160deg, var(--green-soft), var(--blue-soft)); border: 2px dashed var(--green); }
+.trial-note > strong { font: 800 22px var(--display, inherit); color: var(--green-text); line-height: 1.3; }
+.trial-note p { margin: 0; }
+.trial-note .trial-skip { margin-top: 8px; padding-top: 0; border: 0; font-size: 14px; color: var(--muted); }
 @media (min-width: 1040px) { .plan .amount { font-size: clamp(30px, 2.7vw, 40px); white-space: nowrap; } }
 .plan .starts { font-size: 13px; color: var(--green-text); margin: -8px 0 14px; }
 .plan .starts a { color: inherit; }
