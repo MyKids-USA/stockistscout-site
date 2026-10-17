@@ -48,7 +48,7 @@ export const VIDEO_IDS = {
   pt: '-g9oN6wkOMw',
   zh: '',
   ja: '',
-  ko: '',
+  ko: 'sRWcQ7uPGqs',
   he: '',
   ar: '',
   it: '',
