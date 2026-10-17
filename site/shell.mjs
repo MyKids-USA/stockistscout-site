@@ -62,7 +62,7 @@ export const VIDEO_IDS = {
   it: '2__CEktNPHc',
   de: 'gSSVdn8cr9E',
   nl: 'M60E8OVhar8',
-  hi: '', // none yet: the English video and thumbnail (img/video/katya-hi.jpg once it has its own)
+  hi: 'Hn1dYKUqxds', // its thumbnail is img/video/katya-hi.jpgnglish video and thumbnail (img/video/katya-hi.jpg once it has its own)
   'zh-Hant': 'LL-3vszcp0U', // its thumbnail is img/video/katya-zh-hant.jpg
 };
 /** Where a dictionary language's translations live. */
