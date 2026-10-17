@@ -87,17 +87,37 @@ main:focus { outline: none; }
 [hidden] { display: none !important; }
 
 /* ---------- Header ---------- */
+/* The slim bar above the header (17 Oct 2026): the phone and the email on a PC, out of the menu row so the row fits in
+   every language. It scrolls away; the header below stays. Under 1280px it is hidden and the phone is in the menu. */
+.topbar { background: var(--navy); color: #d6e2ee; font-size: 13.5px; }
+@media (prefers-color-scheme: dark) { .topbar { background: #071122; border-bottom: 1px solid var(--line-2); } }
+.topbar-row { display: flex; align-items: center; justify-content: flex-end; gap: 22px; min-height: 34px; padding: 0 40px; max-width: 1800px; margin: 0 auto; }
+.topbar a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; white-space: nowrap; }
+.topbar a:hover { color: #fff; text-decoration: underline; }
+.topbar-phone svg { color: #5fd3ad; flex-shrink: 0; width: 15px; height: 15px; }
 .site-head { position: sticky; top: 0; z-index: 100; background: var(--head-bg); border-bottom: 2px solid var(--head-line); box-shadow: 0 2px 0 0 var(--green); }
 .head-row { display: flex; align-items: center; gap: 24px; min-height: var(--head-h); padding: 0 40px; max-width: 1800px; margin: 0 auto; }
 .brand { display: inline-flex; align-items: center; flex-shrink: 0; text-decoration: none; }
 .brand img { display: block; width: 196px; height: auto; }
 .site-nav { display: flex; align-items: center; flex: 1; }
 .nav-links { display: flex; align-items: center; justify-content: center; gap: 30px; flex: 1; }
-.nav-links > a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; white-space: nowrap; transition: color .2s; }
-.nav-links > a:hover { color: var(--ink); }
-.nav-links > a[aria-current="page"] { color: var(--green-text); font-weight: 600; }
+.nav-links a, .nav-more-btn { color: var(--muted); text-decoration: none; font: 500 15px var(--sans); white-space: nowrap; transition: color .2s; }
+.nav-links a:hover, .nav-more-btn:hover { color: var(--ink); }
+.nav-links a[aria-current="page"], .nav-more.has-current > .nav-more-btn { color: var(--green-text); font-weight: 600; }
+/* Home is the logo on a PC; the link shows in the hamburger menu. So does the phone (the top bar has it on a PC). */
+.nav-home, .nav-phone { display: none; }
+/* "More": a button opening a list of the secondary links under it (shell.mjs SCRIPT). Without JavaScript it opens on
+   hover and on keyboard focus. */
+.nav-more { position: relative; }
+.nav-more-btn { display: inline-flex; align-items: center; gap: 7px; background: none; border: 0; padding: 8px 2px; cursor: pointer; }
+.nav-more-btn[aria-expanded="true"] .lang-caret { transform: translateY(2px) rotate(225deg); }
+.nav-more-menu { display: none; position: absolute; left: 50%; top: calc(100% + 10px); transform: translateX(-50%); z-index: 60; min-width: 200px; padding: 6px; background: var(--card); border: 1px solid var(--head-line); border-radius: 10px; box-shadow: var(--shadow); }
+.nav-more.js.open .nav-more-menu, .nav-more:not(.js):hover .nav-more-menu, .nav-more:not(.js):focus-within .nav-more-menu { display: block; }
+.nav-more-menu a { display: block; padding: 9px 14px; border-radius: 6px; color: var(--ink); }
+.nav-more-menu a:hover, .nav-more-menu a:focus-visible { background: var(--paper-2); color: var(--ink); }
+.nav-more-menu a[aria-current="page"] { color: var(--green-text); }
 .nav-end { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-.nav-phone { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; }
+.nav-phone { align-items: center; gap: 6px; color: var(--ink); font-weight: 700; font-size: 15px; text-decoration: none; white-space: nowrap; }
 .nav-phone svg { color: var(--green-text); flex-shrink: 0; }
 .nav-phone:hover { color: var(--green-text); }
 .foot-contact { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
@@ -124,18 +144,26 @@ main:focus { outline: none; }
 .site-head.open .menu-btn .bars { background: transparent; }
 .site-head.open .menu-btn .bars::before { transform: translateY(7px) rotate(45deg); }
 .site-head.open .menu-btn .bars::after { transform: translateY(-7px) rotate(-45deg); }
-@media (max-width: 1520px) { .nav-links { gap: 22px; } .head-row { padding: 0 24px; } }
-@media (max-width: 1439px) {
+/* 1280 to 1520: a little tighter, so the longest languages keep the full row at 1280. */
+@media (max-width: 1520px) { .nav-links { gap: 22px; } .head-row, .topbar-row { padding: 0 24px; } .head-row { gap: 20px; } .brand img { width: 180px; } }
+@media (max-width: 1360px) { .nav-links { gap: 18px; } .nav-links a, .nav-more-btn { font-size: 14.5px; } }
+/* The hamburger: tablets and phones (under 1280px). */
+@media (max-width: 1279px) {
   :root { --head-h: 68px; }
+  .topbar { display: none; }
   .head-row { padding: 0 16px; }
   .brand img { width: 168px; }
   .menu-btn { display: block; }
   .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--head-bg); border-bottom: 2px solid var(--green); flex-direction: column; align-items: stretch; padding: 8px 16px 20px; box-shadow: 0 18px 30px -18px rgba(15, 42, 74, .35); max-height: calc(100vh - var(--head-h)); overflow-y: auto; }
   .site-head.open .site-nav { display: flex; }
   .nav-links { flex-direction: column; align-items: stretch; gap: 0; }
-  .nav-links > a { font-size: 17px; min-height: 52px; padding: 12px 8px; display: flex; align-items: center; border-bottom: 1px solid var(--line-2); }
-  .nav-links > a[aria-current="page"] { box-shadow: inset 4px 0 0 var(--green); padding-left: 16px; }
+  .nav-more, .nav-more-menu, .nav-more.js .nav-more-menu { display: contents; }
+  .nav-more-btn { display: none; }
+  .nav-home, .nav-phone { display: flex; }
+  .nav-links a { font-size: 17px; font-weight: 500; min-height: 52px; padding: 12px 8px; display: flex; align-items: center; border-bottom: 1px solid var(--line-2); border-radius: 0; color: var(--muted); }
+  .nav-links a[aria-current=page] { box-shadow: inset 4px 0 0 var(--green); padding-left: 16px; color: var(--green-text); font-weight: 600; }
   .nav-end { margin-top: 16px; flex-wrap: wrap; justify-content: space-between; }
+  .site-nav .nav-end { margin-left: 0; margin-right: 0; }
   .nav-phone { width: 100%; min-height: 48px; font-size: 17px; }
   .lang { width: 100%; }
   .lang-btn { width: 100%; min-height: 48px; font-size: 16px; }
@@ -143,9 +171,8 @@ main:focus { outline: none; }
   .lang.js .lang-menu { position: static; min-width: 0; margin-top: 6px; box-shadow: none; }
   .lang-menu a { min-height: 44px; display: flex; align-items: center; font-size: 16px; }
 }
-/* The same compact menu at any width where the full row does not fit (17 Oct 2026: with eleven links, the phone, two buttons
-   and the language menu, the row ran off the right edge even at 1920 in English, further in Spanish or German). The script
-   in shell.mjs measures the row and sets html.nav-compact; without JavaScript the 1439px breakpoint above still applies. */
+/* The safety net (shell.mjs SCRIPT): should the full row ever overflow at 1280px or wider, html.nav-compact shows the
+   same compact menu instead of running off the page. Measured 17 Oct 2026: it triggers in none of the 13 languages. */
   html.nav-compact { --head-h: 68px; }
   html.nav-compact .head-row { padding: 0 16px; }
   html.nav-compact .brand img { width: 168px; }
@@ -153,16 +180,20 @@ main:focus { outline: none; }
   html.nav-compact .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--head-bg); border-bottom: 2px solid var(--green); flex-direction: column; align-items: stretch; padding: 8px 16px 20px; box-shadow: 0 18px 30px -18px rgba(15, 42, 74, .35); max-height: calc(100vh - var(--head-h)); overflow-y: auto; }
   html.nav-compact .site-head.open .site-nav { display: flex; }
   html.nav-compact .nav-links { flex-direction: column; align-items: stretch; gap: 0; }
-  html.nav-compact .nav-links > a { font-size: 17px; min-height: 52px; padding: 12px 8px; display: flex; align-items: center; border-bottom: 1px solid var(--line-2); }
-  html.nav-compact .nav-links > a[aria-current="page"] { box-shadow: inset 4px 0 0 var(--green); padding-left: 16px; }
+  html.nav-compact .nav-more, html.nav-compact .nav-more-menu, html.nav-compact .nav-more.js .nav-more-menu { display: contents; }
+  html.nav-compact .nav-more-btn { display: none; }
+  html.nav-compact .nav-home, html.nav-compact .nav-phone { display: flex; }
+  html.nav-compact .nav-links a { font-size: 17px; font-weight: 500; min-height: 52px; padding: 12px 8px; display: flex; align-items: center; border-bottom: 1px solid var(--line-2); border-radius: 0; color: var(--muted); }
+  html.nav-compact .nav-links a[aria-current=page] { box-shadow: inset 4px 0 0 var(--green); padding-left: 16px; color: var(--green-text); font-weight: 600; }
   html.nav-compact .nav-end { margin-top: 16px; flex-wrap: wrap; justify-content: space-between; }
+  html.nav-compact .site-nav .nav-end { margin-left: 0; margin-right: 0; }
   html.nav-compact .nav-phone { width: 100%; min-height: 48px; font-size: 17px; }
   html.nav-compact .lang { width: 100%; }
   html.nav-compact .lang-btn { width: 100%; min-height: 48px; font-size: 16px; }
   html.nav-compact .lang-btn .lang-caret { margin-left: auto; }
   html.nav-compact .lang.js .lang-menu { position: static; min-width: 0; margin-top: 6px; box-shadow: none; }
   html.nav-compact .lang-menu a { min-height: 44px; display: flex; align-items: center; font-size: 16px; }
-  html.nav-compact[dir=rtl] .nav-links > a[aria-current="page"] { box-shadow: inset -4px 0 0 var(--green); padding-left: 0; padding-right: 16px; }
+  html.nav-compact[dir=rtl] .nav-links a[aria-current=page] { box-shadow: inset -4px 0 0 var(--green); padding-left: 0; padding-right: 16px; }
   html.nav-compact[dir=rtl] .lang-btn .lang-caret { margin-left: 0; margin-right: auto; }
 @media (max-width: 420px) { .brand img { width: 150px; } }
 
@@ -200,6 +231,8 @@ main:focus { outline: none; }
 @media (min-width: 1000px) {
   .about-head h1 { max-width: none; white-space: nowrap; font-size: clamp(36px, 4.3vw, 52px); }
   .about-head .lead { max-width: 920px; }
+  /* French and Dutch run that one-line heading past the page edge at 1280 (Dutch at 1440 too): they wrap, balanced. */
+  :lang(fr) .about-head h1, :lang(nl) .about-head h1 { white-space: normal; text-wrap: balance; }
 }
 /* Features: a two-line headline split by hand; each line stays whole on wide screens. */
 @media (min-width: 1000px) {
@@ -455,7 +488,9 @@ details .ans p:last-child { margin-bottom: 0; }
 .form-fine { color: var(--muted); font-size: 14px; margin: 0; flex: 1 1 220px; }
 @media (max-width: 480px) { .contact-form.card { padding: 20px; } }
 
-.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+/* The honeypot: out of sight by clipping, not by left: -10000px, which on a right-to-left page (he, ar) is the side that
+   scrolls, and gave /hotels a 10,000px horizontal scroll. */
+.hp { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .field-err { margin: 0; color: var(--red); font-size: 14px; font-weight: 600; }
 .field [aria-invalid="true"] { border-color: var(--red); }
 .form-status { margin: 0; color: var(--ink-2); font-size: 15px; }
@@ -496,7 +531,7 @@ html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; 
 .foot-legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 28px; border-top: 1px solid rgba(255,255,255,.12); margin-top: 48px; padding-top: 22px; font-size: 13.5px; color: #9fb3c7; }
 
 /* ---------- Small-screen touches ---------- */
-@media (min-width: 1440px) { .brand img { width: 216px; } }
+@media (min-width: 1521px) { .brand img { width: 216px; } }
 @media (max-width: 560px) {
   .mock { padding: 18px 16px; }
   .mock-top { flex-wrap: wrap; }
@@ -589,7 +624,7 @@ html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; 
 .nav-login, .nav-cta { padding: 8px 14px; font-size: 14px; white-space: nowrap; }
 @media (max-width: 900px) { .nav-end { flex-wrap: wrap; } }
 .site-nav .nav-end { margin-left: 18px; }
-@media (max-width: 1280px) { .site-nav .nav-links a { padding-left: 8px; padding-right: 8px; } .nav-login, .nav-cta { padding: 7px 11px; } }
+@media (min-width: 1280px) and (max-width: 1360px) { .nav-login, .nav-cta { padding: 7px 12px; } }
 
 /* Screenshots of the app (sample account, fictional names) */
 .app-shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 28px; }
@@ -730,8 +765,8 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 [dir=rtl] .katya-head { padding: 12px 14px 12px 12px; }
 [dir=rtl] .katya-msg-her { border-bottom-left-radius: 14px; border-bottom-right-radius: 4px; }
 [dir=rtl] .katya-msg-user { border-bottom-right-radius: 14px; border-bottom-left-radius: 4px; }
-@media (max-width: 1439px) {
-  [dir=rtl] .nav-links > a[aria-current="page"] { box-shadow: inset -4px 0 0 var(--green); padding-left: 0; padding-right: 16px; }
+@media (max-width: 1279px) {
+  [dir=rtl] .nav-links a[aria-current="page"] { box-shadow: inset -4px 0 0 var(--green); padding-left: 0; padding-right: 16px; }
   [dir=rtl] .lang-btn .lang-caret { margin-left: 0; margin-right: auto; }
 }
 @media (max-width: 560px) { [dir=rtl] .mock-top .ok { margin-right: 56px; margin-left: 0; } }
@@ -740,7 +775,7 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
   [dir=rtl] .katya-bubble { left: 88px; right: auto; }
 }
 /* Left-to-right islands: addresses, links, numbers and code read the same in every language. */
-[dir=rtl] .tel-num, [dir=rtl] a[href^="mailto:"], [dir=rtl] a[href^="tel:"], [dir=rtl] .nav-phone span, [dir=rtl] .foot-contact a,
+[dir=rtl] .tel-num, [dir=rtl] a[href^="mailto:"], [dir=rtl] a[href^="tel:"], [dir=rtl] .nav-phone span, [dir=rtl] .topbar-phone span, [dir=rtl] .foot-contact a,
 [dir=rtl] code, [dir=rtl] kbd, [dir=rtl] pre, [dir=rtl] .amount,
 [dir=rtl] input[type=email], [dir=rtl] input[type=url], [dir=rtl] input[inputmode=url], [dir=rtl] input[type=tel] { direction: ltr; unicode-bidi: isolate; }
 [dir=rtl] .foot-contact { align-items: flex-start; }
