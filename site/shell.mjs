@@ -53,7 +53,7 @@ export const VIDEO_IDS = {
   ar: '',
   it: '',
   de: 'gSSVdn8cr9E',
-  nl: '',
+  nl: 'M60E8OVhar8',
 };
 /** Where a dictionary language's translations live. */
 export const dictFile = (code) => new URL(`./i18n/${code}.json`, import.meta.url);
