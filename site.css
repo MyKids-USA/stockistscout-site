@@ -30,6 +30,15 @@
   --radius: 14px;
   --head-h: 76px;
 }
+/* Simplified Chinese (/zh/, lang="zh-CN", 16 Oct 2026): Google Fonts is blocked in mainland China, so Chinese text uses
+   the system's own fonts, and the Latin fonts are only used when they did load. Tight letter-spacing suits Latin
+   headings, not Chinese. */
+:root:lang(zh) {
+  --display: "Plus Jakarta Sans", "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+  --sans: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+}
+:lang(zh) h1, :lang(zh) h2, :lang(zh) h3 { letter-spacing: 0; }
+:lang(zh) .page-head h1, :lang(zh) .hero h1 { letter-spacing: 0; line-height: 1.25; }
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
@@ -89,9 +98,18 @@ main:focus { outline: none; }
 .foot-contact a { font-weight: 600; }
 .contact-phone { font-size: 22px; font-weight: 700; margin: 4px 0 10px; }
 .contact-phone a { color: var(--ink); text-decoration: none; }
-.lang { flex-shrink: 0; display: inline-flex; border: 1px solid var(--head-line); border-radius: 8px; overflow: hidden; background: var(--head-bg); }
-.lang button { font: 700 13px var(--sans); padding: 6px 12px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
-.lang button[aria-pressed="true"] { background: var(--navy); color: #fff; }
+.lang { flex-shrink: 0; position: relative; }
+.lang-btn { display: inline-flex; align-items: center; gap: 7px; font: 600 14px var(--sans); min-height: 40px; padding: 6px 12px; border: 1px solid var(--head-line); border-radius: 8px; background: var(--head-bg); color: var(--ink); cursor: pointer; white-space: nowrap; }
+.lang-btn svg { color: var(--muted); flex-shrink: 0; }
+.lang-caret { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); opacity: .6; }
+.lang-btn[aria-expanded="true"] .lang-caret { transform: translateY(2px) rotate(225deg); }
+.lang-menu { list-style: none; margin: 0; padding: 6px; }
+.lang-menu a { display: block; padding: 9px 14px; border-radius: 6px; color: var(--ink); text-decoration: none; font: 500 15px var(--sans); white-space: nowrap; }
+.lang-menu a:hover, .lang-menu a:focus-visible { background: var(--paper-2); }
+.lang-menu a[aria-current] { font-weight: 700; color: var(--green-text); }
+/* With JavaScript the list opens under the button; without it, it is a plain list of links. */
+.lang.js .lang-menu { position: absolute; right: 0; top: calc(100% + 6px); z-index: 60; min-width: 180px; background: var(--card); border: 1px solid var(--head-line); border-radius: 10px; box-shadow: var(--shadow); }
+.lang-menu[hidden] { display: none; }
 .menu-btn { display: none; margin-left: auto; width: 48px; height: 48px; border: 1px solid var(--head-line); background: var(--head-bg); border-radius: 10px; cursor: pointer; position: relative; }
 .menu-btn .bars, .menu-btn .bars::before, .menu-btn .bars::after { position: absolute; left: 13px; width: 20px; height: 2px; background: var(--ink); content: ""; transition: transform .2s, opacity .2s; }
 .menu-btn .bars { top: 23px; }
@@ -113,7 +131,11 @@ main:focus { outline: none; }
   .nav-links > a[aria-current="page"] { box-shadow: inset 4px 0 0 var(--green); padding-left: 16px; }
   .nav-end { margin-top: 16px; flex-wrap: wrap; justify-content: space-between; }
   .nav-phone { width: 100%; min-height: 48px; font-size: 17px; }
-  .lang button { padding: 10px 16px; font-size: 14px; }
+  .lang { width: 100%; }
+  .lang-btn { width: 100%; min-height: 48px; font-size: 16px; }
+  .lang-btn .lang-caret { margin-left: auto; }
+  .lang.js .lang-menu { position: static; min-width: 0; margin-top: 6px; box-shadow: none; }
+  .lang-menu a { min-height: 44px; display: flex; align-items: center; font-size: 16px; }
 }
 @media (max-width: 420px) { .brand img { width: 150px; } }
 

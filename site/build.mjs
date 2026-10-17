@@ -19,7 +19,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
-import { page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL } from './shell.mjs';
+import { LANGUAGES, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL } from './shell.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..');
@@ -30,8 +30,8 @@ function agentCards(full) {
   return AGENTS.map((a) => `<li class="agent${full ? ' agent-full' : ''}">
   ${agentImg(a.name, full ? 112 : 80)}
   <span class="agent-name">${a.name}</span>
-  <span class="agent-spec" data-es="${attr(a.specEs)}" data-fr="${attr(a.specFr)}" data-pt="${attr(a.specPt)}">${a.spec}</span>${full ? `
-  <p data-es="${attr(a.doesEs)}" data-fr="${attr(a.doesFr)}" data-pt="${attr(a.doesPt)}">${a.does}</p>` : ''}
+  <span class="agent-spec" data-es="${attr(a.specEs)}" data-fr="${attr(a.specFr)}" data-pt="${attr(a.specPt)}" data-zh="${attr(a.specZh)}">${a.spec}</span>${full ? `
+  <p data-es="${attr(a.doesEs)}" data-fr="${attr(a.doesFr)}" data-pt="${attr(a.doesPt)}" data-zh="${attr(a.doesZh)}">${a.does}</p>` : ''}
 </li>`).join('\n');
 }
 
@@ -81,11 +81,13 @@ const outFile = (path) => path === '/' ? 'index.html' : path.slice(1) + '.html';
    English. Now the build writes each page three times with the text already in it: English at the root (the URLs
    Google already knows; /en redirects there), Spanish under /es/ and French under /fr/, joined by hreflang, each with
    its own canonical and listed in the sitemap with its alternates. The data-* stay, harmless.
-   Brazilian Portuguese (16 Oct 2026) is the fourth: data-pt, under /pt/, the same way. */
-export const LANGS = ['en', 'es', 'fr', 'pt'];
-const LOCALE = { en: 'en_US', es: 'es_MX', fr: 'fr_CA', pt: 'pt_BR' };
-/** A page's path in a language: /pricing → /es/pricing, / → /es/. */
-export const pathIn = (path, lang) => lang === 'en' ? path : `/${lang}${path === '/' ? '/' : path}`;
+   Brazilian Portuguese (16 Oct 2026) is the fourth: data-pt, under /pt/, the same way. Simplified Chinese (16 Oct 2026,
+   for factories looking for stores abroad) is the fifth: data-zh, under /zh/, <html lang="zh-CN">, hreflang zh-Hans.
+   The languages themselves are the one LANGUAGES list in shell.mjs (16 Oct 2026); everything here comes from it. */
+export const LANGS = LANGUAGES.map((l) => l.code);
+const BY = Object.fromEntries(LANGUAGES.map((l) => [l.code, l]));
+const hreflang = (l) => BY[l]?.hreflang ?? l; // x-default stays itself
+export { pathIn };
 const fileIn = (path, lang) => lang === 'en' ? outFile(path) : `${lang}/${outFile(path)}`;
 
 /** The text of an element in a language (data-es / data-fr / data-pt, or data-es-alt and the like): French and
@@ -99,7 +101,7 @@ export function localize(html, lang, path, pages, meta) {
   const { document } = parseHTML(html);
   const head = document.head;
   if (lang !== 'en') {
-    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('lang', BY[lang].html);
     for (const el of document.querySelectorAll(`[data-${lang}]`)) {
       const text = pick(el, lang, null, '');
       if (text == null) continue;
@@ -111,7 +113,7 @@ export function localize(html, lang, path, pages, meta) {
         if (v != null) el.setAttribute(a, v);
       }
     }
-    const desc = { es: meta.descriptionEs, fr: meta.descriptionFr, pt: meta.descriptionPt }[lang];
+    const desc = meta['description' + lang[0].toUpperCase() + lang.slice(1)];
     if (desc) {
       head.querySelector('meta[name="description"]')?.setAttribute('content', desc);
       head.querySelector('meta[property="og:description"]')?.setAttribute('content', desc);
@@ -119,22 +121,32 @@ export function localize(html, lang, path, pages, meta) {
     head.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title);
     // Links to our pages stay in the language; the app opens in it too.
     for (const a of document.querySelectorAll('a[href]')) {
+      if (a.closest('#langMenu')) continue; // the language menu already points at each language
       const href = a.getAttribute('href');
       const m = /^(\/[a-z0-9-]*)(#.*)?$/.exec(href);
       if (m && pages.has(m[1])) a.setAttribute('href', pathIn(m[1], lang) + (m[2] || ''));
       else if (href.startsWith(APP_URL + '/')) a.setAttribute('href', href + (href.includes('?') ? '&' : '?') + `lang=${lang}`);
     }
+    // Google Fonts is blocked in mainland China, and a stylesheet link blocks rendering until it loads or times out.
+    // On /zh/ it loads without blocking (print, then all), and the Chinese font stack in site.css (:lang(zh)) needs none of it.
+    if (lang === 'zh') {
+      for (const l of head.querySelectorAll('link[href^="https://fonts.g"]')) {
+        if (l.getAttribute('rel') === 'preconnect') { l.remove(); continue; }
+        l.setAttribute('media', 'print'); l.setAttribute('onload', "this.media='all'");
+      }
+    }
   }
   const url = ORIGIN + pathIn(path, lang);
   head.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
   head.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
-  const og = document.createElement('meta'); og.setAttribute('property', 'og:locale'); og.setAttribute('content', LOCALE[lang]);
+  document.querySelector(`#langMenu a[data-lang="${lang}"]`)?.setAttribute('aria-current', 'true');
+  const og = document.createElement('meta'); og.setAttribute('property', 'og:locale'); og.setAttribute('content', BY[lang].locale);
   head.querySelector('meta[property="og:type"]')?.after(og);
   if (!meta.noindex) {
     const canonical = head.querySelector('link[rel="canonical"]');
     for (const l of [...LANGS, 'x-default']) {
       const link = document.createElement('link');
-      link.setAttribute('rel', 'alternate'); link.setAttribute('hreflang', l);
+      link.setAttribute('rel', 'alternate'); link.setAttribute('hreflang', hreflang(l));
       link.setAttribute('href', ORIGIN + pathIn(path, l === 'x-default' ? 'en' : l));
       canonical.after(link);
     }
@@ -142,16 +154,24 @@ export function localize(html, lang, path, pages, meta) {
   return document.toString();
 }
 
-/** Every French text has its Portuguese (16 Oct 2026): an element with data-fr, data-fr-alt, ... and not the matching
-    data-pt* would show English on /pt/ without anyone noticing, so the build stops. Images and links (-src, -href)
-    may stay English: the app screenshots have Portuguese (16 Oct 2026), the video thumbnail may not. Returns the problems, empty when all is well. */
-export function missingPt(html, where) {
+/** Every French text has its Portuguese (16 Oct 2026), and every Portuguese text its Chinese (16 Oct 2026): from French on,
+    an element with data-<lang>, data-<lang>-alt, ... must have the same attribute in every language after it in LANGUAGES,
+    or that page would show English there without anyone noticing, so the build stops. (So data-pt needs data-zh, and a
+    language added later needs its texts before the build passes.) Images and links (-src, -href) may stay English: the
+    app screenshots have Portuguese (16 Oct 2026) but no Chinese yet, and /zh/ uses the English ones.
+    Returns the problems, empty when all is well. */
+export function missingTranslations(html, where) {
   const { document } = parseHTML(html);
   const out = [];
+  const checked = LANGS.slice(LANGS.indexOf('fr'));
   for (const el of document.querySelectorAll('*')) for (const { name } of [...el.attributes]) {
-    if (!name.startsWith('data-fr') || name === 'data-fr-src' || name === 'data-fr-href') continue;
-    const want = 'data-pt' + name.slice(7);
-    if (!el.hasAttribute(want)) out.push(`${where}: <${el.tagName.toLowerCase()} ${name}="${el.getAttribute(name).slice(0, 50)}"> has no ${want}`);
+    const from = checked.find((l) => name === `data-${l}` || name.startsWith(`data-${l}-`));
+    if (!from) continue;
+    const key = name.slice(`data-${from}`.length);
+    if (key === '-src' || key === '-href') continue;
+    for (const to of checked.slice(checked.indexOf(from) + 1)) {
+      if (!el.hasAttribute(`data-${to}${key}`)) out.push(`${where}: <${el.tagName.toLowerCase()} ${name}="${el.getAttribute(name).slice(0, 50)}"> has no data-${to}${key}`);
+    }
   }
   return out;
 }
@@ -161,7 +181,7 @@ const TODAY = new Date().toISOString().slice(0, 10);
 
 /* Every language of every page, each listing all of them as alternates (Google's sitemap form of hreflang). */
 function sitemap(urls) {
-  const alts = (u) => LANGS.map((l) => `<xhtml:link rel="alternate" hreflang="${l}" href="${ORIGIN}${pathIn(u, l)}"/>`)
+  const alts = (u) => LANGS.map((l) => `<xhtml:link rel="alternate" hreflang="${hreflang(l)}" href="${ORIGIN}${pathIn(u, l)}"/>`)
     .concat(`<xhtml:link rel="alternate" hreflang="x-default" href="${ORIGIN}${u}"/>`).join('');
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -183,10 +203,12 @@ export function build() {
   for (const l of LANGS.slice(1)) mkdirSync(join(ROOT, l), { recursive: true });
   for (const { meta, body } of all) {
     const en = page({ ...meta, body: fill(body) });
-    const gaps = missingPt(en, meta.path);
-    if (meta.titleFr && !meta.titlePt) gaps.push(`${meta.path}: titleFr without titlePt`);
-    if (meta.descriptionFr && !meta.descriptionPt) gaps.push(`${meta.path}: descriptionFr without descriptionPt`);
-    if (gaps.length) throw new Error('French without Portuguese:\n' + gaps.join('\n'));
+    const gaps = missingTranslations(en, meta.path);
+    // titleFr, titlePt, titleZh ... and the same for description: each language from French on has them when French does.
+    const cap = (l) => l[0].toUpperCase() + l.slice(1);
+    for (const k of ['title', 'description']) if (meta[k + 'Fr'])
+      for (const l of LANGS.slice(LANGS.indexOf('fr') + 1)) if (!meta[k + cap(l)]) gaps.push(`${meta.path}: ${k}Fr without ${k}${cap(l)}`);
+    if (gaps.length) throw new Error('Missing translations:\n' + gaps.join('\n'));
     // The 404 stays English-only: it is never indexed.
     for (const l of meta.noindex ? ['en'] : LANGS) writeFileSync(join(ROOT, fileIn(meta.path, l)), localize(en, l, meta.path, pages, meta));
     if (!meta.noindex) urls.push([meta.path, meta.updated || TODAY]);

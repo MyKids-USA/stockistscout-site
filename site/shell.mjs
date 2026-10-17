@@ -3,15 +3,31 @@
  * the language script. Change the menu here and run `npm run build`; every page picks it
  * up, because build.mjs re-wraps all of them. Modelled on trademarkscanner.app.
  *
- * One URL per language (15 Oct 2026): the pages carry English with Spanish, French and Brazilian Portuguese in
- * data-es / data-fr / data-pt, and build.mjs writes /es/, /fr/ and /pt/ copies with that text in the HTML, so
- * search engines index all four (Portuguese since 16 Oct 2026). The toggle goes to the other language's URL; the choice is remembered, and a first visit to an
+ * One URL per language (15 Oct 2026): the pages carry English with Spanish, French, Brazilian Portuguese and
+ * Simplified Chinese in data-es / data-fr / data-pt / data-zh, and build.mjs writes /es/, /fr/, /pt/ and /zh/ copies
+ * with that text in the HTML, so search engines index all five (Portuguese and Chinese since 16 Oct 2026). The toggle goes to the other language's URL; the choice is remembered, and a first visit to an
  * English page follows the browser language.
  */
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 
 export const ORIGIN = 'https://stockistscout.com';
+
+/* The site's languages, in the order of the language menu: one entry per language (Aharon, 16 Oct 2026: a dropdown,
+   because there will be eight: English, Español, Français, Português, 中文, then 日本語, 한국어, עברית). `code` is the URL
+   folder and the data-<code> attribute that carries the text, `name` the language's name in itself, `word` its word for "Language", `html` its
+   <html lang>, `hreflang` its hreflang, `locale` its og:locale. A new language is one entry here plus its data-<code>
+   texts (and, for a right-to-left one, dir="rtl" in build.mjs). English is first and lives at the root. */
+export const LANGUAGES = [
+  { code: 'en', name: 'English', word: 'Language', html: 'en', hreflang: 'en', locale: 'en_US' },
+  { code: 'es', name: 'Español', word: 'Idioma', html: 'es', hreflang: 'es', locale: 'es_MX' },
+  { code: 'fr', name: 'Français', word: 'Langue', html: 'fr', hreflang: 'fr', locale: 'fr_CA' },
+  { code: 'pt', name: 'Português', word: 'Idioma', html: 'pt-BR', hreflang: 'pt', locale: 'pt_BR' },
+  { code: 'zh', name: '中文', word: '语言', html: 'zh-CN', hreflang: 'zh-Hans', locale: 'zh_CN' },
+];
+/** A page's path in a language: /pricing → /es/pricing, / → /es/. */
+export const pathIn = (path, lang) => lang === 'en' ? path : `/${lang}${path === '/' ? '/' : path}`;
+const GLOBE_ICON = '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
 export const COMPANY = 'Aharon &amp; Ita Corp';
 
 /* Launch switches.
@@ -40,10 +56,11 @@ export const CTA_LABEL = 'Start free';
 export const CTA_LABEL_ES = 'Empieza gratis';
 export const CTA_LABEL_FR = 'Commencez gratuitement';
 export const CTA_LABEL_PT = 'Comece grátis';
+export const CTA_LABEL_ZH = '免费开始';
 
 /** The one call-to-action button; `cls` is the button style of the place it sits in. */
 export function ctaButton(cls) {
-  return `<a class="btn ${cls}" href="${CTA_URL}" data-es="${attr(CTA_LABEL_ES)}" data-fr="${attr(CTA_LABEL_FR)}" data-pt="${attr(CTA_LABEL_PT)}">${CTA_LABEL}</a>`;
+  return `<a class="btn ${cls}" href="${CTA_URL}" data-es="${attr(CTA_LABEL_ES)}" data-fr="${attr(CTA_LABEL_FR)}" data-pt="${attr(CTA_LABEL_PT)}" data-zh="${attr(CTA_LABEL_ZH)}">${CTA_LABEL}</a>`;
 }
 
 /** Changes whenever site.css changes, so a browser never pairs new HTML with an old cached stylesheet. */
@@ -55,17 +72,17 @@ const CSS_VERSION = createHash('sha256').update(readFileSync(new URL('../site.cs
 const KATYA_VERSION = createHash('sha256').update(readFileSync(new URL('../katya.js', import.meta.url))).digest('hex').slice(0, 10);
 
 export const NAV = [
-  ['/', 'Home', 'Inicio', 'Accueil', 'Início'],
-  ['/how-it-works', 'How it works', 'Cómo funciona', 'Comment ça marche', 'Como funciona'],
-  ['/features', 'Features', 'Funciones', 'Fonctionnalités', 'Recursos'],
-  ['/agents', 'Meet our agents', 'Conoce a nuestros agentes', 'Nos agents', 'Nossos agentes'],
-  ['/pricing', 'Pricing', 'Precios', 'Tarifs', 'Preços'],
-  ['/hotels', 'For hotels', 'Para hoteles', 'Pour les hôtels', 'Para hotéis'],
-  ['/results', 'Results', 'Resultados', 'Résultats', 'Resultados'],
-  ['/reviews', 'Reviews', 'Reseñas', 'Avis', 'Avaliações'],
-  ['/faq', 'FAQ', 'Preguntas', 'FAQ', 'Perguntas'],
-  ['/about', 'About', 'Quiénes somos', 'À propos', 'Quem somos'],
-  ['/contact', 'Contact', 'Contacto', 'Contact', 'Contato'],
+  ['/', 'Home', 'Inicio', 'Accueil', 'Início', '首页'],
+  ['/how-it-works', 'How it works', 'Cómo funciona', 'Comment ça marche', 'Como funciona', '工作原理'],
+  ['/features', 'Features', 'Funciones', 'Fonctionnalités', 'Recursos', '功能'],
+  ['/agents', 'Meet our agents', 'Conoce a nuestros agentes', 'Nos agents', 'Nossos agentes', '认识我们的智能体'],
+  ['/pricing', 'Pricing', 'Precios', 'Tarifs', 'Preços', '价格'],
+  ['/hotels', 'For hotels', 'Para hoteles', 'Pour les hôtels', 'Para hotéis', '酒店方案'],
+  ['/results', 'Results', 'Resultados', 'Résultats', 'Resultados', '成效'],
+  ['/reviews', 'Reviews', 'Reseñas', 'Avis', 'Avaliações', '用户评价'],
+  ['/faq', 'FAQ', 'Preguntas', 'FAQ', 'Perguntas', '常见问题'],
+  ['/about', 'About', 'Quiénes somos', 'À propos', 'Quem somos', '关于我们'],
+  ['/contact', 'Contact', 'Contacto', 'Contact', 'Contato', '联系我们'],
 ];
 
 /* The eight agents (names fixed by the owner: first names only, never surnames, ages or
@@ -78,42 +95,50 @@ export const AGENTS = [
     does: 'Looks for children’s boutiques and baby stores whose range and price point fit your line, and writes to each one about why it belongs on their shelves.',
     doesEs: 'Busca boutiques infantiles y tiendas de bebé cuyo surtido y precios encajan con tu línea, y le escribe a cada una por qué merece estar en sus estantes.',
     specFr: 'Boutiques de vêtements pour bébés et enfants', doesFr: 'Cherche des boutiques pour enfants et des magasins pour bébés dont l’assortiment et les prix conviennent à votre gamme, et écrit à chacune pourquoi vos produits ont leur place sur ses tablettes.', specPt: 'Lojas de roupa para bebês e crianças',
-    doesPt: 'Procura butiques infantis e lojas de bebê cujo sortimento e faixa de preço combinam com a sua linha, e escreve para cada uma explicando por que os seus produtos merecem estar nas prateleiras dela.' },
+    doesPt: 'Procura butiques infantis e lojas de bebê cujo sortimento e faixa de preço combinam com a sua linha, e escreve para cada uma explicando por que os seus produtos merecem estar nas prateleiras dela.',
+    specZh: '婴童服装店', doesZh: '寻找产品组合和价位与您产品线相符的童装精品店和母婴店，并逐一写信说明您的产品为何值得上架。' },
   { name: 'Elias', spec: 'Gift, home &amp; décor shops', specEs: 'Tiendas de regalos, hogar y decoración',
     does: 'Finds gift shops, home stores and décor boutiques that carry products like yours, and introduces your brand to the person who buys for them.',
     doesEs: 'Encuentra tiendas de regalos, de hogar y de decoración que venden productos como los tuyos, y le presenta tu marca a quien compra para ellas.',
     specFr: 'Boutiques de cadeaux, maison et décoration', doesFr: 'Trouve des boutiques de cadeaux, de maison et de décoration qui vendent des produits comme les vôtres, et présente votre marque à la personne qui fait leurs achats.', specPt: 'Lojas de presentes, casa e decoração',
-    doesPt: 'Encontra lojas de presentes, de casa e butiques de decoração que vendem produtos como os seus, e apresenta a sua marca para a pessoa que faz as compras delas.' },
+    doesPt: 'Encontra lojas de presentes, de casa e butiques de decoração que vendem produtos como os seus, e apresenta a sua marca para a pessoa que faz as compras delas.',
+    specZh: '礼品、家居和装饰店', doesZh: '寻找销售与您同类产品的礼品店、家居店和装饰精品店，并把您的品牌介绍给负责采购的人。' },
   { name: 'Raquel', spec: 'Fashion &amp; accessories boutiques', specEs: 'Boutiques de moda y accesorios',
     does: 'Searches for fashion and accessories boutiques whose style and prices match yours, and writes to each one personally.',
     doesEs: 'Busca boutiques de moda y accesorios con un estilo y unos precios como los tuyos, y le escribe a cada una de forma personal.',
     specFr: 'Boutiques de mode et d’accessoires', doesFr: 'Cherche des boutiques de mode et d’accessoires au style et aux prix semblables aux vôtres, et écrit à chacune de façon personnelle.', specPt: 'Butiques de moda e acessórios',
-    doesPt: 'Procura butiques de moda e acessórios com estilo e preços parecidos com os seus, e escreve para cada uma de forma pessoal.' },
+    doesPt: 'Procura butiques de moda e acessórios com estilo e preços parecidos com os seus, e escreve para cada uma de forma pessoal.',
+    specZh: '时尚与配饰精品店', doesZh: '寻找风格和价位与您相近的时尚与配饰精品店，并为每一家撰写个性化的邮件。' },
   { name: 'Roberto', spec: 'Wholesalers, distributors &amp; warehouses', specEs: 'Mayoristas, distribuidores y almacenes',
     does: 'Finds wholesalers, distributors and warehouses that could carry your line in volume, and opens the conversation on your behalf.',
     doesEs: 'Encuentra mayoristas, distribuidores y almacenes que podrían llevar tu línea por volumen, y abre la conversación en tu nombre.',
     specFr: 'Grossistes, distributeurs et entrepôts', doesFr: 'Trouve des grossistes, des distributeurs et des entrepôts qui pourraient prendre votre gamme en volume, et ouvre la conversation en votre nom.', specPt: 'Atacadistas, distribuidores e armazéns',
-    doesPt: 'Encontra atacadistas, distribuidores e armazéns que poderiam levar a sua linha em volume, e abre a conversa em seu nome.' },
+    doesPt: 'Encontra atacadistas, distribuidores e armazéns que poderiam levar a sua linha em volume, e abre a conversa em seu nome.',
+    specZh: '批发商、分销商和仓储商', doesZh: '寻找能够批量经销您产品线的批发商、分销商和仓储商，并代表您开启洽谈。' },
   { name: 'Rony', spec: 'Sports, outdoor &amp; adventure stores', specEs: 'Tiendas de deportes, aire libre y aventura',
     does: 'Looks for sporting goods, outdoor and adventure stores where your products fit, and tells each one why.',
     doesEs: 'Busca tiendas de deportes, de aire libre y de aventura donde tus productos encajan, y le explica a cada una por qué.',
     specFr: 'Magasins de sport, de plein air et d’aventure', doesFr: 'Cherche des magasins de sport, de plein air et d’aventure où vos produits ont leur place, et explique à chacun pourquoi.', specPt: 'Lojas de esportes, ar livre e aventura',
-    doesPt: 'Procura lojas de artigos esportivos, de ar livre e de aventura onde os seus produtos se encaixam, e explica a cada uma por quê.' },
+    doesPt: 'Procura lojas de artigos esportivos, de ar livre e de aventura onde os seus produtos se encaixam, e explica a cada uma por quê.',
+    specZh: '运动、户外和探险用品店', doesZh: '寻找适合您产品的体育用品店、户外店和探险用品店，并向每一家说明原因。' },
   { name: 'Gabriel', spec: 'Beauty, personal care &amp; wellness', specEs: 'Belleza, cuidado personal y bienestar',
     does: 'Finds beauty, personal-care and wellness shops that suit your products, and writes each one a note about what you can offer them.',
     doesEs: 'Encuentra tiendas de belleza, cuidado personal y bienestar que van con tus productos, y le escribe a cada una lo que le puedes ofrecer.',
     specFr: 'Beauté, soins personnels et bien-être', doesFr: 'Trouve des boutiques de beauté, de soins personnels et de bien-être qui conviennent à vos produits, et écrit à chacune ce que vous pouvez lui offrir.', specPt: 'Beleza, cuidados pessoais e bem-estar',
-    doesPt: 'Encontra lojas de beleza, cuidados pessoais e bem-estar que combinam com os seus produtos, e escreve para cada uma o que você pode oferecer.' },
+    doesPt: 'Encontra lojas de beleza, cuidados pessoais e bem-estar que combinam com os seus produtos, e escreve para cada uma o que você pode oferecer.',
+    specZh: '美妆、个人护理和健康', doesZh: '寻找与您产品相匹配的美妆、个人护理和健康类门店，并写信告诉每一家您能为其提供什么。' },
   { name: 'Aaron', spec: 'Pet stores', specEs: 'Tiendas de mascotas',
     does: 'Searches for independent pet stores and pet boutiques that fit your line, and introduces your products to them.',
     doesEs: 'Busca tiendas de mascotas independientes y boutiques para mascotas que encajan con tu línea, y les presenta tus productos.',
     specFr: 'Animaleries', doesFr: 'Cherche des animaleries indépendantes et des boutiques pour animaux qui conviennent à votre gamme, et leur présente vos produits.', specPt: 'Pet shops',
-    doesPt: 'Procura pet shops independentes e butiques para animais que combinam com a sua linha, e apresenta os seus produtos a elas.' },
+    doesPt: 'Procura pet shops independentes e butiques para animais que combinam com a sua linha, e apresenta os seus produtos a elas.',
+    specZh: '宠物用品店', doesZh: '寻找与您产品线相符的独立宠物店和宠物精品店，并向他们介绍您的产品。' },
   { name: 'Joel', spec: 'Toys, games &amp; hobby shops', specEs: 'Jugueterías, juegos y hobbies',
     does: 'Finds toy stores, game shops and hobby stores that match your range, and writes to each one about your products.',
     doesEs: 'Encuentra jugueterías, tiendas de juegos y de hobbies que encajan con tu surtido, y le escribe a cada una sobre tus productos.',
     specFr: 'Magasins de jouets, de jeux et de loisirs', doesFr: 'Trouve des magasins de jouets, de jeux et de loisirs qui conviennent à votre assortiment, et écrit à chacun au sujet de vos produits.', specPt: 'Lojas de brinquedos, jogos e hobbies',
-    doesPt: 'Encontra lojas de brinquedos, de jogos e de hobbies que combinam com o seu sortimento, e escreve para cada uma sobre os seus produtos.' },
+    doesPt: 'Encontra lojas de brinquedos, de jogos e de hobbies que combinam com o seu sortimento, e escreve para cada uma sobre os seus produtos.',
+    specZh: '玩具、游戏和爱好用品店', doesZh: '寻找与您产品组合相符的玩具店、游戏店和爱好用品店，并逐一写信介绍您的产品。' },
 ];
 
 /** One agent's picture: a fixed square slot, the same file name for the placeholder and the final portrait. */
@@ -134,12 +159,16 @@ export const attr = (t) => String(t).replace(/&/g, '&amp;').replace(/"/g, '&quot
 
 const FONTS = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap';
 
-function head({ path, title, titleEs, titleFr, titlePt, description }) {
+function head(meta) {
+  const { path, title, description } = meta;
   const url = ORIGIN + (path === '/' ? '/' : path);
-  const full = path === '/' ? title : `${title} | StockistScout`;
-  const fullEs = titleEs ? (path === '/' ? titleEs : `${titleEs} | StockistScout`) : null;
-  const fullFr = titleFr ? (path === '/' ? titleFr : `${titleFr} | StockistScout`) : null;
-  const fullPt = titlePt ? (path === '/' ? titlePt : `${titlePt} | StockistScout`) : null;
+  const titled = (t) => path === '/' ? t : `${t} | StockistScout`;
+  const full = titled(title);
+  // The title in each language (titleEs, titleFr, titlePt, titleZh, ...) rides in data-<lang> on <title>.
+  const titles = LANGUAGES.slice(1).map((l) => {
+    const t = meta['title' + l.code[0].toUpperCase() + l.code.slice(1)];
+    return t ? ` data-${l.code}="${attr(titled(t))}"` : '';
+  }).join('');
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -154,7 +183,7 @@ function head({ path, title, titleEs, titleFr, titlePt, description }) {
 
   gtag('config', 'G-6V3RJHBRL5');
 </script>
-<title${fullEs ? ` data-es="${attr(fullEs)}"` : ''}${fullFr ? ` data-fr="${attr(fullFr)}"` : ''}${fullPt ? ` data-pt="${attr(fullPt)}"` : ''}>${full}</title>
+<title${titles}>${full}</title>
 <meta name="description" content="${esc(description)}">
 ${INDEXABLE ? '' : '<meta name="robots" content="noindex">\n'}<link rel="canonical" href="${url}">
 <meta property="og:type" content="website">
@@ -185,35 +214,45 @@ function logo(w, h, extra = '') {
   return `<picture><source srcset="/img/logo-dark-520.png" media="(prefers-color-scheme: dark)"><img src="/img/logo-520.png" alt="StockistScout" width="${w}" height="${h}"${extra}></picture>`;
 }
 
+/* The language menu (16 Oct 2026): a button that opens a list of real links, one per language, each to this page in
+   that language and named in its own language. Without JavaScript the list is simply always shown. build.mjs marks the
+   page's own language (aria-current) and leaves these links alone when it points the other links at the language. */
+function langMenu(path) {
+  const current = LANGUAGES.slice(1).map((l) => ` data-${l.code}="${attr(l.name)}"`).join('');
+  const label = ' aria-label="Language: English"' + LANGUAGES.slice(1).map((l) => ` data-${l.code}-label="${attr(l.word)}: ${attr(l.name)}"`).join('');
+  const items = LANGUAGES.map((l) =>
+    `            <li><a href="${pathIn(path, l.code)}" hreflang="${l.hreflang}" lang="${l.html}" data-lang="${l.code}">${l.name}</a></li>`).join('\n');
+  return `<div class="lang" id="langToggle">
+          <button type="button" class="lang-btn" aria-expanded="false" aria-controls="langMenu"${label}>${GLOBE_ICON}<span${current}>English</span><span class="lang-caret" aria-hidden="true"></span></button>
+          <ul class="lang-menu" id="langMenu">
+${items}
+          </ul>
+        </div>`;
+}
+
 function header(path) {
-  const links = NAV.map(([href, en, es, fr, pt]) => {
+  const links = NAV.map(([href, en, es, fr, pt, zh]) => {
     const on = path === href ? ' aria-current="page"' : '';
-    return `      <a href="${href}"${on} data-es="${attr(es)}" data-fr="${attr(fr)}" data-pt="${attr(pt)}">${en}</a>`;
+    return `      <a href="${href}"${on} data-es="${attr(es)}" data-fr="${attr(fr)}" data-pt="${attr(pt)}" data-zh="${attr(zh)}">${en}</a>`;
   }).join('\n');
-  return `<a class="skip" href="#main" data-es="Ir al contenido" data-fr="Aller au contenu" data-pt="Pular para o conteúdo">Skip to content</a>
+  return `<a class="skip" href="#main" data-es="Ir al contenido" data-fr="Aller au contenu" data-pt="Pular para o conteúdo" data-zh="跳到正文">Skip to content</a>
 <header class="site-head">
   <div class="head-row">
-    <a class="brand" href="/" aria-label="StockistScout, home" data-es-label="StockistScout, inicio" data-fr-label="StockistScout, accueil" data-pt-label="StockistScout, início">
+    <a class="brand" href="/" aria-label="StockistScout, home" data-es-label="StockistScout, inicio" data-fr-label="StockistScout, accueil" data-pt-label="StockistScout, início" data-zh-label="StockistScout，首页">
       ${logo(196, 52, ' fetchpriority="high"')}
     </a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-menu">
-      <span class="bars" aria-hidden="true"></span><span class="sr" data-es="Menú" data-fr="Menu" data-pt="Menu">Menu</span>
+      <span class="bars" aria-hidden="true"></span><span class="sr" data-es="Menú" data-fr="Menu" data-pt="Menu" data-zh="菜单">Menu</span>
     </button>
     <nav id="site-menu" class="site-nav" aria-label="Main">
       <div class="nav-links">
 ${links}
       </div>
       <div class="nav-end">
-        <a class="nav-phone" href="${CONTACT_TEL}" aria-label="Call StockistScout at ${CONTACT_PHONE_DIGITS}" data-es-label="Llama a StockistScout al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligue para o StockistScout no ${CONTACT_PHONE_DIGITS}">${PHONE_ICON}<span>${CONTACT_PHONE}</span></a>
-        <a class="btn btn-ghost nav-login" href="${LOGIN_URL}" data-es="Iniciar sesión" data-fr="Se connecter" data-pt="Entrar">Log in</a>
-        <a class="btn btn-primary nav-cta" href="${CTA_URL}" data-es="Empieza gratis" data-fr="Commencer gratuitement" data-pt="Comece grátis">Start free</a>
-        <div class="lang" id="langToggle" role="group" aria-label="Language">
-          <!-- Four languages (16 Oct 2026): the short codes fit a phone; each says its full name to a screen reader. -->
-          <button type="button" data-lang="en" aria-pressed="true" lang="en" aria-label="English" title="English">EN</button>
-          <button type="button" data-lang="es" aria-pressed="false" lang="es" aria-label="Español" title="Español">ES</button>
-          <button type="button" data-lang="fr" aria-pressed="false" lang="fr" aria-label="Français" title="Français">FR</button>
-          <button type="button" data-lang="pt" aria-pressed="false" lang="pt-BR" aria-label="Português" title="Português">PT</button>
-        </div>
+        <a class="nav-phone" href="${CONTACT_TEL}" aria-label="Call StockistScout at ${CONTACT_PHONE_DIGITS}" data-es-label="Llama a StockistScout al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligue para o StockistScout no ${CONTACT_PHONE_DIGITS}" data-zh-label="致电 StockistScout：${CONTACT_PHONE_DIGITS}">${PHONE_ICON}<span>${CONTACT_PHONE}</span></a>
+        <a class="btn btn-ghost nav-login" href="${LOGIN_URL}" data-es="Iniciar sesión" data-fr="Se connecter" data-pt="Entrar" data-zh="登录">Log in</a>
+        <a class="btn btn-primary nav-cta" href="${CTA_URL}" data-es="Empieza gratis" data-fr="Commencer gratuitement" data-pt="Comece grátis" data-zh="免费开始">Start free</a>
+        ${langMenu(path)}
       </div>
     </nav>
   </div>
@@ -224,33 +263,33 @@ function footer() {
   return `<footer class="site-foot">
   <div class="wrap foot-grid">
     <div class="foot-brand">
-      <a class="foot-logo" href="/" aria-label="StockistScout, home" data-es-label="StockistScout, inicio" data-fr-label="StockistScout, accueil" data-pt-label="StockistScout, início"><img src="/img/logo-dark-520.png" alt="StockistScout" width="196" height="52" loading="lazy"></a>
-      <p data-es="Agentes de IA que encuentran tiendas que encajan con tus productos y les escriben en nombre de tu negocio. Solo B2B: tiendas, nunca consumidores." data-fr="Des agents d'IA qui trouvent des boutiques qui correspondent à vos produits et leur écrivent au nom de votre entreprise. B2B seulement : des boutiques, jamais des consommateurs." data-pt="Agentes de IA que encontram lojas que combinam com seus produtos e escrevem para elas em nome da sua empresa. Somente B2B: lojas, nunca consumidores.">AI agents that find stores that fit your products and write to them on behalf of your business. B2B only: stores, never consumers.</p>
-      <p class="disclaimer" data-es="Prueba gratis con 50 correos, sin tarjeta. Ningún resultado de ventas está garantizado." data-fr="Essai gratuit de 50 courriels, sans carte. Aucun résultat de vente n'est garanti." data-pt="Teste grátis com 50 e-mails, sem cartão. Nenhum resultado de vendas é garantido.">Free trial with 50 emails, no card needed. No sales results are guaranteed.</p>
+      <a class="foot-logo" href="/" aria-label="StockistScout, home" data-es-label="StockistScout, inicio" data-fr-label="StockistScout, accueil" data-pt-label="StockistScout, início" data-zh-label="StockistScout，首页"><img src="/img/logo-dark-520.png" alt="StockistScout" width="196" height="52" loading="lazy"></a>
+      <p data-es="Agentes de IA que encuentran tiendas que encajan con tus productos y les escriben en nombre de tu negocio. Solo B2B: tiendas, nunca consumidores." data-fr="Des agents d'IA qui trouvent des boutiques qui correspondent à vos produits et leur écrivent au nom de votre entreprise. B2B seulement : des boutiques, jamais des consommateurs." data-pt="Agentes de IA que encontram lojas que combinam com seus produtos e escrevem para elas em nome da sua empresa. Somente B2B: lojas, nunca consumidores." data-zh="AI 智能体为您找到与产品相匹配的零售店，并以您企业的名义给它们写信。仅限 B2B：只联系零售店，从不联系消费者。">AI agents that find stores that fit your products and write to them on behalf of your business. B2B only: stores, never consumers.</p>
+      <p class="disclaimer" data-es="Prueba gratis con 50 correos, sin tarjeta. Ningún resultado de ventas está garantizado." data-fr="Essai gratuit de 50 courriels, sans carte. Aucun résultat de vente n'est garanti." data-pt="Teste grátis com 50 e-mails, sem cartão. Nenhum resultado de vendas é garantido." data-zh="免费试用 50 封邮件，无需信用卡。不保证任何销售结果。">Free trial with 50 emails, no card needed. No sales results are guaranteed.</p>
       <p class="foot-contact">
-        <a href="${CONTACT_TEL}" aria-label="Call ${CONTACT_PHONE_DIGITS}" data-es-label="Llamar al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligar para ${CONTACT_PHONE_DIGITS}">${CONTACT_PHONE} · ${CONTACT_PHONE_DIGITS}</a>
+        <a href="${CONTACT_TEL}" aria-label="Call ${CONTACT_PHONE_DIGITS}" data-es-label="Llamar al ${CONTACT_PHONE_DIGITS}" data-pt-label="Ligar para ${CONTACT_PHONE_DIGITS}" data-zh-label="拨打 ${CONTACT_PHONE_DIGITS}">${CONTACT_PHONE} · ${CONTACT_PHONE_DIGITS}</a>
         <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
       </p>
     </div>
-    <nav aria-label="Product" data-es-label="Producto" data-fr-label="Produit" data-pt-label="Produto">
-      <h2 data-es="Producto" data-fr="Produit" data-pt="Produto">Product</h2>
-      <a href="/how-it-works" data-es="Cómo funciona" data-fr="Comment ça fonctionne" data-pt="Como funciona">How it works</a>
-      <a href="/features" data-es="Funciones" data-fr="Fonctionnalités" data-pt="Recursos">Features</a>
-      <a href="/pricing" data-es="Precios" data-fr="Tarifs" data-pt="Preços">Pricing</a>
-      <a href="/hotels" data-es="Para cadenas de hoteles" data-fr="Pour les chaînes hôtelières" data-pt="Para redes hoteleiras">For hotel chains</a>
-      <a href="/results" data-es="Resultados" data-fr="Résultats" data-pt="Resultados">Results</a>
-      <a href="/faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-pt="Perguntas frequentes">FAQ</a>
+    <nav aria-label="Product" data-es-label="Producto" data-fr-label="Produit" data-pt-label="Produto" data-zh-label="产品">
+      <h2 data-es="Producto" data-fr="Produit" data-pt="Produto" data-zh="产品">Product</h2>
+      <a href="/how-it-works" data-es="Cómo funciona" data-fr="Comment ça fonctionne" data-pt="Como funciona" data-zh="工作原理">How it works</a>
+      <a href="/features" data-es="Funciones" data-fr="Fonctionnalités" data-pt="Recursos" data-zh="功能">Features</a>
+      <a href="/pricing" data-es="Precios" data-fr="Tarifs" data-pt="Preços" data-zh="价格">Pricing</a>
+      <a href="/hotels" data-es="Para cadenas de hoteles" data-fr="Pour les chaînes hôtelières" data-pt="Para redes hoteleiras" data-zh="酒店集团方案">For hotel chains</a>
+      <a href="/results" data-es="Resultados" data-fr="Résultats" data-pt="Resultados" data-zh="成效">Results</a>
+      <a href="/faq" data-es="Preguntas frecuentes" data-fr="Foire aux questions" data-pt="Perguntas frequentes" data-zh="常见问题">FAQ</a>
     </nav>
-    <nav aria-label="Company" data-es-label="Empresa" data-fr-label="Entreprise" data-pt-label="Empresa">
-      <h2 data-es="Empresa" data-fr="Entreprise" data-pt="Empresa">Company</h2>
-      <a href="/about" data-es="Quiénes somos" data-fr="À propos" data-pt="Quem somos">About</a>
-      <a href="/contact" data-es="Contacto" data-fr="Contact" data-pt="Contato">Contact</a>
-      <a href="/privacy" data-es="Privacidad" data-fr="Confidentialité" data-pt="Privacidade">Privacy</a>
-      <a href="/terms" data-es="Términos" data-fr="Conditions" data-pt="Termos">Terms</a>
-      <a href="/corporate-agreement" data-es="Contrato corporativo" data-fr="Entente d'entreprise" data-pt="Contrato corporativo">Corporate agreement</a>
+    <nav aria-label="Company" data-es-label="Empresa" data-fr-label="Entreprise" data-pt-label="Empresa" data-zh-label="公司">
+      <h2 data-es="Empresa" data-fr="Entreprise" data-pt="Empresa" data-zh="公司">Company</h2>
+      <a href="/about" data-es="Quiénes somos" data-fr="À propos" data-pt="Quem somos" data-zh="关于我们">About</a>
+      <a href="/contact" data-es="Contacto" data-fr="Contact" data-pt="Contato" data-zh="联系我们">Contact</a>
+      <a href="/privacy" data-es="Privacidad" data-fr="Confidentialité" data-pt="Privacidade" data-zh="隐私">Privacy</a>
+      <a href="/terms" data-es="Términos" data-fr="Conditions" data-pt="Termos" data-zh="条款">Terms</a>
+      <a href="/corporate-agreement" data-es="Contrato corporativo" data-fr="Entente d'entreprise" data-pt="Contrato corporativo" data-zh="企业订阅协议">Corporate agreement</a>
     </nav>
-    <nav aria-label="Our other products" data-es-label="Nuestros otros productos" data-fr-label="Nos autres produits" data-pt-label="Nossos outros produtos">
-      <h2 data-es="Del mismo equipo" data-fr="De la même équipe" data-pt="Da mesma equipe">From the same team</h2>
+    <nav aria-label="Our other products" data-es-label="Nuestros otros productos" data-fr-label="Nos autres produits" data-pt-label="Nossos outros produtos" data-zh-label="我们的其他产品">
+      <h2 data-es="Del mismo equipo" data-fr="De la même équipe" data-pt="Da mesma equipe" data-zh="同一团队的其他产品">From the same team</h2>
       <a href="https://www.mykids-usa.com" rel="noopener">MyKids-USA</a>
       <a href="https://drop-usa.com" rel="noopener">Drop-USA</a>
       <a href="https://bins-usa.com" rel="noopener">Bins-USA</a>
@@ -258,8 +297,8 @@ function footer() {
     </nav>
   </div>
   <div class="wrap foot-legal">
-    <span data-es="© 2026 ${COMPANY}. Todos los derechos reservados." data-pt="© 2026 ${COMPANY}. Todos os direitos reservados.">© 2026 ${COMPANY}. All rights reserved.</span>
-    <span data-es="Florida, Estados Unidos." data-fr="Floride, États-Unis." data-pt="Flórida, Estados Unidos.">Florida, United States.</span>
+    <span data-es="© 2026 ${COMPANY}. Todos los derechos reservados." data-pt="© 2026 ${COMPANY}. Todos os direitos reservados." data-zh="© 2026 ${COMPANY}。保留所有权利。">© 2026 ${COMPANY}. All rights reserved.</span>
+    <span data-es="Florida, Estados Unidos." data-fr="Floride, États-Unis." data-pt="Flórida, Estados Unidos." data-zh="美国佛罗里达州。">Florida, United States.</span>
   </div>
 </footer>`;
 }
@@ -273,8 +312,9 @@ const SCRIPT = `<script>
   var KEY = 'ss_lang';
   /* One URL per language since 15 Oct 2026: /es/ and /fr/ carry their text in the HTML, so Google shows them. The
      toggle goes to the same page in the other language, and the choice is remembered. */
-  var LANGS = ['es', 'fr', 'pt'];
-  function pageLang() { var l = document.documentElement.lang; return LANGS.indexOf(l) >= 0 ? l : 'en'; }
+  var LANGS = ${JSON.stringify(LANGUAGES.slice(1).map((l) => l.code))};
+  // /zh/ pages say lang="zh-CN"; the language code is its first two letters.
+  function pageLang() { var l = (document.documentElement.lang || '').slice(0, 2); return LANGS.indexOf(l) >= 0 ? l : 'en'; }
   function urlFor(lang) {
     var p = location.pathname;
     var first = p.slice(1, 3);
@@ -308,21 +348,24 @@ const SCRIPT = `<script>
     ok: { en: '<strong>You are on the list. Thank you.</strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.',
           es: '<strong>Ya estás en la lista. Gracias.</strong> Te escribiremos cuando StockistScout abra. Todavía no enviamos un correo de confirmación, así que este mensaje es tu confirmación.',
           fr: '<strong>Vous êtes sur la liste. Merci.</strong> Nous vous écrirons à l’ouverture de StockistScout. Nous n’envoyons pas encore de courriel de confirmation : ce message est votre confirmation.',
-          pt: '<strong>Você está na lista. Obrigado.</strong> Vamos escrever para você quando o StockistScout abrir. Ainda não enviamos e-mail de confirmação, então esta mensagem é a sua confirmação.' },
-    sending: { en: 'Sending…', es: 'Enviando…', fr: 'Envoi…', pt: 'Enviando…' },
-    fix: { en: 'Please check the highlighted fields.', es: 'Revisa los campos marcados.', fr: 'Veuillez vérifier les champs indiqués.', pt: 'Confira os campos destacados.' },
+          pt: '<strong>Você está na lista. Obrigado.</strong> Vamos escrever para você quando o StockistScout abrir. Ainda não enviamos e-mail de confirmação, então esta mensagem é a sua confirmação.',
+          zh: '<strong>您已加入名单，谢谢。</strong>StockistScout 开放时我们会写信通知您。我们暂不发送确认邮件，因此本条消息即为您的确认。' },
+    sending: { en: 'Sending…', es: 'Enviando…', fr: 'Envoi…', pt: 'Enviando…', zh: '正在发送…' },
+    fix: { en: 'Please check the highlighted fields.', es: 'Revisa los campos marcados.', fr: 'Veuillez vérifier les champs indiqués.', pt: 'Confira os campos destacados.', zh: '请检查标出的字段。' },
     many: { en: 'Too many tries from this connection. Please wait an hour, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
             es: 'Demasiados intentos desde esta conexión. Espera una hora o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
             fr: 'Trop de tentatives depuis cette connexion. Attendez une heure ou écrivez-nous à <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            pt: 'Tentativas demais a partir desta conexão. Aguarde uma hora ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.' },
+            pt: 'Tentativas demais a partir desta conexão. Aguarde uma hora ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            zh: '此网络连接尝试次数过多。请等待一小时，或写信至 <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>。' },
     fail: { en: 'We could not send it. Check your connection and try again, or write to <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
             es: 'No pudimos enviarlo. Revisa tu conexión y vuelve a intentarlo, o escríbenos a <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
             fr: 'Nous n’avons pas pu l’envoyer. Vérifiez votre connexion et réessayez, ou écrivez-nous à <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
-            pt: 'Não conseguimos enviar. Verifique sua conexão e tente de novo, ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.' }
+            pt: 'Não conseguimos enviar. Verifique sua conexão e tente de novo, ou escreva para <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>.',
+            zh: '未能发送。请检查网络连接后重试，或写信至 <a href="mailto:sales@stockistscout.com">sales@stockistscout.com</a>。' }
   };
   function curLang() { return pageLang(); }
   function say(el, m) {
-    el.dataset.en = m.en; el.dataset.es = m.es; el.dataset.fr = m.fr || m.en; el.dataset.pt = m.pt || m.en;
+    el.dataset.en = m.en; el.dataset.es = m.es; el.dataset.fr = m.fr || m.en; el.dataset.pt = m.pt || m.en; el.dataset.zh = m.zh || m.en;
     el.innerHTML = m[curLang()] || m.en;
     el.hidden = false;
   }
@@ -338,9 +381,6 @@ const SCRIPT = `<script>
     if (lang) {
       lang.value = curLang();
       lang.addEventListener('change', function () { lang.dataset.touched = '1'; });
-      document.querySelectorAll('#langToggle button').forEach(function (b) {
-        b.addEventListener('click', function () { if (!lang.dataset.touched) lang.value = b.dataset.lang; });
-      });
     }
     function mark(name, bad) {
       var input = form.elements[name];
@@ -363,7 +403,7 @@ const SCRIPT = `<script>
         var first = form.querySelector('[aria-invalid=true]'); if (first) first.focus();
         return;
       }
-      var label = { en: btn.dataset.en || btn.innerHTML, es: btn.dataset.es, fr: btn.dataset.fr, pt: btn.dataset.pt };
+      var label = { en: btn.dataset.en || btn.innerHTML, es: btn.dataset.es, fr: btn.dataset.fr, pt: btn.dataset.pt, zh: btn.dataset.zh };
       btn.disabled = true; say(btn, MSG.sending); status.hidden = true;
       fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), credentials: 'omit' })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { code: r.status, body: j }; }); })
@@ -391,8 +431,8 @@ const SCRIPT = `<script>
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
   var nav = (navigator.language || 'en').toLowerCase();
-  /* On an English page, a visitor who chose Spanish, French or Portuguese before, or whose browser speaks it on a first
-     visit (es-*, fr-*, pt-*), goes to that page in their language. A page reached in another language remembers it. */
+  /* On an English page, a visitor who chose Spanish, French, Portuguese or Chinese before, or whose browser speaks it on a
+     first visit (es-*, fr-*, pt-*, zh-*), goes to that page in their language. A page reached in another language remembers it. */
   if (pageLang() === 'en') {
     var want = saved || (LANGS.indexOf(nav.slice(0, 2)) >= 0 ? nav.slice(0, 2) : 'en');
     if (LANGS.indexOf(want) >= 0) { location.replace(urlFor(want)); return; }
@@ -400,10 +440,29 @@ const SCRIPT = `<script>
     try { localStorage.setItem(KEY, pageLang()); } catch (e) {}
   }
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('#langToggle button').forEach(function (b) {
-      b.setAttribute('aria-pressed', b.dataset.lang === pageLang() ? 'true' : 'false');
-      b.addEventListener('click', function () { go(b.dataset.lang); });
-    });
+    /* The language menu: the button opens and closes the list; Escape or a click elsewhere closes it. Choosing a
+       language remembers it and goes to the same page in that language (with the query and the anchor). */
+    var lt = document.getElementById('langToggle');
+    if (lt) {
+      var lb = lt.querySelector('.lang-btn'), lm = lt.querySelector('.lang-menu');
+      lt.classList.add('js'); lm.hidden = true;
+      var setOpen = function (open) { lm.hidden = !open; lb.setAttribute('aria-expanded', open ? 'true' : 'false'); };
+      lb.addEventListener('click', function () {
+        setOpen(lm.hidden);
+        if (!lm.hidden) { var cur = lm.querySelector('[aria-current]') || lm.querySelector('a'); if (cur) cur.focus(); }
+      });
+      lt.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !lm.hidden) { setOpen(false); lb.focus(); }
+        if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && !lm.hidden) {
+          var links = Array.prototype.slice.call(lm.querySelectorAll('a')), i = links.indexOf(document.activeElement);
+          if (i >= 0) { e.preventDefault(); links[(i + (e.key === 'ArrowDown' ? 1 : links.length - 1)) % links.length].focus(); }
+        }
+      });
+      document.addEventListener('click', function (e) { if (!lm.hidden && !lt.contains(e.target)) setOpen(false); });
+      lm.querySelectorAll('a[data-lang]').forEach(function (a) {
+        a.addEventListener('click', function (e) { e.preventDefault(); setOpen(false); go(a.dataset.lang); });
+      });
+    }
     var btn = document.querySelector('.menu-btn');
     var head = document.querySelector('.site-head');
     if (btn && head) {
@@ -422,8 +481,9 @@ const SCRIPT = `<script>
 </script>`;
 
 /** A complete page: shell around a body fragment. */
-export function page({ path, title, titleEs, titleFr, titlePt, description, body }) {
-  return `${head({ path, title, titleEs, titleFr, titlePt, description })}
+export function page(meta) {
+  const { path, body } = meta;
+  return `${head(meta)}
 <body>
 ${header(path)}
 <main id="main" tabindex="-1">
@@ -443,12 +503,12 @@ export function ctaBand() {
   return `<section class="cta-band">
   <div class="wrap cta-inner">
     <div>
-      <h2 data-es="Deja que un agente encuentre tus próximas tiendas." data-fr="Laissez un agent trouver vos prochains détaillants." data-pt="Deixe um agente encontrar suas próximas lojas revendedoras.">Let an agent find your next stockists.</h2>
-      <p data-es="Empieza con una prueba gratis de 50 correos, sin tarjeta. Configura tu negocio, tu cliente ideal y tu oferta, y tu agente empieza a buscar." data-fr="Commencez par un essai gratuit de 50 courriels, sans carte. Configurez votre entreprise, votre client idéal et votre offre, et votre agent commence à chercher." data-pt="Comece com um teste grátis de 50 e-mails, sem cartão. Configure sua empresa, seu cliente ideal e sua oferta, e seu agente começa a procurar.">Start with a free trial of 50 emails, no card needed. Set up your business, your ideal customer and your offer, and your agent starts looking.</p>
+      <h2 data-es="Deja que un agente encuentre tus próximas tiendas." data-fr="Laissez un agent trouver vos prochains détaillants." data-pt="Deixe um agente encontrar suas próximas lojas revendedoras." data-zh="让智能体为您找到下一批零售商。">Let an agent find your next stockists.</h2>
+      <p data-es="Empieza con una prueba gratis de 50 correos, sin tarjeta. Configura tu negocio, tu cliente ideal y tu oferta, y tu agente empieza a buscar." data-fr="Commencez par un essai gratuit de 50 courriels, sans carte. Configurez votre entreprise, votre client idéal et votre offre, et votre agent commence à chercher." data-pt="Comece com um teste grátis de 50 e-mails, sem cartão. Configure sua empresa, seu cliente ideal e sua oferta, e seu agente começa a procurar." data-zh="从 50 封邮件的免费试用开始，无需信用卡。设置好您的企业、理想客户和合作方案，您的智能体就会开始寻找。">Start with a free trial of 50 emails, no card needed. Set up your business, your ideal customer and your offer, and your agent starts looking.</p>
     </div>
     <div class="cta-actions">
       ${ctaButton('btn-light')}
-      <a class="btn btn-outline-light" href="/pricing" data-es="Ver precios" data-fr="Voir les prix" data-pt="Ver preços">See pricing</a>
+      <a class="btn btn-outline-light" href="/pricing" data-es="Ver precios" data-fr="Voir les prix" data-pt="Ver preços" data-zh="查看价格">See pricing</a>
     </div>
   </div>
 </section>`;
@@ -477,27 +537,27 @@ export function avatar(name, i, size = 64) {
 export function waitlistForm() {
   return `<form class="card contact-form" data-waitlist="${WAITLIST_API}" novalidate>
   <fieldset>
-    <legend class="sr" data-es="Únete a la lista de espera" data-fr="Inscrivez-vous à la liste d'attente" data-pt="Entre na lista de espera">Join the waitlist</legend>
+    <legend class="sr" data-es="Únete a la lista de espera" data-fr="Inscrivez-vous à la liste d'attente" data-pt="Entre na lista de espera" data-zh="加入候补名单">Join the waitlist</legend>
     <div class="field-row">
       <div class="field">
-        <label for="wl-email" data-es="Correo electrónico" data-fr="Courriel" data-pt="E-mail">Email</label>
+        <label for="wl-email" data-es="Correo electrónico" data-fr="Courriel" data-pt="E-mail" data-zh="电子邮箱">Email</label>
         <input type="email" id="wl-email" name="email" autocomplete="email" required maxlength="254" aria-describedby="wl-email-err">
-        <p class="field-err" id="wl-email-err" hidden data-es="Escribe un correo válido." data-fr="Entrez un courriel valide." data-pt="Digite um e-mail válido.">Enter a valid email.</p>
+        <p class="field-err" id="wl-email-err" hidden data-es="Escribe un correo válido." data-fr="Entrez un courriel valide." data-pt="Digite um e-mail válido." data-zh="请输入有效的电子邮箱。">Enter a valid email.</p>
       </div>
       <div class="field">
-        <label for="wl-company" data-es="Empresa" data-fr="Entreprise" data-pt="Empresa">Company</label>
+        <label for="wl-company" data-es="Empresa" data-fr="Entreprise" data-pt="Empresa" data-zh="公司">Company</label>
         <input type="text" id="wl-company" name="company" autocomplete="organization" required maxlength="200" aria-describedby="wl-company-err">
-        <p class="field-err" id="wl-company-err" hidden data-es="Escribe el nombre de tu empresa." data-fr="Entrez le nom de votre entreprise." data-pt="Digite o nome da sua empresa.">Enter your company name.</p>
+        <p class="field-err" id="wl-company-err" hidden data-es="Escribe el nombre de tu empresa." data-fr="Entrez le nom de votre entreprise." data-pt="Digite o nome da sua empresa." data-zh="请输入您的公司名称。">Enter your company name.</p>
       </div>
     </div>
     <div class="field-row">
       <div class="field">
-        <label for="wl-site"><span data-es="Sitio web" data-fr="Site Web" data-pt="Site">Website</span> <span class="opt" data-es="(opcional)" data-fr="(facultatif)" data-pt="(opcional)">(optional)</span></label>
-        <input type="text" id="wl-site" name="website" inputmode="url" autocomplete="url" maxlength="300" placeholder="yourbrand.com" data-es-placeholder="tumarca.com" data-fr-placeholder="votremarque.com" data-pt-placeholder="suamarca.com.br" aria-describedby="wl-site-err">
-        <p class="field-err" id="wl-site-err" hidden data-es="Ese sitio web no parece válido." data-fr="Ce site Web ne semble pas valide." data-pt="Esse site não parece válido.">That website does not look right.</p>
+        <label for="wl-site"><span data-es="Sitio web" data-fr="Site Web" data-pt="Site" data-zh="网站">Website</span> <span class="opt" data-es="(opcional)" data-fr="(facultatif)" data-pt="(opcional)" data-zh="（选填）">(optional)</span></label>
+        <input type="text" id="wl-site" name="website" inputmode="url" autocomplete="url" maxlength="300" placeholder="yourbrand.com" data-es-placeholder="tumarca.com" data-fr-placeholder="votremarque.com" data-pt-placeholder="suamarca.com.br" data-zh-placeholder="yourbrand.com" aria-describedby="wl-site-err">
+        <p class="field-err" id="wl-site-err" hidden data-es="Ese sitio web no parece válido." data-fr="Ce site Web ne semble pas valide." data-pt="Esse site não parece válido." data-zh="该网址似乎不正确。">That website does not look right.</p>
       </div>
       <div class="field">
-        <label for="wl-lang" data-es="Idioma para escribirte" data-fr="Langue dans laquelle vous écrire" data-pt="Idioma em que escrevemos para você">Language we write to you in</label>
+        <label for="wl-lang" data-es="Idioma para escribirte" data-fr="Langue dans laquelle vous écrire" data-pt="Idioma em que escrevemos para você" data-zh="我们与您沟通所用的语言">Language we write to you in</label>
         <select id="wl-lang" name="language">
           <option value="en">English</option>
           <option value="es">Español</option>
@@ -505,17 +565,17 @@ export function waitlistForm() {
       </div>
     </div>
     <div class="field">
-      <label for="wl-sells" data-es="¿Qué vendes y a qué tipo de tiendas?" data-fr="Que vendez-vous, et à quels types de boutiques?" data-pt="O que você vende, e para que tipo de lojas?">What do you sell, and to which kinds of stores?</label>
-      <textarea id="wl-sells" name="sells" required maxlength="1000" placeholder="Organic baby clothing, to independent kids’ boutiques" data-es-placeholder="Ropa de bebé orgánica, para boutiques infantiles independientes" data-fr-placeholder="Vêtements biologiques pour bébés, pour les boutiques indépendantes pour enfants" data-pt-placeholder="Roupas orgânicas para bebês, para butiques infantis independentes" aria-describedby="wl-sells-err"></textarea>
-      <p class="field-err" id="wl-sells-err" hidden data-es="Cuéntanos en pocas palabras qué vendes." data-fr="Dites-nous en quelques mots ce que vous vendez." data-pt="Conte em poucas palavras o que você vende.">Tell us in a few words what you sell.</p>
+      <label for="wl-sells" data-es="¿Qué vendes y a qué tipo de tiendas?" data-fr="Que vendez-vous, et à quels types de boutiques?" data-pt="O que você vende, e para que tipo de lojas?" data-zh="您销售什么产品？面向哪类零售店？">What do you sell, and to which kinds of stores?</label>
+      <textarea id="wl-sells" name="sells" required maxlength="1000" placeholder="Organic baby clothing, to independent kids’ boutiques" data-es-placeholder="Ropa de bebé orgánica, para boutiques infantiles independientes" data-fr-placeholder="Vêtements biologiques pour bébés, pour les boutiques indépendantes pour enfants" data-pt-placeholder="Roupas orgânicas para bebês, para butiques infantis independentes" data-zh-placeholder="有机婴儿服装，面向独立童装精品店" aria-describedby="wl-sells-err"></textarea>
+      <p class="field-err" id="wl-sells-err" hidden data-es="Cuéntanos en pocas palabras qué vendes." data-fr="Dites-nous en quelques mots ce que vous vendez." data-pt="Conte em poucas palavras o que você vende." data-zh="请用几句话告诉我们您销售什么。">Tell us in a few words what you sell.</p>
     </div>
     <div class="hp" aria-hidden="true">
       <label for="wl-nickname">Leave this empty</label>
       <input type="text" id="wl-nickname" name="nickname" tabindex="-1" autocomplete="off">
     </div>
     <div class="form-actions">
-      <button class="btn btn-primary" type="submit" data-es="Únete a la lista de espera" data-fr="Inscrivez-vous à la liste d'attente" data-pt="Entre na lista de espera">Join the waitlist</button>
-      <p class="form-fine" data-es="Solo lo usamos para avisarte cuando abramos y saber si podemos ayudarte. Ve la <a href=&quot;/privacy&quot;>privacidad</a>." data-fr="Nous l'utilisons uniquement pour vous aviser de notre ouverture et voir si nous pouvons vous aider. Consultez la <a href=&quot;/privacy&quot;>confidentialité</a>." data-pt="Usamos isso apenas para avisar quando abrirmos e para ver se podemos ajudar. Veja a <a href=&quot;/privacy&quot;>privacidade</a>.">We use it only to tell you when we open and to see whether we can help. See <a href="/privacy">privacy</a>.</p>
+      <button class="btn btn-primary" type="submit" data-es="Únete a la lista de espera" data-fr="Inscrivez-vous à la liste d'attente" data-pt="Entre na lista de espera" data-zh="加入候补名单">Join the waitlist</button>
+      <p class="form-fine" data-es="Solo lo usamos para avisarte cuando abramos y saber si podemos ayudarte. Ve la <a href=&quot;/privacy&quot;>privacidad</a>." data-fr="Nous l'utilisons uniquement pour vous aviser de notre ouverture et voir si nous pouvons vous aider. Consultez la <a href=&quot;/privacy&quot;>confidentialité</a>." data-pt="Usamos isso apenas para avisar quando abrirmos e para ver se podemos ajudar. Veja a <a href=&quot;/privacy&quot;>privacidade</a>." data-zh="我们仅用这些信息在开放时通知您，并了解能否为您提供帮助。详见<a href=&quot;/privacy&quot;>隐私政策</a>。">We use it only to tell you when we open and to see whether we can help. See <a href="/privacy">privacy</a>.</p>
     </div>
     <p class="form-status" role="status" aria-live="polite" hidden></p>
   </fieldset>

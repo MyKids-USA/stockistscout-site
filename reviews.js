@@ -10,18 +10,20 @@
       ? '<img src="' + esc(t.logo_url) + '" alt="" width="44" height="44" loading="lazy">'
       : '<span class="review-logo-empty" aria-hidden="true">' + esc((t.company || t.name || '?').slice(0, 1)) + '</span>';
     var n = Math.max(1, Math.min(5, t.rating | 0));
-    // The four languages ride along in data-en / data-es / data-fr / data-pt, like the rest of the site, so the language switch swaps them.
+    // The five languages ride along in data-en / data-es / data-fr / data-pt / data-zh (Chinese falls back to English), like the rest of the site, so the language switch swaps them.
     // They hold HTML that the switch puts back with innerHTML: escaped twice, so the reader's text never becomes markup.
-    var lang = document.documentElement.lang; var es = lang === 'es', fr = lang === 'fr', pt = lang === 'pt';
+    var lang = (document.documentElement.lang || '').slice(0, 2); var es = lang === 'es', fr = lang === 'fr', pt = lang === 'pt', zh = lang === 'zh';
     var bodyEn = '&ldquo;' + esc(t.body_en || t.body) + '&rdquo;', bodyEs = '&ldquo;' + esc(t.body_es || t.body) + '&rdquo;', bodyFr = '&ldquo;' + esc(t.body_fr || t.body_en || t.body) + '&rdquo;';
     var bodyPt = '&ldquo;' + esc(t.body_pt || t.body_en || t.body) + '&rdquo;';
+    var bodyZh = '&ldquo;' + esc(t.body_zh || t.body_en || t.body) + '&rdquo;';
     var whoEn = esc(t.name) + ((t.title_en || t.title) ? ', ' + esc(t.title_en || t.title) : '');
     var whoEs = esc(t.name) + ((t.title_es || t.title) ? ', ' + esc(t.title_es || t.title) : '');
     var whoFr = esc(t.name) + ((t.title_fr || t.title_en || t.title) ? ', ' + esc(t.title_fr || t.title_en || t.title) : '');
     var whoPt = esc(t.name) + ((t.title_pt || t.title_en || t.title) ? ', ' + esc(t.title_pt || t.title_en || t.title) : '');
-    var who = '<strong data-en="' + esc(whoEn) + '" data-es="' + esc(whoEs) + '" data-fr="' + esc(whoFr) + '" data-pt="' + esc(whoPt) + '">' + (es ? whoEs : fr ? whoFr : pt ? whoPt : whoEn) + '</strong>' + (t.company ? '<span>' + esc(t.company) + '</span>' : '');
+    var whoZh = esc(t.name) + ((t.title_zh || t.title_en || t.title) ? ', ' + esc(t.title_zh || t.title_en || t.title) : '');
+    var who = '<strong data-en="' + esc(whoEn) + '" data-es="' + esc(whoEs) + '" data-fr="' + esc(whoFr) + '" data-pt="' + esc(whoPt) + '" data-zh="' + esc(whoZh) + '">' + (es ? whoEs : fr ? whoFr : pt ? whoPt : zh ? whoZh : whoEn) + '</strong>' + (t.company ? '<span>' + esc(t.company) + '</span>' : '');
     return '<figure class="card review"><div class="review-stars" aria-label="' + n + ' / 5">' + '\u2605'.repeat(n) + '<span>' + '\u2605'.repeat(5 - n) + '</span></div>'
-      + '<blockquote data-en="' + esc(bodyEn) + '" data-es="' + esc(bodyEs) + '" data-fr="' + esc(bodyFr) + '" data-pt="' + esc(bodyPt) + '">' + (es ? bodyEs : fr ? bodyFr : pt ? bodyPt : bodyEn) + '</blockquote><figcaption>' + logo + '<span class="review-who">' + who + '</span></figcaption></figure>';
+      + '<blockquote data-en="' + esc(bodyEn) + '" data-es="' + esc(bodyEs) + '" data-fr="' + esc(bodyFr) + '" data-pt="' + esc(bodyPt) + '" data-zh="' + esc(bodyZh) + '">' + (es ? bodyEs : fr ? bodyFr : pt ? bodyPt : zh ? bodyZh : bodyEn) + '</blockquote><figcaption>' + logo + '<span class="review-who">' + who + '</span></figcaption></figure>';
   }
   fetch('https://app.stockistscout.com/api/public/testimonials').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
     var list = (d && d.testimonials) || [];

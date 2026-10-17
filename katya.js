@@ -6,7 +6,7 @@
  * every minute of video spends LiveAvatar credits.
  *
  * Backend: the WMS Cloud API, /api/stockistscout/katya (StockistScout has no backend of
- * its own yet). Her language is the page's (<html lang>: /, /es/, /fr/ or /pt/), never
+ * its own yet). Her language is the page's (<html lang>: /, /es/, /fr/, /pt/ or /zh/), never
  * the browser's. The comments that matter are kept: each marks a LiveAvatar defect that
  * fails silently.
  */
@@ -18,9 +18,10 @@
   var API = 'https://api.binsusa.com/api/stockistscout/katya';
   var SDK_URL = 'https://unpkg.com/@heygen/liveavatar-web-sdk@0.0.18/dist/index.umd.js';
   var EMAIL = 'sales@stockistscout.com';
-  var lang = function () { var l = document.documentElement.lang; return (l === 'es' || l === 'fr' || l === 'pt') ? l : 'en'; };
-  // French since 14 Oct 2026 (Canada), Brazilian Portuguese since 16 Oct 2026 (/pt/); a text without one shows in English.
-  var L = function (es, en, fr, pt) { var l = lang(); return l === 'es' ? es : (l === 'fr' && fr) ? fr : (l === 'pt' && pt) ? pt : en; };
+  // /zh/ pages say lang="zh-CN": the language is its first two letters. Her backend may still answer 'zh' in English.
+  var lang = function () { var l = (document.documentElement.lang || '').slice(0, 2); return (l === 'es' || l === 'fr' || l === 'pt' || l === 'zh') ? l : 'en'; };
+  // French since 14 Oct 2026 (Canada), Brazilian Portuguese and Simplified Chinese since 16 Oct 2026 (/pt/, /zh/); a text without one shows in English.
+  var L = function (es, en, fr, pt, zh) { var l = lang(); return l === 'es' ? es : (l === 'fr' && fr) ? fr : (l === 'pt' && pt) ? pt : (l === 'zh' && zh) ? zh : en; };
 
   /* Their UMD hands the factory `window.events$1` for Node's EventEmitter and never
      ships one, so evaluation throws partway and leaves a global with the enums but
@@ -150,8 +151,8 @@
   }
 
   function callLabel() {
-    el.callBtn.textContent = session ? L('Terminar', 'End call', 'Terminer', 'Encerrar')
-      : starting ? L('Cancelar', 'Cancel', 'Annuler', 'Cancelar') : L('Hablar con Katya', 'Talk to Katya', 'Parler avec Katya', 'Falar com a Katya');
+    el.callBtn.textContent = session ? L('Terminar', 'End call', 'Terminer', 'Encerrar', '结束通话')
+      : starting ? L('Cancelar', 'Cancel', 'Annuler', 'Cancelar', '取消') : L('Hablar con Katya', 'Talk to Katya', 'Parler avec Katya', 'Falar com a Katya', '与 Katya 通话');
   }
 
   function stopLive() {
@@ -247,8 +248,8 @@
       if (cancelStart) return;
       if (data._status === 429) {
         say('assistant', data.error === 'busy'
-          ? L('El video está muy solicitado hoy. Escríbeme aquí y te respondo enseguida.', 'Video is in high demand today. Type here and I will answer right away.', 'La vidéo est très demandée aujourd’hui. Écrivez-moi ici et je vous réponds tout de suite.', 'O vídeo está muito procurado hoje. Escreva aqui e eu respondo na hora.')
-          : L('Ya hablamos varias veces esta hora. Escríbeme aquí y te respondo enseguida.', 'We have already talked several times this hour. Type here and I will answer right away.', 'Nous avons déjà parlé plusieurs fois cette heure-ci. Écrivez-moi ici et je vous réponds tout de suite.', 'Já conversamos várias vezes nesta hora. Escreva aqui e eu respondo na hora.'));
+          ? L('El video está muy solicitado hoy. Escríbeme aquí y te respondo enseguida.', 'Video is in high demand today. Type here and I will answer right away.', 'La vidéo est très demandée aujourd’hui. Écrivez-moi ici et je vous réponds tout de suite.', 'O vídeo está muito procurado hoje. Escreva aqui e eu respondo na hora.', '今天视频通话需求很高。请在这里输入，我会立即回复您。')
+          : L('Ya hablamos varias veces esta hora. Escríbeme aquí y te respondo enseguida.', 'We have already talked several times this hour. Type here and I will answer right away.', 'Nous avons déjà parlé plusieurs fois cette heure-ci. Écrivez-moi ici et je vous réponds tout de suite.', 'Já conversamos várias vezes nesta hora. Escreva aqui e eu respondo na hora.', '这一小时内我们已经通话多次了。请在这里输入，我会立即回复您。'));
         return;
       }
       if (!data || !data.session_token) throw new Error('token');
@@ -281,14 +282,14 @@
       if (session !== s) { try { s.stop(); } catch (e) {} return; }
       if (s.voiceChat.state !== 'ACTIVE') {
         say('assistant', L('No pude usar tu micrófono: revisa el permiso, o escríbeme abajo.',
-                           'I could not reach your microphone: check the permission, or type below.', 'Je n’ai pas pu accéder à votre micro : vérifiez l’autorisation, ou écrivez ci-dessous.', 'Não consegui acessar seu microfone: verifique a permissão ou escreva abaixo.'));
+                           'I could not reach your microphone: check the permission, or type below.', 'Je n’ai pas pu accéder à votre micro : vérifiez l’autorisation, ou écrivez ci-dessous.', 'Não consegui acessar seu microfone: verifique a permissão ou escreva abaixo.', '无法使用您的麦克风：请检查权限，或在下方输入文字。'));
       }
     } catch (e) {
       if (s && session === s) stopLive();
       else if (s) { try { s.stop(); } catch (x) {} }
       if (!cancelStart) {
         say('assistant', L('No pude iniciar el video ahora mismo. Escríbeme y te respondo igual.',
-                           'I could not start the video just now. Type your question and I will answer anyway.', 'Je n’ai pas pu lancer la vidéo pour l’instant. Écrivez votre question et je vous répondrai quand même.', 'Não consegui iniciar o vídeo agora. Escreva sua pergunta e eu respondo mesmo assim.'));
+                           'I could not start the video just now. Type your question and I will answer anyway.', 'Je n’ai pas pu lancer la vidéo pour l’instant. Écrivez votre question et je vous répondrai quand même.', 'Não consegui iniciar o vídeo agora. Escreva sua pergunta e eu respondo mesmo assim.', '暂时无法开启视频。请输入您的问题，我照样为您解答。'));
       }
     } finally {
       starting = false; cancelStart = false;
@@ -315,7 +316,7 @@
     msgs.push({ role: 'user', content: text });
     var typing = document.createElement('div');
     typing.className = 'katya-typing';
-    typing.textContent = L('Katya está escribiendo…', 'Katya is typing…', 'Katya écrit…', 'Katya está digitando…');
+    typing.textContent = L('Katya está escribiendo…', 'Katya is typing…', 'Katya écrit…', 'Katya está digitando…', 'Katya 正在输入…');
     el.log.appendChild(typing); el.log.scrollTop = el.log.scrollHeight;
     try {
       var r = await fetch(API + '/ask', {
@@ -330,7 +331,7 @@
     } catch (e) {
       typing.remove();
       say('assistant', L('No pude responder ahora. Escríbenos a ' + EMAIL + '.',
-                         'I could not answer just now. Email us at ' + EMAIL + '.', 'Je n’ai pas pu répondre pour l’instant. Écrivez-nous à ' + EMAIL + '.', 'Não consegui responder agora. Escreva para ' + EMAIL + '.'));
+                         'I could not answer just now. Email us at ' + EMAIL + '.', 'Je n’ai pas pu répondre pour l’instant. Écrivez-nous à ' + EMAIL + '.', 'Não consegui responder agora. Escreva para ' + EMAIL + '.', '暂时无法回答。请发邮件至 ' + EMAIL + '。'));
     }
     busy = false;
   }
@@ -390,20 +391,21 @@
     function greeting() {
       return L('¡Hola! 👋 Soy Katya. Pregúntame cómo los agentes de StockistScout encuentran tiendas para tus productos, por los planes o cómo empezar tu prueba gratis.',
                'Hi! 👋 I\u2019m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to start your free trial.', 'Bonjour! 👋 Je suis Katya. Demandez-moi comment les agents de StockistScout trouvent des boutiques pour vos produits, les forfaits, ou comment commencer votre essai gratuit.',
-               'Olá! 👋 Eu sou a Katya. Pergunte como os agentes do StockistScout encontram lojas para os seus produtos, sobre os planos ou como começar seu teste grátis.');
+               'Olá! 👋 Eu sou a Katya. Pergunte como os agentes do StockistScout encontram lojas para os seus produtos, sobre os planos ou como começar seu teste grátis.',
+               '您好！👋 我是 Katya。您可以问我 StockistScout 的智能体如何为您的产品寻找零售店、各个套餐的内容，或如何开始免费试用。');
     }
     function texts() {
       if (greetEl) greetEl.textContent = greeting();
-      document.getElementById('katyaTitle').textContent = L('Katya · Asistente de StockistScout', 'Katya · StockistScout Assistant', 'Katya · Assistante de StockistScout', 'Katya · Assistente do StockistScout');
-      document.getElementById('katyaSub').textContent = L('Tus preguntas, respondidas al instante', 'Your questions, answered instantly', 'Vos questions, répondues instantanément', 'Suas perguntas, respondidas na hora');
-      el.input.placeholder = L('Escribe tu pregunta…', 'Type your question…', 'Écrivez votre question…', 'Escreva sua pergunta…');
-      el.input.setAttribute('aria-label', L('Tu pregunta', 'Your question', 'Votre question', 'Sua pergunta'));
-      document.getElementById('katyaSend').setAttribute('aria-label', L('Enviar', 'Send', 'Envoyer', 'Enviar'));
-      document.getElementById('katyaClose').setAttribute('aria-label', L('Cerrar', 'Close', 'Fermer', 'Fechar'));
-      document.getElementById('katyaBubbleX').setAttribute('aria-label', L('Cerrar', 'Close', 'Fermer', 'Fechar'));
-      launcher.setAttribute('aria-label', L('Chatear con Katya', 'Chat with Katya', 'Clavarder avec Katya', 'Conversar com a Katya'));
+      document.getElementById('katyaTitle').textContent = L('Katya · Asistente de StockistScout', 'Katya · StockistScout Assistant', 'Katya · Assistante de StockistScout', 'Katya · Assistente do StockistScout', 'Katya · StockistScout 助手');
+      document.getElementById('katyaSub').textContent = L('Tus preguntas, respondidas al instante', 'Your questions, answered instantly', 'Vos questions, répondues instantanément', 'Suas perguntas, respondidas na hora', '您的问题，即时解答');
+      el.input.placeholder = L('Escribe tu pregunta…', 'Type your question…', 'Écrivez votre question…', 'Escreva sua pergunta…', '请输入您的问题…');
+      el.input.setAttribute('aria-label', L('Tu pregunta', 'Your question', 'Votre question', 'Sua pergunta', '您的问题'));
+      document.getElementById('katyaSend').setAttribute('aria-label', L('Enviar', 'Send', 'Envoyer', 'Enviar', '发送'));
+      document.getElementById('katyaClose').setAttribute('aria-label', L('Cerrar', 'Close', 'Fermer', 'Fechar', '关闭'));
+      document.getElementById('katyaBubbleX').setAttribute('aria-label', L('Cerrar', 'Close', 'Fermer', 'Fechar', '关闭'));
+      launcher.setAttribute('aria-label', L('Chatear con Katya', 'Chat with Katya', 'Clavarder avec Katya', 'Conversar com a Katya', '与 Katya 聊天'));
       document.getElementById('katyaNotice').textContent =
-        L('Guardamos las conversaciones para atenderte mejor.', 'Chats are saved to help us answer you better.', 'Nous conservons les conversations pour mieux vous servir.', 'Guardamos as conversas para atender você melhor.');
+        L('Guardamos las conversaciones para atenderte mejor.', 'Chats are saved to help us answer you better.', 'Nous conservons les conversations pour mieux vous servir.', 'Guardamos as conversas para atender você melhor.', '我们会保存对话记录，以便更好地为您服务。');
       callLabel();
     }
     texts();
@@ -442,7 +444,7 @@
     }
     function bubbleText() {
       document.getElementById('katyaBubbleText').textContent =
-        L('¿Preguntas sobre StockistScout? Con gusto te ayudo. 👋', 'Questions about StockistScout? Happy to help. 👋', 'Des questions sur StockistScout? Je suis là pour vous aider. 👋', 'Dúvidas sobre o StockistScout? Fico feliz em ajudar. 👋');
+        L('¿Preguntas sobre StockistScout? Con gusto te ayudo. 👋', 'Questions about StockistScout? Happy to help. 👋', 'Des questions sur StockistScout? Je suis là pour vous aider. 👋', 'Dúvidas sobre o StockistScout? Fico feliz em ajudar. 👋', '对 StockistScout 有疑问？我很乐意为您解答。👋');
     }
     var seen = false;
     try { seen = localStorage.getItem('ss_katya_bubble') === 'seen'; } catch (e) {}
