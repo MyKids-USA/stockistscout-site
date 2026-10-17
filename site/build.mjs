@@ -163,6 +163,8 @@ function localizedImages(document, lang) {
     const m = /^(\/img\/(?:app|video)\/[\w-]+)-en\.jpg(?:\?v=\w+)?$/.exec(url || '');
     if (!m) return null;
     const f = `${m[1]}-${lang}.jpg`;
+    // The video's own thumbnail only once that language has its own video: a Chinese picture over the English video misleads.
+    if (m[1] === '/img/video/katya' && !VIDEO_IDS[lang]) return null;
     return existsSync(join(ROOT, f)) ? f : null;
   };
   for (const img of document.querySelectorAll('img[src]')) {
