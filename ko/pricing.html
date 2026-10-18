@@ -34,7 +34,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="/site.css?v=f09a7f4446">
+<link rel="stylesheet" href="/site.css?v=128fb2fd14">
 <script>window.SS_I18N={"End call":"통화 종료","Cancel":"취소","Talk to Katya":"Katya와 대화하기","Video is in high demand today. Type here and I will answer right away.":"오늘은 영상 통화 요청이 많습니다. 여기에 입력하시면 바로 답해 드릴게요.","We have already talked several times this hour. Type here and I will answer right away.":"이번 시간에 이미 여러 번 이야기를 나눴어요. 여기에 입력하시면 바로 답해 드릴게요.","I could not reach your microphone: check the permission, or type below.":"마이크에 접근할 수 없었어요. 권한을 확인하시거나 아래에 입력해 주세요.","I could not start the video just now. Type your question and I will answer anyway.":"지금은 영상을 시작할 수 없었어요. 질문을 입력해 주시면 그래도 답해 드릴게요.","Katya is typing…":"Katya가 입력 중…","I could not answer just now. Email us at {email}.":"지금은 답변을 드릴 수 없었어요. {email}로 이메일을 보내 주세요.","Hi! 👋 I’m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to start your free trial.":"안녕하세요! 👋 저는 Katya입니다. StockistScout 에이전트가 귀사 제품에 맞는 매장을 어떻게 찾는지, 요금제, 무료 체험을 시작하는 방법 등 무엇이든 물어보세요.","Katya · StockistScout Assistant":"Katya · StockistScout 어시스턴트","Your questions, answered instantly":"궁금한 점에 바로 답해 드립니다","Type your question…":"질문을 입력하세요…","Your question":"질문","Send":"보내기","Close":"닫기","Chat with Katya":"Katya와 채팅하기","Chats are saved to help us answer you better.":"더 나은 답변을 위해 채팅 내용이 저장됩니다.","Questions about StockistScout? Happy to help. 👋":"StockistScout에 대해 궁금한 점이 있으신가요? 기꺼이 도와드릴게요. 👋","\u003cstrong>You are on the list. Thank you.\u003c/strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.":"\u003cstrong>목록에 등록되었습니다. 감사합니다.\u003c/strong> StockistScout가 열리면 연락드리겠습니다. 아직 확인 이메일은 보내지 않으므로, 이 메시지가 확인 안내입니다.","Sending…":"보내는 중…","Please check the highlighted fields.":"표시된 입력란을 확인해 주세요.","Too many tries from this connection. Please wait an hour, or write to \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>.":"이 연결에서 시도가 너무 많았습니다. 한 시간 후에 다시 시도하시거나 \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>으로 메일을 보내 주세요.","We could not send it. Check your connection and try again, or write to \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>.":"보내지 못했습니다. 연결 상태를 확인하고 다시 시도하시거나 \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>으로 메일을 보내 주세요.","Why it fits:":"잘 맞는 이유:"};</script><style>.mock-rows .why::before{content:"잘 맞는 이유: "}</style></head>
 <body>
 <a class="skip" href="#main" data-es="Ir al contenido" data-fr="Aller au contenu" data-pt="Pular para o conteúdo" data-zh="跳到正文">본문으로 건너뛰기</a>
@@ -113,6 +113,8 @@
 </section>
 
 <section class="wrap" style="padding-bottom:64px">
+  <div class="billing-toggle" role="group"><button type="button" class="on" aria-pressed="true" data-interval="month" data-es="Mensual" data-fr="Mensuel" data-pt="Mensal" data-zh="按月">월간</button><button type="button" aria-pressed="false" data-interval="year" data-es="Anual · ahorre 20%" data-fr="Annuel · économisez 20 %" data-pt="Anual · economize 20%" data-zh="按年 · 省 20%">연간 · 20% 할인</button></div>
+  <p class="fine annual-note y-only" data-es="Los planes anuales se pagan por el año por adelantado y no son reembolsables; puede desactivar la renovación cuando quiera." data-fr="Les forfaits annuels sont payés pour l’année à l’avance et ne sont pas remboursables; vous pouvez désactiver le renouvellement en tout temps." data-pt="Os planos anuais são pagos pelo ano adiantado e não são reembolsáveis; você pode desativar a renovação quando quiser." data-zh="年度套餐需预付全年费用，不予退款；您可以随时关闭自动续订。">연간 요금제는 1년치를 선불로 결제하며 환불되지 않습니다. 갱신은 언제든지 끌 수 있습니다.</p>
   <div class="plans">
     <div class="plan trial">
       <span class="ribbon" data-es="Empieza aquí" data-fr="Commencez ici" data-pt="Comece aqui" data-zh="从这里开始">여기서 시작</span>
@@ -123,70 +125,81 @@
     </div>
     <div class="plan">
       <h3>Basic</h3>
-      <div class="amount">$49.99<small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="amount"><span class="m-only">$49.99</span><span class="y-only">$39.99</span><small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="yearly y-only"><b>$479.90</b> <span data-es="facturados al año" data-fr="facturés annuellement" data-pt="cobrados por ano" data-zh="按年计费">연간 청구</span></div>
       <div class="quota" data-es="200 correos / mes" data-fr="200 courriels / mois" data-pt="200 e-mails / mês" data-zh="每月 200 封邮件">월 이메일 200통</div>
-      <div class="per" data-es="unos $0.25 por correo" data-fr="environ $0.25 par courriel" data-pt="cerca de US$ 0,25 por e-mail" data-zh="每封邮件约 $0.25">이메일당 약 $0.25</div>
+      <div class="per m-only" data-es="unos $0.25 por correo" data-fr="environ $0.25 par courriel" data-pt="cerca de US$ 0,25 por e-mail" data-zh="每封邮件约 $0.25">이메일당 약 $0.25</div>
       <div class="team" data-es="<b>1 agente</b> · 1 cliente ideal" data-fr="<b>1 agent</b> · 1 client idéal" data-pt="<b>1 agente</b> · 1 cliente ideal" data-zh="<b>1 位智能体</b> · 1 个理想客户"><b>에이전트 1명</b> · 이상적인 고객 1개</div>
     </div>
     <div class="plan">
       <h3>Starter</h3>
-      <div class="amount">$99.99<small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="amount"><span class="m-only">$99.99</span><span class="y-only">$79.99</span><small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="yearly y-only"><b>$959.90</b> <span data-es="facturados al año" data-fr="facturés annuellement" data-pt="cobrados por ano" data-zh="按年计费">연간 청구</span></div>
       <div class="quota" data-es="500 correos / mes" data-fr="500 courriels / mois" data-pt="500 e-mails / mês" data-zh="每月 500 封邮件">월 이메일 500통</div>
-      <div class="per" data-es="unos $0.20 por correo" data-fr="environ $0.20 par courriel" data-pt="cerca de US$ 0,20 por e-mail" data-zh="每封邮件约 $0.20">이메일당 약 $0.20</div>
+      <div class="per m-only" data-es="unos $0.20 por correo" data-fr="environ $0.20 par courriel" data-pt="cerca de US$ 0,20 por e-mail" data-zh="每封邮件约 $0.20">이메일당 약 $0.20</div>
       <div class="team" data-es="<b>1 agente</b> · 1 cliente ideal<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 1 agente personalizado</a>" data-fr="<b>1 agent</b> · 1 client idéal<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 1 agent personnalisé</a>" data-pt="<b>1 agente</b> · 1 cliente ideal<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 1 agente personalizado</a>" data-zh="<b>1 位智能体</b> · 1 个理想客户<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 1 位自定义智能体</a>"><b>에이전트 1명</b> · 이상적인 고객 1개<br><a class="custom" href="/ko/agents#create">+ 맞춤 에이전트 1명</a></div>
     </div>
-    <div class="plan">
+    <div class="plan has-offer">
+      <span class="ribbon offer" data-offer="" data-es="Oferta de lanzamiento" data-fr="Offre de lancement" data-pt="Oferta de lançamento" data-zh="上线优惠">출시 특가</span>
       <h3>Plus</h3>
-      <div class="amount">$149.99<small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="amount"><span class="m-only">$149.99</span><span class="y-only">$119.99</span><small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="yearly y-only"><b>$1,439.90</b> <span data-es="facturados al año" data-fr="facturés annuellement" data-pt="cobrados por ano" data-zh="按年计费">연간 청구</span></div>
+      <a class="offer-box" href="https://app.stockistscout.com/signup?offer=founders&lang=ko" data-offer="" data-offer-link="" data-cta="offer-pricing"><span class="m-only" data-es="Plus al precio de Basic ($49.99/mes) durante sus primeros 12 meses, con una configuración guiada con Katya." data-fr="Plus au prix de Basic (49,99 $/mois) pendant vos 12 premiers mois, avec une configuration guidée avec Katya." data-pt="Plus pelo preço do Basic (US$ 49,99/mês) nos seus primeiros 12 meses, com uma configuração guiada com a Katya." data-zh="前 12 个月以 Basic 的价格（$49.99/月）使用 Plus，并由 Katya 提供引导式设置。">처음 12개월간 Basic 가격(월 $49.99)으로 Plus, Katya와 함께하는 안내 설정 포함.</span><span class="y-only" data-es="Pago anual: $539.89 el primer año, luego $1,439.90 al año." data-fr="Paiement annuel : 539,89 $ la première année, puis 1 439,90 $ par an." data-pt="Pagamento anual: US$ 539,89 no primeiro ano, depois US$ 1.439,90 por ano." data-zh="按年付款：首年 $539.89，之后每年 $1,439.90。">연간 결제: 첫해 $539.89, 이후 연 $1,439.90.</span><span class="offer-count" hidden> · <b class="offer-n"></b>/<span class="offer-seats">10</span> <span data-es="ocupadas" data-fr="prises" data-pt="ocupadas" data-zh="已占">마감</span></span></a>
       <div class="quota" data-es="1.000 correos / mes" data-fr="1 000 courriels / mois" data-pt="1.000 e-mails / mês" data-zh="每月 1,000 封邮件">월 이메일 1,000통</div>
-      <div class="per" data-es="unos $0.15 por correo" data-fr="environ $0.15 par courriel" data-pt="cerca de US$ 0,15 por e-mail" data-zh="每封邮件约 $0.15">이메일당 약 $0.15</div>
+      <div class="per m-only" data-es="unos $0.15 por correo" data-fr="environ $0.15 par courriel" data-pt="cerca de US$ 0,15 por e-mail" data-zh="每封邮件约 $0.15">이메일당 약 $0.15</div>
       <div class="team" data-es="<b>1 agente</b> · 1 cliente ideal<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 1 agente personalizado</a>" data-fr="<b>1 agent</b> · 1 client idéal<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 1 agent personnalisé</a>" data-pt="<b>1 agente</b> · 1 cliente ideal<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 1 agente personalizado</a>" data-zh="<b>1 位智能体</b> · 1 个理想客户<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 1 位自定义智能体</a>"><b>에이전트 1명</b> · 이상적인 고객 1개<br><a class="custom" href="/ko/agents#create">+ 맞춤 에이전트 1명</a></div>
     </div>
     <div class="plan">
       <h3>Growth</h3>
-      <div class="amount">$249.99<small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="amount"><span class="m-only">$249.99</span><span class="y-only">$199.99</span><small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="yearly y-only"><b>$2,399.90</b> <span data-es="facturados al año" data-fr="facturés annuellement" data-pt="cobrados por ano" data-zh="按年计费">연간 청구</span></div>
       <div class="quota" data-es="2.000 correos / mes" data-fr="2 000 courriels / mois" data-pt="2.000 e-mails / mês" data-zh="每月 2,000 封邮件">월 이메일 2,000통</div>
-      <div class="per" data-es="unos $0.12 por correo" data-fr="environ $0.12 par courriel" data-pt="cerca de US$ 0,12 por e-mail" data-zh="每封邮件约 $0.12">이메일당 약 $0.12</div>
+      <div class="per m-only" data-es="unos $0.12 por correo" data-fr="environ $0.12 par courriel" data-pt="cerca de US$ 0,12 por e-mail" data-zh="每封邮件约 $0.12">이메일당 약 $0.12</div>
       <div class="team" data-es="<b>2 agentes</b> · 2 clientes ideales<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 2 agentes personalizados</a>" data-fr="<b>2 agents</b> · 2 clients idéaux<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 2 agents personnalisés</a>" data-pt="<b>2 agentes</b> · 2 clientes ideais<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 2 agentes personalizados</a>" data-zh="<b>2 位智能体</b> · 2 个理想客户<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 2 位自定义智能体</a>"><b>에이전트 2명</b> · 이상적인 고객 2개<br><a class="custom" href="/ko/agents#create">+ 맞춤 에이전트 2명</a></div>
     </div>
     <div class="plan">
       <h3>Pro</h3>
-      <div class="amount">$499.99<small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="amount"><span class="m-only">$499.99</span><span class="y-only">$399.99</span><small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="yearly y-only"><b>$4,799.90</b> <span data-es="facturados al año" data-fr="facturés annuellement" data-pt="cobrados por ano" data-zh="按年计费">연간 청구</span></div>
       <div class="quota" data-es="5.000 correos / mes" data-fr="5 000 courriels / mois" data-pt="5.000 e-mails / mês" data-zh="每月 5,000 封邮件">월 이메일 5,000통</div>
-      <div class="per" data-es="unos $0.10 por correo" data-fr="environ $0.10 par courriel" data-pt="cerca de US$ 0,10 por e-mail" data-zh="每封邮件约 $0.10">이메일당 약 $0.10</div>
-      <div class="starts" data-es="Empieza como Growth el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Growth le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Growth no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Growth 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Growth로 시작 · <a href="#grow">이유</a></div>
+      <div class="per m-only" data-es="unos $0.10 por correo" data-fr="environ $0.10 par courriel" data-pt="cerca de US$ 0,10 por e-mail" data-zh="每封邮件约 $0.10">이메일당 약 $0.10</div>
+      <div class="starts m-only" data-es="Empieza como Growth el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Growth le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Growth no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Growth 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Growth로 시작 · <a href="#grow">이유</a></div>
       <div class="team" data-es="<b>4 agentes</b> · 4 clientes ideales<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 3 agentes personalizados</a>" data-fr="<b>4 agents</b> · 4 clients idéaux<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 3 agents personnalisés</a>" data-pt="<b>4 agentes</b> · 4 clientes ideais<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 3 agentes personalizados</a>" data-zh="<b>4 位智能体</b> · 4 个理想客户<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 3 位自定义智能体</a>"><b>에이전트 4명</b> · 이상적인 고객 4개<br><a class="custom" href="/ko/agents#create">+ 맞춤 에이전트 3명</a></div>
     </div>
     <div class="plan">
       <h3>Scale</h3>
-      <div class="amount">$699.99<small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="amount"><span class="m-only">$699.99</span><span class="y-only">$559.99</span><small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="yearly y-only"><b>$6,719.90</b> <span data-es="facturados al año" data-fr="facturés annuellement" data-pt="cobrados por ano" data-zh="按年计费">연간 청구</span></div>
       <div class="quota" data-es="7.500 correos / mes" data-fr="7 500 courriels / mois" data-pt="7.500 e-mails / mês" data-zh="每月 7,500 封邮件">월 이메일 7,500통</div>
-      <div class="per" data-es="unos $0.09 por correo" data-fr="environ $0.09 par courriel" data-pt="cerca de US$ 0,09 por e-mail" data-zh="每封邮件约 $0.09">이메일당 약 $0.09</div>
-      <div class="starts" data-es="Empieza como Growth el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Growth le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Growth no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Growth 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Growth로 시작 · <a href="#grow">이유</a></div>
+      <div class="per m-only" data-es="unos $0.09 por correo" data-fr="environ $0.09 par courriel" data-pt="cerca de US$ 0,09 por e-mail" data-zh="每封邮件约 $0.09">이메일당 약 $0.09</div>
+      <div class="starts m-only" data-es="Empieza como Growth el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Growth le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Growth no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Growth 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Growth로 시작 · <a href="#grow">이유</a></div>
       <div class="team" data-es="<b>5 agentes</b> · 5 clientes ideales<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 3 agentes personalizados</a>" data-fr="<b>5 agents</b> · 5 clients idéaux<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 3 agents personnalisés</a>" data-pt="<b>5 agentes</b> · 5 clientes ideais<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 3 agentes personalizados</a>" data-zh="<b>5 位智能体</b> · 5 个理想客户<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 3 位自定义智能体</a>"><b>에이전트 5명</b> · 이상적인 고객 5개<br><a class="custom" href="/ko/agents#create">+ 맞춤 에이전트 3명</a></div>
     </div>
     <div class="plan">
       <h3>Business</h3>
-      <div class="amount">$899.99<small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="amount"><span class="m-only">$899.99</span><span class="y-only">$719.99</span><small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="yearly y-only"><b>$8,639.90</b> <span data-es="facturados al año" data-fr="facturés annuellement" data-pt="cobrados por ano" data-zh="按年计费">연간 청구</span></div>
       <div class="quota" data-es="10.000 correos / mes" data-fr="10 000 courriels / mois" data-pt="10.000 e-mails / mês" data-zh="每月 10,000 封邮件">월 이메일 10,000통</div>
-      <div class="per" data-es="unos $0.09 por correo" data-fr="environ $0.09 par courriel" data-pt="cerca de US$ 0,09 por e-mail" data-zh="每封邮件约 $0.09">이메일당 약 $0.09</div>
-      <div class="starts" data-es="Empieza como Growth el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Growth le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Growth no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Growth 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Growth로 시작 · <a href="#grow">이유</a></div>
+      <div class="per m-only" data-es="unos $0.09 por correo" data-fr="environ $0.09 par courriel" data-pt="cerca de US$ 0,09 por e-mail" data-zh="每封邮件约 $0.09">이메일당 약 $0.09</div>
+      <div class="starts m-only" data-es="Empieza como Growth el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Growth le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Growth no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Growth 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Growth로 시작 · <a href="#grow">이유</a></div>
       <div class="team" data-es="<b>6 agentes</b> · 6 clientes ideales<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 4 agentes personalizados</a>" data-fr="<b>6 agents</b> · 6 clients idéaux<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 4 agents personnalisés</a>" data-pt="<b>6 agentes</b> · 6 clientes ideais<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 4 agentes personalizados</a>" data-zh="<b>6 位智能体</b> · 6 个理想客户<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 4 位自定义智能体</a>"><b>에이전트 6명</b> · 이상적인 고객 6개<br><a class="custom" href="/ko/agents#create">+ 맞춤 에이전트 4명</a></div>
     </div>
     <div class="plan">
       <h3>Premium</h3>
-      <div class="amount">$1,199.99<small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="amount"><span class="m-only">$1,199.99</span><span class="y-only">$959.99</span><small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="yearly y-only"><b>$11,519.90</b> <span data-es="facturados al año" data-fr="facturés annuellement" data-pt="cobrados por ano" data-zh="按年计费">연간 청구</span></div>
       <div class="quota" data-es="15.000 correos / mes" data-fr="15 000 courriels / mois" data-pt="15.000 e-mails / mês" data-zh="每月 15,000 封邮件">월 이메일 15,000통</div>
-      <div class="per" data-es="unos $0.08 por correo" data-fr="environ $0.08 par courriel" data-pt="cerca de US$ 0,08 por e-mail" data-zh="每封邮件约 $0.08">이메일당 약 $0.08</div>
-      <div class="starts" data-es="Empieza como Growth el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Growth le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Growth no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Growth 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Growth로 시작 · <a href="#grow">이유</a></div>
+      <div class="per m-only" data-es="unos $0.08 por correo" data-fr="environ $0.08 par courriel" data-pt="cerca de US$ 0,08 por e-mail" data-zh="每封邮件约 $0.08">이메일당 약 $0.08</div>
+      <div class="starts m-only" data-es="Empieza como Growth el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Growth le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Growth no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Growth 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Growth로 시작 · <a href="#grow">이유</a></div>
       <div class="team" data-es="<b>Los 8 agentes</b> · 8 clientes ideales<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 5 agentes personalizados</a>" data-fr="<b>Les 8 agents</b> · 8 clients idéaux<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 5 agents personnalisés</a>" data-pt="<b>Todos os 8 agentes</b> · 8 clientes ideais<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 5 agentes personalizados</a>" data-zh="<b>全部 8 位智能体</b> · 8 个理想客户<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 5 位自定义智能体</a>"><b>에이전트 8명 전원</b> · 이상적인 고객 8개<br><a class="custom" href="/ko/agents#create">+ 맞춤 에이전트 5명</a></div>
     </div>
     <div class="plan">
       <h3>Enterprise</h3>
-      <div class="amount">$1,499.99<small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="amount"><span class="m-only">$1,499.99</span><span class="y-only">$1,199.99</span><small data-es=" /mes" data-fr=" /mois" data-pt="/mês" data-zh=" /月"> /월</small></div>
+      <div class="yearly y-only"><b>$14,399.90</b> <span data-es="facturados al año" data-fr="facturés annuellement" data-pt="cobrados por ano" data-zh="按年计费">연간 청구</span></div>
       <div class="quota" data-es="20.000 correos / mes" data-fr="20 000 courriels / mois" data-pt="20.000 e-mails / mês" data-zh="每月 20,000 封邮件">월 이메일 20,000통</div>
-      <div class="per" data-es="unos $0.075 por correo" data-fr="environ $0.075 par courriel" data-pt="cerca de US$ 0,075 por e-mail" data-zh="每封邮件约 $0.075">이메일당 약 $0.075</div>
-      <div class="starts" data-es="Empieza como Pro el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Pro le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Pro no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Pro 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Pro로 시작 · <a href="#grow">이유</a></div>
+      <div class="per m-only" data-es="unos $0.075 por correo" data-fr="environ $0.075 par courriel" data-pt="cerca de US$ 0,075 por e-mail" data-zh="每封邮件约 $0.075">이메일당 약 $0.075</div>
+      <div class="starts m-only" data-es="Empieza como Pro el mes 1 · <a href=&quot;#grow&quot;>por qué</a>" data-fr="Commence en Pro le mois 1 · <a href=&quot;#grow&quot;>pourquoi</a>" data-pt="Começa como Pro no mês 1 · <a href=&quot;#grow&quot;>por quê</a>" data-zh="第 1 个月从 Pro 起步 · <a href=&quot;#grow&quot;>原因</a>">1개월 차에는 Pro로 시작 · <a href="#grow">이유</a></div>
       <div class="team" data-es="<b>Los 8 agentes</b> · 2 dominios de envío<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 8 agentes personalizados</a>" data-fr="<b>Les 8 agents</b> · 2 domaines d'envoi<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 8 agents personnalisés</a>" data-pt="<b>Todos os 8 agentes</b> · 2 domínios de envio<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 8 agentes personalizados</a>" data-zh="<b>全部 8 位智能体</b> · 2 个发送域名<br><a class=&quot;custom&quot; href=&quot;/agents#create&quot;>+ 8 位自定义智能体</a>"><b>에이전트 8명 전원</b> · 발송 도메인 2개<br><a class="custom" href="/ko/agents#create">+ 맞춤 에이전트 8명</a></div>
     </div>
   </div>
@@ -381,6 +394,8 @@
 <section class="section">
   <div class="wrap"><div class="faq">
     <h2 class="group" data-es="Preguntas sobre el cobro" data-fr="Questions sur la facturation" data-pt="Dúvidas sobre cobrança" data-zh="计费问题">결제 관련 질문</h2>
+    <details><summary data-es="¿Hay un plan anual?" data-fr="Y a-t-il un forfait annuel?" data-pt="Existe um plano anual?" data-zh="有年度套餐吗？">연간 요금제가 있나요?</summary><div class="ans"><p data-es="Sí, en todos los planes: pague 12 meses por adelantado y ahorre un 20% (Plus, por ejemplo, cuesta $1,439.90 al año en lugar de $1,799.88). Sigue recibiendo los correos del plan cada mes. Los planes anuales se pagan por el año por adelantado y no son reembolsables; puede desactivar la renovación cuando quiera. Por ahora, los planes anuales son para cuentas abiertas en nuestra web y pagadas con tarjeta." data-fr="Oui, pour tous les forfaits : payez 12 mois d’avance et économisez 20 % (Plus, par exemple, coûte 1 439,90 $ par an au lieu de 1 799,88 $). Vous recevez toujours les courriels du forfait chaque mois. Les forfaits annuels sont payés pour l’année à l’avance et ne sont pas remboursables; vous pouvez désactiver le renouvellement en tout temps. Pour l’instant, les forfaits annuels sont réservés aux comptes ouverts sur notre site et payés par carte." data-pt="Sim, em todos os planos: pague 12 meses adiantado e economize 20% (o Plus, por exemplo, custa US$ 1.439,90 por ano em vez de US$ 1.799,88). Você continua recebendo os e-mails do plano todo mês. Os planos anuais são pagos pelo ano adiantado e não são reembolsáveis; você pode desativar a renovação quando quiser. Por enquanto, os planos anuais são para contas abertas no nosso site e pagas com cartão." data-zh="有，所有套餐都可以：预付 12 个月，节省 20%（例如 Plus 每年 $1,439.90，而不是 $1,799.88）。您每个月仍会获得套餐的邮件额度。年度套餐需预付全年费用，不予退款；您可以随时关闭自动续订。目前，年度套餐仅适用于在我们网站上开设并以银行卡付款的账户。">네, 모든 요금제에서 가능합니다. 12개월을 선불로 결제하면 20% 절약됩니다(예: Plus는 연 $1,799.88 대신 $1,439.90). 이메일은 매달 요금제만큼 계속 제공됩니다. 연간 요금제는 1년치를 선불로 결제하며 환불되지 않습니다. 갱신은 언제든지 끌 수 있습니다. 현재 연간 요금제는 웹사이트에서 개설하고 카드로 결제한 계정에만 제공됩니다.</p></div></details>
+    <details id="launch-offer"><summary data-es="¿Qué es la oferta de lanzamiento?" data-fr="Qu’est-ce que l’offre de lancement?" data-pt="O que é a oferta de lançamento?" data-zh="什么是上线优惠？">출시 특가란 무엇인가요?</summary><div class="ans"><p data-es="Los 10 primeros clientes que se suscriban y paguen obtienen el plan Plus (1.000 correos al mes, normalmente $149.99) al precio de Basic, $49.99 al mes, durante sus primeros 12 meses; después Plus se renueva a su precio normal, y puede cancelar cuando quiera. Con pago anual, el primer año cuesta $539.89. Incluye una configuración guiada con Katya, por teléfono o en vivo en nuestra web. Una por negocio, para clientes nuevos; una plaza solo cuenta cuando está pagada, y la oferta termina cuando se ocupan las 10. Por ahora, es para cuentas abiertas en nuestra web y pagadas con tarjeta." data-fr="Les 10 premiers clients qui s’abonnent et paient obtiennent le forfait Plus (1 000 courriels par mois, normalement 149,99 $) au prix de Basic, 49,99 $ par mois, pendant leurs 12 premiers mois; ensuite, Plus se renouvelle à son prix habituel, et vous pouvez annuler en tout temps. Avec paiement annuel, la première année coûte 539,89 $. Elle comprend une configuration guidée avec Katya, par téléphone ou en direct sur notre site. Une par entreprise, pour les nouveaux clients; une place ne compte qu’une fois payée, et l’offre prend fin quand les 10 sont prises. Pour l’instant, elle est réservée aux comptes ouverts sur notre site et payés par carte." data-pt="Os 10 primeiros clientes que assinarem e pagarem recebem o plano Plus (1.000 e-mails por mês, normalmente US$ 149,99) pelo preço do Basic, US$ 49,99 por mês, nos primeiros 12 meses; depois, o Plus renova pelo preço normal, e você pode cancelar quando quiser. Com pagamento anual, o primeiro ano custa US$ 539,89. Inclui uma configuração guiada com a Katya, por telefone ou ao vivo no nosso site. Uma por empresa, para clientes novos; uma vaga só conta depois de paga, e a oferta termina quando as 10 forem ocupadas. Por enquanto, é para contas abertas no nosso site e pagas com cartão." data-zh="前 10 位订阅并付款的客户，可在前 12 个月以 Basic 的价格（每月 $49.99）使用 Plus 套餐（每月 1,000 封邮件，原价 $149.99）；之后 Plus 按正常价格续订，您可以随时取消。按年付款时，首年费用为 $539.89。包含 Katya 的引导式设置，可通过电话或在我们的网站上实时进行。每家企业限一份，仅限新客户；名额在付款后才算占用，10 个名额占满即结束。目前仅适用于在我们网站上开设并以银行卡付款的账户。">먼저 구독하고 결제한 고객 10명은 처음 12개월 동안 Plus 요금제(월 1,000통, 정상가 $149.99)를 Basic 가격인 월 $49.99에 이용합니다. 이후 Plus는 정상 가격으로 갱신되며 언제든지 해지할 수 있습니다. 연간 결제 시 첫해는 $539.89입니다. 전화 또는 웹사이트 실시간 대화로 Katya가 안내 설정을 도와드립니다. 사업체당 1회, 신규 고객 전용이며, 자리는 결제가 완료되어야 확정되고 10자리가 모두 차면 종료됩니다. 현재는 웹사이트에서 개설하고 카드로 결제한 계정에만 제공됩니다.</p></div></details>
     <details><summary data-es="¿Cobran comisión sobre mis ventas?" data-fr="Prenez-vous une commission sur mes ventes?" data-pt="Vocês cobram comissão sobre as minhas vendas?" data-zh="你们会从我的销售额中抽取佣金吗？">제 매출에서 수수료를 떼나요?</summary><div class="ans"><p data-es="No, nunca. Pagas el plan mensual y nada más. Los pedidos que consigas son tuyos, completos." data-fr="Non, jamais. Vous payez le forfait mensuel, rien de plus. Les commandes que vous obtenez vous appartiennent, en entier." data-pt="Não, nunca. Você paga o plano mensal e mais nada. Os pedidos que você conquista são seus, por inteiro." data-zh="不会，永远不会。您只需支付月度套餐费用，没有其他费用。您赢得的订单完全归您所有。">아니요, 절대 아닙니다. 월 요금제 외에는 아무것도 내지 않습니다. 따낸 주문은 전부 귀사의 것입니다.</p></div></details>
     <details><summary data-es="¿Qué cuenta como un correo?" data-fr="Qu'est-ce qui compte comme un courriel?" data-pt="O que conta como um e-mail?" data-zh="什么算作一封邮件？">무엇이 이메일 1통으로 계산되나요?</summary><div class="ans"><p data-es="Cada correo que tu agente envía a una tienda, incluido el único seguimiento que sale a los 7 días a la tienda que no respondió. Encontrar tiendas, redactar, la revisión y el panel no consumen correos." data-fr="Chaque courriel que votre agent envoie à une boutique, y compris l'unique relance envoyée 7 jours plus tard à la boutique qui n'a pas répondu. La recherche de boutiques, la rédaction, la révision et le tableau de bord ne consomment pas de courriels." data-pt="Cada e-mail que o seu agente envia a uma loja, incluindo o único acompanhamento enviado 7 dias depois para a loja que não respondeu. Buscar lojas, redigir, revisar e usar o painel não consomem e-mails." data-zh="您的智能体发给零售店的每一封邮件，包括 7 天后发给未回复零售店的唯一一封跟进邮件。寻找零售店、撰写草稿、审核和仪表板都不消耗邮件数量。">에이전트가 매장에 보내는 이메일 한 통 한 통입니다. 답이 없는 매장에 7일 후 보내는 단 한 번의 후속 이메일도 포함됩니다. 매장 찾기, 초안 작성, 검토, 대시보드는 이메일 수를 차감하지 않습니다.</p></div></details>
     <details><summary data-es="¿Qué pasa si llego al límite del mes?" data-fr="Que se passe-t-il si j'atteins la limite du mois?" data-pt="O que acontece quando chego ao limite do mês?" data-zh="达到当月上限后会怎样？">그달의 한도에 도달하면 어떻게 되나요?</summary><div class="ans"><p data-es="Tus agentes dejan de enviar hasta que empiece el siguiente mes de tu plan, o hasta que pases a un plan mayor. Nunca se cobra de más sin que lo pidas." data-fr="Vos agents cessent d'envoyer jusqu'au début du mois suivant de votre forfait, ou jusqu'à ce que vous passiez à un forfait supérieur. Rien de plus ne vous est jamais facturé sans que vous le demandiez." data-pt="Seus agentes param de enviar até começar o próximo mês do seu plano, ou até você subir de plano. Você nunca é cobrado a mais sem pedir." data-zh="您的智能体将停止发送，直到您套餐的下一个月开始，或直到您升级套餐。未经您的要求，绝不会额外收费。">요금제의 다음 달이 시작되거나 상위 요금제로 바꿀 때까지 에이전트가 발송을 멈춥니다. 요청하지 않은 추가 요금은 절대 청구되지 않습니다.</p></div></details>
@@ -679,8 +694,48 @@
     document.querySelectorAll('form[data-waitlist]').forEach(wireWaitlist);
   });
 })();
+/* Launch offer (18 Oct 2026): the counter comes from the app (real paid and held seats, never a made-up number). While
+   the offer is open the banner and the Plus card show n/10 taken; once it is closed they disappear. If the app cannot be
+   reached the text stays as written, without a number. The Monthly / Annual toggle of the pricing page switches the
+   prices shown and sends the offer link with interval=year. */
+(function () {
+  function ready(f) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f); else f(); }
+  ready(function () {
+    var plans = document.querySelector('.plans');
+    var section = plans ? plans.parentNode : null;
+    document.querySelectorAll('.billing-toggle button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var year = b.getAttribute('data-interval') === 'year';
+        document.querySelectorAll('.billing-toggle button').forEach(function (o) { var on = o === b; o.classList.toggle('on', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        if (section) section.classList.toggle('annual', year);
+        document.querySelectorAll('a[data-offer-link]').forEach(function (a) {
+          try { var u = new URL(a.href); if (year) u.searchParams.set('interval', 'year'); else u.searchParams.delete('interval'); a.href = u.toString(); } catch (e) {}
+        });
+      });
+    });
+    var marks = document.querySelectorAll('[data-offer]');
+    if (!marks.length || !window.fetch) return;
+    fetch('https://app.stockistscout.com/api/public/launch-offer', { mode: 'cors', credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (o) {
+        if (!o || typeof o.taken !== 'number') return;
+        if (!o.open) {
+          marks.forEach(function (el) { el.style.display = 'none'; });
+          document.querySelectorAll('.plan.has-offer').forEach(function (el) { el.classList.remove('has-offer'); });
+          return;
+        }
+        document.querySelectorAll('.offer-count').forEach(function (c) {
+          var n = c.querySelector('.offer-n'); var s = c.querySelector('.offer-seats');
+          if (n) n.textContent = String(o.taken);
+          if (s) s.textContent = String(o.seats);
+          c.hidden = false;
+        });
+      })
+      .catch(function () {});
+  });
+})();
 </script>
-<script src="/katya.js?v=4dc9c27a36" defer></script>
+<script src="/katya.js?v=bcfb1bd709" defer></script>
 <script src="https://api.binsusa.com/api/site/tracker.js" data-site="stockistscout" defer></script>
 </body>
 </html>

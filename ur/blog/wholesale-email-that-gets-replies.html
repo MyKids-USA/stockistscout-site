@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="/site.css?v=f09a7f4446">
+<link rel="stylesheet" href="/site.css?v=128fb2fd14">
 <script>window.SS_I18N={"End call":"کال ختم کریں","Cancel":"منسوخ کریں","Talk to Katya":"Katya سے بات کریں","Video is in high demand today. Type here and I will answer right away.":"آج ویڈیو کی مانگ بہت زیادہ ہے۔ یہاں لکھیں، میں فوراً جواب دوں گی۔","We have already talked several times this hour. Type here and I will answer right away.":"اس گھنٹے میں ہم کئی بار بات کر چکے ہیں۔ یہاں لکھیں، میں فوراً جواب دوں گی۔","I could not reach your microphone: check the permission, or type below.":"میں آپ کے مائیکروفون تک رسائی حاصل نہیں کر سکی: اجازت چیک کریں، یا نیچے لکھیں۔","I could not start the video just now. Type your question and I will answer anyway.":"میں ابھی ویڈیو شروع نہیں کر سکی۔ اپنا سوال لکھیں، میں پھر بھی جواب دوں گی۔","Katya is typing…":"Katya لکھ رہی ہیں…","I could not answer just now. Email us at {email}.":"میں ابھی جواب نہیں دے سکی۔ ہمیں {email} پر ای میل کریں۔","Hi! 👋 I’m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to start your free trial.":"السلام علیکم! 👋 میں Katya ہوں۔ مجھ سے پوچھیں کہ StockistScout کے ایجنٹ آپ کی مصنوعات کے لیے اسٹورز کیسے تلاش کرتے ہیں، پلانز کے بارے میں پوچھیں، یا مفت ٹرائل شروع کرنے کا طریقہ پوچھیں۔","Katya · StockistScout Assistant":"Katya · StockistScout اسسٹنٹ","Your questions, answered instantly":"آپ کے سوالوں کے فوری جواب","Type your question…":"اپنا سوال لکھیں…","Your question":"آپ کا سوال","Send":"بھیجیں","Close":"بند کریں","Chat with Katya":"Katya سے چیٹ کریں","Chats are saved to help us answer you better.":"چیٹس محفوظ کی جاتی ہیں تاکہ ہم آپ کو بہتر جواب دے سکیں۔","Questions about StockistScout? Happy to help. 👋":"StockistScout کے بارے میں سوالات ہیں؟ ہم مدد کے لیے حاضر ہیں۔ 👋","\u003cstrong>You are on the list. Thank you.\u003c/strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.":"\u003cstrong>آپ فہرست میں شامل ہو گئے ہیں۔ شکریہ۔\u003c/strong> StockistScout کھلتے ہی ہم آپ کو لکھیں گے۔ ہم ابھی تصدیقی ای میل نہیں بھیجتے، اس لیے یہی پیغام آپ کی تصدیق ہے۔","Sending…":"بھیجا جا رہا ہے…","Please check the highlighted fields.":"براہِ کرم نمایاں کیے گئے خانے چیک کریں۔","Too many tries from this connection. Please wait an hour, or write to \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>.":"اس کنکشن سے بہت زیادہ کوششیں ہو چکی ہیں۔ براہِ کرم ایک گھنٹہ انتظار کریں، یا \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a> پر لکھیں۔","We could not send it. Check your connection and try again, or write to \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>.":"ہم اسے بھیج نہیں سکے۔ اپنا کنکشن چیک کریں اور دوبارہ کوشش کریں، یا \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a> پر لکھیں۔","Why it fits:":"یہ کیوں موزوں ہے:"};</script><style>.mock-rows .why::before{content:"یہ کیوں موزوں ہے: "}</style></head>
 <body>
 <a class="skip" href="#main" data-es="Ir al contenido" data-fr="Aller au contenu" data-pt="Pular para o conteúdo" data-zh="跳到正文">مواد پر جائیں</a>
@@ -465,8 +465,48 @@
     document.querySelectorAll('form[data-waitlist]').forEach(wireWaitlist);
   });
 })();
+/* Launch offer (18 Oct 2026): the counter comes from the app (real paid and held seats, never a made-up number). While
+   the offer is open the banner and the Plus card show n/10 taken; once it is closed they disappear. If the app cannot be
+   reached the text stays as written, without a number. The Monthly / Annual toggle of the pricing page switches the
+   prices shown and sends the offer link with interval=year. */
+(function () {
+  function ready(f) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f); else f(); }
+  ready(function () {
+    var plans = document.querySelector('.plans');
+    var section = plans ? plans.parentNode : null;
+    document.querySelectorAll('.billing-toggle button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var year = b.getAttribute('data-interval') === 'year';
+        document.querySelectorAll('.billing-toggle button').forEach(function (o) { var on = o === b; o.classList.toggle('on', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        if (section) section.classList.toggle('annual', year);
+        document.querySelectorAll('a[data-offer-link]').forEach(function (a) {
+          try { var u = new URL(a.href); if (year) u.searchParams.set('interval', 'year'); else u.searchParams.delete('interval'); a.href = u.toString(); } catch (e) {}
+        });
+      });
+    });
+    var marks = document.querySelectorAll('[data-offer]');
+    if (!marks.length || !window.fetch) return;
+    fetch('https://app.stockistscout.com/api/public/launch-offer', { mode: 'cors', credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (o) {
+        if (!o || typeof o.taken !== 'number') return;
+        if (!o.open) {
+          marks.forEach(function (el) { el.style.display = 'none'; });
+          document.querySelectorAll('.plan.has-offer').forEach(function (el) { el.classList.remove('has-offer'); });
+          return;
+        }
+        document.querySelectorAll('.offer-count').forEach(function (c) {
+          var n = c.querySelector('.offer-n'); var s = c.querySelector('.offer-seats');
+          if (n) n.textContent = String(o.taken);
+          if (s) s.textContent = String(o.seats);
+          c.hidden = false;
+        });
+      })
+      .catch(function () {});
+  });
+})();
 </script>
-<script src="/katya.js?v=4dc9c27a36" defer></script>
+<script src="/katya.js?v=bcfb1bd709" defer></script>
 <script src="https://api.binsusa.com/api/site/tracker.js" data-site="stockistscout" defer></script>
 </body>
 </html>

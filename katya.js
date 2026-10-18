@@ -470,6 +470,11 @@
     // video call is not offered there and the typed chat, which speaks Hebrew, stays.
     if (lang() === 'he') el.callBtn.style.display = 'none';
 
+    // The launch offer's guided setup (18 Oct 2026): the app's "Talk to Katya live" opens this page with ?katya=open, and
+    // the chat opens at once; the video call stays one click away (it spends LiveAvatar minutes, and browsers want a click
+    // before sound).
+    var openNow = /[?&]katya=open(&|$)/.test(location.search);
+
     var bubble = document.getElementById('katyaBubble');
     var bubbleTimer = null;
     function hideBubble(remember) {
@@ -485,6 +490,7 @@
     }
     var seen = false;
     try { seen = localStorage.getItem('ss_katya_bubble') === 'seen'; } catch (e) {}
+    if (openNow) { seen = true; open(); }
     if (!seen) {
       bubbleTimer = setTimeout(function () {
         if (el.panel.style.display === 'flex') return;

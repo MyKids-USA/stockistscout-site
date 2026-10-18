@@ -35,7 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="/site.css?v=f09a7f4446">
+<link rel="stylesheet" href="/site.css?v=128fb2fd14">
 <script>window.SS_I18N={"End call":"結束通話","Cancel":"取消","Talk to Katya":"與 Katya 通話","Video is in high demand today. Type here and I will answer right away.":"今天視訊通話需求很高。請在這裡輸入，我會立即回覆您。","We have already talked several times this hour. Type here and I will answer right away.":"這一小時內我們已經通話多次了。請在這裡輸入，我會立即回覆您。","I could not reach your microphone: check the permission, or type below.":"無法使用您的麥克風：請檢查許可權，或在下方輸入文字。","I could not start the video just now. Type your question and I will answer anyway.":"暫時無法開啟影片。請輸入您的問題，我照樣為您解答。","Katya is typing…":"Katya 正在輸入…","I could not answer just now. Email us at {email}.":"暫時無法回答。請發郵件至 {email}。","Hi! 👋 I’m Katya. Ask me how StockistScout’s agents find stores for your products, about the plans, or how to start your free trial.":"您好！👋 我是 Katya。您可以問我 StockistScout 的代理如何為您的產品尋找零售店、各個方案的內容，或如何開始免費試用。","Katya · StockistScout Assistant":"Katya · StockistScout 助理","Your questions, answered instantly":"您的問題，即時解答","Type your question…":"請輸入您的問題…","Your question":"您的問題","Send":"傳送","Close":"關閉","Chat with Katya":"與 Katya 聊天","Chats are saved to help us answer you better.":"我們會儲存對話記錄，以便更好地為您服務。","Questions about StockistScout? Happy to help. 👋":"對 StockistScout 有疑問？我很樂意為您解答。👋","\u003cstrong>You are on the list. Thank you.\u003c/strong> We will write to you when StockistScout opens. We do not send a confirmation email yet, so this message is your confirmation.":"\u003cstrong>您已加入名單，謝謝。\u003c/strong>StockistScout 開放時我們會寫信通知您。我們暫不傳送確認郵件，因此本則訊息即為您的確認。","Sending…":"正在傳送…","Please check the highlighted fields.":"請檢查標出的欄位。","Too many tries from this connection. Please wait an hour, or write to \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>.":"此網路連線嘗試次數過多。請等待一小時，或寫信至 \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>。","We could not send it. Check your connection and try again, or write to \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>.":"未能傳送。請檢查網路連線後重試，或寫信至 \u003ca href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com\u003c/a>。","Why it fits:":"符合原因："};</script><style>.mock-rows .why::before{content:"符合原因： "}</style></head>
 <body>
 <a class="skip" href="#main" data-es="Ir al contenido" data-fr="Aller au contenu" data-pt="Pular para o conteúdo" data-zh="跳到正文">跳到正文</a>
@@ -472,8 +472,48 @@
     document.querySelectorAll('form[data-waitlist]').forEach(wireWaitlist);
   });
 })();
+/* Launch offer (18 Oct 2026): the counter comes from the app (real paid and held seats, never a made-up number). While
+   the offer is open the banner and the Plus card show n/10 taken; once it is closed they disappear. If the app cannot be
+   reached the text stays as written, without a number. The Monthly / Annual toggle of the pricing page switches the
+   prices shown and sends the offer link with interval=year. */
+(function () {
+  function ready(f) { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', f); else f(); }
+  ready(function () {
+    var plans = document.querySelector('.plans');
+    var section = plans ? plans.parentNode : null;
+    document.querySelectorAll('.billing-toggle button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var year = b.getAttribute('data-interval') === 'year';
+        document.querySelectorAll('.billing-toggle button').forEach(function (o) { var on = o === b; o.classList.toggle('on', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+        if (section) section.classList.toggle('annual', year);
+        document.querySelectorAll('a[data-offer-link]').forEach(function (a) {
+          try { var u = new URL(a.href); if (year) u.searchParams.set('interval', 'year'); else u.searchParams.delete('interval'); a.href = u.toString(); } catch (e) {}
+        });
+      });
+    });
+    var marks = document.querySelectorAll('[data-offer]');
+    if (!marks.length || !window.fetch) return;
+    fetch('https://app.stockistscout.com/api/public/launch-offer', { mode: 'cors', credentials: 'omit' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (o) {
+        if (!o || typeof o.taken !== 'number') return;
+        if (!o.open) {
+          marks.forEach(function (el) { el.style.display = 'none'; });
+          document.querySelectorAll('.plan.has-offer').forEach(function (el) { el.classList.remove('has-offer'); });
+          return;
+        }
+        document.querySelectorAll('.offer-count').forEach(function (c) {
+          var n = c.querySelector('.offer-n'); var s = c.querySelector('.offer-seats');
+          if (n) n.textContent = String(o.taken);
+          if (s) s.textContent = String(o.seats);
+          c.hidden = false;
+        });
+      })
+      .catch(function () {});
+  });
+})();
 </script>
-<script src="/katya.js?v=4dc9c27a36" defer></script>
+<script src="/katya.js?v=bcfb1bd709" defer></script>
 <script src="https://api.binsusa.com/api/site/tracker.js" data-site="stockistscout" defer></script>
 </body>
 </html>
