@@ -262,6 +262,7 @@
       <a href="/it/privacy" data-es="Privacidad" data-fr="Confidentialité" data-pt="Privacidade" data-zh="隐私">Privacy</a>
       <a href="/it/terms" data-es="Términos" data-fr="Conditions" data-pt="Termos" data-zh="条款">Termini</a>
       <a href="/it/corporate-agreement" data-es="Contrato corporativo" data-fr="Entente d'entreprise" data-pt="Contrato corporativo" data-zh="企业订阅协议">Contratto aziendale</a>
+      <a href="/it/partners" data-es="Programa de socios" data-fr="Programme partenaires" data-pt="Programa de parceiros" data-zh="合作伙伴计划">Programma partner</a>
     </nav>
     <nav aria-label="I nostri altri prodotti" data-es-label="Nuestros otros productos" data-fr-label="Nos autres produits" data-pt-label="Nossos outros produtos" data-zh-label="我们的其他产品">
       <h2 data-es="Del mismo equipo" data-fr="De la même équipe" data-pt="Da mesma equipe" data-zh="同一团队的其他产品">Dallo stesso team</h2>
@@ -336,6 +337,41 @@
     } catch (err) {}
     return {};
   }
+  /* Partners (affiliates, 18 Oct 2026): a partner's ?ref= code on the URL a visit landed on is kept on this device for 60
+     days and the first code wins (a later code never replaces it). Every link to the app carries it, and the visit counts as
+     the partner's click, once per code and visit session, sent to the app with navigator.sendBeacon once the page has loaded
+     (the tracker's session id is there by then, so the app's own arrival of the same visit is not counted twice). */
+  var REF_KEY = 'ss_ref', REF_TTL = 60 * 86400000, APP = 'https://app.stockistscout.com';
+  function refOk(v) { return !!v && v.length >= 3 && v.length <= 32 && !/[^A-Za-z0-9_-]/.test(v); }
+  function keptRef() {
+    try { var v = JSON.parse(localStorage.getItem(REF_KEY) || 'null'); if (v && refOk(v.r) && Date.now() - v.at < REF_TTL) return v.r; } catch (err) {}
+    return null;
+  }
+  (function () {
+    var here = null;
+    try { here = new URLSearchParams(location.search).get('ref'); } catch (err) {}
+    if (!refOk(here)) return;
+    if (!keptRef()) try { localStorage.setItem(REF_KEY, JSON.stringify({ r: here, at: Date.now() })); } catch (err) {}
+    var done = null;
+    try { done = sessionStorage.getItem('ss_ref_click'); sessionStorage.setItem('ss_ref_click', here); } catch (err) {}
+    if (done === here) return;
+    function send() {
+      var sid = null;
+      try { sid = sessionStorage.getItem('wms_sid'); } catch (err) {}
+      var body = JSON.stringify({ ref: here, sid: sid && sid !== 'nostorage' ? sid : undefined, landing: location.pathname.slice(0, 200) });
+      try { if (navigator.sendBeacon && navigator.sendBeacon(APP + '/api/affiliates/click', new Blob([body], { type: 'text/plain' }))) return; } catch (err) {}
+      try { fetch(APP + '/api/affiliates/click', { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain' }, body: body }); } catch (err) {}
+    }
+    if (document.readyState === 'complete') setTimeout(send, 1500); else window.addEventListener('load', function () { setTimeout(send, 1500); });
+  })();
+  /* The kept code on every link to the app, already in the page (what a visitor sees on hover), and again at click time below. */
+  function withRef(a) {
+    var r = keptRef();
+    if (!r) return;
+    try { var u = new URL(a.href); if (!u.searchParams.has('ref')) { u.searchParams.set('ref', r); a.href = u.toString(); } } catch (err) {}
+  }
+  function refLinks() { if (keptRef()) document.querySelectorAll('a[href^="' + APP + '/"]').forEach(withRef); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', refLinks); else refLinks();
   /* The funnel (15 Oct 2026): a click to the app carries this visit's session id (the tracker's), the page's language
      and where the visit landed, so a sign-up can be traced back to its visit. Added at click time only. A click on a
      sign-up link is also a GA4 event, sign_up_click (with data-cta: where on the page), to mark as a key event. */
@@ -346,6 +382,8 @@
     try { u = new URL(a.href); } catch (err) { return; }
     var ads = adsParams();
     Object.keys(ads).forEach(function (k) { if (!u.searchParams.has(k)) u.searchParams.set(k, ads[k]); });
+    var ref = keptRef();
+    if (ref && !u.searchParams.has('ref')) u.searchParams.set('ref', ref);
     var sid = null;
     try { sid = sessionStorage.getItem('wms_sid'); } catch (err) {}
     if (sid && sid !== 'nostorage') {
