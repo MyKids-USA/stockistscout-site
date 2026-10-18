@@ -223,21 +223,50 @@
     var to = lang === 'en' ? p : '/' + FOLDERS[LANGS.indexOf(lang)] + (p === '/' ? '/' : p);
     return to + location.search + location.hash;
   }
+  /* Ads (18 Oct 2026): the utm_* parameters and Google's click ids (gclid, gbraid, wbraid) of the URL a visit landed on
+     are kept on this device for 30 days, and every click to the app carries them, so the app can tell which campaign a
+     sign-up came from even when the visitor read two more pages first. The landing URL's own parameters win. */
+  var ADS_KEY = 'ss_ads', ADS_TTL = 30 * 86400000;
+  function isAdsParam(k) { return k.indexOf('utm_') === 0 || k === 'gclid' || k === 'gbraid' || k === 'wbraid'; }
+  function adsHere() {
+    var got = {}, any = false;
+    try { new URLSearchParams(location.search).forEach(function (v, k) { if (isAdsParam(k) && v) { got[k.slice(0, 40)] = v.slice(0, 200); any = true; } }); } catch (err) {}
+    return any ? got : null;
+  }
+  (function () {
+    var here = adsHere();
+    if (here) try { localStorage.setItem(ADS_KEY, JSON.stringify({ p: here, at: Date.now() })); } catch (err) {}
+  })();
+  function adsParams() {
+    var here = adsHere();
+    if (here) return here;
+    try {
+      var v = JSON.parse(localStorage.getItem(ADS_KEY) || 'null');
+      if (v && v.p && Date.now() - v.at < ADS_TTL) return v.p;
+    } catch (err) {}
+    return {};
+  }
   /* The funnel (15 Oct 2026): a click to the app carries this visit's session id (the tracker's), the page's language
-     and where the visit landed, so a sign-up can be traced back to its visit. Added at click time only. */
+     and where the visit landed, so a sign-up can be traced back to its visit. Added at click time only. A click on a
+     sign-up link is also a GA4 event, sign_up_click (with data-cta: where on the page), to mark as a key event. */
   document.addEventListener('click', function (e) {
     var a = e.target && e.target.closest ? e.target.closest('a[href^="https://app.stockistscout.com/"]') : null;
     if (!a) return;
+    var u;
+    try { u = new URL(a.href); } catch (err) { return; }
+    var ads = adsParams();
+    Object.keys(ads).forEach(function (k) { if (!u.searchParams.has(k)) u.searchParams.set(k, ads[k]); });
     var sid = null;
     try { sid = sessionStorage.getItem('wms_sid'); } catch (err) {}
-    if (!sid || sid === 'nostorage') return;
-    try {
-      var u = new URL(a.href);
+    if (sid && sid !== 'nostorage') {
       u.searchParams.set('ss_sid', sid);
       u.searchParams.set('ss_lang', pageLang());
       u.searchParams.set('ss_path', location.pathname);
-      a.href = u.toString();
-    } catch (err) {}
+    }
+    a.href = u.toString();
+    if (u.pathname === '/signup' && typeof window.gtag === 'function') {
+      try { window.gtag('event', 'sign_up_click', { cta: a.getAttribute('data-cta') || 'link', page_path: location.pathname, lang: pageLang() }); } catch (err) {}
+    }
   }, true);
   function go(lang) {
     try { localStorage.setItem(KEY, lang); } catch (e) {}
@@ -324,7 +353,7 @@
   /* On an English page, a visitor who chose another language before, or whose browser speaks one the site is built in on
      a first visit (es-*, fr-*, pt-*, zh-* (Traditional for zh-TW, zh-HK, zh-MO, zh-Hant*), and once their files exist ja-*, ko-*, he-* or iw-*, ar-*, it-*, de-*, nl-*, hi-*), goes to
      that page in their language. A saved language the site no longer has stays on English. A page reached in another language remembers it. */
-  if (pageLang() === 'en') {
+  if (pageLang() === 'en' && !document.documentElement.hasAttribute('data-lp')) {
     var want = saved || (LANGS.indexOf(nav) >= 0 ? nav : 'en');
     if (LANGS.indexOf(want) >= 0) { location.replace(urlFor(want)); return; }
   } else {

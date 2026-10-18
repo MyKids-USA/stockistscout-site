@@ -1,0 +1,52 @@
+/* The ad landing pages (/lp/…, site/lp.mjs, 18 Oct 2026): only what site.css does not already give them.
+   Colours are site.css tokens, so dark mode follows on its own. */
+.lp-head .head-row { justify-content: space-between; gap: 12px; }
+.lp-head .lp-cta { flex-shrink: 0; }
+@media (max-width: 1279px) { .lp-head .head-row { padding: 0 16px; } }
+@media (max-width: 420px) { .lp-head .brand img { width: 136px; } .lp-head .btn-sm { padding: 8px 12px; font-size: 14.5px; } }
+
+.lp-cta { white-space: normal; text-align: center; }
+.lp-hero { padding-top: clamp(32px, 4vw, 56px); }
+.lp-hero h1 { font-size: clamp(32px, 3.9vw, 48px); letter-spacing: -0.03em; margin-bottom: 18px; }
+.lp-hero .lead { margin-bottom: 24px; }
+.lp-hero .actions .lp-cta { font-size: 17.5px; padding: 15px 26px; min-height: 54px; }
+.lp-ticks { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--ink-2); font-size: 15.5px; }
+.lp-ticks li { display: inline-flex; align-items: center; gap: 7px; }
+.lp-ticks svg, .lp-trust svg { color: var(--green-text); flex-shrink: 0; }
+
+.lp-mock .mock-top { margin-bottom: 2px; }
+.lp-mock .mock-rows li { grid-template-columns: 1fr; }
+.lp-mock .mock-rows .why::before { content: none; }
+.lp-mock .mock-rows .why strong { color: var(--ink-2); font-weight: 600; }
+.lp-mock .caption { margin-top: 10px; }
+
+.lp-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+@media (min-width: 860px) { .lp-steps { grid-template-columns: repeat(3, 1fr); } }
+.lp-n { display: block; font: 500 13px var(--mono); letter-spacing: .12em; color: var(--green-text); margin-bottom: 12px; }
+
+.lp-h2, .lp-proof h2 { font-size: clamp(28px, 3.8vw, 40px); margin-bottom: 18px; }
+.lp-proof { display: grid; gap: 32px; align-items: center; }
+@media (min-width: 940px) { .lp-proof { grid-template-columns: 1.05fr 1fr; gap: 56px; } }
+.lp-proof-text { color: var(--ink-2); font-size: 18px; margin: 0; }
+.lp-stats-lead { font-weight: 600; color: var(--ink); margin-bottom: 18px; }
+.lp-stats dl { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 0 0 6px; }
+.lp-stats dt { font: 800 clamp(30px, 4vw, 40px)/1.1 var(--display); color: var(--green-text); }
+.lp-stats dd { margin: 4px 0 0; color: var(--ink-2); font-size: 15px; line-height: 1.4; }
+
+.lp-trust-grid { display: grid; gap: 36px; align-items: center; }
+@media (min-width: 980px) { .lp-trust-grid { grid-template-columns: 1fr 1fr; gap: 56px; } }
+.lp-trust { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.lp-trust li { display: flex; gap: 12px; align-items: flex-start; }
+.lp-trust li svg { margin-top: 4px; }
+.lp-trust b { display: block; font-size: 17.5px; color: var(--ink); }
+.lp-trust span { color: var(--ink-2); font-size: 16px; }
+.lp-shot .shot-frame:hover { transform: none; box-shadow: 0 12px 32px rgba(15, 42, 74, .10); }
+.lp-shot .shot-frame img { aspect-ratio: 1600 / 1000; }
+
+.lp-hero + .section .section-head { margin-bottom: 28px; }
+.faq.wrap { max-width: 860px; }
+
+.lp-foot { padding: 8px 0 28px; }
+.lp-foot .foot-legal { margin-top: 0; border-top: 0; }
+.lp-foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.lp-foot-links a { min-height: 28px; display: inline-flex; align-items: center; }

@@ -28,6 +28,7 @@ import { writeFlags } from './flags.mjs';
 import { FLAG_ISOS } from './shell.mjs';
 import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
 
+import { lpPages } from './lp.mjs';
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -268,7 +269,7 @@ export function localize(html, lang, path, pages, meta, dict) {
   head.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
   head.querySelector('meta[property="og:url"]')?.setAttribute('content', url);
   document.querySelector(`#langMenu a[data-lang="${lang}"]`)?.setAttribute('aria-current', 'true');
-  const og = document.createElement('meta'); og.setAttribute('property', 'og:locale'); og.setAttribute('content', BY[lang].locale);
+  const og = document.createElement('meta'); og.setAttribute('property', 'og:locale'); og.setAttribute('content', meta.locale || BY[lang].locale);
   head.querySelector('meta[property="og:type"]')?.after(og);
   if (!meta.noindex) {
     const canonical = head.querySelector('link[rel="canonical"]');
@@ -327,7 +328,9 @@ const ROBOTS = INDEXABLE
 export function englishPages() {
   // The blog's posts live in site/pages/blog/ (17 Oct 2026): /blog/<file name>.
   const blog = existsSync(join(PAGES, 'blog')) ? readdirSync(join(PAGES, 'blog')).filter((f) => f.endsWith('.html')).sort().map((f) => `blog/${f}`) : [];
-  const read = [...readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort(), ...blog].map(readPage);
+  // The ad landing pages (site/lp.mjs, 18 Oct 2026) come after: noindex, so English-only output at their own path, out of
+  // the sitemap and the dictionaries; each is written in its own language.
+  const read = [...[...readdirSync(PAGES).filter((f) => f.endsWith('.html')).sort(), ...blog].map(readPage), ...lpPages()];
   // Newest first; the first is the featured card of the index.
   POSTS = read.map((x) => x.meta).filter((m) => m.article).sort((a, b) => (b.article.published + b.path).localeCompare(a.article.published + a.path) || (a.article.order ?? 0) - (b.article.order ?? 0));
   POSTS.sort((a, b) => (a.article.order ?? 99) - (b.article.order ?? 99));

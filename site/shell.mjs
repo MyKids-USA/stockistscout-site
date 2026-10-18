@@ -313,6 +313,8 @@ export function ctaButton(cls) {
 
 /** Changes whenever site.css changes, so a browser never pairs new HTML with an old cached stylesheet. */
 const CSS_VERSION = createHash('sha256').update(readFileSync(new URL('../site.css', import.meta.url))).digest('hex').slice(0, 10);
+/** The ad landing pages' own stylesheet (lp.css, 18 Oct 2026), loaded only by them. */
+const LP_CSS_VERSION = createHash('sha256').update(readFileSync(new URL('../lp.css', import.meta.url))).digest('hex').slice(0, 10);
 /* Katya, the chat (katya.js at the root; its backend is the WMS Cloud API,
    /api/stockistscout/katya). One tag per page, after SCRIPT, and the file guards itself
    too (window.__katyaLoaded): on bins-usa.com a second copy drew a second, blank launcher.
@@ -419,7 +421,7 @@ function head(meta) {
     return t ? ` data-${l.code}="${attr(titled(t))}"` : '';
   }).join('');
   return `<!doctype html>
-<html lang="en">
+<html lang="${meta.html || 'en'}"${meta.lp ? ' data-lp' : ''}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -434,7 +436,7 @@ function head(meta) {
 </script>
 <title${titles}>${full}</title>
 <meta name="description" content="${esc(description)}">
-${INDEXABLE ? '' : '<meta name="robots" content="noindex">\n'}<link rel="canonical" href="${url}">
+${INDEXABLE && !meta.noindex ? '' : '<meta name="robots" content="noindex">\n'}<link rel="canonical" href="${url}">
 <meta property="og:type" content="${meta.article ? 'article' : 'website'}">${meta.article ? `
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: title, description, datePublished: meta.article.published, dateModified: meta.updated || meta.article.published, author: { '@type': 'Organization', name: 'StockistScout', url: ORIGIN }, publisher: { '@type': 'Organization', name: 'StockistScout', logo: { '@type': 'ImageObject', url: ORIGIN + '/img/logo-520.png' } }, image: ORIGIN + (meta.article.image || '/img/og.png'), mainEntityOfPage: url }).replace(/</g, '\\u003c')}</script>` : ''}
 <meta property="og:site_name" content="StockistScout">
@@ -455,7 +457,8 @@ ${INDEXABLE ? '' : '<meta name="robots" content="noindex">\n'}<link rel="canonic
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${FONTS}">
-<link rel="stylesheet" href="/site.css?v=${CSS_VERSION}">
+<link rel="stylesheet" href="/site.css?v=${CSS_VERSION}">${meta.lp ? `
+<link rel="stylesheet" href="/lp.css?v=${LP_CSS_VERSION}">` : ''}
 </head>`;
 }
 
@@ -642,21 +645,50 @@ const SCRIPT = `<script>
     var to = lang === 'en' ? p : '/' + FOLDERS[LANGS.indexOf(lang)] + (p === '/' ? '/' : p);
     return to + location.search + location.hash;
   }
+  /* Ads (18 Oct 2026): the utm_* parameters and Google's click ids (gclid, gbraid, wbraid) of the URL a visit landed on
+     are kept on this device for 30 days, and every click to the app carries them, so the app can tell which campaign a
+     sign-up came from even when the visitor read two more pages first. The landing URL's own parameters win. */
+  var ADS_KEY = 'ss_ads', ADS_TTL = 30 * 86400000;
+  function isAdsParam(k) { return k.indexOf('utm_') === 0 || k === 'gclid' || k === 'gbraid' || k === 'wbraid'; }
+  function adsHere() {
+    var got = {}, any = false;
+    try { new URLSearchParams(location.search).forEach(function (v, k) { if (isAdsParam(k) && v) { got[k.slice(0, 40)] = v.slice(0, 200); any = true; } }); } catch (err) {}
+    return any ? got : null;
+  }
+  (function () {
+    var here = adsHere();
+    if (here) try { localStorage.setItem(ADS_KEY, JSON.stringify({ p: here, at: Date.now() })); } catch (err) {}
+  })();
+  function adsParams() {
+    var here = adsHere();
+    if (here) return here;
+    try {
+      var v = JSON.parse(localStorage.getItem(ADS_KEY) || 'null');
+      if (v && v.p && Date.now() - v.at < ADS_TTL) return v.p;
+    } catch (err) {}
+    return {};
+  }
   /* The funnel (15 Oct 2026): a click to the app carries this visit's session id (the tracker's), the page's language
-     and where the visit landed, so a sign-up can be traced back to its visit. Added at click time only. */
+     and where the visit landed, so a sign-up can be traced back to its visit. Added at click time only. A click on a
+     sign-up link is also a GA4 event, sign_up_click (with data-cta: where on the page), to mark as a key event. */
   document.addEventListener('click', function (e) {
     var a = e.target && e.target.closest ? e.target.closest('a[href^="https://app.stockistscout.com/"]') : null;
     if (!a) return;
+    var u;
+    try { u = new URL(a.href); } catch (err) { return; }
+    var ads = adsParams();
+    Object.keys(ads).forEach(function (k) { if (!u.searchParams.has(k)) u.searchParams.set(k, ads[k]); });
     var sid = null;
     try { sid = sessionStorage.getItem('wms_sid'); } catch (err) {}
-    if (!sid || sid === 'nostorage') return;
-    try {
-      var u = new URL(a.href);
+    if (sid && sid !== 'nostorage') {
       u.searchParams.set('ss_sid', sid);
       u.searchParams.set('ss_lang', pageLang());
       u.searchParams.set('ss_path', location.pathname);
-      a.href = u.toString();
-    } catch (err) {}
+    }
+    a.href = u.toString();
+    if (u.pathname === '/signup' && typeof window.gtag === 'function') {
+      try { window.gtag('event', 'sign_up_click', { cta: a.getAttribute('data-cta') || 'link', page_path: location.pathname, lang: pageLang() }); } catch (err) {}
+    }
   }, true);
   function go(lang) {
     try { localStorage.setItem(KEY, lang); } catch (e) {}
@@ -743,7 +775,7 @@ const SCRIPT = `<script>
   /* On an English page, a visitor who chose another language before, or whose browser speaks one the site is built in on
      a first visit (es-*, fr-*, pt-*, zh-* (Traditional for zh-TW, zh-HK, zh-MO, zh-Hant*), and once their files exist ja-*, ko-*, he-* or iw-*, ar-*, it-*, de-*, nl-*, hi-*), goes to
      that page in their language. A saved language the site no longer has stays on English. A page reached in another language remembers it. */
-  if (pageLang() === 'en') {
+  if (pageLang() === 'en' && !document.documentElement.hasAttribute('data-lp')) {
     var want = saved || (LANGS.indexOf(nav) >= 0 ? nav : 'en');
     if (LANGS.indexOf(want) >= 0) { location.replace(urlFor(want)); return; }
   } else {
@@ -811,16 +843,36 @@ const SCRIPT = `<script>
 })();
 </script>`;
 
+/* The ad landing pages (site/lp.mjs, 18 Oct 2026): a header with only the logo and the call to action, and a footer
+   with the legal links, so nothing pulls the visitor away from the one action. No language menu: each page is one
+   language, and the site script never sends it to another (html[data-lp]). */
+function lpHeader(lp) {
+  return `<header class="site-head lp-head">
+  <div class="head-row">
+    <a class="brand" href="${lp.home}" aria-label="${attr(lp.homeLabel)}">${logo(196, 52, ' fetchpriority="high"')}</a>
+    ${lp.cta}
+  </div>
+</header>`;
+}
+function lpFooter(lp) {
+  return `<footer class="site-foot lp-foot">
+  <div class="wrap foot-legal">
+    <span>© 2026 ${COMPANY} · ${lp.place}</span>
+    <span class="lp-foot-links"><a href="${lp.privacy[0]}">${lp.privacy[1]}</a><a href="${lp.terms[0]}">${lp.terms[1]}</a><a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a><a href="${CONTACT_TEL}"><span class="tel-num">${US_FLAG}${CONTACT_PHONE_DIGITS}</span></a></span>
+  </div>
+</footer>`;
+}
+
 /** A complete page: shell around a body fragment. */
 export function page(meta) {
   const { path, body } = meta;
   return `${head(meta)}
 <body>
-${header(path)}
+${meta.lp ? lpHeader(meta.lp) : header(path)}
 <main id="main" tabindex="-1">
 ${body.trim()}
 </main>
-${footer()}
+${meta.lp ? lpFooter(meta.lp) : footer()}
 ${SCRIPT}
 <script src="/katya.js?v=${KATYA_VERSION}" defer></script>
 <script src="https://api.binsusa.com/api/site/tracker.js" data-site="stockistscout" defer></script>
