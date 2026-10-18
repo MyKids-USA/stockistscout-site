@@ -941,5 +941,6 @@
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "此網路連線嘗試次數過多。請等待一小時，或寫信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "未能傳送。請檢查網路連線後重試，或寫信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。",
  "Why it fits:": "符合原因：",
- "Lin fills in the setup in Chinese: the app and the setup coach speak sixteen languages. What changes is the country of each agent. Lin chooses the United States, so the agent searches US shops and writes to them in English, while every screen, report and suggestion stays in Chinese for Lin.": "Lin 用中文完成設定：應用程式和設定教練支援十六種語言。變的是每個代理所負責的國家。Lin 選擇了美國，所以代理會搜尋美國的店家，並用英文寫信給它們，而每個畫面、報告和建議，對 Lin 來說仍然是中文。"
+ "Lin fills in the setup in Chinese: the app and the setup coach speak sixteen languages. What changes is the country of each agent. Lin chooses the United States, so the agent searches US shops and writes to them in English, while every screen, report and suggestion stays in Chinese for Lin.": "Lin 用中文完成設定：應用程式和設定教練支援十六種語言。變的是每個代理所負責的國家。Lin 選擇了美國，所以代理會搜尋美國的店家，並用英文寫信給它們，而每個畫面、報告和建議，對 Lin 來說仍然是中文。",
+ "We use StockistScout to find our own customers. <em>Now let our AI agents find yours.</em>": "我們自己就用 StockistScout 尋找客戶。<em>現在，讓我們的 AI 智能體為您尋找客戶。</em>"
 }
