@@ -187,8 +187,24 @@ export function countryList(lang, conj = 'and', form = '') {
   names.push((lang === 'fr' ? CARIBBEAN[form === 'in' ? 'frIn' : 'frArt'] : CARIBBEAN[lang]) + lp + join(islands, CONJ[lang]?.and) + rp);
   return join(names, CONJ[lang]?.[conj]);
 }
+/** A strip of every country's flag for a hero ({{HERO_FLAGS}}, the hotels page; Aharon, 18 Oct 2026: "más bonito, con
+ *  sus banderitas y en hero"). Each flag carries its name for screen readers and as a hover label; the strip links to the
+ *  full list by region (#countries) on the same page. */
+export function heroFlags() {
+  const t = (o, tag = 'span', extra = '') => `<${tag}${extra} data-es="${attr(o.es)}" data-fr="${attr(o.fr)}" data-pt="${attr(o.pt)}" data-zh="${attr(o.zh)}">${o.en}</${tag}>`;
+  const items = COUNTRIES.map((c) => `      <li>${flagImg(c.iso).replace('class="flag"', 'class="flag flag-hero"')}${t(c, 'span', ' class="hero-flag-name"')}</li>`).join('\n');
+  const all = { en: 'See all the countries', es: 'Ver todos los países', fr: 'Voir tous les pays', pt: 'Ver todos os países', zh: '查看全部国家和地区' };
+  return `<div class="hero-flags">
+    <ul class="hero-flag-list">
+${items}
+    </ul>
+    <a class="hero-flags-all" href="#countries">${t(all)} →</a>
+  </div>`;
+}
 /** The section that lists them by region ({{WHERE_COUNTRIES}}, home and pricing): the anchor #countries. */
-export function countriesSection() {
+export function countriesSection(kind = 'stores') {
+  // The hotels page says companies, not stores ({{WHERE_COUNTRIES:companies}}, 18 Oct 2026).
+  const co = kind === 'companies';
   const t = (o, tag = 'span', extra = '') => `<${tag}${extra} data-es="${attr(o.es)}" data-fr="${attr(o.fr)}" data-pt="${attr(o.pt)}" data-zh="${attr(o.zh)}">${o.en}</${tag}>`;
   const groups = REGIONS.map((r) => `      <div class="country-group">
         ${t(r, 'h3')}
@@ -198,13 +214,13 @@ ${COUNTRIES.filter((c) => c.region === r.id).map((c) => `          <li>${flagImg
       </div>`).join('\n');
   return `<section class="countries-band" id="countries" aria-labelledby="countries-h">
   <div class="wrap">
-    ${t({ en: 'Where our agents find stores', es: 'Dónde encuentran tiendas nuestros agentes', fr: 'Où nos agents trouvent des boutiques', pt: 'Onde nossos agentes encontram lojas', zh: '我们的智能体在哪些国家/地区寻找零售店' }, 'h2', ' id="countries-h"')}
-    ${t({ en: 'Your business can be anywhere; your agents write to stores in these countries. More are coming as we check each country’s law.', es: 'Tu negocio puede estar en cualquier lugar; tus agentes escriben a tiendas de estos países. Iremos sumando más a medida que revisamos la ley de cada país.', fr: 'Votre entreprise peut être n’importe où; vos agents écrivent à des boutiques de ces pays. D’autres s’ajouteront à mesure que nous vérifions la loi de chaque pays.', pt: 'Sua empresa pode estar em qualquer lugar; seus agentes escrevem para lojas destes países. Outros virão à medida que verificamos a lei de cada país.', zh: '您的企业可以位于任何地方；您的智能体会给这些国家/地区的零售店写信。我们核查各国法律后，会陆续增加更多国家/地区。' }, 'p', ' class="countries-lead"')}
+    ${t(co ? { en: 'Where our agents find companies', es: 'Dónde encuentran empresas nuestros agentes', fr: 'Où nos agents trouvent des entreprises', pt: 'Onde nossos agentes encontram empresas', zh: '我们的智能体在哪些国家/地区寻找企业' } : { en: 'Where our agents find stores', es: 'Dónde encuentran tiendas nuestros agentes', fr: 'Où nos agents trouvent des boutiques', pt: 'Onde nossos agentes encontram lojas', zh: '我们的智能体在哪些国家/地区寻找零售店' }, 'h2', ' id="countries-h"')}
+    ${t(co ? { en: 'Your hotel can be anywhere; your agents write to companies in these countries. More are coming as we check each country’s law.', es: 'Su hotel puede estar en cualquier lugar; sus agentes escriben a empresas de estos países. Iremos sumando más a medida que revisamos la ley de cada país.', fr: 'Votre hôtel peut être n’importe où ; vos agents écrivent aux entreprises de ces pays. D’autres s’ajouteront à mesure que nous vérifions la loi de chaque pays.', pt: 'Seu hotel pode estar em qualquer lugar; seus agentes escrevem para empresas destes países. Vamos somar mais à medida que verificamos a lei de cada país.', zh: '您的酒店可以位于任何地方；您的智能体会给这些国家和地区的企业写信。我们核查各国法律后，会陆续增加更多国家和地区。' } : { en: 'Your business can be anywhere; your agents write to stores in these countries. More are coming as we check each country’s law.', es: 'Tu negocio puede estar en cualquier lugar; tus agentes escriben a tiendas de estos países. Iremos sumando más a medida que revisamos la ley de cada país.', fr: 'Votre entreprise peut être n’importe où; vos agents écrivent à des boutiques de ces pays. D’autres s’ajouteront à mesure que nous vérifions la loi de chaque pays.', pt: 'Sua empresa pode estar em qualquer lugar; seus agentes escrevem para lojas destes países. Outros virão à medida que verificamos a lei de cada país.', zh: '您的企业可以位于任何地方；您的智能体会给这些国家/地区的零售店写信。我们核查各国法律后，会陆续增加更多国家/地区。' }, 'p', ' class="countries-lead"')}
     <figure class="cmap-wrap">
       ${worldMapSvg(MAP_PLACES, COMING_SOON)}
       <span class="cmap-tip" hidden></span>
       <figcaption class="cmap-legend">
-        <span class="cmap-key"><i class="cmap-sw" aria-hidden="true"></i>${t({ en: 'Agents find stores here', es: 'Los agentes encuentran tiendas aquí', fr: 'Les agents trouvent des boutiques ici', pt: 'Os agentes encontram lojas aqui', zh: '智能体在这里寻找零售店' })}</span>
+        <span class="cmap-key"><i class="cmap-sw" aria-hidden="true"></i>${t(co ? { en: 'Agents find companies here', es: 'Los agentes encuentran empresas aquí', fr: 'Les agents trouvent des entreprises ici', pt: 'Os agentes encontram empresas aqui', zh: '智能体在这里寻找企业' } : { en: 'Agents find stores here', es: 'Los agentes encuentran tiendas aquí', fr: 'Les agents trouvent des boutiques ici', pt: 'Os agentes encontram lojas aqui', zh: '智能体在这里寻找零售店' })}</span>
         <span class="cmap-key"><i class="cmap-sw cmap-sw-soon" aria-hidden="true"></i>${t({ en: 'Coming soon', es: 'Próximamente', fr: 'Bientôt', pt: 'Em breve', zh: '即将推出' })}</span>
       </figcaption>
     </figure>

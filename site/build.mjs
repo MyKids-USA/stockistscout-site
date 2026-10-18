@@ -26,7 +26,7 @@ import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
 import { writeFlags } from './flags.mjs';
 import { FLAG_ISOS } from './shell.mjs';
-import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
+import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, heroFlags, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
 
 import { lpPages } from './lp.mjs';
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
@@ -87,7 +87,9 @@ function fill(html, path = '') {
     .replaceAll('{{AGENTS}}', agentCards(false))
     .replaceAll('{{AGENTS_FULL}}', agentCards(true))
     .replaceAll('{{CUSTOM_AVATARS}}', customAvatars())
+    .replaceAll('{{WHERE_COUNTRIES:companies}}', countriesSection('companies'))
     .replaceAll('{{WHERE_COUNTRIES}}', countriesSection())
+    .replaceAll('{{HERO_FLAGS}}', heroFlags())
     .replace(/\{\{COUNTRIES:(\w+):(and|or)(?::(in))?\}\}/g, (_, lang, conj, form) => countryList(lang, conj, form))
     .replace(/\{\{AVATAR:(\w+)\}\}/g, (_, name) => {
       if (!AGENTS.some((a) => a.name === name)) throw new Error(`unknown agent ${name}`);
