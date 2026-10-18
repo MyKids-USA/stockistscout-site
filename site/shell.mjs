@@ -68,6 +68,7 @@ export const VIDEO_IDS = {
   nl: 'M60E8OVhar8',
   hi: 'Hn1dYKUqxds', // its thumbnail is img/video/katya-hi.jpg
   'zh-Hant': 'LL-3vszcp0U', // its thumbnail is img/video/katya-zh-hant.jpg
+  bn: '9ZPpshD9BgA', // Bengali (17 Oct 2026); its thumbnail is img/video/katya-bn.jpg
 };
 /** Where a dictionary language's translations live. */
 export const dictFile = (code) => new URL(`./i18n/${code}.json`, import.meta.url);
