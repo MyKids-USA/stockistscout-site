@@ -292,8 +292,6 @@
  "The email carries your business name and your email as the reply-to. It goes out from our sending domain, never yours, and on a paid plan your account gets its own sending subdomain: your reputation never depends on anyone else’s.": "郵件使用您的企業名稱，並以您的電子郵件作為回覆地址。郵件從我們的發信網域發出，絕不使用您的網域；在付費方案中，您的帳戶還會擁有專屬的發信子網域：您的信譽絕不受他人影響。",
  "Your offer, clearly": "清晰呈現您的合作方案",
  "Minimum order, terms, samples, an opening discount and the next step you want: what you put in the questionnaire, said in the tone you chose.": "最低訂購量、付款條件、樣品、首筆訂單折扣，以及您希望的下一步：也就是您在問卷中填寫的內容，以您選定的語氣表達出來。",
- "Your best sellers, in every email": "您的暢銷品，出現在每封郵件中",
- "Bring in your best sellers from your Shopify store, by collection, category, tag, title or SKU, or add them by hand. Keep up to 36 in your gallery: every email shows a few of them as a sample of what you sell, a different choice for each store. Each product is checked before it is sent.": "從您的 Shopify 商店依系列、分類、標籤、標題或 SKU 匯入暢銷品，也可以手動新增。圖庫最多保存 36 件：每封郵件展示其中幾件，作為您所售商品的範例，每家店鋪看到的組合都不同。每件商品寄出前都會經過審核。",
  "Review": "審閱",
  "Nothing sends on an unapproved template": "未經核准的範本絕不傳送",
  "Every template, new or edited, stays “Pending approval” until it passes review. An AI (Claude) reviews it automatically and approves it, returns it with the changes requested, or, when in doubt, passes it to a person on our team.": "每個範本，無論是新建的還是修改過的，在通過審閱之前都處於「待核准」狀態。AI（Claude）會自動審閱：核准、退回並附上修改要求，或在有疑問時轉交我們團隊的工作人員。",
@@ -826,6 +824,7 @@
  "7 min read": "閱讀約需 7 分鐘",
  "Lin runs a family factory that makes stoneware plates and bowls. For years they sold through import agents and trade fairs. Now they want to sell directly to independent kitchen, gift and home shops in the United States, where their products would sit next to brands that cost three times more. The problem is the usual one: how do you find hundreds of the right shops on the other side of the world, and how do you write to them in a way they read?": "Lin 經營一家家族工廠，生產石陶盤與碗。多年來，他們一直透過進口代理商和貿易展銷會銷售。現在，他們想直接賣給美國的獨立廚具店、禮品店和家居店，讓自家產品與售價高出三倍的品牌並列貨架。難題還是老樣子：要怎麼在地球另一端找到數百家合適的店家，又該怎麼寫信才會被對方讀完？",
  "Set it up in your own language": "用您自己的語言完成設定",
+ "Lin fills in the setup in Chinese: the app and the setup coach speak sixteen languages. What changes is the country of each agent. Lin chooses the United States, so the agent searches US shops and writes to them in English, while every screen, report and suggestion stays in Chinese for Lin.": "Lin 用中文完成設定：應用程式和設定教練支援十六種語言。變的是每個代理所負責的國家。Lin 選擇了美國，所以代理會搜尋美國的店家，並用英文寫信給它們，而每個畫面、報告和建議，對 Lin 來說仍然是中文。",
  "<strong>Ideal customer:</strong> independent kitchenware, gift and home shops in the United States that sell tableware, with a website and a business email; no chains, no discount stores.": "<strong>理想客戶：</strong>美國的獨立廚具、禮品和家居店，販售餐具，有網站和商務電子郵件；不要連鎖店，不要折扣店。",
  "<strong>Example stores:</strong> three US shops Lin would love to be in.": "<strong>範例店家：</strong>三家 Lin 很希望能進駐的美國店家。",
  "<strong>Offer:</strong> a $300 opening order, prices in US dollars, shipped from their US warehouse in 5 to 7 days, payment by card or invoice.": "<strong>合作條件：</strong>首次訂單 $300，以美元計價，從他們位於美國的倉庫出貨，5 至 7 天送達，可用信用卡或發票付款。",
@@ -941,5 +940,6 @@
  "Too many tries from this connection. Please wait an hour, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "此網路連線嘗試次數過多。請等待一小時，或寫信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。",
  "We could not send it. Check your connection and try again, or write to <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>.": "未能傳送。請檢查網路連線後重試，或寫信至 <a href=\"mailto:sales@stockistscout.com\">sales@stockistscout.com</a>。",
  "Why it fits:": "符合原因：",
- "Lin fills in the setup in Chinese: the app and the setup coach speak sixteen languages. What changes is the country of each agent. Lin chooses the United States, so the agent searches US shops and writes to them in English, while every screen, report and suggestion stays in Chinese for Lin.": "Lin 用中文完成設定：應用程式和設定教練支援十六種語言。變的是每個代理所負責的國家。Lin 選擇了美國，所以代理會搜尋美國的店家，並用英文寫信給它們，而每個畫面、報告和建議，對 Lin 來說仍然是中文。"
+ "Your gallery, in every email": "您的圖庫，隨每封郵件呈現",
+ "Your gallery fills itself from your website: your best-selling products if you have an online store, or photos of your rooms, amenities and surroundings if you run a hotel. Keep up to 36, remove any or add your own: every email shows a few of them as a sample of what you offer, a different choice for each recipient. Each photo is checked before it is sent.": "您的圖庫會從您的網站自動填入：如果您經營線上商店，會放入最暢銷的產品；如果您經營飯店，則會放入客房、設施和周邊環境的照片。最多可保留 36 張，也能移除任何一張或加入您自己的照片：每封郵件都會挑選其中幾張，作為您所提供內容的樣本，且每位收件人看到的組合各不相同。每張照片在寄出前都會經過檢查。"
 }
