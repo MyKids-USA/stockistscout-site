@@ -733,7 +733,7 @@
   });
 })();
 /* Launch offer (18 Oct 2026): the counter comes from the app (real paid and held seats, never a made-up number). While
-   the offer is open the banner and the Plus card show n/10 taken; once it is closed they disappear. If the app cannot be
+   the offer is open the banner and the Plus card show n/10 taken (only from the first paid seat: 0/10 reads as nobody buys); once it is closed they disappear. If the app cannot be
    reached the text stays as written, without a number. The Monthly / Annual toggle of the pricing page switches the
    prices shown and sends the offer link with interval=year. */
 (function () {
@@ -762,6 +762,7 @@
           document.querySelectorAll('.plan.has-offer').forEach(function (el) { el.classList.remove('has-offer'); });
           return;
         }
+        if (o.taken < 1) return;
         document.querySelectorAll('.offer-count').forEach(function (c) {
           var n = c.querySelector('.offer-n'); var s = c.querySelector('.offer-seats');
           if (n) n.textContent = String(o.taken);
