@@ -201,6 +201,29 @@ ${items}
     <a class="hero-flags-all" href="#countries">${t(all)} →</a>
   </div>`;
 }
+/** How many countries the agents write to, the Caribbean islands not counted ({{COUNTRY_COUNT}}, the FAQ). */
+export const countryCount = () => COUNTRIES.filter((c) => c.region !== 'caribbean').length;
+/** The countries by region as compact flag chips inside an answer ({{FAQ_COUNTRY_GROUPS}}, the FAQ; Aharon, 18 Oct 2026:
+ *  "que sea fácil de leer"). Five groups: the Middle East and Africa share one. */
+export function faqCountryGroups() {
+  const t = (o, tag = 'span', extra = '') => `<${tag}${extra} data-es="${attr(o.es)}" data-fr="${attr(o.fr)}" data-pt="${attr(o.pt)}" data-zh="${attr(o.zh)}">${o.en}</${tag}>`;
+  const by = (id) => REGIONS.find((r) => r.id === id);
+  const groups = [
+    [by('americas'), ['americas']],
+    [by('caribbean'), ['caribbean']],
+    [by('europe'), ['europe']],
+    [{ en: 'Middle East and Africa', es: 'Oriente Medio y África', fr: 'Moyen-Orient et Afrique', pt: 'Oriente Médio e África', zh: '中东和非洲' }, ['mideast', 'africa']],
+    [by('apac'), ['apac']],
+  ];
+  return `<div class="country-groups faq-countries">
+${groups.map(([label, ids]) => `      <div class="country-group">
+        ${t(label, 'h3')}
+        <ul class="country-chips">
+${COUNTRIES.filter((c) => ids.includes(c.region)).map((c) => `          <li>${flagImg(c.iso)}${t(c, 'span')}${c.chip ? ` ${t(c.chip, 'small', ' class="chip-adds"')}` : ''}</li>`).join('\n')}
+        </ul>
+      </div>`).join('\n')}
+    </div>`;
+}
 /** The section that lists them by region ({{WHERE_COUNTRIES}}, home and pricing): the anchor #countries. */
 export function countriesSection(kind = 'stores') {
   // The hotels page says companies, not stores ({{WHERE_COUNTRIES:companies}}, 18 Oct 2026).

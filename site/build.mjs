@@ -13,7 +13,8 @@
  * {{AGENTS}} / {{AGENTS_FULL}} (the eight agent cards, short and long) and
  * {{AVATAR:Name}} (one agent's picture) and {{CUSTOM_AVATARS}} (the custom-agent avatar gallery),
  * {{COUNTRIES:<lang>:<and|or>[:in]}} (the countries the agents write to, as a sentence) and {{WHERE_COUNTRIES}}
- * (the same countries by region, id="countries"): both from COUNTRIES in shell.mjs.
+ * (the same countries by region, id="countries"), {{FAQ_COUNTRY_GROUPS}} (them by region inside a FAQ answer) and
+ * {{COUNTRY_COUNT}} (how many, the Caribbean islands not counted): all from COUNTRIES in shell.mjs.
  *
  * Languages: see LANGUAGES in shell.mjs. es/fr/pt/zh ride in data-<lang> attributes; ja/ko/he/ar/it/de/nl/hi come from
  * site/i18n/<lang>.json once it exists, and the build stops if that file misses any string (site/i18n/strings.mjs).
@@ -26,7 +27,7 @@ import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
 import { writeFlags } from './flags.mjs';
 import { FLAG_ISOS } from './shell.mjs';
-import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, heroFlags, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
+import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, heroFlags, faqCountryGroups, countryCount, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
 
 import { lpPages } from './lp.mjs';
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
@@ -90,6 +91,8 @@ function fill(html, path = '') {
     .replaceAll('{{WHERE_COUNTRIES:companies}}', countriesSection('companies'))
     .replaceAll('{{WHERE_COUNTRIES}}', countriesSection())
     .replaceAll('{{HERO_FLAGS}}', heroFlags())
+    .replaceAll('{{FAQ_COUNTRY_GROUPS}}', faqCountryGroups())
+    .replaceAll('{{COUNTRY_COUNT}}', String(countryCount()))
     .replace(/\{\{COUNTRIES:(\w+):(and|or)(?::(in))?\}\}/g, (_, lang, conj, form) => countryList(lang, conj, form))
     .replace(/\{\{AVATAR:(\w+)\}\}/g, (_, name) => {
       if (!AGENTS.some((a) => a.name === name)) throw new Error(`unknown agent ${name}`);
