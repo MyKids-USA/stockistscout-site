@@ -27,7 +27,7 @@ import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
 import { writeFlags } from './flags.mjs';
 import { FLAG_ISOS } from './shell.mjs';
-import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, heroFlags, faqCountryGroups, countryCount, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS } from './shell.mjs';
+import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, heroFlags, faqCountryGroups, countryCount, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS, TUTORIAL_IDS } from './shell.mjs';
 
 import { lpPages } from './lp.mjs';
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
@@ -195,7 +195,10 @@ function existsExactly(f) {
   return dirListing.get(dir).has(name);
 }
 function localizedImages(document, lang) {
-  for (const box of document.querySelectorAll('.promo-video')) box.setAttribute('data-yt', VIDEO_IDS[lang] || VIDEO_IDS.en);
+  for (const box of document.querySelectorAll('.promo-video')) {
+    const ids = box.getAttribute('data-video') === 'tutorial' ? TUTORIAL_IDS : VIDEO_IDS;
+    box.setAttribute('data-yt', ids[lang] || ids.en);
+  }
   if (lang === 'en') return;
   const inLang = (url) => {
     const m = /^(\/img\/(?:app|video)\/[\w-]+)-en\.jpg(?:\?v=\w+)?$/.exec(url || '');
@@ -205,6 +208,7 @@ function localizedImages(document, lang) {
     const f = `${m[1]}-${lang.toLowerCase()}.jpg`;
     // The video's own thumbnail only once that language has its own video: a Chinese picture over the English video misleads.
     if (m[1] === '/img/video/katya' && !VIDEO_IDS[lang]) return null;
+    if (m[1] === '/img/video/tutorial' && !TUTORIAL_IDS[lang]) return null;
     return existsExactly(f) ? f : null;
   };
   for (const img of document.querySelectorAll('img[src]')) {

@@ -71,6 +71,13 @@ export const VIDEO_IDS = {
   bn: '9ZPpshD9BgA', // Bengali (17 Oct 2026); its thumbnail is img/video/katya-bn.jpg
   ur: 'q6F2pUNILdA', // Urdu (17 Oct 2026); its thumbnail is img/video/katya-ur.jpg
 };
+/* The setup tutorial (Katya, step by step, 2:49, 18 Oct 2026) on /how-it-works: its YouTube id per language, the one
+   place to set them. A language not listed plays the English video. The build writes the id into data-yt of the
+   .promo-video[data-video="tutorial"] box. Its thumbnail is img/video/tutorial-<lang>.jpg (lower case, zh-Hant →
+   tutorial-zh-hant.jpg) once that language has an id here and the file exists, else the English one. */
+export const TUTORIAL_IDS = {
+  en: 'VukWTr2y8Sg',
+};
 /** Where a dictionary language's translations live. */
 export const dictFile = (code) => new URL(`./i18n/${code}.json`, import.meta.url);
 /** The languages the site is built in: every attribute language, and each dictionary language whose file exists. */

@@ -1,4 +1,6 @@
 [
+ "What our customers say",
+ "<a href=\"/reviews\">See all reviews →</a>",
  "Keep exploring",
  "Everything else, on its own page.",
  "From the questionnaire to the first reply, step by step.",
@@ -242,6 +244,5 @@
  "Every new or edited template is reviewed before use. We may approve it, return it with changes, or reject it. Nothing is sent on an unapproved template.",
  "We apply a daily cap with a ramp, and we may pause sending, for example if bounces exceed 2% or complaints arrive.",
  "Each customer writes to a store once, with at most one follow-up 7 days later if it does not reply; a store receives at most one email through StockistScout every 30 days, from any customer. In Israel and South Africa there is no follow-up: a store receives a single request for consent, once.",
- "Every email includes one-click unsubscribe and a postal address, and we honour every opt-out.",
- "The service is built to follow CAN-SPAM. Template review, including automated AI review, is a safeguard, not legal advice: it does not guarantee that an email meets every law that applies to you, and you remain responsible for your emails and your offer complying with them."
+ "Every email includes one-click unsubscribe and a postal address, and we honour every opt-out."
 ]

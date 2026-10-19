@@ -204,6 +204,32 @@
   </div>
 </section>
 
+<section class="section" id="tutorial">
+  <div class="wrap">
+    <p class="eyebrow" data-es="Tutorial paso a paso · 3 min" data-fr="Tutoriel étape par étape · 3 min" data-pt="Tutorial passo a passo · 3 min" data-zh="分步教程 · 3 分钟">ステップごとのチュートリアル · 3分</p>
+    <h2 data-es="Mira a Katya configurarlo paso a paso." data-fr="Regardez Katya tout configurer étape par étape." data-pt="Veja a Katya configurar tudo passo a passo." data-zh="看 Katya 一步一步完成设置。">Katya が一つずつ設定する様子をご覧ください。</h2>
+    <div class="promo-video" data-yt="VukWTr2y8Sg" data-video="tutorial">
+      <button type="button" class="promo-play" aria-label="チュートリアルを再生" data-es-label="Ver el tutorial" data-fr-label="Voir le tutoriel" data-pt-label="Assistir ao tutorial" data-zh-label="播放教程">
+        <img src="/img/video/tutorial-en.jpg?v=a77ac0e1" alt="Katya が5つのステップで StockistScout を設定" data-es-alt="Katya configura StockistScout en 5 pasos" data-fr-alt="Katya configure StockistScout en 5 étapes" data-pt-alt="A Katya configura o StockistScout em 5 passos" data-zh-alt="Katya 分 5 步设置 StockistScout" width="1280" height="720" loading="lazy" decoding="async">
+        <span class="promo-btn" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</section>
+<script>
+/* As the home page's video: the YouTube player loads only on click, with the id the build wrote from TUTORIAL_IDS
+   (site/shell.mjs). It must send a referrer (strict-origin-when-cross-origin) or YouTube refuses to play it (error 153). */
+document.querySelectorAll('.promo-video').forEach(function (box) {
+  box.querySelector('.promo-play').addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + box.dataset.yt + '?autoplay=1&rel=0';
+    f.title = 'StockistScout'; f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.referrerPolicy = 'strict-origin-when-cross-origin'; f.allowFullscreen = true;
+    box.innerHTML = ''; box.appendChild(f);
+  });
+});
+</script>
+
 <section class="cta-band">
   <div class="wrap cta-inner">
     <div>
