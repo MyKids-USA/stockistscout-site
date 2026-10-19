@@ -77,6 +77,7 @@ export const VIDEO_IDS = {
    tutorial-zh-hant.jpg) once that language has an id here and the file exists, else the English one. */
 export const TUTORIAL_IDS = {
   en: 'VukWTr2y8Sg',
+  hi: 'YmR9_n8cnvI',
   ar: 'tXbY8SYr2PM',
   ko: 'fkiAiY3HpSc',
   nl: 'q0lDRqDoO9c',
