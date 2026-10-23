@@ -372,6 +372,16 @@ export function ctaButton(cls) {
   return `<a class="btn ${cls}" href="${CTA_URL}" data-es="${attr(CTA_LABEL_ES)}" data-fr="${attr(CTA_LABEL_FR)}" data-pt="${attr(CTA_LABEL_PT)}" data-zh="${attr(CTA_LABEL_ZH)}">${CTA_LABEL}</a>`;
 }
 
+/* The Shopify App Store listing, published 23 Oct 2026 (Aharon: "un link para instalar desde shopify para el que quiera
+ * hacerlo por shopify"). A second way in beside the free trial, never in place of it. */
+export const SHOPIFY_URL = 'https://apps.shopify.com/stockistscout';
+const BAG_ICON = '<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-inline-end:8px;vertical-align:-3px"><path d="M6 7h12l1 13H5z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>';
+
+/** Install from the Shopify App Store; `cls` is the button style of the place it sits in. */
+export function shopifyButton(cls) {
+  return `<a class="btn ${cls}" href="${SHOPIFY_URL}" target="_blank" rel="noopener" data-cta="shopify">${BAG_ICON}<span data-es="Instalar en Shopify" data-fr="Installer sur Shopify" data-pt="Instalar no Shopify" data-zh="在 Shopify 上安装">Install on Shopify</span></a>`;
+}
+
 /** Changes whenever site.css changes, so a browser never pairs new HTML with an old cached stylesheet. */
 const CSS_VERSION = createHash('sha256').update(readFileSync(new URL('../site.css', import.meta.url))).digest('hex').slice(0, 10);
 /** The ad landing pages' own stylesheet (lp.css, 18 Oct 2026), loaded only by them. */
@@ -1031,6 +1041,7 @@ export function ctaBand() {
     </div>
     <div class="cta-actions">
       ${ctaButton('btn-light')}
+      ${shopifyButton('btn-outline-light')}
       <a class="btn btn-outline-light" href="/pricing" data-es="Ver precios" data-fr="Voir les prix" data-pt="Ver preços" data-zh="查看价格">See pricing</a>
     </div>
   </div>

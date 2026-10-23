@@ -8,7 +8,7 @@
  *
  * Pages are HTML fragments that start with a JSON comment holding their metadata:
  *   <!--{"path":"/pricing","title":"Pricing","titleEs":"Precios","description":"..."}-->
- * Placeholders inside a fragment: {{CTA_BUTTON}} {{CTA_BUTTON_LIGHT}} {{CTA}}
+ * Placeholders inside a fragment: {{CTA_BUTTON}} {{CTA_BUTTON_LIGHT}} {{SHOPIFY_BUTTON}} {{CTA}}
  * {{WAITLIST_FORM}} (the waitlist form, one per page), {{CONTACT_EMAIL}},
  * {{AGENTS}} / {{AGENTS_FULL}} (the eight agent cards, short and long) and
  * {{AVATAR:Name}} (one agent's picture) and {{CUSTOM_AVATARS}} (the custom-agent avatar gallery),
@@ -27,7 +27,7 @@ import { mkdirSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
 import { writeFlags } from './flags.mjs';
 import { FLAG_ISOS } from './shell.mjs';
-import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, heroFlags, faqCountryGroups, countryCount, localizeMap, pathIn, page, ctaBand, ctaButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS, TUTORIAL_IDS } from './shell.mjs';
+import { folderOf, attrKey, LANGUAGES, SITE_LANGUAGES, ATTR_LANGUAGES, dictFile, countryList, countriesSection, heroFlags, faqCountryGroups, countryCount, localizeMap, pathIn, page, ctaBand, ctaButton, shopifyButton, waitlistForm, CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_DIGITS, CONTACT_TEL, US_FLAG, flagPhones, ORIGIN, INDEXABLE, AGENTS, agentImg, attr, APP_URL, VIDEO_IDS, TUTORIAL_IDS } from './shell.mjs';
 
 import { lpPages } from './lp.mjs';
 import { collectStrings, scriptStrings, ATTRS, WHY_LABEL } from './i18n/strings.mjs';
@@ -78,6 +78,7 @@ function fill(html, path = '') {
     .replaceAll('{{BLOG_MORE}}', blogMore(path))
     .replaceAll('{{CTA_BUTTON}}', ctaButton('btn-primary'))
     .replaceAll('{{CTA_BUTTON_LIGHT}}', ctaButton('btn-light'))
+    .replaceAll('{{SHOPIFY_BUTTON}}', shopifyButton('btn-ghost'))
     .replaceAll('{{CTA}}', ctaBand())
     .replaceAll('{{WAITLIST_FORM}}', waitlistForm())
     .replaceAll('{{CONTACT_EMAIL}}', CONTACT_EMAIL)
