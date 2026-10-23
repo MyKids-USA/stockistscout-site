@@ -943,6 +943,8 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 .badge.offer { display: block; width: fit-content; max-width: 100%; margin-bottom: 10px; border-radius: 18px; background: #fff1e6; color: #9a3412; text-decoration: none; line-height: 1.4; }
 .badge.offer::before { display: inline-block; vertical-align: 1px; margin-inline-end: 8px; background: #e8590c; box-shadow: 0 0 0 4px rgba(232, 89, 12, .2); }
 .badge.offer:hover { text-decoration: underline; }
+/* One line on wide screens (Aharon, 23 Oct 2026). It may run past its column: the mock card on the right starts lower. */
+@media (min-width: 1180px) { .hero-grid { grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); } .badge.offer { white-space: nowrap; max-width: none; border-radius: 999px; position: relative; z-index: 1; } }
 .plan .ribbon.offer { background: #e8590c; }
 .plan.has-offer { border: 2px solid #e8590c; }
 .plan .offer-box { display: block; margin: 8px 0 4px; padding: 8px 10px; border-radius: 10px; background: #fff1e6; color: #9a3412; font-size: 13.5px; line-height: 1.4; text-decoration: none; }
