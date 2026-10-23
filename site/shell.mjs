@@ -54,7 +54,7 @@ export const LANGUAGES = [
    language not listed, plays the English video. The build writes the page's id into data-yt of .promo-video. Its
    thumbnail is img/video/katya-<lang>.jpg when that file exists, else the English one (build.mjs, localizedImages). */
 export const VIDEO_IDS = {
-  en: 'HE0cuxSvniM',
+  en: 'SoBw2osTjRg',
   es: 'JJF5inZs5Wc',
   fr: 'DrOwz4ygT2s',
   pt: '-g9oN6wkOMw',
