@@ -55,7 +55,7 @@ export const LANGUAGES = [
    thumbnail is img/video/katya-<lang>.jpg when that file exists, else the English one (build.mjs, localizedImages). */
 export const VIDEO_IDS = {
   en: 'SoBw2osTjRg',
-  es: 'JJF5inZs5Wc',
+  es: '7Prij117Ah4',
   fr: 'DrOwz4ygT2s',
   pt: '-g9oN6wkOMw',
   zh: 'TDiLvoGpR1I',
