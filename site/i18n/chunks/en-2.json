@@ -1,4 +1,6 @@
 [
+ "What we do in every country",
+ "We write only to stores and businesses, never to consumers.",
  "We write only to business addresses, never to private ones.",
  "Every email names the sender, gives its postal address and has an unsubscribe link.",
  "Everywhere except the United States and Mexico, we skip any site that says it refuses commercial messages, and every email adds a line to reach the sender.",
@@ -19,10 +21,10 @@
  "<b>Ireland</b> (S.I. 336/2011): companies only, with the GDPR notice.",
  "<b>Belgium: Brussels and Wallonia</b> (Royal Decree of 4 April 2003): only a company’s generic inbox, such as info@, with the GDPR notice.",
  "<b>Norway, Finland, Estonia, Lithuania, Iceland, Croatia and Flanders</b>: in English, only a company’s generic inbox (info@, post@, salg@), never a named person, and companies only, never sole traders. Every email has the GDPR notice and the sender’s contact line. A reply STOP unsubscribes.",
- "<b>Israel</b> (Communications Law, section 30A): in English. The first email is one neutral request for consent, with no links or prices. Only a store that says yes gets your email, marked “פרסומת” (advertisement). A no, or no answer, means we never write to that store again. No follow-up, and nothing is sent on Shabbat or Israeli holidays.",
+ "<b>Israel</b> (Communications Law, section 30A): in Hebrew. The first email is one neutral request for consent, with no links or prices. Only a store that says yes gets your email, marked “פרסומת” (advertisement). A no, or no answer, means we never write to that store again. No follow-up, and nothing is sent on Shabbat or Israeli holidays.",
  "<b>South Africa</b> (POPIA, section 69): in English. The first email is one neutral request for consent, and it says where the store’s address was found. Only a store that says yes gets your email. A no, or no answer, means we never write to that store again. No follow-up.",
  "<b>Morocco</b> (Law 09-08): in French, company inbox only.",
- "<b>India, the Philippines, the United Arab Emirates and Jordan</b>: in English, company inbox only, never a person’s address.",
+ "<b>India, the Philippines, the United Arab Emirates and Jordan</b>: company inbox only, never a person’s address. In English, and in Arabic for Jordan.",
  "<b>Philippines</b> (Data Privacy Act): every email also has a privacy notice: who sends it, that the address came from the store’s website, and how to object.",
  "<b>Singapore</b> (Spam Control Act): subjects start with &lt;ADV&gt;.",
  "<b>Hong Kong</b> (UEMO, PDPO): only a company’s generic inbox. The sender and unsubscribe lines are also in Chinese.",
@@ -284,6 +286,5 @@
  "When the included videos run out, you choose: <b>Keep going with extras at $2.99</b> or <b>Pause until next month</b>. If you don’t choose, it pauses.",
  "On an annual plan paid by card, the add-on is billed yearly with the same 20% off.",
  "On your phone",
- "StockistScout works on your phone, too.",
- "Add it to your home screen and it opens like an app, with its own icon. Check on your agents, see who replied and ask the assistant from wherever you are."
+ "StockistScout works on your phone, too."
 ]

@@ -245,7 +245,6 @@
  "Your agents write to stores and businesses in 34 countries and on six Caribbean islands. Your own business can be anywhere.": "您的代理會給 34 個國家/地區以及六個加勒比島嶼的零售店和企業寫信。您自己的企業可以位於任何地方。",
  "Middle East and Africa": "中東和非洲",
  "How choosing works": "如何選擇",
- "One agent works one country and writes in its language. To reach two countries, use two agents.": "一個代理負責一個國家/地區，並用當地語言寫信。要覆蓋兩個國家/地區，請使用兩個代理。",
  "The Caribbean islands are one choice: one agent works all six.": "加勒比群島是一個選項：一個代理負責全部六個島嶼。",
  "Belgium is two choices: Brussels and Wallonia, in French, and Flanders, in English.": "比利時分為兩個選項：布魯塞爾和瓦隆地區（法語），以及法蘭德斯（英語）。",
  "What we do in every country": "我們在所有國家/地區都會做到的",
@@ -270,10 +269,8 @@
  "<b>Ireland</b> (S.I. 336/2011): companies only, with the GDPR notice.": "<b>愛爾蘭</b>（S.I. 336/2011）：只發給公司，並附有 GDPR 宣告。",
  "<b>Belgium: Brussels and Wallonia</b> (Royal Decree of 4 April 2003): only a company’s generic inbox, such as info@, with the GDPR notice.": "<b>比利時：布魯塞爾和瓦隆</b>（2003 年 4 月 4 日皇家法令）：只傳送到公司的通用電子郵件（如 info@），並附有 GDPR 宣告。",
  "<b>Norway, Finland, Estonia, Lithuania, Iceland, Croatia and Flanders</b>: in English, only a company’s generic inbox (info@, post@, salg@), never a named person, and companies only, never sole traders. Every email has the GDPR notice and the sender’s contact line. A reply STOP unsubscribes.": "<b>挪威、芬蘭、愛沙尼亞、立陶宛、冰島、克羅埃西亞和法蘭德斯</b>：使用英語，只傳送到公司的通用電子郵件（info@、post@、salg@），從不發給具名個人，也只發給公司，從不發給個體經營者。每封郵件都附有 GDPR 宣告和寄件者聯絡方式。回覆 STOP 即可取消訂閱。",
- "<b>Israel</b> (Communications Law, section 30A): in English. The first email is one neutral request for consent, with no links or prices. Only a store that says yes gets your email, marked “פרסומת” (advertisement). A no, or no answer, means we never write to that store again. No follow-up, and nothing is sent on Shabbat or Israeli holidays.": "<b>以色列</b>（《通訊法》第 30A 條）：使用英語。第一封郵件是一次中立的同意請求，不含連結或價格。只有回覆同意的商店才會收到您的郵件，並標註「פרסומת」（廣告）。拒絕或未回覆，意味著我們再也不會給該商店寫信。不發後續郵件，安息日和以色列節假日不傳送任何郵件。",
  "<b>South Africa</b> (POPIA, section 69): in English. The first email is one neutral request for consent, and it says where the store’s address was found. Only a store that says yes gets your email. A no, or no answer, means we never write to that store again. No follow-up.": "<b>南非</b>（POPIA 第 69 條）：使用英語。第一封郵件是一次中立的同意請求，並說明商店電子郵件地址的來源。只有回覆同意的商店才會收到您的郵件。拒絕或未回覆，意味著我們再也不會給該商店寫信。不發後續郵件。",
  "<b>Morocco</b> (Law 09-08): in French, company inbox only.": "<b>摩洛哥</b>（第 09-08 號法律）：使用法語，只傳送到公司電子郵件。",
- "<b>India, the Philippines, the United Arab Emirates and Jordan</b>: in English, company inbox only, never a person’s address.": "<b>印度、菲律賓、阿拉伯聯合大公國和約旦</b>：使用英語，只傳送到公司電子郵件，從不傳送到個人電子郵件。",
  "<b>Philippines</b> (Data Privacy Act): every email also has a privacy notice: who sends it, that the address came from the store’s website, and how to object.": "<b>菲律賓</b>（Data Privacy Act）：每封郵件還附有隱私宣告：說明寄件者、電子郵件地址來自該商店的網站，以及如何提出反對。",
  "<b>Singapore</b> (Spam Control Act): subjects start with &lt;ADV&gt;.": "<b>新加坡</b>（Spam Control Act）：郵件主題以 &lt;ADV&gt; 開頭。",
  "<b>Hong Kong</b> (UEMO, PDPO): only a company’s generic inbox. The sender and unsubscribe lines are also in Chinese.": "<b>香港</b>（UEMO、PDPO）：只傳送到公司的通用電子郵件。寄件者資訊和取消訂閱說明同時提供中文版本。",
@@ -1076,5 +1073,8 @@
  "It is paid in advance with the users, on the same invoices: the first invoice includes it for the whole first billing period, and each later invoice for its period. Paid yearly, it has the same 20% off as the add-on on a yearly plan. It starts once the invoice that includes it is paid.": "此功能與使用者費用一併預付，列於同一張發票：首張發票包含整個首個計費週期的費用，此後每張發票包含其對應週期的費用。按年付款時，享有與年繳方案附加功能相同的 20% 折扣。包含此功能的發票付清後即開始。",
  "The Customer may add it, or add users to it, during the term: we invoice it up front, prorated to the end of the current billing period, and it starts once that invoice is paid. A change of tier starts at renewal.": "客戶可在期間內新增此功能或為其增加使用者：我們將預先開立發票，按比例計至目前計費週期結束，該發票付清後即開始。方案變更自續約時生效。",
  "Extra videos beyond those included in a month cost $2.99 each and are the only part billed afterwards: on the next invoice (when the billing period is a quarter or a year, on an invoice at the end of each month). A video that cannot be made, or that the company no longer wants, is never charged.": "超出每月所含數量的額外影片每支 2.99 美元，是唯一事後計費的部分：列入下一張發票（如計費週期為季或年，則於每月月底另開發票）。無法製作或企業已不再需要的影片，一律不收費。",
- "Like the users, the add-on renews with the Agreement, and it can only be reduced or removed at renewal, with the notice in section 3.": "與使用者相同，此附加功能隨本協議續約，且僅能於續約時依第 3 節的通知減少或取消。"
+ "Like the users, the add-on renews with the Agreement, and it can only be reduced or removed at renewal, with the notice in section 3.": "與使用者相同，此附加功能隨本協議續約，且僅能於續約時依第 3 節的通知減少或取消。",
+ "<b>Israel</b> (Communications Law, section 30A): in Hebrew. The first email is one neutral request for consent, with no links or prices. Only a store that says yes gets your email, marked “פרסומת” (advertisement). A no, or no answer, means we never write to that store again. No follow-up, and nothing is sent on Shabbat or Israeli holidays.": "<b>以色列</b>（《通訊法》第 30A 條）：使用希伯來語。第一封郵件是一次中立的同意請求，不含連結或價格。只有回覆同意的商店才會收到您的郵件，並標註「פרסומת」（廣告）。拒絕或未回覆，意味著我們再也不會給該商店寫信。不發後續郵件，安息日和以色列節假日不傳送任何郵件。",
+ "One agent works one country and writes in its language, or in any of 16 languages you choose (Korean shops in Los Angeles, in Korean). The notices the country’s law requires are always added. To reach two countries, use two agents.": "一個代理負責一個國家/地區，用當地語言寫信，也可以選擇 16 種語言中的任意一種（例如以韓語聯絡洛杉磯的韓國商店）。該國家/地區法律要求的聲明一律會加上。要覆蓋兩個國家/地區，請使用兩個代理。",
+ "<b>India, the Philippines, the United Arab Emirates and Jordan</b>: company inbox only, never a person’s address. In English, and in Arabic for Jordan.": "<b>印度、菲律賓、阿拉伯聯合大公國和約旦</b>：只傳送到公司電子郵件，從不傳送到個人電子郵件。使用英語，約旦使用阿拉伯語。"
 }
