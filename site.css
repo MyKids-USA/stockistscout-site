@@ -984,6 +984,8 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 .vr-grid { display: grid; gap: 28px; align-items: start; }
 @media (min-width: 920px) { .vr-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
 .vr-video { position: relative; margin: 0; min-width: 0; }
+/* The jump from the email mock to the video (#vr-sample) and to the section: clear of the sticky header with the "Sample" label above the video. */
+#video-replies, #vr-sample { scroll-margin-top: 28px; }
 .vr-video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 18px; background: #0b1f33; box-shadow: 0 24px 60px -24px rgba(15, 40, 70, .35); }
 .vr-mail { position: relative; min-width: 0; padding: 22px; }
 .vr-mail-title { font: 500 12.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
