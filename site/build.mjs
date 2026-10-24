@@ -203,6 +203,16 @@ function localizedImages(document, lang) {
     box.setAttribute('data-yt', ids[lang] || ids.en);
   }
   if (lang === 'en') return;
+  // Katya's sample video (the video add-on) in the page's language, 23 Oct 2026 (Aharon: "cuando cambian de idioma, el
+  // video cambia también"): /video/sample-<lang>.mp4, its poster and the email's GIF, once that language's files exist;
+  // else the English sample. Lower-case names, checked with their exact spelling, as the pictures below.
+  const lc = lang.toLowerCase();
+  const sampleIn = (url, file) => (existsExactly(file) ? file : url);
+  for (const v of document.querySelectorAll('video#vr-sample')) {
+    if (v.getAttribute('poster') === '/video/sample-poster.png') v.setAttribute('poster', sampleIn('/video/sample-poster.png', `/video/sample-${lc}-poster.png`));
+    for (const s of v.querySelectorAll('source')) if (s.getAttribute('src') === '/video/sample.mp4') s.setAttribute('src', sampleIn('/video/sample.mp4', `/video/sample-${lc}.mp4`));
+  }
+  for (const img of document.querySelectorAll('img[src="/video/sample.gif"]')) img.setAttribute('src', sampleIn('/video/sample.gif', `/video/sample-${lc}.gif`));
   const inLang = (url) => {
     const m = /^(\/img\/(?:app|video)\/[\w-]+)-en\.jpg(?:\?v=\w+)?$/.exec(url || '');
     if (!m) return null;
