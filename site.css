@@ -999,7 +999,8 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 .vr-gif img { display: block; width: 100%; max-width: 600px; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #0b1f33; }
 .card .vr-mail-body .vr-watch { font-weight: 600; }
 .vr-watch a { color: var(--green-text); }
-.vr-points { margin: 32px 0 0; max-width: 860px; }
+.vr-col { min-width: 0; }
+.vr-points { margin: 24px 0 0; max-width: 860px; }
 .vr-price-title { font-size: 22px; margin: 40px 0 14px; }
 .vr-prices td.vr-na { color: var(--muted); }
 :lang(ur) .vr-mail-title { text-transform: none; }
