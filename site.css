@@ -981,6 +981,10 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 
 /* Video replies by Katya (23 Oct 2026): the add-on section on the home and pricing pages. The sample video beside the
    email the store receives, the points, then the price by plan. Both sample boxes carry a "Sample · invented store" label. */
+/* The add-on's intro: bigger and wider than a plain section head, so it reads as the lead of the section (Aharon, 23 Oct 2026: "agranda el bloque"). */
+#video-replies .section-head { max-width: 1000px; }
+#video-replies .section-head h2 { font-size: clamp(32px, 4.6vw, 50px); margin-bottom: 18px; }
+#video-replies .section-head p:not(.eyebrow) { font-size: clamp(1.15rem, 1.05rem + .4vw, 1.25rem); line-height: 1.65; }
 .vr-grid { display: grid; gap: 28px; align-items: start; }
 @media (min-width: 920px) { .vr-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
 .vr-video { position: relative; margin: 0; min-width: 0; }
