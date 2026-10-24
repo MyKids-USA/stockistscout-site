@@ -1,4 +1,6 @@
 [
+ "Each customer writes to a store once, with at most one follow-up 7 days later if it does not reply; a store receives at most one email through StockistScout every 30 days, from any customer. In Israel and South Africa there is no follow-up: a store receives a single request for consent, once.",
+ "Every email includes one-click unsubscribe and a postal address, and we honour every opt-out.",
  "The service is built to follow CAN-SPAM. Template review, including automated AI review, is a safeguard, not legal advice: it does not guarantee that an email meets every law that applies to you, and you remain responsible for your emails and your offer complying with them.",
  "We write only to recipients in the countries listed on this site under “Where our agents find stores”, and only as each country’s law allows.",
  "4. No guaranteed results",

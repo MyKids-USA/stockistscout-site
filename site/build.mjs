@@ -15,6 +15,7 @@
  * {{COUNTRIES:<lang>:<and|or>[:in]}} (the countries the agents write to, as a sentence) and {{WHERE_COUNTRIES}}
  * (the same countries by region, id="countries"), {{FAQ_COUNTRY_GROUPS}} (them by region inside a FAQ answer) and
  * {{COUNTRY_COUNT}} (how many, the Caribbean islands not counted): all from COUNTRIES in shell.mjs.
+ * {{VIDEO_REPLIES}}: the "Video replies by Katya" add-on section (site/partials/video-replies.html; home and pricing).
  *
  * Languages: see LANGUAGES in shell.mjs. es/fr/pt/zh ride in data-<lang> attributes; ja/ko/he/ar/it/de/nl/hi come from
  * site/i18n/<lang>.json once it exists, and the build stops if that file misses any string (site/i18n/strings.mjs).
@@ -23,7 +24,7 @@ import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, copyFileSync } from 'node:fs';
 import { parseHTML } from 'linkedom';
 import { writeFlags } from './flags.mjs';
 import { FLAG_ISOS } from './shell.mjs';
@@ -74,6 +75,7 @@ const blogMore = (path) => POSTS.filter((m) => m.path !== path).slice(0, 3).map(
 
 function fill(html, path = '') {
   const out = html
+    .replaceAll('{{VIDEO_REPLIES}}', readFileSync(join(HERE, 'partials', 'video-replies.html'), 'utf8'))
     .replaceAll('{{BLOG_CARDS}}', blogCards())
     .replaceAll('{{BLOG_MORE}}', blogMore(path))
     .replaceAll('{{CTA_BUTTON}}', ctaButton('btn-primary'))
@@ -397,6 +399,12 @@ export function build() {
   urls.sort((a, b) => rank(a[0]) - rank(b[0]) || a[0].localeCompare(b[0]));
   writeFileSync(join(ROOT, 'sitemap.xml'), sitemap(urls));
   writeFileSync(join(ROOT, 'robots.txt'), ROBOTS);
+  // The Video replies sample (23 Oct 2026): rendered into site/video/ (ignored by git), served from /video/ at the root.
+  const vids = join(HERE, 'video');
+  if (existsSync(vids)) {
+    mkdirSync(join(ROOT, 'video'), { recursive: true });
+    for (const f of readdirSync(vids)) if (/^sample(-poster)?\.(mp4|png|gif)$/.test(f)) copyFileSync(join(vids, f), join(ROOT, 'video', f));
+  }
   return urls.length;
 }
 

@@ -544,6 +544,8 @@ html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; 
 .site-foot a:hover { color: #fff; text-decoration: underline; }
 .foot-logo img { display: block; width: 196px; height: auto; }
 .foot-grid { display: grid; gap: 36px; }
+.foot-grid > * { min-width: 0; }
+.foot-brand p { overflow-wrap: anywhere; }
 @media (min-width: 860px) { .foot-grid { grid-template-columns: 1.6fr 1fr 1fr 1.1fr; } }
 .foot-brand p { margin: 16px 0 0; max-width: 380px; }
 .foot-brand .disclaimer { color: #9fb3c7; font-size: 14px; }
@@ -579,6 +581,9 @@ html[lang="fr"] .mock-rows .why::before { content: "Pourquoi elle convient : "; 
 .corp-head .lead { max-width: 760px; margin: 0; }
 .corp-grid { display: grid; gap: 22px; margin-top: 26px; }
 @media (min-width: 900px) { .corp-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; } }
+/* A long button label (Dutch) must wrap, not widen the card past a phone screen. */
+.corp-grid > * { min-width: 0; }
+.corp-actions .btn { white-space: normal; }
 .corp th, .corp td { padding: 9px 18px; }
 .corp-gets h3 { margin-bottom: 16px; }
 .corp-gets .fine { margin-top: 20px; }
@@ -843,6 +848,7 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 
 /* The phone number with its US flag (shell.mjs US_FLAG, 17 Oct 2026): one unit that never breaks between flag and number. */
 .tel-num { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+@media (max-width: 400px) { .tel-num { white-space: normal; flex-wrap: wrap; } } /* both numbers in one Japanese sentence overflowed a 360px phone */
 .us-flag { flex: none; width: 16px; height: 11px; border-radius: 2px; box-shadow: 0 0 0 .5px rgba(0,0,0,.25); }
 .corp-head h2 .corp-sub { display: block; margin-top: 6px; font-size: .5em; font-weight: 500; line-height: 1.35; letter-spacing: 0; color: var(--ink-2); }
 
@@ -972,3 +978,31 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 @media (hover: hover) { .hero-flag-list li:hover .hero-flag-name { display: block; } }
 .hero-flags-all { font: 600 14px var(--sans); color: var(--accent, var(--ink)); text-decoration: none; }
 .hero-flags-all:hover { text-decoration: underline; }
+
+/* Video replies by Katya (23 Oct 2026): the add-on section on the home and pricing pages. The sample video beside the
+   email the store receives, the points, then the price by plan. Both sample boxes carry a "Sample · invented store" label. */
+.vr-grid { display: grid; gap: 28px; align-items: start; }
+@media (min-width: 920px) { .vr-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); } }
+.vr-video { position: relative; margin: 0; min-width: 0; }
+.vr-video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 18px; background: #0b1f33; box-shadow: 0 24px 60px -24px rgba(15, 40, 70, .35); }
+.vr-mail { position: relative; min-width: 0; padding: 22px; }
+.vr-mail-title { font: 500 12.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.vr-mail-head { margin: 0 0 14px; padding-bottom: 12px; border-bottom: 1px solid var(--line-2); font-size: 14.5px; }
+.vr-mail-head div { display: flex; gap: 10px; margin: 2px 0; }
+.vr-mail-head dt { color: var(--muted); min-width: 64px; flex: none; }
+.vr-mail-head dd { margin: 0; color: var(--ink); font-weight: 500; overflow-wrap: anywhere; }
+.vr-mail-body { font-size: 15.5px; }
+.card .vr-mail-body p { margin: 0 0 12px; }
+.vr-gif { display: block; margin: 4px 0 8px; }
+.vr-gif img { display: block; width: 100%; max-width: 600px; height: auto; border-radius: 10px; border: 1px solid var(--line); background: #0b1f33; }
+.card .vr-mail-body .vr-watch { font-weight: 600; }
+.vr-watch a { color: var(--green-text); }
+.vr-points { margin: 32px 0 0; max-width: 860px; }
+.vr-price-title { font-size: 22px; margin: 40px 0 14px; }
+.vr-prices td.vr-na { color: var(--muted); }
+:lang(ur) .vr-mail-title { text-transform: none; }
+@media (max-width: 600px) {
+  .vr-prices th, .vr-prices td { padding: 10px 8px; font-size: 14px; }
+  .vr-prices th { white-space: normal; font-size: 11px; letter-spacing: .04em; vertical-align: bottom; }
+  .vr-prices td.vr-na { white-space: normal; }
+}

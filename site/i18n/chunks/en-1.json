@@ -302,5 +302,8 @@
  "Stores can be on Shopify, Wix, WooCommerce, Squarespace, Tiendanube/Nuvemshop, SHOPLINE and many more platforms, unless you choose Shopify only.",
  "See the rule for each country",
  "<b>United States</b>: Puerto Rico and the U.S. Virgin Islands are included, with the same rules.",
- "<b>Canada, Australia and New Zealand</b>: we follow each country’s anti-spam law (CASL, the Spam Act 2003 and the Unsolicited Electronic Messages Act 2007)."
+ "<b>Canada, Australia and New Zealand</b>: we follow each country’s anti-spam law (CASL, the Spam Act 2003 and the Unsolicited Electronic Messages Act 2007).",
+ "<b>Peru, Colombia, Panama and Guatemala</b>: company inbox only (info@, ventas@), never a person’s address. The subject says PUBLICIDAD (Peru’s Ley 28493, Panama’s Ley 51 art. 85).",
+ "<b>Colombia</b>: emails go out only Monday to Friday 7am–7pm and Saturday 8am–3pm, Bogotá time (Ley 2300).",
+ "<b>Argentina</b>: the subject says PUBLICIDAD, and the email carries the withdrawal notice of Disposición 4/2009."
 ]
