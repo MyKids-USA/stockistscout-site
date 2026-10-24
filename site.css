@@ -1013,3 +1013,11 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
   .vr-prices th { white-space: normal; font-size: 11px; letter-spacing: .04em; vertical-align: bottom; }
   .vr-prices td.vr-na { white-space: normal; }
 }
+
+/* The video add-on as one block of its own (Aharon, 23 Oct 2026): set apart from the plans, with an ADD-ON badge. */
+.vr-panel { background: linear-gradient(180deg, #eef8f3 0%, #f4f8fb 100%); border: 1px solid #cfe6db; border-top: 6px solid var(--green); border-radius: 24px; padding: clamp(22px, 4vw, 52px); box-shadow: 0 30px 60px -40px rgba(15, 40, 70, .35); }
+.vr-badge-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 0 0 22px; }
+.vr-badge { display: inline-block; background: var(--green); color: #fff; font: 700 15px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; padding: 10px 18px; border-radius: 999px; box-shadow: 0 6px 16px -8px rgba(15, 120, 80, .6); }
+:lang(ar) .vr-badge, :lang(ur) .vr-badge, :lang(he) .vr-badge { letter-spacing: 0; }
+.vr-badge-note { font-weight: 600; color: var(--ink); font-size: 16.5px; }
+#video-replies .vr-panel .section-head { margin-bottom: 32px; }

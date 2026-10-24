@@ -1061,5 +1061,9 @@
  "When the included videos run out, you choose: <b>Keep going with extras at $2.99</b> or <b>Pause until next month</b>. If you don’t choose, it pauses.": "포함된 영상을 다 쓰면 <b>추가 영상 $2.99로 계속하기</b> 또는 <b>다음 달까지 일시 중지</b> 중에서 선택합니다. 선택하지 않으면 일시 중지됩니다.",
  "On an annual plan paid by card, the add-on is billed yearly with the same 20% off.": "카드로 결제하는 연간 요금제에서는 부가 기능도 연간으로 청구되며 똑같이 20% 할인됩니다.",
  "Katya’s video for Thistle & Sprout: click to watch": "Thistle & Sprout를 위한 Katya의 영상: 클릭해서 보기",
- "Katya’s sample video for Thistle & Sprout": "Thistle & Sprout를 위한 Katya의 샘플 영상"
+ "Katya’s sample video for Thistle & Sprout": "Thistle & Sprout를 위한 Katya의 샘플 영상",
+ "Add-on": "부가 기능",
+ "Optional add-on · on top of any paid plan": "선택형 부가 기능 · 모든 유료 요금제에 추가",
+ "Video replies by Katya": "Katya의 영상 답장",
+ "Add-on price by plan": "요금제별 부가 기능 가격"
 }

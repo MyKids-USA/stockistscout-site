@@ -1061,5 +1061,9 @@
  "When the included videos run out, you choose: <b>Keep going with extras at $2.99</b> or <b>Pause until next month</b>. If you don’t choose, it pauses.": "عند نفاد الفيديوهات المشمولة، تختارون: <b>المتابعة بفيديوهات إضافية بسعر $2.99</b> أو <b>الإيقاف المؤقت حتى الشهر التالي</b>. إذا لم تختاروا، يتوقف مؤقتًا.",
  "On an annual plan paid by card, the add-on is billed yearly with the same 20% off.": "في الخطة السنوية المدفوعة بالبطاقة، تُحتسب الإضافة سنويًا بالخصم نفسه البالغ 20%.",
  "Katya’s video for Thistle & Sprout: click to watch": "فيديو Katya لـ Thistle & Sprout: انقروا للمشاهدة",
- "Katya’s sample video for Thistle & Sprout": "فيديو المثال من Katya لـ Thistle & Sprout"
+ "Katya’s sample video for Thistle & Sprout": "فيديو المثال من Katya لـ Thistle & Sprout",
+ "Add-on": "إضافة",
+ "Optional add-on · on top of any paid plan": "إضافة اختيارية · فوق أي خطة مدفوعة",
+ "Video replies by Katya": "ردود Katya بالفيديو",
+ "Add-on price by plan": "سعر الإضافة حسب الخطة"
 }
