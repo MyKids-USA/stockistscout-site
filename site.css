@@ -1021,3 +1021,11 @@ a.badge:hover, a.badge:focus-visible { text-decoration: underline; text-underlin
 :lang(ar) .vr-badge, :lang(ur) .vr-badge, :lang(he) .vr-badge { letter-spacing: 0; }
 .vr-badge-note { font-weight: 600; color: var(--ink); font-size: 16.5px; }
 #video-replies .vr-panel .section-head { margin-bottom: 32px; }
+/* Aharon, 23 Oct 2026: "1 agente · 1 cliente ideal" and "1.000 correos / mes" each on one line, in five columns too. */
+@media (min-width: 1180px) {
+  .plans { gap: 12px; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .plan { padding: 22px 13px 18px; }
+  .plan .quota { font-size: 12.5px; letter-spacing: -0.03em; }
+  .plan .team { font-size: 13px; letter-spacing: -0.015em; }
+  .plan .team .custom { font-size: 12.5px; }
+}
