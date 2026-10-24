@@ -1065,5 +1065,16 @@
  "Add-on": "부가 기능",
  "Optional add-on · on top of any paid plan": "선택형 부가 기능 · 모든 유료 요금제에 추가",
  "Video replies by Katya": "Katya의 영상 답장",
- "Add-on price by plan": "요금제별 부가 기능 가격"
+ "Add-on price by plan": "요금제별 부가 기능 가격",
+ "Last updated: 23 October 2026": "최종 업데이트: 2026년 10월 23일",
+ "Optional add-on, video replies by Katya: if the Order Form includes it, the users it names also get video replies. When a company answers a user’s email with interest or a question, the service makes that company a short video for the Customer and sends it in the same thread. It is the same add-on, with the same tiers, prices and videos included, as on the add-on price list at <a href=\"/pricing\">stockistscout.com/pricing</a> on the date of signing, and those prices stay the same for the whole term:": "선택 애드온, Katya 동영상 답장: 주문서에 포함되면 주문서에 명시된 사용자도 동영상 답장을 받습니다. 어떤 회사가 사용자의 이메일에 관심이나 질문으로 답장하면, 서비스가 고객을 대신해 그 회사를 위한 짧은 동영상을 만들어 같은 스레드로 보냅니다. 이는 서명일 기준 <a href=\"/pricing\">stockistscout.com/pricing</a>의 애드온 가격표와 같은 애드온으로, 등급, 가격, 포함 동영상 수가 같으며 그 가격은 계약 기간 내내 변하지 않습니다:",
+ "Video replies add-on <span class=\"opt\">(optional)</span>": "동영상 답장 애드온 <span class=\"opt\">(선택)</span>",
+ "None": "없음",
+ "Users with the add-on": "애드온 사용자 수",
+ "Optional: the <a href=\"/pricing#video-replies\">Video replies by Katya</a> add-on, per user, at the same prices as on the regular plans, added to the order form and paid in advance with the users.": "선택: <a href=\"/pricing#video-replies\">Katya 동영상 답장</a> 애드온을 일반 플랜과 같은 가격으로 사용자별로 주문서에 추가하고 사용자 요금과 함께 선불로 결제합니다.",
+ "The Order Form sets the tier and the number of users who have it (from one to all of them). Each of those users gets the tier’s videos every month. Unused videos do not carry over.": "주문서에서 등급과 이를 받는 사용자 수(한 명부터 전원까지)를 정합니다. 해당 사용자는 각자 매월 그 등급의 동영상을 받습니다. 사용하지 않은 동영상은 이월되지 않습니다.",
+ "It is paid in advance with the users, on the same invoices: the first invoice includes it for the whole first billing period, and each later invoice for its period. Paid yearly, it has the same 20% off as the add-on on a yearly plan. It starts once the invoice that includes it is paid.": "사용자 요금과 같은 청구서로 선불 결제합니다. 첫 청구서에는 첫 청구 기간 전체 금액이, 이후 각 청구서에는 해당 기간 금액이 포함됩니다. 연간 결제 시 연간 플랜의 애드온과 같은 20% 할인이 적용됩니다. 이를 포함한 청구서가 결제되면 시작됩니다.",
+ "The Customer may add it, or add users to it, during the term: we invoice it up front, prorated to the end of the current billing period, and it starts once that invoice is paid. A change of tier starts at renewal.": "고객은 계약 기간 중 이를 추가하거나 사용자를 늘릴 수 있습니다. 현재 청구 기간 말까지 일할 계산하여 선불로 청구하며, 해당 청구서가 결제되면 시작됩니다. 등급 변경은 갱신 시 적용됩니다.",
+ "Extra videos beyond those included in a month cost $2.99 each and are the only part billed afterwards: on the next invoice (when the billing period is a quarter or a year, on an invoice at the end of each month). A video that cannot be made, or that the company no longer wants, is never charged.": "월 포함 수량을 넘는 추가 동영상은 개당 2.99달러이며, 사후에 청구되는 유일한 부분입니다. 다음 청구서에 포함됩니다(청구 기간이 분기 또는 연간이면 매월 말 청구서). 만들 수 없거나 회사가 더 이상 원하지 않는 동영상은 절대 청구되지 않습니다.",
+ "Like the users, the add-on renews with the Agreement, and it can only be reduced or removed at renewal, with the notice in section 3.": "사용자와 마찬가지로 애드온은 본 계약과 함께 갱신되며, 제3조의 통지를 거쳐 갱신 시에만 줄이거나 해지할 수 있습니다."
 }

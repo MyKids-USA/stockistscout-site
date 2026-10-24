@@ -1065,5 +1065,16 @@
  "Add-on": "附加服務",
  "Optional add-on · on top of any paid plan": "可選附加服務 · 可加在任何付費方案之上",
  "Video replies by Katya": "Katya 影片回覆",
- "Add-on price by plan": "附加服務按方案定價"
+ "Add-on price by plan": "附加服務按方案定價",
+ "Last updated: 23 October 2026": "最後更新：2026 年 10 月 23 日。以英文版本為準；中文譯本僅供參考。",
+ "Optional add-on, video replies by Katya: if the Order Form includes it, the users it names also get video replies. When a company answers a user’s email with interest or a question, the service makes that company a short video for the Customer and sends it in the same thread. It is the same add-on, with the same tiers, prices and videos included, as on the add-on price list at <a href=\"/pricing\">stockistscout.com/pricing</a> on the date of signing, and those prices stay the same for the whole term:": "選用附加功能——Katya 影片回覆：如訂單表包含此項，其中列明的使用者也會獲得影片回覆。當一家企業以感興趣或提問的方式回覆使用者的電子郵件時，本服務會以客戶的名義為該企業製作一段簡短影片，並在同一郵件串中寄出。此附加功能與簽署當日 <a href=\"/pricing\">stockistscout.com/pricing</a> 上附加功能價目表中的附加功能相同，方案、價格及所含影片數量皆一致，且這些價格在整個期間內維持不變：",
+ "Video replies add-on <span class=\"opt\">(optional)</span>": "影片回覆附加功能 <span class=\"opt\">（選填）</span>",
+ "None": "不需要",
+ "Users with the add-on": "使用此附加功能的使用者人數",
+ "Optional: the <a href=\"/pricing#video-replies\">Video replies by Katya</a> add-on, per user, at the same prices as on the regular plans, added to the order form and paid in advance with the users.": "選用：<a href=\"/pricing#video-replies\">Katya 影片回覆</a>附加功能，按使用者計，價格與一般方案相同，加入訂單表並與使用者費用一併預付。",
+ "The Order Form sets the tier and the number of users who have it (from one to all of them). Each of those users gets the tier’s videos every month. Unused videos do not carry over.": "訂單表決定方案及享有此功能的使用者人數（從一位到全部）。每位此類使用者每月獲得其方案所含的影片。未使用的影片不累計。",
+ "It is paid in advance with the users, on the same invoices: the first invoice includes it for the whole first billing period, and each later invoice for its period. Paid yearly, it has the same 20% off as the add-on on a yearly plan. It starts once the invoice that includes it is paid.": "此功能與使用者費用一併預付，列於同一張發票：首張發票包含整個首個計費週期的費用，此後每張發票包含其對應週期的費用。按年付款時，享有與年繳方案附加功能相同的 20% 折扣。包含此功能的發票付清後即開始。",
+ "The Customer may add it, or add users to it, during the term: we invoice it up front, prorated to the end of the current billing period, and it starts once that invoice is paid. A change of tier starts at renewal.": "客戶可在期間內新增此功能或為其增加使用者：我們將預先開立發票，按比例計至目前計費週期結束，該發票付清後即開始。方案變更自續約時生效。",
+ "Extra videos beyond those included in a month cost $2.99 each and are the only part billed afterwards: on the next invoice (when the billing period is a quarter or a year, on an invoice at the end of each month). A video that cannot be made, or that the company no longer wants, is never charged.": "超出每月所含數量的額外影片每支 2.99 美元，是唯一事後計費的部分：列入下一張發票（如計費週期為季或年，則於每月月底另開發票）。無法製作或企業已不再需要的影片，一律不收費。",
+ "Like the users, the add-on renews with the Agreement, and it can only be reduced or removed at renewal, with the notice in section 3.": "與使用者相同，此附加功能隨本協議續約，且僅能於續約時依第 3 節的通知減少或取消。"
 }

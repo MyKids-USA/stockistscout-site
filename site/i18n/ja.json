@@ -1065,5 +1065,16 @@
  "Add-on": "アドオン",
  "Optional add-on · on top of any paid plan": "オプションのアドオン · どの有料プランにも追加できます",
  "Video replies by Katya": "Katyaのビデオ返信",
- "Add-on price by plan": "プラン別のアドオン料金"
+ "Add-on price by plan": "プラン別のアドオン料金",
+ "Last updated: 23 October 2026": "最終更新日：2026年10月23日",
+ "Optional add-on, video replies by Katya: if the Order Form includes it, the users it names also get video replies. When a company answers a user’s email with interest or a question, the service makes that company a short video for the Customer and sends it in the same thread. It is the same add-on, with the same tiers, prices and videos included, as on the add-on price list at <a href=\"/pricing\">stockistscout.com/pricing</a> on the date of signing, and those prices stay the same for the whole term:": "オプションのアドオン「Katya の動画返信」：注文書に含まれている場合、記載されたユーザーは動画返信も利用できます。企業が関心や質問を添えてユーザーのメールに返信すると、本サービスはお客様に代わってその企業向けの短い動画を作成し、同じスレッドで送信します。これは署名日時点の <a href=\"/pricing\">stockistscout.com/pricing</a> のアドオン料金表と同じアドオンで、プラン区分、料金、含まれる動画数も同じです。これらの料金は契約期間中変わりません。",
+ "Video replies add-on <span class=\"opt\">(optional)</span>": "動画返信アドオン <span class=\"opt\">（任意）</span>",
+ "None": "なし",
+ "Users with the add-on": "アドオンを使うユーザー数",
+ "Optional: the <a href=\"/pricing#video-replies\">Video replies by Katya</a> add-on, per user, at the same prices as on the regular plans, added to the order form and paid in advance with the users.": "オプション：<a href=\"/pricing#video-replies\">Katya の動画返信</a>アドオンを、通常プランと同じ料金でユーザーごとに注文書へ追加し、ユーザー料金と一緒に前払いできます。",
+ "The Order Form sets the tier and the number of users who have it (from one to all of them). Each of those users gets the tier’s videos every month. Unused videos do not carry over.": "注文書でプラン区分と利用ユーザー数（1人から全員まで）を定めます。各ユーザーは毎月その区分の動画を利用できます。未使用の動画は翌月に繰り越されません。",
+ "It is paid in advance with the users, on the same invoices: the first invoice includes it for the whole first billing period, and each later invoice for its period. Paid yearly, it has the same 20% off as the add-on on a yearly plan. It starts once the invoice that includes it is paid.": "ユーザー料金と同じ請求書で前払いです。最初の請求書には最初の請求期間全体分が含まれ、以降の各請求書にはその期間分が含まれます。年払いの場合は、年額プランのアドオンと同じ 20% 割引が適用されます。それを含む請求書の支払い後に開始します。",
+ "The Customer may add it, or add users to it, during the term: we invoice it up front, prorated to the end of the current billing period, and it starts once that invoice is paid. A change of tier starts at renewal.": "お客様は契約期間中にこれを追加したり、利用ユーザーを増やしたりできます。現在の請求期間の終了日までの日割りで前払い請求し、その請求書の支払い後に開始します。プラン区分の変更は更新時に適用されます。",
+ "Extra videos beyond those included in a month cost $2.99 each and are the only part billed afterwards: on the next invoice (when the billing period is a quarter or a year, on an invoice at the end of each month). A video that cannot be made, or that the company no longer wants, is never charged.": "月の含まれる本数を超える追加動画は1本 2.99 ドルで、後払いとなる唯一の部分です。次回の請求書に計上されます（請求期間が四半期または年の場合は、毎月末の請求書）。作成できない動画や、企業が不要になった動画は一切請求されません。",
+ "Like the users, the add-on renews with the Agreement, and it can only be reduced or removed at renewal, with the notice in section 3.": "ユーザーと同様に、アドオンは本契約とともに更新され、第3条の通知をもって更新時にのみ減らしたり解約したりできます。"
 }
