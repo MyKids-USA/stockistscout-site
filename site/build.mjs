@@ -241,7 +241,7 @@ export function localize(html, lang, path, pages, meta, dict) {
       if (text == null) continue;
       if (el.tagName === 'TITLE') el.textContent = text; else el.innerHTML = text;
     }
-    for (const [a, key] of [['alt', 'alt'], ['src', 'src'], ['href', 'href'], ['placeholder', 'placeholder'], ['aria-label', 'label']]) {
+    for (const [a, key] of [['alt', 'alt'], ['src', 'src'], ['poster', 'poster'], ['href', 'href'], ['placeholder', 'placeholder'], ['aria-label', 'label']]) {
       for (const el of document.querySelectorAll(`[data-${lang}-${key}]`)) {
         const v = pick(el, lang, el.getAttribute(a), `-${key}`);
         if (v != null) el.setAttribute(a, v);
@@ -309,7 +309,7 @@ export function missingTranslations(html, where) {
     const from = checked.find((l) => name === `data-${l}` || name.startsWith(`data-${l}-`));
     if (!from) continue;
     const key = name.slice(`data-${from}`.length);
-    if (key === '-src' || key === '-href') continue;
+    if (key === '-src' || key === '-href' || key === '-poster') continue;
     for (const to of checked.slice(checked.indexOf(from) + 1)) {
       if (!el.hasAttribute(`data-${to}${key}`)) out.push(`${where}: <${el.tagName.toLowerCase()} ${name}="${el.getAttribute(name).slice(0, 50)}"> has no data-${to}${key}`);
     }
